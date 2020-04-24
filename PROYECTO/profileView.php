@@ -56,7 +56,14 @@
 				echo "<p>" . $type . "</p>";
 				echo "<p>Se unió " . $creationDate . "</p>";
 				echo "<p>" . $email . "</p>";
-				
+				echo "<p>Mis Eventos:</p>";
+				$id = $_SESSION["userId"];
+				$createdEvents = $userDAO->getCreatedEvents($id);
+				if(count($createdEvents) > 0){
+					for($i=0; $i < count($createdEvents); $i++){
+						echo '<p>'.$createdEvents[$i]->getName().'</p>';
+					}
+				}
 				// botón para editar perfil
 				echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
 				

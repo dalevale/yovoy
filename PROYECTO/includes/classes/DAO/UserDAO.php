@@ -89,6 +89,25 @@ class UserDAO extends DAO{
 		return password_hash($password, PASSWORD_DEFAULT);
 	}
 
+    public function getCreatedEvents($userId){
+        $eventsQuery = "SELECT * FROM event WHERE creator = ".$userId.";";
+        $eventArray = array();
+        $result = $this->dbConn->query($eventsQuery);
+        while($row = $result->fetch_assoc()) {
+            $eventId= $row["event_id"];
+            $name = $row["name"];
+            $creator = $row["creator"];
+            $creationDate = $row["creation_date"];
+            $eventDate = $row["event_date"];
+            $capacity = $row["capacity"];
+            $location = $row["location"];
+            $description = $row["description"];
+            array_push($eventArray, new TOEvent($eventId, $name, $creator, $creationDate, $eventDate, $capacity, $location, $description));
+            //array_push($eventArray, $name);
+        }
+        return $eventArray;
+	}
+
 /*    public function joinIsAccepted($conn, $userId, $eventId){
         joinPendQuery = "SELECT accepted FROM joinEvent WHERE user_id = '" . $userId . "' AND event_id = '". $eventId."';";
 

@@ -130,5 +130,15 @@ class EventDAO extends DAO{
 
         return $eventsArray;
     }
+
+    public function getAttendees($eventId){
+        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=1;";
+        $result = $this->dbConn->query($eventQuery);
+        $attendees = array();
+        while($row = $result->fetch_assoc()) {
+            array_push($attendees, $row["user_id"]);
+		}
+        return $attendees;
+	}
 }
 ?>

@@ -12,7 +12,7 @@ require_once __DIR__.'/../config.php';
 				<!--<li><a href='index.html'>INICIO</a></li>-->
 				<li><a href='feed.php'>FEED</a></li>
 				<li><a href='eventos.php'>EVENTOS</a></li>
-				<li><a href='buscar.php'>BUSCAR</a></li>
+				<li><a href='search.php'>BUSCAR</a></li>
 				<li><a href='calendario.php'>CALENDARIO</a></li>
 				<?php	if(isset($_SESSION["login"]) && $_SESSION["login"]){
 					echo "<li><a href='amigos.php'>MIS AMIGOS</a></li>";

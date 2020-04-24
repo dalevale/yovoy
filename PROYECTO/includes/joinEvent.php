@@ -11,7 +11,6 @@ require_once __DIR__.'/config.php';
 
    $userDAO->joinEvent($userId, $eventId, $currDate);
 
-
-header("Location: /eventItem.php?event_id=".$eventId."");
+header("Location: ../eventItem.php?event_id=".$eventId."");
 
 ?>

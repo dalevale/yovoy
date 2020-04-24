@@ -5,14 +5,14 @@ require_once __DIR__.'/includes/config.php';
     $app = es\ucm\fdi\aw\Application::getSingleton();
     $conn = $app->bdConnection(); 
     $eventDAO = new EventDAO($conn);
-    $creatorDAO = new UserDAO($conn);
+    $userDAO = new UserDAO($conn);
 
     $eventId = $_GET["event_id"];
 
     $event = $eventDAO->getEvent($eventId);
     $creatorId = $event->getCreator();
     
-    $creator = $creatorDAO->getUser($creatorId);
+    $creator = $userDAO->getUser($creatorId);
     $creatorName = $creator->getName();
 
     $creationDate = $event->getCreationDate();
@@ -49,10 +49,21 @@ require_once __DIR__.'/includes/config.php';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';
             echo '<p>'.'Lugar: '.$location.'</p>';
             echo '<p>'.'Descripción: '.$descripcion.'</p>';
+            $attendees = $eventDAO->getAttendees($eventId);
+            if(!count($attendees)==0){
+                echo '<p>En este evento también van:</p>';
+                for($i = 0; $i < count($attendees); $i++) {
+                    $attendeeName = $userDAO->getUser($attendees[$i])->getUsername();
+                    echo '<p>'.$attendeeName.'<p>';  
+			    }
+			}
+            else{
+                echo '<p>Se el primero en apuntar a este evento!</p>';
+			}
             if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
                // echo "<input type="submit" value="Go to my link location" onclick="window.location='includes/joinEvent.php?event_id=".$eventId."';" />" 
-               //echo '<input type="button" onclick=header('Location: includes/joinEvent.php?event_id=".$eventId."')>Me apunto!</input>';            
-               echo '<form method="POST" action="/includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+               // echo '<input type="button" onclick=header('Location: includes/joinEvent.php?event_id=".$eventId."')>Me apunto!</input>';            
+               echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
                echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
 			}
         ?>   
