@@ -1,0 +1,157 @@
+ body {
+    background-image: url("includes/img/fondo.png");
+    background-size: cover;
+    background-color: black;
+	color: #ffffff;
+    font-family: Ubuntu;
+    max-width: 900px;
+    margin:auto;
+}
+
+p {
+	font-family: Ubuntu;
+}
+
+h2{
+    font-size: 24px;
+}
+
+h3 {
+	font-size: 54px; /* Hacemos la fuente del título pequeño super-grande */
+    font-weight: bold;
+    text-shadow: 2px 2px 15px black;
+}
+
+em {
+	font-weight: bold; /* Ponemos en énfasis en negrita */
+}
+
+label{
+  color: white;
+  background-color: orange;
+  padding: 2px;
+  border-radius: 5px;
+  border: 5px solid orange;
+  display: inline;
+}
+
+input[type=text], input[type=password]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid orange;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  display: list-item;
+}
+input[type=text]:focus {
+  background-color: lightyellow;
+}
+
+.portada_inicio{
+  font-family: Ubuntu;
+}
+
+.portada_inicio button{
+  background-color: rgb(255, 192, 56);
+  padding: 10px 24px;
+  cursor: pointer;
+  float: none;
+  font-family: Ubuntu;
+  font-size: xx-large;
+  text-align: center;
+  color: white;
+  border: 4px solid rgb(255, 136, 0);
+  border-radius: 22px;
+  margin-top: 650px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.portada_inicio .button3{
+  background-color: rgb(136, 136, 136);
+  border: 4px solid rgb(41, 41, 41);
+}
+
+.portada_inicio button:hover{
+  animation: shake 2s cubic-bezier(.36,.07,.19,.97) both;
+  animation-delay: 0.2s;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-3px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(5px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-7px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(7px, 0, 0);
+  }
+}
+
+
+.tarjeta_gris{
+  border-radius: 25px;
+  background: grey;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  transition: all .2s ease-in-out;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  
+}
+
+.tarjeta_naranja {
+  border-radius: 25px;
+  background: #FF8000;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  transition: all .2s ease-in-out;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.tarjeta_naranja:hover{
+    transform: scale(1.5);
+    background-image: blur(8px);
+}
+
+ul li{
+  display: inline;
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  color: black;
+  text-decoration-color: black;
+}
+
+li a {
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #555;
+  color: white;
+}
+
