@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__.'/classes/DAO/EventDAO.php';
 require_once __DIR__.'/classes/DAO/UserDAO.php';
+require_once __DIR__.'/classes/DAO/CommentsDAO.php';
 require_once __DIR__.'/classes/Application.php';
 require_once __DIR__.'/classes/Form/RegisterForm.php';
 require_once __DIR__.'/classes/Form/LoginForm.php';
+require_once __DIR__.'/classes/Form/CommentsForm.php';
+require_once __DIR__.'/classes/Form/DeleteCommentForm.php';
 require_once __DIR__.'/classes/Form/NewEventForm.php';
-require_once __DIR__.'/classes/Form/EditEventForm.php';
 
 /**
  * Parámetros de conexión a la BD
@@ -13,7 +15,7 @@ require_once __DIR__.'/classes/Form/EditEventForm.php';
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'yovoy_DB');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'root');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
