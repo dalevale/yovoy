@@ -7,7 +7,7 @@
     <title>Ver Eventos - YoVoY</title>
     <script>
      function crearEvento(){
-            window.location.href = "crearEvento.php";
+            window.location.href = "createEvent.php";
         }
     </script>
 </head>
@@ -26,13 +26,18 @@
             //mostrar eventos de BBDD
             $eventDAO = new EventDAO($conn);
             $userDAO = new userDAO($conn);
+          
             $result = $eventDAO->getAllEvents();
             if($result->num_rows > 0){
                     echo "<ul>";
                 while($row = $result->fetch_assoc()){
                         $eventId = $row["event_id"];
+                        $eventImgName = $eventDAO->getEvent($eventId)->getImgName();
+                        $eventImgDir = "includes/img/events/";
+                        $eventImgPath = $eventImgDir . $eventImgName;
                         echo "<ul>";
                             echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+                            echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
                             echo "<li>". $row["name"] . " </li>";
                             echo "<li>Date: ". $row["event_date"] ." </li>";
                             echo "<li>Created by: ". $userDAO->getUser($row["creator"])->getUsername() . " </li>";

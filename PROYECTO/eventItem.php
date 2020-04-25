@@ -13,7 +13,8 @@ require_once __DIR__.'/includes/config.php';
     $creatorId = $event->getCreator();
     
     $creator = $userDAO->getUser($creatorId);
-    $creatorName = $creator->getName();
+    $creatorUsername = $creator->getUsername();
+    $eventImgName = $event->getImgName();
 
     $creationDate = $event->getCreationDate();
     $eventDate = $event->getEventDate();
@@ -38,12 +39,13 @@ require_once __DIR__.'/includes/config.php';
 
     <div>
         <?php 
+            $eventImgDir = "includes/img/events/";
+            $eventImgPath = $eventImgDir . $eventImgName;
 
-           
-
-            //$currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
+            $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
             echo '<h1>'.$event->getName().'</h1>';
-            echo '<p>'.'Creador: '.$creatorName.'</p>';
+            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='700'>";
+            echo '<p>'.'Creador: '.$creatorUsername.'</p>';
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';
@@ -63,8 +65,14 @@ require_once __DIR__.'/includes/config.php';
             if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
                // echo "<input type="submit" value="Go to my link location" onclick="window.location='includes/joinEvent.php?event_id=".$eventId."';" />" 
                // echo '<input type="button" onclick=header('Location: includes/joinEvent.php?event_id=".$eventId."')>Me apunto!</input>';            
-               echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
-               echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+               if($userDAO->isMyEvent($currentUserId, $eventId)){
+                   echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                   echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
+			   }
+               else{
+                   echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                   echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+			   }
 			}
         ?>   
     </div>

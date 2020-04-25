@@ -38,7 +38,7 @@ require_once __DIR__.'/../config.php';
 						$userDAO = new UserDAO($conn);
 						
 						$user = $userDAO->getUser($_SESSION["userId"]);
-						$imgDir = "includes/img/usuarios/";
+						$imgDir = "includes/img/users/";
 						$imgName = $user->getImgName();
 						$imgPath = $imgDir . $imgName;
 						$name = $user->getName();

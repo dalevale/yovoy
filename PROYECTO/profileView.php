@@ -32,7 +32,7 @@
 				$user = $userDAO->getUser($_SESSION["userId"]);
 				
 				// foto
-				$imgDir = "includes/img/usuarios/";
+				$imgDir = "includes/img/users/";
 				$imgName = $user->getImgName();
 				$imgPath = $imgDir . $imgName;
 				echo "<img src='" . $imgPath . "' alt='usuario' height='200' width='200'>";
@@ -61,7 +61,14 @@
 				$createdEvents = $userDAO->getCreatedEvents($id);
 				if(count($createdEvents) > 0){
 					for($i=0; $i < count($createdEvents); $i++){
-						echo '<p>'.$createdEvents[$i]->getName().'</p>';
+						$eventId = $createdEvents[$i]->getEventId();
+						$eventImgDir = "includes/img/events/";
+						$eventImgName =  $createdEvents[$i]->getImgName();
+						$eventImgPath = $eventImgDir . $eventImgName;
+                        echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+                        echo "<p><img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
+						echo $createdEvents[$i]->getName();
+						echo '</p></a>';
 					}
 				}
 				// botón para editar perfil

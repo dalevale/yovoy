@@ -16,46 +16,61 @@ class EventDAO extends DAO{
         parent::__construct($conn);
 	}
 
-    public function registerEvent($name, $creator, $creationDate, $eventDate, $capacity, $location, $description, $eventTags){        
-      //VALORES A INSERTAR EN LA BBDD
-      $eventInserted = false;
-      $tagInserted = false;
+    public function registerEvent($name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $description, $eventTags){        
+          //VALORES A INSERTAR EN LA BBDD
+          $eventInserted = false;
+          $tagInserted = false;
 
-      $queryValues =  
-           "'".$name."'". "," 
-          ."'".$creator."'". "," 
-          ."'".$creationDate."'". ","
-          ."'".$eventDate."'". ","
-          ."'".$capacity."'". "," 
-          ."'".$location."'". ","
-          ."'".$description."'";
-
-      $registerEvent = "INSERT INTO event (`name`, `creator`, `creation_date`, `event_date`, `capacity`, `location`, `description`) 
-                  VALUES(".$queryValues.");";
-
-      if($this->dbConn->query($registerEvent)) $eventInserted = true;
-
-      $eventQuery = "SELECT event_id FROM event WHERE name =" ."'".$name."'"." AND creator=" ."'".$creator."'". " AND creation_date="."'".$creationDate."'". " AND event_date="."'". $eventDate."'".";";
-      $result = $this->dbConn->query($eventQuery);
-      
-      $eventId ="";
-      while($row = $result->fetch_assoc()) {
-          $eventId= $row["event_id"];
-      } 
-      
-      for($i = 0; $i < count($eventTags); $i++){
           $queryValues =  
-               "'".$eventId."'". "," 
-              ."'".$eventTags[$i]."'";
+               "'".$name."'". "," 
+              ."'".$creator."'". "," 
+              ."'".$imgName."'". "," 
+              ."'".$creationDate."'". ","
+              ."'".$eventDate."'". ","
+              ."'".$capacity."'". "," 
+              ."'".$location."'". ","
+              ."'".$eventTags."'". ","
+              ."'".$description."'";
 
-          $insertTags = "INSERT INTO event_tags (`event_id`, `tag`) VALUES(".$queryValues.");";
+          $registerEvent = "INSERT INTO event (`name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `location`, `tags`, `description`) 
+                      VALUES(".$queryValues.");";
 
-          if($this->dbConn->query($insertTags)) $tagInserted = true;
-          else $tagInserted = false;
-      }
+          if($this->dbConn->query($registerEvent)) $eventInserted = true;
 
-      return $eventInserted && $tagInserted;
+          //Adding to tags table
+          $eventQuery = "SELECT event_id FROM event WHERE name =" ."'".$name."'"." AND creator=" ."'".$creator."'". " AND creation_date="."'".$creationDate."'". " AND event_date="."'". $eventDate."'".";";
+          $result = $this->dbConn->query($eventQuery);
+      
+          $eventId ="";
+          while($row = $result->fetch_assoc()) {
+              $eventId= $row["event_id"];
+          } 
+      
+          $tagsInserted = addTag($eventId, $eventTags);
+
+          return $eventInserted && $tagInserted;
     }
+
+    private function addTag($eventId, $eventTags){
+        $tagsInserted = false;
+        for($i = 0; $i < count($eventTags); $i++){
+                $queryValues =  
+                    "'".$eventId."'". "," 
+                    ."'".$eventTags[$i]."'";
+
+                $insertTags = "INSERT INTO event_tags (`event_id`, `tag`) VALUES(".$queryValues.");";
+
+                if($this->dbConn->query($insertTags)) $tagsInserted = true;
+                else $tagsInserted = false;
+            }
+        return $tagsInserted;   
+	}
+
+    private function removeTag($eventId){
+        $tagsInserted = false;
+        $insertTags = "DELETE FROM event_tags WHERE event_id = '".$eventId."';";
+        return $this->dbConn->query($insertTags);
+	}
 
     public function getEvent($eventId){
         $eventQuery = "SELECT * FROM event WHERE event_id = ".$eventId."";
@@ -65,14 +80,16 @@ class EventDAO extends DAO{
             $eventId= $row["event_id"];
             $name = $row["name"];
             $creator = $row["creator"];
+            $imgName = $row["img_name"];
             $creationDate = $row["creation_date"];
             $eventDate = $row["event_date"];
             $capacity = $row["capacity"];
             $location = $row["location"];
+            $tags = $row["tags"];
             $description = $row["description"];
         }
 
-        return new TOEvent($eventId, $name, $creator, $creationDate, $eventDate, $capacity, $location, $description);
+        return new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description);
     }
 
     public function getAllEvents(){
@@ -123,9 +140,10 @@ class EventDAO extends DAO{
             $eventDate = $row["event_date"];
             $capacity = $row["capacity"];
             $location = $row["location"];
+            $tags = $row["tags"];
             $description = $row["description"];
 
-            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $creationDate, $eventDate, $capacity, $location, $description));
+            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $creationDate, $eventDate, $capacity, $location, $tags, $description));
         }
 
         return $eventsArray;
@@ -140,5 +158,23 @@ class EventDAO extends DAO{
 		}
         return $attendees;
 	}
+    public function updateEvent($id, $name, $capacity, $location, $description, $tagsStr, $tags){        
+        //VALORES A INSERTAR EN LA BBDD , $creator, $capacity, $location, $description, $eventTags
+        $eventInserted = false;
+        $tagInserted = false;
+        $updateStr = 
+            "name ='".$name."'". "," 
+                ."capacity ='".$capacity."'". "," 
+                ."location ='".$location."'". "," 
+                ."description ='".$description."'". ","
+                ."tags ='".$tagsStr."'";
+        $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
+
+        $eventInserted = $this->dbConn->query($updateQuery);
+        $tagsInserted = self::removeTag($id) && self::addTag($id, $tags);
+          
+
+        return $eventInserted && $tagsInserted;
+    }
 }
 ?>
