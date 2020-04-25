@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2020 at 12:59 AM
+-- Generation Time: Apr 25, 2020 at 11:01 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -32,11 +32,13 @@ CREATE TABLE `event` (
   `event_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `creator` int(9) NOT NULL,
+  `img_name` varchar(50) DEFAULT NULL,
   `creation_date` date NOT NULL DEFAULT current_timestamp(),
   `event_date` date NOT NULL,
   `capacity` int(11) NOT NULL,
   `current_attendees` int(11) NOT NULL,
   `location` varchar(30) DEFAULT NULL,
+  `tags` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -44,12 +46,12 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`event_id`, `name`, `creator`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `description`) VALUES
-(2, 'Barra Libre', 1, '2020-03-30', '2020-03-30', 20, 1, 'Madrid SOL', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 1, '2020-03-30', '2020-04-01', 100, 1, 'WiZink', '¡Una noche de Rock and Rol!'),
-(8, 'Unli rice', 1, '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Primer 100 personas, 1 menu whopper gratis!', 1, '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo exclusivo!', 4, '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!');
+INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
+(2, 'Barra Libre', 2, 'default-event.png', '2020-03-30', '2020-03-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
+(3, 'RokEnRol', 2, 'default-event.png', '2020-03-30', '2020-04-01', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
+(8, 'Unli Rice', 2, 'default-event.png', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
+(10, 'Hamburgesa gratis primer 100 personas!', 2, 'default-event.png', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
+(11, 'Bingo!', 4, 'default-event.png', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!');
 
 -- --------------------------------------------------------
 
@@ -72,7 +74,9 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (10, ' hamburgesa'),
 (10, ' burgerking'),
 (11, 'bingo'),
-(11, ' premio');
+(11, ' premio'),
+(2, 'cerveza'),
+(2, ' alcohol');
 
 -- --------------------------------------------------------
 
@@ -92,11 +96,24 @@ CREATE TABLE `join_event` (
 --
 
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
-(2, 2, '0000-00-00', 1),
 (2, 3, '0000-00-00', 1),
+(2, 4, '0000-00-00', 1),
 (2, 5, '0000-00-00', 1),
 (2, 6, '0000-00-00', 1),
 (3, 3, '0000-00-00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `relationship`
+--
+
+CREATE TABLE `relationship` (
+  `user_one_id` int(9) NOT NULL,
+  `user_two_id` int(9) NOT NULL,
+  `status` int(1) NOT NULL,
+  `action_user_id` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -125,7 +142,8 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (3, 'pablo@yovoy.com', '$2y$10$AgyNHL35/Iwl/EhgTD0kc.4i/0zJMpMf.NXlGkqOm/TKU9JHvbLFC', 'meaburro', 'Pablo', 'default.jpg', '2020-04-24', 1),
 (4, 'manuel123@yovoy.com', '$2y$10$IdGxa/yeRXlYiLjH1V5iZOT.1P8X5lv7lpr84fiIDW2rAFY3jrSvi', 'elcapitan', 'Manuel', 'default.jpg', '2020-04-24', 1),
 (5, 'isabel789@yovoy.com', '$2y$10$j1e5Oq8EUldBF0tWcRa9aeqlh8xp0blZLYxTen5Z3WZlFADBPqbAa', 'isadora', 'Isabel', 'default.jpg', '2020-04-24', 1),
-(6, 'ana12345@yovoy.com', '$2y$10$zQNBXXcyMdcVVDaqL6howOl4QeDj1fpXJBUaiAZ5SUdbKPd41Tyx6', 'anaanaana', 'Ana Velasquez', 'default.jpg', '2020-04-25', 1);
+(6, 'ana12345@yovoy.com', '$2y$10$zQNBXXcyMdcVVDaqL6howOl4QeDj1fpXJBUaiAZ5SUdbKPd41Tyx6', 'anaanaana', 'Ana Velasquez', 'default.jpg', '2020-04-25', 1),
+(8, 'mario@yovoy.com', '$2y$10$yL4moLeRIhBLFM.iHTXZa.Ovt22S9E1O9CHfUfW.2q1DdnsxGNOvu', 'gamerfreak', 'Mario Mauricio Maurer', 'default.jpg', '2020-04-25', 1);
 
 --
 -- Indexes for dumped tables
@@ -152,6 +170,13 @@ ALTER TABLE `join_event`
   ADD KEY `user` (`user_id`);
 
 --
+-- Indexes for table `relationship`
+--
+ALTER TABLE `relationship`
+  ADD PRIMARY KEY (`user_one_id`,`user_two_id`),
+  ADD UNIQUE KEY `user_one_id` (`user_one_id`,`user_two_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -165,13 +190,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

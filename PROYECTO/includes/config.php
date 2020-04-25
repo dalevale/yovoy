@@ -15,7 +15,7 @@ require_once __DIR__.'/classes/Form/NewEventForm.php';
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'yovoy_DB');
 define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DB_PASS', '');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
