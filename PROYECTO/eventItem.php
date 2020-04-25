@@ -37,14 +37,14 @@ require_once __DIR__.'/includes/config.php';
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div>
+    <div class = "tarjeta_naranja">
         <?php 
             $eventImgDir = "includes/img/events/";
             $eventImgPath = $eventImgDir . $eventImgName;
 
             $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
             echo '<h1>'.$event->getName().'</h1>';
-            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='700'>";
+            echo "<img src='" . $eventImgPath . "' alt='event' height='300' width='500'>";
             echo '<p>'.'Creador: '.$creatorUsername.'</p>';
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
@@ -73,6 +73,7 @@ require_once __DIR__.'/includes/config.php';
                    echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
                    echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
 			   }
+             //echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
 			}
         ?>   
     </div>

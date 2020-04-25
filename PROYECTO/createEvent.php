@@ -20,8 +20,10 @@
 		}
 	</script>
 	
+	<h3>¡Vamos a crear un evento!</h3>
+
 	<div>	
-		<h1>¡Vamos a crear un evento!</h1>
+		
 		<!--<form name = "myForm" method="post" action="<?php 
 										echo htmlspecialchars('includes/newEventSubmit.php');
 										?>">
@@ -56,7 +58,7 @@
                     }
                 }*/
 				?>
-			</fieldset>
+			
 		</form>
 	</div>	
 	<footer>

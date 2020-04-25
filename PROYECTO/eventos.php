@@ -16,10 +16,10 @@
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div>
+    <div class = "lista_eventos">
         <?php
         if(isset($_SESSION["login"]))
-            echo "<button type='submit' onclick='crearEvento();'>Crear Evento</button>";
+            echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Crear un nuevo evento' onclick='crearEvento();'>";
        
             $app = es\ucm\fdi\aw\Application::getSingleton();
 		    $conn = $app->bdConnection(); 
@@ -35,6 +35,7 @@
                         $eventImgName = $eventDAO->getEvent($eventId)->getImgName();
                         $eventImgDir = "includes/img/events/";
                         $eventImgPath = $eventImgDir . $eventImgName;
+                        $eventId = $row["event_id"]; //Hay que poner un class de css por aqui para cada evento
                         echo "<ul>";
                             echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                             echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";

@@ -21,8 +21,9 @@
 		*/
 		?>
 		<form method="get" action="includes/searchSubmit.php">
-				<p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario">
-				<button type="submit"> Buscar </button></p>
+                <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario">
+                <input type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
+				</p>
 		</form>
     </div>
 
