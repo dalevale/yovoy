@@ -144,6 +144,17 @@ input[type=checkbox]{
   margin-top: 20px;
 }
 
+.tarjeta_blanca {
+  border-radius: 10px;
+  background: white;
+  color:black;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  transition: all .2s ease-in-out;
+  margin: 5px;
+}
+
 .tarjeta_naranja:hover{
     /*transform: scale(1.02);*/
     background: blur(8px);
