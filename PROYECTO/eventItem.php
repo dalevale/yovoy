@@ -36,10 +36,8 @@ require_once __DIR__.'/includes/config.php';
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div>
+    <div class = "tarjeta_naranja">
         <?php 
-
-           
 
             //$currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
             echo '<h1>'.$event->getName().'</h1>';
@@ -64,7 +62,8 @@ require_once __DIR__.'/includes/config.php';
                // echo "<input type="submit" value="Go to my link location" onclick="window.location='includes/joinEvent.php?event_id=".$eventId."';" />" 
                // echo '<input type="button" onclick=header('Location: includes/joinEvent.php?event_id=".$eventId."')>Me apunto!</input>';            
                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
-               echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+               echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+               //echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
 			}
         ?>   
     </div>

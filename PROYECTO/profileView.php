@@ -21,7 +21,7 @@
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div>
+    <div class = "tarjeta_gris">
 		<?php
 			if(isset($_SESSION["login"]) && $_SESSION["login"]){
 				$app = es\ucm\fdi\aw\Application::getSingleton();
@@ -65,10 +65,12 @@
 					}
 				}
 				// botón para editar perfil
-				echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
+				echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
+				//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
 				
 				// botón para cambiar contraseña
-				echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
+				echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
+				//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
 				
 			}
 		?>

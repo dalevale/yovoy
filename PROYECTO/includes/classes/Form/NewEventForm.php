@@ -18,8 +18,7 @@ class NewEventForm extends Form
             $eventTags = isset($data['eventTags']) ? $data['eventTags'] : eventTags;
         }
         $html = <<<EOF
-        <fieldset>
-				<legend>Detalles del evento</legend>
+        <div class = "tarjeta_gris">	
 				<label>Título: </label><input type="text" name="eventName" required >
 				<p>
 					<label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-1" min="2020-01-01" max="2020-12-31">
@@ -29,13 +28,17 @@ class NewEventForm extends Form
 				</p>-->
 				<label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" required>
 				<p> <label for="address">Descripción del evento:</label> </p>
-				<p> <textarea rows="9" cols="70" name="description"></textarea> </p>
-				<button type="submit"> Enviar </button>
-				<button type="reset"> Borrar Campos </button>
-				<button type="text" onClick="goBack()"> Cancelar </button>
+                <p> <textarea rows="9" cols="70" name="description"></textarea> </p>
                 
-	    </fieldset>
+                <input type="image" name="submit" alt="submit" title="Enviar" src='includes/img/boton_SUBIR.png'>
+                <input type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
+                <input type="image" onClick="goBack()" alt="text" title="Cancelar" src='includes/img/boton_CANCELAR.png'>
+	    </div>
 EOF;
+        //TODO: NO FUNCIONA EL RESET DEL FORMULARIO!!!
+    /*<button type="submit"> Enviar </button>
+	  <button type="reset"> Borrar Campos </button>
+	  <button type="text" onClick="goBack()"> Cancelar </button>*/
         return $html;
     }
     

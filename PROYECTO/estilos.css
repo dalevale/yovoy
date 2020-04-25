@@ -4,7 +4,7 @@
     background-color: black;
 	color: #ffffff;
     font-family: Ubuntu;
-    max-width: 900px;
+    max-width: 70pc;
     margin:auto;
 }
 
@@ -47,6 +47,10 @@ input[type=text], input[type=password]{
 }
 input[type=text]:focus {
   background-color: lightyellow;
+}
+
+input[type=checkbox]{
+  background-image: url("includes/img/boton_PREMIUM.png");
 }
 
 .portada_inicio{
@@ -100,6 +104,18 @@ input[type=text]:focus {
   }
 }
 
+.lista_eventos ul{/* PROVISIONAL */
+  border-radius: 25px;
+  background: #FF8000;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  transition: all .2s ease-in-out;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
 
 .tarjeta_gris{
   border-radius: 25px;
@@ -129,19 +145,19 @@ input[type=text]:focus {
 }
 
 .tarjeta_naranja:hover{
-    transform: scale(1.5);
-    background-image: blur(8px);
+    /*transform: scale(1.02);*/
+    background: blur(8px);
 }
 
 ul li{
-  display: inline;
+  display: initial;
+  border-radius: 3px;
   list-style-type:none;
   margin: 0;
-  padding: 0;
-  width: 200px;
   background-color: #f1f1f1;
   color: black;
   text-decoration-color: black;
+  max-width: inherit;
 }
 
 li a {
@@ -152,6 +168,7 @@ li a {
 
 li a:hover {
   background-color: #555;
-  color: white;
+  color: orange;
+  border-radius: 6px;
 }
 

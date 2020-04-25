@@ -16,10 +16,10 @@
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div>
+    <div class = "lista_eventos">
         <?php
         if(isset($_SESSION["login"]))
-            echo "<button type='submit' onclick='crearEvento();'>Crear Evento</button>";
+            echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Crear un nuevo evento' onclick='crearEvento();'>";
        
             $app = es\ucm\fdi\aw\Application::getSingleton();
 		    $conn = $app->bdConnection(); 
@@ -30,7 +30,7 @@
             if($result->num_rows > 0){
                     echo "<ul>";
                 while($row = $result->fetch_assoc()){
-                        $eventId = $row["event_id"];
+                        $eventId = $row["event_id"]; //Hay que poner un class de css por aqui para cada evento
                         echo "<ul>";
                             echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                             echo "<li>". $row["name"] . " </li>";

@@ -18,7 +18,7 @@ class LoginForm extends Form
         <ul class="tarjeta_gris">
             <li><label>Email</label><input type="text" name="email" value="email"/></li>
             <li><label>Contraseña</label><input type="password" name="password"/></li>
-            <li><input type="image" alt="submit" src="includes/img/boton_LOGIN.png"></li>
+            <div><input type="image" alt="submit" src="includes/img/boton_LOGIN.png"></div>
             <!--<li><input type="submit" value="Login" ></li>
             <button type="submit" name="login">Entrar</button>-->
         </ul>

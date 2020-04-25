@@ -25,10 +25,10 @@ class RegisterForm extends Form
 				<label>Nombre completo:</label> <input class="control" type="text" name="name" value="$name" required />
 			</li>
 			<li class="grupo-control">
-				<label>Contraseña:</label> <input class="control" type="password" name="password" required/>
+				<label>Contraseï¿½a:</label> <input class="control" type="password" name="password" required/>
 			</li>
             <li class="grupo-control">
-				<label>Confirme contraseña:</label> <input class="control" type="password" name="passwordConfirm" required/>
+				<label>Confirme contraseï¿½a:</label> <input class="control" type="password" name="passwordConfirm" required/>
 			</li>
             <li class="grupo-control">
 				<label>Email:</label> <input class="control" type="text" name="email" required/>
@@ -36,9 +36,9 @@ class RegisterForm extends Form
             <li class="grupo-control">
 				<label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
 			</li>
-            <li class="grupo-control">
+            <div class="grupo-control">
 				<label>Registrarse como Usuario Premium</label> <input class="control" type="checkbox" name="premium" value="premium"/>
-			</li>
+			</div>
             <div class="grupo-control">
 				<input type="image" alt="submit" src="includes/img/boton_REGISTER.png">
 				<input type="image" alt="reset" src="includes/img/boton_CANCELAR.png">
@@ -64,7 +64,7 @@ EOF;
         }
         
         if ( empty($password) || mb_strlen($password) < 5 ) {
-            $result[] = "La contraseña tiene que tener una longitud de al menos 5 caracteres.";
+            $result[] = "La contraseï¿½a tiene que tener una longitud de al menos 5 caracteres.";
         }
         
 		$name = isset($data['name']) ? $data['name'] : null;
@@ -102,7 +102,7 @@ EOF;
 			$creationDate = date("Y-m-d");
 			$type = 1;
 
-            //INICIAMOS CONEXIÓN CON MYSQL
+            //INICIAMOS CONEXIï¿½N CON MYSQL
 
 			$app = es\ucm\fdi\aw\Application::getSingleton();
 			$conn = $app->bdConnection(); 
@@ -113,13 +113,13 @@ EOF;
 			$_SESSION["newUser"] = true;
 			$_SESSION["username"] = $username;
 	
-			// Cambiar el valor de $type si se elige la opción de ser usuario premium
+			// Cambiar el valor de $type si se elige la opciï¿½n de ser usuario premium
 			if(isset($_REQUEST["premium"])){
 				$type = 2;
 			}
-			//Añadir el usuario a la BBDD
+			//Aï¿½adir el usuario a la BBDD
 			if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type)) {
-				$_SESSION["regStatus"] = "Has sido registrado con éxito.";
+				$_SESSION["regStatus"] = "Has sido registrado con ï¿½xito.";
 				return 'register.php';
 			} 
 			else {
