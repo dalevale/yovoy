@@ -13,10 +13,16 @@
     </header>
 
     <div>
-        <h3>Login de usuario</h3> 
         <?php
-            $form = new LoginForm;
-            $form->manage();
+            if(!isset($_SESSION["login"])){
+                echo '<h3>Login de usuario</h3>'; 
+                $form = new LoginForm;
+                $form->manage();
+                
+            }
+            else{
+                echo '<p>Ya estas logueado.</p>'; 
+            }
         ?>
         <!--<form method = "post" class="tarjeta_gris" action="<?php echo htmlspecialchars("includes/loginSubmit.php");?>">
             <ul>
