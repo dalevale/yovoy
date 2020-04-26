@@ -78,6 +78,6 @@ if (!empty($_FILES["img"]["name"]) || isset($_REQUEST["defaultImg"])){
 	}
 }
 
-header("Location: /Yovoy/Proyecto/editProfile.php");
+header("Location: /editProfile.php");
 
 ?>
