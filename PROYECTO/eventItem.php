@@ -65,13 +65,17 @@ require_once __DIR__.'/includes/config.php';
             }
         ?>   
     </div>
+    
+    <?php
+        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+            echo '<div class = "tarjeta_naranja">';
         
-    <div class = "tarjeta_naranja">
-        <?php
             $form = new CommentsForm;
             $form->manage();
-        ?>
-    </div>
+       
+            echo '</div>';
+        }
+    ?>
     
     <div class = "tarjeta_naranja">
         <?
@@ -114,7 +118,7 @@ require_once __DIR__.'/includes/config.php';
                         echo '<form method="POST" action="includes/deleteComment.php">';
                         echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
                         echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                        echo '<button type="submit" >Borrar comentario</button></form>';
+                        echo '<button type="submit">Borrar comentario</button></form>';
                     }
 
                     echo "</div>";
