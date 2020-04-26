@@ -9,6 +9,6 @@
     "\\PROYECTO\\includes\\classes\\TransferObjects",
     "\\PROYECTO\\includes\\comun"
   ],
-  "SelectedNode": "\\PROYECTO\\eventItem.php",
+  "SelectedNode": "\\PROYECTO\\includes\\classes\\DAO\\CommentsDAO.php",
   "PreviewInSolutionExplorer": false
 }

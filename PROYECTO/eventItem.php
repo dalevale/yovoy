@@ -11,11 +11,12 @@ require_once __DIR__.'/includes/config.php';
         $_SESSION["event_id"] = $_GET["event_id"];
 
     $event = $eventDAO->getEvent($_SESSION["event_id"]);
+    $eventId = $_SESSION["event_id"];
     $creatorId = $event->getCreator();
     
     $creator = $userDAO->getUser($creatorId);
     $creatorName = $creator->getName();
-
+    $eventImgName = $event->getImgName();
     $creationDate = $event->getCreationDate();
     $eventDate = $event->getEventDate();
     $capacity = $event->getCapacity();
@@ -39,9 +40,11 @@ require_once __DIR__.'/includes/config.php';
 
     <div class = "tarjeta_naranja">
         <?php 
-
-            //$currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
-            echo '<h1>'.$event->getName().'</h1>';
+            $eventImgDir = "includes/img/events/";
+            $eventImgPath = $eventImgDir . $eventImgName;
+            $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
+            echo '<h1>'.$event->getName().'</h1>'; 
+            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='700'>";
             echo '<p>'.'Creador: '.$creatorName.'</p>';
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
@@ -59,10 +62,18 @@ require_once __DIR__.'/includes/config.php';
             else{
                 echo '<p>Se el primero en apuntar a este evento!</p>';
 			}
-            if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
+            if($userDAO->isMyEvent($currentUserId, $eventId)){
+                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
+			}
+            else{
+                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+            }
+            /*if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
                echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
-            }
+            }*/
         ?>   
     </div>
     
@@ -78,7 +89,7 @@ require_once __DIR__.'/includes/config.php';
     ?>
     
     <div class = "tarjeta_naranja">
-        <?
+        <?php
             $app = es\ucm\fdi\aw\Application::getSingleton();
 		    $conn = $app->bdConnection(); 
             //mostrar eventos de BBDD
