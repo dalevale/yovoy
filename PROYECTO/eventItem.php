@@ -60,11 +60,8 @@ require_once __DIR__.'/includes/config.php';
                 echo '<p>Se el primero en apuntar a este evento!</p>';
 			}
             if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
-               // echo "<input type="submit" value="Go to my link location" onclick="window.location='includes/joinEvent.php?event_id=".$eventId."';" />" 
-               // echo '<input type="button" onclick=header('Location: includes/joinEvent.php?event_id=".$eventId."')>Me apunto!</input>';            
                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
                echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
-               //echo '<input type="submit" value="Me apunto!" name="Submit" id="frm1_submit" /></form>';
             }
         ?>   
     </div>
@@ -99,7 +96,15 @@ require_once __DIR__.'/includes/config.php';
                     $ownerId = $userDAO->getUser($comment->getUserID())->getUserId();
 
                     echo '<div class="tarjeta_gris">';
-                    echo "Comentario de " .$username. " el ".$comment->getDate(). "</br>";
+                    
+                    $date ="";
+                    $dateInvert = explode("-", $comment->getDate());
+
+                    for($i = sizeof($dateInvert)-1; $i >= 0; $i--){
+                        $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
+                    }
+
+                    echo "Comentario de " .$username. " el ".$date. "</br>";
 
                     echo '<div class="tarjeta_blanca">';
                     echo $comment->getComment();
