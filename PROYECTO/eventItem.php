@@ -98,8 +98,6 @@ require_once __DIR__.'/includes/config.php';
                     $username = $userDAO->getUser($comment->getUserID())->getUsername();
                     $ownerId = $userDAO->getUser($comment->getUserID())->getUserId();
 
-                    $_SESSION["comment_id"] = $comment->getID();
-
                     echo '<div class="tarjeta_gris">';
                     echo "Comentario de " .$username. " el ".$comment->getDate(). "</br>";
 
@@ -107,12 +105,13 @@ require_once __DIR__.'/includes/config.php';
                     echo $comment->getComment();
                     echo '</div>';
                     
-
                     if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"])){
-                        $form = new DeleteCommentForm;
-                        $form->manage();
+                        echo '<form method="POST" action="includes/deleteComment.php">';
+                        echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
+                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<button type="submit" >Borrar comentario</button></form>';
                     }
-                
+
                     echo "</div>";
                 }
             }
