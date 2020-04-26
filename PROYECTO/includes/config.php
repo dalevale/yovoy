@@ -6,7 +6,6 @@ require_once __DIR__.'/classes/Application.php';
 require_once __DIR__.'/classes/Form/RegisterForm.php';
 require_once __DIR__.'/classes/Form/LoginForm.php';
 require_once __DIR__.'/classes/Form/CommentsForm.php';
-require_once __DIR__.'/classes/Form/DeleteCommentForm.php';
 require_once __DIR__.'/classes/Form/NewEventForm.php';
 
 /**
