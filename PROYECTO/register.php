@@ -13,10 +13,17 @@
     </header>
 
     <div>
-        <h3>REGISTRARSE</h3>
+        
        <?php
-	        $form = new RegisterForm;
-	        $form->manage();
+            if(!isset($_SESSION["login"])){
+                echo '<h3>REGISTRARSE</h3>'; 
+                $form = new RegisterForm;
+                $form->manage();
+                
+            }
+            else{
+                echo '<p>Ya estas logueado.</p>'; 
+            }
        ?>
         <!--<form method="post" class="tarjeta_gris" action="<?php echo htmlspecialchars("includes/registerSubmit.php");?>" enctype="multipart/form-data">
             <ul>
