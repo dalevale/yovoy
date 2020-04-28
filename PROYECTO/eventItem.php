@@ -38,13 +38,13 @@ require_once __DIR__.'/includes/config.php';
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div class = "tarjeta_naranja">
+    <div class = "evento">
         <?php 
             $eventImgDir = "includes/img/events/";
             $eventImgPath = $eventImgDir . $eventImgName;
             $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
             echo '<h1>'.$event->getName().'</h1>'; 
-            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='700'>";
+            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
             echo '<p>'.'Creador: '.$creatorName.'</p>';
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
@@ -52,6 +52,7 @@ require_once __DIR__.'/includes/config.php';
             echo '<p>'.'Lugar: '.$location.'</p>';
             echo '<p>'.'Descripción: '.$descripcion.'</p>';
             $attendees = $eventDAO->getAttendees($_SESSION["event_id"]);
+            ?><div class="tarjeta_gris"><?php
             if(!count($attendees)==0){
                 echo '<p>En este evento también van:</p>';
                 for($i = 0; $i < count($attendees); $i++) {
@@ -59,15 +60,18 @@ require_once __DIR__.'/includes/config.php';
                     echo '<p>'.$attendeeName.'<p>';  
 			    }
             }
-            
             else{
                 echo '<p>Se el primero en apuntar a este evento!</p>';
             }
+            ?></div><?php
+            
+            
             
             if(isset($_SESSION["login"]) && $_SESSION["login"]){
                 if($userDAO->isMyEvent($currentUserId, $eventId)){
                     echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
+                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+                    // echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
                 }
             
                 else{

@@ -53,6 +53,11 @@ input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
 
+.usuario{
+  float: right;
+  margin: auto;
+}
+
 .portada_inicio{
   font-family: Ubuntu;
 }
@@ -115,6 +120,11 @@ input[type=checkbox]{
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
+  text-align: justify;
+}
+
+.evento a{/* NO FUNCIONA */
+  margin-left: 100px;
   color: #ffffff;
 }
 

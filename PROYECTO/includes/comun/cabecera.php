@@ -24,6 +24,11 @@ require_once __DIR__.'/../config.php';
 		
 		<div id="usuario">
 			<?php
+
+				function logout(){
+					header("Location: includes/logout.php");
+				}
+
 				if((isset($_SESSION["login"]) && !$_SESSION["login"]) || !isset($_SESSION["login"])){
 					echo "<ul>";
 					echo "<li><a href='register.php'>REGISTRARSE</a></li>";
@@ -45,7 +50,9 @@ require_once __DIR__.'/../config.php';
 						
 						echo "<img src='" . $imgPath . "' alt='usuario' height='50' width='50'>";
 						echo "<p>Hola, " . $name . "!</p>";
-						echo "<a href='includes/logout.php'>Cerrar sesión</a>";
+						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
+						//echo "<a href='includes/logout.php'>Cerrar sesión</a>";
+						
 						
 
 						//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
