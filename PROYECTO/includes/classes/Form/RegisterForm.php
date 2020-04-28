@@ -1,8 +1,8 @@
 <?php
 //namespace es\ucm\fdi\aw;
 
-require_once __DIR__.'/Form.php';
-class RegisterForm extends Form
+require_once __DIR__.'/FormWithFile.php';
+class RegisterForm extends FormWithFile
 {
     public function __construct() {
         parent::__construct('registerForm');
@@ -84,16 +84,22 @@ EOF;
         
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";
-		/*if (isset($_FILES["img"]["name"])){
+		$result[] = $_SERVER["DOCUMENT_ROOT"];
+		// file name found in $data["img"]; problem: getting tmp dir
+		if (!empty($data["img"]["name"])){
+			//$tmpDir = ;
 			$targetDir = "/Yovoy/Proyecto/includes/img/usuarios/";
-			$imgName = basename($_FILES["img"]["name"]);
+			$imgName = $data["img"];
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
 			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto";
 			}
-		}*/
+			else{
+				$result[] = "Success";
+			}
+		}
 
         if (count($result) == 0) {
 

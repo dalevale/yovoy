@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,8 +27,14 @@
 				$conn = $app->bdConnection(); 
 				$userDAO = new UserDAO($conn);
 				
+				// obtener usuario
+				$userId = $_SESSION["userId"];
+				if(isset($_GET["userId"]))
+					$userId = $_GET["userId"];
+					
+				
 				// conseguir información
-				$user = $userDAO->getUser($_SESSION["userId"]);
+				$user = $userDAO->getUser($userId);
 				
 				// foto
 				$imgDir = "includes/img/users/";
@@ -57,8 +62,8 @@
 				echo "<p>Se unió " . $creationDate . "</p>";
 				echo "<p>" . $email . "</p>";
 				echo "<p>Mis Eventos:</p>";
-				$id = $_SESSION["userId"];
-				$createdEvents = $userDAO->getCreatedEvents($id);
+			
+				$createdEvents = $userDAO->getCreatedEvents($userId);
 				if(count($createdEvents) > 0){
 					for($i=0; $i < count($createdEvents); $i++){
 						$eventId = $createdEvents[$i]->getEventId();
@@ -79,6 +84,9 @@
 				echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
 				//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
 				
+			}
+			else{
+				echo "<p>Login o registrate para ver esta información.</p>";
 			}
 		?>
     </div>
