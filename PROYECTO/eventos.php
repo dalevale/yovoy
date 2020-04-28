@@ -16,7 +16,7 @@
         <?php include 'includes/comun/cabecera.php' ?>
     </header>
 
-    <div class = "lista_eventos">
+    <div>
         <?php
         if(isset($_SESSION["login"]))
             echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Crear un nuevo evento' onclick='crearEvento();'>";
@@ -36,7 +36,7 @@
                         $eventImgDir = "includes/img/events/";
                         $eventImgPath = $eventImgDir . $eventImgName;
                         $eventId = $row["event_id"]; //Hay que poner un class de css por aqui para cada evento
-                        echo "<ul>";
+                        echo "<ul class = 'evento'>";
                             echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                             echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
                             echo "<li>". $row["name"] . " </li>";

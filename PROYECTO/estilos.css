@@ -104,7 +104,7 @@ input[type=checkbox]{
   }
 }
 
-.lista_eventos ul{/* PROVISIONAL */
+.evento {
   border-radius: 25px;
   background: #FF8000;
   padding: 20px;
@@ -115,6 +115,7 @@ input[type=checkbox]{
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
+  color: #ffffff;
 }
 
 .tarjeta_gris{
