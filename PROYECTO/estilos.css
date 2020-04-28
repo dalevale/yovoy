@@ -60,6 +60,7 @@ input[type=checkbox]{
 
 .portada_inicio{
   font-family: Ubuntu;
+  text-align: center;
 }
 
 .portada_inicio button{
