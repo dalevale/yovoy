@@ -9,24 +9,28 @@
 </head>
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/cabecera.php';
+			  include 'includes/classes/Form/SearchForm.php';
+		?>
     </header>
 	<h1> Buscar un evento </h1>
+	<!--
     <div>
-		<?php
-        /*<div class="topnav">
-		 
-		  <input type="text" placeholder="Busca por nombre, etiqueta o usuario">
-		</div>
-		*/
-		?>
+		
 		<form method="get" action="includes/searchSubmit.php">
                 <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario">
                 <input type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
 				</p>
 		</form>
+		
+		
+		
     </div>
-
+	-->
+	<?php 
+			$form = new SearchForm;
+			$form->manage();
+	?>
     <footer>
         <?php include 'includes/comun/pie.php' ?>
     </footer>
