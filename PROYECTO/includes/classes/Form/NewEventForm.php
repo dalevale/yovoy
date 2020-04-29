@@ -82,7 +82,7 @@ EOF;
         }    
         
         // Si no hay un foto subido por el usuario, se usa default.jpg
-		$imgName = "default.jpg";
+		$imgName = "default-event.png";
 		/*if (isset($_FILES["img"]["name"])){
 			$targetDir = "/Yovoy/Proyecto/includes/img/usuarios/";
 			$imgName = basename($_FILES["img"]["name"]);

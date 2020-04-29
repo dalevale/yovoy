@@ -35,7 +35,7 @@
                         $eventImgName = $eventDAO->getEvent($eventId)->getImgName();
                         $eventImgDir = "includes/img/events/";
                         $eventImgPath = $eventImgDir . $eventImgName;
-                        $eventId = $row["event_id"]; //Hay que poner un class de css por aqui para cada evento
+                        $eventId = $row["event_id"];
                         echo "<ul class = 'evento'>";
                             echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                             echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";

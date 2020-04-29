@@ -136,6 +136,7 @@ class EventDAO extends DAO{
             $eventId= $row["event_id"];
             $name = $row["name"];
             $creator = $row["creator"];
+			$imgName = $row["img_name"];
             $creationDate = $row["creation_date"];
             $eventDate = $row["event_date"];
             $capacity = $row["capacity"];
@@ -143,7 +144,7 @@ class EventDAO extends DAO{
             $tags = $row["tags"];
             $description = $row["description"];
 
-            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
         }
 
         return $eventsArray;

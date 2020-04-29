@@ -25,8 +25,7 @@ class EditEventForm extends Form
         $eventTags = $event->getTags();
         $eventDescription = $event->getDescription();
         $html = <<<EOF
-        <fieldset>
-				<legend>Detalles del evento</legend>
+        <div class='tarjeta_gris'>
                 <input type="hidden" name="eventId" value="$eventId">
 				<label>Título: </label><input type="text" name="eventName" value="$eventName"required >
                 <p>
@@ -41,8 +40,7 @@ class EditEventForm extends Form
 				<button type="submit"> Enviar </button>
 				<button type="reset"> Borrar Campos </button>
 				<button type="text" onClick="goBack()"> Cancelar </button>
-                
-	    </fieldset>
+	    </div>
 EOF;
         return $html;
     }
