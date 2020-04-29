@@ -39,8 +39,29 @@ EOF;
 		}
 		
 		else{
-			$eventName='';
-			$result = $evento->searchEventBy( $eventName , $search);
+			$eventName="EVENT_NAME";
+			$result = $evento->searchEventBy($eventName , $search);
+			if($result->num_rows > 0){
+                    echo "<ul>";
+                while($row = $result->fetch_assoc()){
+                        $eventId = $row["event_id"];
+                        $eventImgName = $eventDAO->getEvent($eventId)->getImgName();
+                        $eventImgDir = "includes/img/events/";
+                        $eventImgPath = $eventImgDir . $eventImgName;
+                        $eventId = $row["event_id"];
+                        echo "<ul class = 'evento'>";
+                            echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+                            echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
+                            echo "<li>". $row["name"] . " </li>";
+                            echo "<li>Date: ". $row["event_date"] ." </li>";
+                            echo "<li>Created by: ". $userDAO->getUser($row["creator"])->getUsername() . " </li>";
+                            echo "<li>Capacity: ". $row["capacity"] ." </li>";
+                            echo "<li>Location: ". $row["location"] ." </li>";
+                            echo "</a>";
+                        echo "</ul>";
+			    }
+            echo "</ul>";
+            }
 		}
 		
 	
