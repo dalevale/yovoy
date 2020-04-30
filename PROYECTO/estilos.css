@@ -55,6 +55,7 @@ input[type=checkbox]{
 }
 
 #usuario{
+  text-align: right;
   float: right;
   margin: auto;
 }
