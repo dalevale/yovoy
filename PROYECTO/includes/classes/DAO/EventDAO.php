@@ -114,7 +114,7 @@ class EventDAO extends DAO{
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
                 break;
             case "EVENT_CREATOR":
-                $eventQuery = "SELECT DISTINCT * FROM event WHERE creator='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT event_id, event.name, creator, event.img_name, event.creation_date, event_date, capacity, current_attendees, location, tags, description FROM event JOIN user WHERE username = '$value' AND creator=user_id;"; 
                 break;
             case "EVENT_CAPACITY":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE capacity='".$value."';"; 
