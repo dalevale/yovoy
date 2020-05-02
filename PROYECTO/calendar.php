@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html>
  <head>
  <meta charset="utf-8" />
@@ -47,7 +46,7 @@
      }
     },
     editable:true,
-    
+
     eventClick:function(event)
     {
       var title = event.title;
