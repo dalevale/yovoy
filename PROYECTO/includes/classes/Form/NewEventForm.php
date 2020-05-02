@@ -10,12 +10,12 @@ class NewEventForm extends Form
     
     protected function generateFormFields($data)
     {
-        $email = '';
+        //$email = '';
         if ($data) {
-            $eventName = isset($data['eventName']) ? $data['eventName'] : $eventName;
-            $eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : eventLocation;
-            $description = isset($data['description']) ? $data['description'] : description;
-            $eventTags = isset($data['eventTags']) ? $data['eventTags'] : eventTags;
+            //$eventName = isset($data['eventName']) ? $data['eventName'] : $eventName;
+            //$eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : eventLocation;
+            //$description = isset($data['description']) ? $data['description'] : description;
+            //$eventTags = isset($data['eventTags']) ? $data['eventTags'] : eventTags;
         }
         $html = <<<EOF
         <div class = "tarjeta_gris">	

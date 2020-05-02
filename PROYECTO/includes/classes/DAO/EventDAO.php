@@ -108,25 +108,25 @@ class EventDAO extends DAO{
 
         switch($filter){
             case "EVENT_TAGS": 
-                $eventQuery = "SELECT * FROM event JOIN event_tags WHERE event_tags.tag='".$value."' AND event.event_id=event_tags.event_id;"; 
+                $eventQuery = "SELECT DISTINCT * FROM event JOIN event_tags WHERE event_tags.tag='".$value."' AND event.event_id=event_tags.event_id;"; 
                 break;
             case "EVENT_NAME":
-                $eventQuery = "SELECT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
                 break;
             case "EVENT_CREATOR":
-                $eventQuery = "SELECT * FROM event WHERE creator='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE creator='".$value."';"; 
                 break;
             case "EVENT_CAPACITY":
-                $eventQuery = "SELECT * FROM event WHERE capacity='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE capacity='".$value."';"; 
                 break;
             case "EVENT_LOCATION":
-                $eventQuery = "SELECT * FROM event WHERE location='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE location='".$value."';"; 
                 break;
             case "EVENT_DATE":
-                $eventQuery = "SELECT * FROM event WHERE event_date='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE event_date='".$value."';"; 
                 break;
             default:
-                $eventQuery = "SELECT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
                 break;
         }
 

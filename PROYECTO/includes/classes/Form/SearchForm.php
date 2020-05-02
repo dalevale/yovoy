@@ -9,7 +9,8 @@ class SearchForm extends Form
     }
     
     protected function generateFormFields($data)
-    {
+    {	
+		$search="";
         if ($data) {
             $search = isset($data['search']) ? $data['search'] : $search;
         }
@@ -71,11 +72,14 @@ EOF;
 			
 			$result = $evento->searchEventBy($eventName , $search);
 			while(sizeof($result) > 0){
-				echo "<p><ul class = 'evento'>";
+				echo "<ul class = 'evento'>";
 				$event = array_pop($result);
-				echo "<p> Evento: ".$event->getName()."</p>";
-				echo "<p> ID: ".$event->getEventId()."</p>";
-				echo "</ul></p>";
+				$eventId = $event->getEventId();
+
+				echo "<li><a href= '/eventItem.php?event_id=".$eventId."'>";
+				echo "Evento: ".$event->getName()."</a></li>";
+				//echo "<p> ID: ".$event->getEventId()."</p>";
+				echo "</ul>";
 			}
 
 		}
