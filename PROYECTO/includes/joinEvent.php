@@ -9,8 +9,6 @@ require_once __DIR__.'/config.php';
    $userId = $_SESSION["userId"];
    $eventId = $_POST["event_id"];
 
-   $userDAO->joinEvent($userId, $eventId, $currDate);
-
-header("Location: ../eventItem.php?event_id=".$eventId."");
-
+   $userDAO->joinEvent($eventId, $userId, $currDate);
+   header("Location: ../eventItem.php?event_id=".$eventId."");
 ?>
