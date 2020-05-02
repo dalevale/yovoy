@@ -16,23 +16,26 @@ class EventDAO extends DAO{
         parent::__construct($conn);
 	}
 
-    public function registerEvent($name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $description, $eventTags){        
+    public function registerEvent($name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $description, $eventTagsString,$eventTagsArray){        
           //VALORES A INSERTAR EN LA BBDD
           $eventInserted = false;
           $tagInserted = false;
 
+          //currentAttendees es un valor provisional
+          $current_attendees = 0;
           $queryValues =  
                "'".$name."'". "," 
               ."'".$creator."'". "," 
               ."'".$imgName."'". "," 
               ."'".$creationDate."'". ","
               ."'".$eventDate."'". ","
-              ."'".$capacity."'". "," 
+              ."'".$capacity."'". ","
+              ."'".$current_attendees."'". ","  
               ."'".$location."'". ","
-              ."'".$eventTags."'". ","
+              ."'".$eventTagsString."'". ","
               ."'".$description."'";
 
-          $registerEvent = "INSERT INTO event (`name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `location`, `tags`, `description`) 
+          $registerEvent = "INSERT INTO event (name, creator, img_name, creation_date, event_date, capacity, current_attendees,location, tags, description) 
                       VALUES(".$queryValues.");";
 
           if($this->dbConn->query($registerEvent)) $eventInserted = true;
@@ -44,9 +47,8 @@ class EventDAO extends DAO{
           $eventId ="";
           while($row = $result->fetch_assoc()) {
               $eventId= $row["event_id"];
+              $tagInserted = $this::addTag($eventId, $eventTagsArray);
           } 
-      
-          $tagsInserted = addTag($eventId, $eventTags);
 
           return $eventInserted && $tagInserted;
     }
@@ -55,10 +57,10 @@ class EventDAO extends DAO{
         $tagsInserted = false;
         for($i = 0; $i < count($eventTags); $i++){
                 $queryValues =  
-                    "'".$eventId."'". "," 
+                     "'".$eventId."'". "," 
                     ."'".$eventTags[$i]."'";
 
-                $insertTags = "INSERT INTO event_tags (`event_id`, `tag`) VALUES(".$queryValues.");";
+                $insertTags = "INSERT INTO event_tags (event_id, tag) VALUES(".$queryValues.");";
 
                 if($this->dbConn->query($insertTags)) $tagsInserted = true;
                 else $tagsInserted = false;
@@ -106,25 +108,25 @@ class EventDAO extends DAO{
 
         switch($filter){
             case "EVENT_TAGS": 
-                $eventQuery = "SELECT * FROM event JOIN event_tags WHERE event_tags.tag='".$value."' AND event.event_id=event_tags.event_id;"; 
+                $eventQuery = "SELECT DISTINCT * FROM event JOIN event_tags WHERE event_tags.tag='".$value."' AND event.event_id=event_tags.event_id;"; 
                 break;
             case "EVENT_NAME":
-                $eventQuery = "SELECT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
                 break;
             case "EVENT_CREATOR":
-                $eventQuery = "SELECT * FROM event WHERE creator='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT event_id, event.name, creator, event.img_name, event.creation_date, event_date, capacity, current_attendees, location, tags, description FROM event JOIN user WHERE username = '$value' AND creator=user_id;"; 
                 break;
             case "EVENT_CAPACITY":
-                $eventQuery = "SELECT * FROM event WHERE capacity='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE capacity='".$value."';"; 
                 break;
             case "EVENT_LOCATION":
-                $eventQuery = "SELECT * FROM event WHERE location='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE location='".$value."';"; 
                 break;
             case "EVENT_DATE":
-                $eventQuery = "SELECT * FROM event WHERE event_date='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE event_date='".$value."';"; 
                 break;
             default:
-                $eventQuery = "SELECT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
                 break;
         }
 

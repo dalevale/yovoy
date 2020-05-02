@@ -10,12 +10,12 @@ class NewEventForm extends Form
     
     protected function generateFormFields($data)
     {
-        $email = '';
+        //$email = '';
         if ($data) {
-            $eventName = isset($data['eventName']) ? $data['eventName'] : $eventName;
-            $eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : eventLocation;
-            $description = isset($data['description']) ? $data['description'] : description;
-            $eventTags = isset($data['eventTags']) ? $data['eventTags'] : eventTags;
+            //$eventName = isset($data['eventName']) ? $data['eventName'] : $eventName;
+            //$eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : eventLocation;
+            //$description = isset($data['description']) ? $data['description'] : description;
+            //$eventTags = isset($data['eventTags']) ? $data['eventTags'] : eventTags;
         }
         $html = <<<EOF
         <div class = "tarjeta_gris">	
@@ -49,7 +49,8 @@ EOF;
         
         $result = array();
         //Valores introducidos por el creador del evento
-        $eventTags = isset($data["eventTags"]) ? explode(",", $data["eventTags"]) : null;
+        $eventTagsString= $data["eventTags"];
+        $eventTagsArray = isset($data["eventTags"]) ? explode(",", $data["eventTags"]) : null;
         //$email = $_REQUEST["email"];
         $text = isset($data["description"]) ? $data["description"] : null;
 
@@ -103,9 +104,9 @@ EOF;
             $eventDAO = new EventDAO($conn);
             $result = array();
             //Añadir el evento a la BBDD
-	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTags) === true) {
+	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
 		    $_SESSION["eventCreated"] = true;
-            $result = "crearEvento.php";
+            $result = "createEvent.php";
             }
             else {
                 $result[] = "Error en crear evento! Consulta un administrador.";

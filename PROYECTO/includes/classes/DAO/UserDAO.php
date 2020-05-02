@@ -78,10 +78,8 @@ class UserDAO extends DAO{
 		return $this->dbConn->query($changePassQuery);
 	}
 
-    public function joinEvent($userId, $eventId){ //, $date){
-        $joinEventQuery = "INSERT INTO join_event (user_id, event_id, accepted) VALUES ('.$eventId.', '.$userId.', false);";
-        //'.$date.', false);"; 
-        /*".$userId.", ".$eventId.", ".$date.", false);";*/
+    public function joinEvent($eventId, $userId, $date){
+        $joinEventQuery = "INSERT INTO join_event (event_id, user_id, join_date,accepted) VALUES ('$eventId','$userId' , '$date', '0');"; 
 
         return $this->dbConn->query($joinEventQuery);
 	}

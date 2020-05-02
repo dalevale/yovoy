@@ -13,7 +13,7 @@
 			  include 'includes/classes/Form/SearchForm.php';
 		?>
     </header>
-	<h1> Buscar un evento </h1>
+	<h3> Buscar un evento </h3>
 	<!--
     <div>
 		
