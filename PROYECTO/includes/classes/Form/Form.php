@@ -19,7 +19,7 @@ abstract class Form
      * @var string URL asociada al atributo "action" de la etiqueta &lt;form&gt; del fomrulario y que procesará el 
      * envío del formulario.
      */
-    private $action;
+    protected $action;
 
     /**
      * Crea un nuevo formulario.
