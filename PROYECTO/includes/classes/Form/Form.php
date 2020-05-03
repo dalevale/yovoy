@@ -132,7 +132,7 @@ abstract class Form
 
         $html= $this->generateErrorList($errors);
 
-        $html .= '<form method="POST" class="tarjeta-gris" action="'.$this->action.'" id="'.$this->formId.'" >';
+        $html .= '<form enctype="multipart/form-data" method="POST" class="tarjeta-gris" action="'.$this->action.'" id="'.$this->formId.'" >';
         $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
 
         $html .= $this->generateFormFields($data);

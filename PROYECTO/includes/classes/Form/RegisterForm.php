@@ -1,8 +1,8 @@
 <?php
 //namespace es\ucm\fdi\aw;
 
-require_once __DIR__.'/FormWithFile.php';
-class RegisterForm extends FormWithFile
+require_once __DIR__.'/Form.php';
+class RegisterForm extends Form
 {
     public function __construct() {
         parent::__construct('registerForm');
@@ -28,7 +28,7 @@ class RegisterForm extends FormWithFile
 				<label>Contrase�a:</label> <input class="control" type="password" name="password" required/>
 			</li>
             <li class="grupo-control">
-				<label>Confirme contrase�a:</label> <input class="control" type="password" name="passwordConfirm" required/>
+				<label>Confirme contraseña:</label> <input class="control" type="password" name="passwordConfirm" required/>
 			</li>
             <li class="grupo-control">
 				<label>Email:</label> <input class="control" type="text" name="email" required/>
@@ -60,44 +60,41 @@ EOF;
 		$password = isset($data['password']) ? $data['password'] : null;
         
         if ( empty($username) || mb_strlen($username) < 5 ) {
-            $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
+            $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres. ";
         }
         
         if ( empty($password) || mb_strlen($password) < 5 ) {
-            $result[] = "La contrase�a tiene que tener una longitud de al menos 5 caracteres.";
+            $result[] = "La contraseña tiene que tener una longitud de al menos 5 caracteres. ";
         }
         
 		$name = isset($data['name']) ? $data['name'] : null;
         if ( empty($name) || mb_strlen($name) < 5 ) {
-            $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
+            $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
         }
         
 		$email = isset($data['email']) ? $data['email'] : null;
         if ( empty($email) || mb_strlen($email) < 5 ) {
-            $result[] = "El email tiene que ser valido.";
+            $result[] = "El email tiene que ser valido. ";
         }
        
 	    $passwordConfirm = isset($data['passwordConfirm']) ? $data['passwordConfirm'] : null;
         if ( empty($passwordConfirm) || strcmp($password, $passwordConfirm) !== 0 ) {
-            $result[] = "Los passwords deben coincidir";
+            $result[] = "Los passwords deben coincidir. ";
         }
         
+		$result[] = var_dump($_FILES);
+		
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";
-		$result[] = $_SERVER["DOCUMENT_ROOT"];
-		// file name found in $data["img"]; problem: getting tmp dir
-		if (!empty($data["img"]["name"])){
-			//$tmpDir = ;
-			$targetDir = "/Yovoy/Proyecto/includes/img/usuarios/";
-			$imgName = $data["img"];
+
+		if (!empty($_FILES["img"]["name"])){
+			$targetDir = "/Yovoy/Proyecto/includes/img/users/";
+			$imgName = basename($_FILES["img"]["name"]);
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
 			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
-				$result[] = "Error: Se produjo un error al subir su foto";
-			}
-			else{
-				$result[] = "Success";
+				$result[] = "Error: Se produjo un error al subir su foto. ";
 			}
 		}
 

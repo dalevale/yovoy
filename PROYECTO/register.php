@@ -19,7 +19,6 @@
                 echo '<h3>REGISTRARSE</h3>'; 
                 $form = new RegisterForm;
                 $form->manage();
-                
             }
             else{
                 echo '<p>Ya estas logueado.</p>'; 
