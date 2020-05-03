@@ -1,8 +1,8 @@
-*{
+body{
     background-image: url("includes/img/fondo.png");
     background-size: cover;
     background-color: black;
-	  color: #ffffff;
+	color: #ffffff;
     font-family: Ubuntu;
     max-width: 80pc;
     max-height: none;

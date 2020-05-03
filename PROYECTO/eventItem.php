@@ -56,8 +56,11 @@ require_once __DIR__.'/includes/config.php';
             if(!count($attendees)==0){
                 echo '<p>En este evento también van:</p>';
                 for($i = 0; $i < count($attendees); $i++) {
-                    $attendeeName = $userDAO->getUser($attendees[$i])->getUsername();
-                    echo '<p>'.$attendeeName.'<p>';  
+                    $attendee =  $userDAO->getUser($attendees[$i]);
+                    $attendeeName = $attendee->getUsername();
+                    $attendeeId = $attendee->getUserId();
+                    echo '<a href="profileView.php?profileId='.$attendeeId.'"><p>'.$attendeeName.'</p></a>'; 
+                    
 			    }
             }
             else{
@@ -74,10 +77,13 @@ require_once __DIR__.'/includes/config.php';
                     // echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
                 }
             
-                else{
-                    echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                    echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                     echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
                 }
+                else {
+                    echo '<p>Estas apuntado en este evento!</p>';        
+				}
             }
             /*if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';

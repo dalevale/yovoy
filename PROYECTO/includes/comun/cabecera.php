@@ -11,12 +11,12 @@ require_once __DIR__.'/../config.php';
 				<!--logo aquí-->
 				<!--<li><a href='index.html'>INICIO</a></li>-->
 				<li><a href='feed.php'>FEED</a></li>
-				<li><a href='eventos.php'>EVENTOS</a></li>
+				<li><a href='events.php'>EVENTOS</a></li>
 				<li><a href='search.php'>BUSCAR</a></li>
-				<li><a href='calendario.php'>CALENDARIO</a></li>
+				<li><a href='calendar.php'>CALENDARIO</a></li>
 				<?php	if(isset($_SESSION["login"]) && $_SESSION["login"]){
-					echo "<li><a href='amigos.php'>MIS AMIGOS</a></li>";
-					echo "<li><a href='profileView.php'>MI ÁREA</a></li>";
+					echo "<li><a href='friends.php'>MIS AMIGOS</a></li>";
+					echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
 				}
 				?>
 			</ul>

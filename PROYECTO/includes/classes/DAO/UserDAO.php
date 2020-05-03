@@ -80,7 +80,6 @@ class UserDAO extends DAO{
 
     public function joinEvent($eventId, $userId, $date){
         $joinEventQuery = "INSERT INTO join_event (event_id, user_id, join_date,accepted) VALUES ('$eventId','$userId' , '$date', '0');"; 
-        /*".$userId.", ".$eventId.", ".$date.", false);";*/
 
         return $this->dbConn->query($joinEventQuery);
 	}
@@ -111,8 +110,8 @@ class UserDAO extends DAO{
 	}
 
     public function isMyEvent($userId, $eventId){
-        $eventsQuery = "SELECT * FROM event WHERE creator = ".$userId." AND event_id = ".$eventId.";";
-        $result = $this->dbConn->query($eventsQuery);
+        $eventQuery = "SELECT * FROM event WHERE creator = ".$userId." AND event_id = ".$eventId.";";
+        $result = $this->dbConn->query($eventQuery);
 
         /*while($row = $result->fetch_assoc()) {
             $eventId= $row["event_id"];
@@ -130,15 +129,24 @@ class UserDAO extends DAO{
         return $result->fetch_assoc() !== null;
     }
 	
+    public function isAttending($userId, $eventId){
+        $eventQuery = "SELECT * FROM join_event WHERE user_id = ".$userId." AND event_id = ".$eventId.";";
+        $result = $this->dbConn->query($eventQuery);
+        return $result->fetch_assoc() !== null;
+	}
 
-/*    public function joinIsAccepted($conn, $userId, $eventId){
-        joinPendQuery = "SELECT accepted FROM joinEvent WHERE user_id = '" . $userId . "' AND event_id = '". $eventId."';";
-
-        $result = $conn->query($joinPendQuery);
-        if($row = $result->fetch_assoc()) {
-            $status = $row["accepted"];
+    public function getFriends($userId){
+        $query = "SELECT * FROM relationship WHERE status = 1 AND user_one_id = ".$userId." OR user_two_id =  ".$userId.";";
+        $userArray = array();
+        $result = $this->dbConn->query($query);
+        while($row = $result->fetch_assoc()) {
+            $friendId= $row["user_one_id"] == $userId? $row["user_two_id"] : $row["user_one_id"];
+           
+            array_push($userArray, $this->getUser($friendId));
         }
-        return $status;
-	}*/
+
+        return $userArray;
+	
+	}
 }
 ?>
