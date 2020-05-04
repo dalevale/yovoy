@@ -28,7 +28,7 @@ require_once __DIR__.'/includes/config.php';
     $descripcion = $event->getDescription();
 
     //Assistentes del evento con id $event_id
-    $attendees = $eventDAO->getAttendees($event_id);
+    $attendees = $eventDAO->getAttendees($event_id,true);
     $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
 ?>
 
@@ -87,16 +87,56 @@ require_once __DIR__.'/includes/config.php';
         ?>
         </div>
     </div>
+    
+    
+    <?php
+        if(isset($_SESSION["login"]) && $_SESSION["login"]){
+            if($userDAO->isMyEvent($currentUserId, $event_id)){
+                echo "<div class='tarjeta_naranja'>";
+                $waitingList = $eventDAO->getAttendees($event_id,false);
+                echo "<label>Lista de espera</label>";
 
-    <div class = "tarjeta_naranja">
+                if(!count($waitingList)==0){
+                    echo "<ul>";
+                    for($i = 0; $i < count($waitingList); $i++) {
+                        echo '<div class="tarjeta_gris">';
+                        $waitingUser = $userDAO->getUser($waitingList[$i]);
+                        $waitingUserName = $waitingUser->getUsername();
+                        $waitingUserId = $waitingUser->getUserId();
+                        echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
+
+                        echo '<form method="POST" action="includes/acceptUserInEvent.php">';
+                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<button type="submit">Aceptar</button></form>';
+
+                        echo '<form method="POST" action="includes/rejectUserInEvent.php">';
+                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<button type="submit">Rechazar</button></form>';
+                        echo '</div>';
+                    }
+                    echo "</ul>";
+                }
+                else{
+                    echo '<p>No hay nadie en lista de espera.</p>';
+                }
+
+                echo "</div>";
+            }
+        }
+    ?>
+
+   
     <?php
         if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+            echo "<div class = 'tarjeta_naranja'>";
             echo '<div class = "escribir_Comentario">';
             $form = new CommentsForm;
             $form->manage();
+            echo "</div>";
         }
     ?>
-    </div>
 
     <div class = "tarjeta_naranja">
         <?php
@@ -124,7 +164,7 @@ require_once __DIR__.'/includes/config.php';
                         $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
                     }
 
-                    echo "Comentario de " .$username. " el ".$date. "</br>";
+                    echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
 
                     echo '<div class="tarjeta_blanca">';
                     echo $comment->getComment();

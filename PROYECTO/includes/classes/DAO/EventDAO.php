@@ -218,12 +218,15 @@ class EventDAO extends DAO{
 
     /**
     * Funci�n para sacar los assistentes de un evento desde la tabla join_event.
-    *
+    * @param bool $accepted     Muestran los usuarios aceptados en evento si TRUE y los pendientes si FALSE
     * @param int $eventId       Id del evento
     * @return array $attendees  Array de int de los id�s de los usuarios apuntados en dicho evento
     */
-    public function getAttendees($eventId){
-        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=1;";
+    public function getAttendees($eventId,$accepted){
+
+        $accepted = $accepted? 1:0;
+
+        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=$accepted";
         $result = $this->dbConn->query($eventQuery);
         $attendees = array();
         while($row = $result->fetch_assoc()) {
@@ -262,6 +265,15 @@ class EventDAO extends DAO{
           
 
         return $eventInserted && $tagsInserted;
+    }
+
+    public function userInEvent($userId,$eventId,$accepted){
+        if($accepted)
+            $query = "UPDATE join_event SET accepted='1' WHERE event_id='$eventId' AND user_id='$userId'";
+        else
+            $query = "DELETE FROM join_event WHERE event_id='$eventId' AND user_id='$userId'";
+        
+        return $this->dbConn->query($query);
     }
 }
 ?>
