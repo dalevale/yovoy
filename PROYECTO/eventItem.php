@@ -164,7 +164,7 @@ require_once __DIR__.'/includes/config.php';
                         $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
                     }
 
-                    echo "Comentario de " .$username. " el ".$date. "</br>";
+                    echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
 
                     echo '<div class="tarjeta_blanca">';
                     echo $comment->getComment();
