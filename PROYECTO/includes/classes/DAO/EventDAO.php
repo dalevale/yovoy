@@ -267,13 +267,26 @@ class EventDAO extends DAO{
         return $eventInserted && $tagsInserted;
     }
 
-    public function userInEvent($userId,$eventId,$accepted){
+    public function userInEventRequest($userId,$eventId,$accepted){
         if($accepted)
             $query = "UPDATE join_event SET accepted='1' WHERE event_id='$eventId' AND user_id='$userId'";
         else
             $query = "DELETE FROM join_event WHERE event_id='$eventId' AND user_id='$userId'";
         
         return $this->dbConn->query($query);
+    }
+
+    public function isUserInEvent($userId,$eventId){
+        $confirmed = false;
+
+        $query = "SELECT accepted FROM join_event WHERE event_id='$eventId' AND user_id='$userId'";
+        $result = $this->dbConn->query($query);
+
+        while($row = $result->fetch_assoc()) {
+             $confirmed = $row["accepted"] == 1 ? true : false;
+        }
+        
+        return $confirmed;
     }
 }
 ?>

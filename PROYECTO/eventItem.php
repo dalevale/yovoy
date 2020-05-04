@@ -46,7 +46,7 @@ require_once __DIR__.'/includes/config.php';
     <div class = "evento">
     <?php
         echo '<h1>'.$eventName.'</h1>';
-        echo '<p>'.'Creador: '.$creatorName.'</p>';
+        echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a>';
         echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
@@ -60,7 +60,10 @@ require_once __DIR__.'/includes/config.php';
                 echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
             }
             else {
-                echo '<p>Estas apuntado en este evento!</p>';        
+                if($eventDAO->isUserInEvent($currentUserId, $event_id))
+                    echo '<div class="tarjeta_blanca">¡Estás apuntado en este evento!</div>';
+                else
+                    echo '<div class="tarjeta_blanca">Esperando respuesta del organizador...</div>';       
 			}
         }
         echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
