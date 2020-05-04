@@ -3,5 +3,5 @@
 	$_SESSION["login"] = false;
     session_destroy();
 
-    header("Location: ../index.html")
+    header("Location: " . $_SERVER['DOCUMENT_ROOT'] . "/Yovoy/Proyecto/index.html")
 ?>
