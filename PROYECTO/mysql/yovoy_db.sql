@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 03, 2020 at 08:09 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Servidor: localhost
+-- Tiempo de generación: 04-05-2020 a las 16:13:37
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yovoy_db`
+-- Base de datos: `yovoy_DB`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Estructura de tabla para la tabla `comments`
 --
 
 CREATE TABLE `comments` (
@@ -37,17 +37,23 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `comments`
+-- Volcado de datos para la tabla `comments`
 --
 
 INSERT INTO `comments` (`id`, `event_id`, `user_id`, `date`, `comment`) VALUES
 (1, 3, 8, '2020-04-26', 'hola'),
-(2, 3, 8, '2020-04-26', 'aaa');
+(2, 3, 8, '2020-04-26', 'aaa'),
+(3, 14, 1, '2020-05-04', 'aaaa'),
+(4, 14, 1, '2020-05-04', 'aaaa'),
+(6, 14, 1, '2020-05-04', 'erterterte'),
+(7, 11, 1, '2020-05-04', 'prueba'),
+(8, 11, 1, '2020-05-04', 'Esto es una prueba para ver si esto funciona bien jejejejeje a ver si consigo gastar los 240 carácteres como en twiterr jejeje ke me passa por favoh vot mal           dasdasdadasdasdasdsadasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasda'),
+(10, 11, 1, '2020-05-04', 'aa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Estructura de tabla para la tabla `event`
 --
 
 CREATE TABLE `event` (
@@ -65,7 +71,7 @@ CREATE TABLE `event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `event`
+-- Volcado de datos para la tabla `event`
 --
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
@@ -73,12 +79,14 @@ INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`,
 (3, 'RokEnRol', 2, 'default-event.png', '2020-03-30', '2020-04-01', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
 (8, 'Unli Rice', 2, 'default-event.png', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
 (10, 'Hamburgesa gratis primer 100 personas!', 2, 'default-event.png', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, 'default-event.png', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!');
+(11, 'Bingo!', 4, 'default-event.png', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
+(14, 'sadasdasdasdasdasdasd', 1, 'default-event.png', '2020-05-04', '2020-05-31', 1, 0, 'Madrid', 'hola', 'dsf'),
+(15, 'YONOVOY', 1, 'default-event.png', '2020-05-04', '2020-05-31', 1, 0, 'EN EL MAR', 'comida,hamburguesas,diversion,hola', 'nada');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event_tags`
+-- Estructura de tabla para la tabla `event_tags`
 --
 
 CREATE TABLE `event_tags` (
@@ -87,7 +95,7 @@ CREATE TABLE `event_tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `event_tags`
+-- Volcado de datos para la tabla `event_tags`
 --
 
 INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
@@ -98,38 +106,38 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (11, 'bingo'),
 (11, ' premio'),
 (2, 'cerveza'),
-(2, ' alcohol');
+(2, ' alcohol'),
+(14, 'hola'),
+(15, 'comida'),
+(15, 'hamburguesas'),
+(15, 'diversion'),
+(15, 'hola');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `join_event`
+-- Estructura de tabla para la tabla `join_event`
 --
 
 CREATE TABLE `join_event` (
   `event_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `join_date` date DEFAULT current_timestamp(),
+  `join_date` date NOT NULL,
   `accepted` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `join_event`
+-- Volcado de datos para la tabla `join_event`
 --
 
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
-(2, 2, '0000-00-00', 0),
-(2, 3, '0000-00-00', 1),
-(2, 4, '0000-00-00', 1),
-(2, 5, '0000-00-00', 1),
-(2, 6, '0000-00-00', 1),
-(3, 3, '0000-00-00', 1),
-(11, 2, '0000-00-00', 1);
+(3, 1, '2020-05-04', 1),
+(11, 1, '2020-05-04', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relationship`
+-- Estructura de tabla para la tabla `relationship`
 --
 
 CREATE TABLE `relationship` (
@@ -140,7 +148,7 @@ CREATE TABLE `relationship` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `relationship`
+-- Volcado de datos para la tabla `relationship`
 --
 
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
@@ -150,7 +158,7 @@ INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Estructura de tabla para la tabla `user`
 --
 
 CREATE TABLE `user` (
@@ -165,7 +173,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_name`, `creation_date`, `type`) VALUES
@@ -178,76 +186,88 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (8, 'mario@yovoy.com', '$2y$10$yL4moLeRIhBLFM.iHTXZa.Ovt22S9E1O9CHfUfW.2q1DdnsxGNOvu', 'gamerfreak', 'Mario Mauricio Maurer', 'default.jpg', '2020-04-25', 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `event`
+-- Indices de la tabla `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `event`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`event_id`),
   ADD KEY `createEvent` (`creator`);
 
 --
--- Indexes for table `event_tags`
+-- Indices de la tabla `event_tags`
 --
 ALTER TABLE `event_tags`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `join_event`
+-- Indices de la tabla `join_event`
 --
 ALTER TABLE `join_event`
   ADD PRIMARY KEY (`event_id`,`user_id`),
   ADD KEY `user` (`user_id`);
 
 --
--- Indexes for table `relationship`
+-- Indices de la tabla `relationship`
 --
 ALTER TABLE `relationship`
   ADD PRIMARY KEY (`user_one_id`,`user_two_id`),
   ADD UNIQUE KEY `user_one_id` (`user_one_id`,`user_two_id`);
 
 --
--- Indexes for table `user`
+-- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `event`
+-- AUTO_INCREMENT de la tabla `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `event`
+-- Filtros para la tabla `event`
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `createEvent` FOREIGN KEY (`creator`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `event_tags`
+-- Filtros para la tabla `event_tags`
 --
 ALTER TABLE `event_tags`
   ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `join_event`
+-- Filtros para la tabla `join_event`
 --
 ALTER TABLE `join_event`
   ADD CONSTRAINT `event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
