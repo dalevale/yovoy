@@ -32,7 +32,7 @@
                 $eventImgDir = "includes/img/events/";
                 $eventImgPath = $eventImgDir . $eventImgName;
                 $eventId = $event->getEventId();
-                echo "<li class = 'evento'>";
+                echo "<div class = 'evento'>";
                     echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                     echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
                     echo $event->getName() ." ";
@@ -41,7 +41,7 @@
                     echo "Capacity: ". $event->getCapacity()." ";
                     echo "Location: ". $event->getLocation()." ";
                     echo "</a>";
-                echo "</li>";
+                echo "</div>";
 			    }
             echo "</ul>";
         ?>

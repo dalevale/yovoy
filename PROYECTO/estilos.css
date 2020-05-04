@@ -136,10 +136,9 @@ input[type=checkbox]{
   background: #FF8000;
   display: center;
   padding: 15px;
-  width: auto;
   height: auto;
   max-width: fit-content;
-  margin: 20px;
+  margin: 10px;
 }
 
 .evento a{
