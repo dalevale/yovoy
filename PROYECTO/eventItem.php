@@ -90,7 +90,8 @@ require_once __DIR__.'/includes/config.php';
 
     <div class = "tarjeta_naranja">
     <?php
-        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+        if(isset($_SESSION["userId"]) && $_SESSION["userId"])
+            echo '<div class = "escribir_Comentario">';
             $form = new CommentsForm;
             $form->manage();
         }
