@@ -151,7 +151,7 @@ abstract class Form
     {
         $html='';
         $numErrors = count($errors);
-        if (  $numErrors == 1 ) {
+        if (  $numErrors == 1 ) {//TODO meter clase de error en el primer UL (tarjeta_roja)
             $html .= "<ul><li>".$errors[0]."</li></ul>";
         } else if ( $numErrors > 1 ) {
             $html .= "<ul><li>";
