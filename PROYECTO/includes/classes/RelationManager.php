@@ -2,17 +2,6 @@
 require_once __DIR__.'/Form/Form.php';
 
 class RelationManager extends Form {
-    //define('USERONEADD', '0');//PENDING
-    /*define("USERTWOADD", 1);
-    define("USERONEACCEPT", 2);//ACCEPTED
-    define("USERTWOACCEPT", 3);
-    define("USERONEBLOCK", 4);//BLOCKED
-    define("USERTWOBLOCK", 5);
-    define("USERONEUNFR", 6);//UNFRIEND
-    define("USERTWOUNFR", 7);
-    define("USERONEUNBL", 8);//UNBLOCK
-    define("USERTWOUNBL", 9);*/
-
     const USERONEADD = 0; //PENDING
     const USERTWOADD = 1;
     const USERONEACCEPT = 2;//ACCEPTED
@@ -38,30 +27,13 @@ class RelationManager extends Form {
         $this->action.= "?profileId=".$userTwoId;
 	}
 
-
-    //first check status
-    //print buttons
-    //process
-    /*public function manage($userOneId, $userTwoId){
-        $status = $this->relationStatus($userOneId, $userTwoId);
-        echo $this->printHTML($status, $userTwoId);
-	}
-        public function manage()
-    {   
-        $this->status = $this->relationStatus($this->userOneId, $this->userTwoId);
-        if ( ! $this->formSent($_POST) ) {
-            echo $this->generateForm();
-        } else {
-            $result = $this->processForm($_POST);
-            if ( is_array($result) ) {
-                echo $this->generateForm($result, $_POST);
-            } else {
-                header('Location: '.$result);
-                exit();
-            }
-        }  
-    }*/
-
+    /**
+    * Función para comprabar la columna 'status' en la tabla 'relationship' en la BBDD
+    *
+    * @param int $userId        Id del usuario con el que la sesion se inicia
+    * @param int $profileId     Id del usuario de la perfil que se esta viendo
+    * @return enum $ret         Valor int que va a corresponder a los enums definidos
+    */
     private function relationStatus($userId, $profileId){
         $query = "SELECT status, action_user_id FROM relationship WHERE user_one_id = ".min($userId, $profileId)." AND user_two_id = ".max($userId, $profileId).";";
         $result =  $this->dbConn->query($query);
@@ -78,6 +50,13 @@ class RelationManager extends Form {
         return $ret;
     }
 
+    /**
+    * Genera los campos (en este caso los botones) dependiendo del valor devuelto
+    * por la funcion self::relationStatus
+    *
+    * @param array $initialDate     Se ignora
+    * @return string $html          Cadenas de html a generar en la pagina
+    */
     protected function generateFormFields($initialData){
 
         if($this->status === null){
@@ -124,10 +103,10 @@ EOF;
                 break;
 		}
 		}
-        
         return $html;
 	}
     
+
     protected function processForm($data) {
         $result = array();
        
@@ -149,6 +128,16 @@ EOF;
        return $result;
     }
 
+    /**
+    * Insertar una fila en la BBDD en la tabla relationship para establecer relación
+    * entre dos cuentas de usuario con id´s $userOneId y $userTwoId
+    *
+    * @param int $userOneId         Id del usuario con el que la sesion se inicia
+    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relación
+    * @param int $status            Estado de relacion de las cuentas (0 - Pendiente, 1 - Amigos, 2 - Cuenta bloqueada)
+    * @param int $action_user_id    Id del usuario ($userOneId o $userTwoId) que hizo el ultimo gesto (cambiar el estado)
+    * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
+    */
     private function insertRow($userOneId, $userTwoId, $status, $action_user_id){
         $queryValues =  
                 "'".min($userOneId, $userTwoId)."',"
@@ -156,12 +145,23 @@ EOF;
                 ."".$status.","
                 ."'".$userOneId."'";
         $query = "INSERT INTO relationship (user_one_id, user_two_id, status, action_user_id) VALUES (".$queryValues.")";
-        $this->dbConn->query($query);
+        $result = $this->dbConn->query($query);
+
+        return $result;
 	}
 
+    /**
+    * Función para eliminar una fila en la tabla relationship
+    *
+    * @param int $userOneId         Id del usuario con el que la sesion se inicia
+    * @param int $userTwoId         Id del otro usuario.
+    * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
+    */
     private function deleteRow($userOneId, $userTwoId){
         $query = "DELETE FROM relationship WHERE user_one_id = '".min($userOneId, $userTwoId)."' AND user_two_id = '".max($userOneId, $userTwoId)."';";
-        $this->dbConn->query($query);
+        $result = $this->dbConn->query($query);
+
+        return $result;
 	}
 }
 ?>

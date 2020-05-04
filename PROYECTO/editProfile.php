@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-    <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
 	<title>Editar Perfil - YoVoy</title>
 </head>
 
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <h3>Editar Perfil</h3> 
-
     <div class = "tarjeta_gris">
 		<?php
             if(isset($_SESSION["login"])){
@@ -26,9 +22,8 @@
             }
        ?>
     </div>
- 
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

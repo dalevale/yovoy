@@ -6,6 +6,7 @@ require_once __DIR__.'/includes/config.php';
     $conn = $app->bdConnection(); 
     $eventDAO = new EventDAO($conn);
     $userDAO = new UserDAO($conn);
+    $commentsDAO = new CommentsDAO($conn);
     
     if(!empty($_GET))
         $_SESSION["event_id"] = $_GET["event_id"];
@@ -16,43 +17,61 @@ require_once __DIR__.'/includes/config.php';
     
     $creator = $userDAO->getUser($creatorId);
     $creatorName = $creator->getName();
+    $eventName = $event->getName();
     $eventImgName = $event->getImgName();
+    $eventImgDir = "includes/img/events/";
+    $eventImgPath = $eventImgDir . $eventImgName;
     $creationDate = $event->getCreationDate();
     $eventDate = $event->getEventDate();
     $capacity = $event->getCapacity();
     $location = $event->getLocation();
     $descripcion = $event->getDescription();
+
+    //Assistentes del evento con id $eventId
+    $attendees = $eventDAO->getAttendees($eventId);
+    $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-     <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
-
     <?php echo '<title>'.$event->getName().'</title>';?>
-
 </head>
+
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <div class = "evento">
-        <?php 
-            $eventImgDir = "includes/img/events/";
-            $eventImgPath = $eventImgDir . $eventImgName;
-            $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
-            echo '<h1>'.$event->getName().'</h1>'; 
-            echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
-            echo '<p>'.'Creador: '.$creatorName.'</p>';
-            echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
-            echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
-            echo '<p>'.'Capacidad: '.$capacity.'</p>';
-            echo '<p>'.'Lugar: '.$location.'</p>';
-            echo '<p>'.'Descripción: '.$descripcion.'</p>';
-            $attendees = $eventDAO->getAttendees($_SESSION["event_id"]);
-            ?><div class="tarjeta_gris"><?php
+    <?php
+        echo '<h1>'.$eventName.'</h1>';
+        echo '<p>'.'Creador: '.$creatorName.'</p>';
+        echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
+
+        //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
+        if(isset($_SESSION["login"]) && $_SESSION["login"]){
+            if($userDAO->isMyEvent($currentUserId, $eventId)){
+                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+            }
+            else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+            }
+            else {
+                echo '<p>Estas apuntado en este evento!</p>';        
+			}
+        }
+        echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
+        echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
+        echo '<p>'.'Capacidad: '.$capacity.'</p>';
+        echo '<p>'.'Lugar: '.$location.'</p>';
+        echo '<p>'.'Descripción: '.$descripcion.'</p>';
+    ?>
+    
+        <div class="tarjeta_gris">
+        <?php
             if(!count($attendees)==0){
                 echo '<p>En este evento también van:</p>';
                 for($i = 0; $i < count($attendees); $i++) {
@@ -60,56 +79,27 @@ require_once __DIR__.'/includes/config.php';
                     $attendeeName = $attendee->getUsername();
                     $attendeeId = $attendee->getUserId();
                     echo '<a href="profileView.php?profileId='.$attendeeId.'"><p>'.$attendeeName.'</p></a>'; 
-                    
 			    }
             }
             else{
                 echo '<p>Se el primero en apuntar a este evento!</p>';
             }
-            ?></div><?php
-            
-            
-            
-            if(isset($_SESSION["login"]) && $_SESSION["login"]){
-                if($userDAO->isMyEvent($currentUserId, $eventId)){
-                    echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
-                    // echo '<input type="submit" value="Editar" name="Submit" id="frm1_submit" /></form>';
-                }
-            
-                else if(!$userDAO->isAttending($currentUserId, $eventId)){
-                    echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
-                }
-                else {
-                    echo '<p>Estas apuntado en este evento!</p>';        
-				}
-            }
-            /*if (isset($_SESSION["login"]) && $_SESSION["login"] = true){
-               echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-               echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
-            }*/
-        ?>   
+        ?>
+        </div>
     </div>
-    
+
+    <div class = "tarjeta_naranja">
     <?php
-        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
-            echo '<div class = "tarjeta_naranja">';
-        
+        if(isset($_SESSION["userId"]) && $_SESSION["userId"])
+            echo '<div class = "escribir_Comentario">';
             $form = new CommentsForm;
             $form->manage();
-       
-            echo '</div>';
         }
     ?>
-    
+    </div>
+
     <div class = "tarjeta_naranja">
         <?php
-            $app = es\ucm\fdi\aw\Application::getSingleton();
-		    $conn = $app->bdConnection(); 
-            //mostrar eventos de BBDD
-            $userDAO = new UserDAO($conn);
-            $commentsDAO = new CommentsDAO($conn);
             $commentList = $commentsDAO->getComments($_SESSION["event_id"]);
             echo "<label>COMENTARIOS</label>";
 
@@ -146,16 +136,14 @@ require_once __DIR__.'/includes/config.php';
                         echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
                         echo '<button type="submit">Borrar comentario</button></form>';
                     }
-
                     echo "</div>";
                 }
             }
         ?>
     </div>
 
-
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

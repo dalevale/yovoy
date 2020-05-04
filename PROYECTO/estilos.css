@@ -4,7 +4,7 @@ body{
     background-color: black;
 	color: #ffffff;
     font-family: Ubuntu;
-    max-width: 80pc;
+    max-width: 90pc;
     max-height: none;
     margin:auto;
 }
@@ -55,36 +55,40 @@ input[type=checkbox]{
 }
 
 #usuario{
-  text-align: right;
+  left: 99pc;
   float: right;
   margin: auto;
+  display: initial;
+  border-radius: 3px;
+  list-style-type:none;
+  margin: 0;
+  max-width: inherit;
 }
 
 #pie{
-  position: absolute;
+  position: relative;
   bottom: 0;
-  height: 2.5rem;
+  height: 10pc;
 }
 
 .portada_inicio{
   font-family: Ubuntu;
-  text-align: center;
-  display: grid;
-  justify-content: center;
-  justify-items: center;
+  position: absolute; /* or absolute */
+  top: 70%;
+  left: 27%;
 }
 
 .portada_inicio button{
   background-color: rgb(255, 192, 56);
   padding: 10px 24px;
-  cursor: pointer;
-  float: none;
   font-family: Ubuntu;
   font-size: xx-large;
   text-align: center;
   color: white;
   border: 4px solid rgb(255, 136, 0);
   border-radius: 22px;
+  margin: 10px;
+
 }
 
 .portada_inicio .button3{
@@ -118,23 +122,29 @@ input[type=checkbox]{
   }
 }
 
+.escribir_Comentario{
+  border-radius: 25px;
+  background: #FF8000;
+  padding: 10px;
+  width: auto;
+  height: auto;
+  max-width: fit-content;
+  margin: 20px;
+}
 .evento {
   border-radius: 25px;
   background: #FF8000;
-  padding: 20px;
+  display: center;
+  padding: 15px;
   width: auto;
   height: auto;
-  float: left;
-  display: grid;
-  margin: auto;
+  max-width: fit-content;
+  margin: 20px;
 }
 
-.evento img{
-  text-align: left;
-}
-
-.evento li{/* NO FUNCIONA */
-  color: black;
+.evento a{
+  color: white;
+  text-align: justify;
 }
 
 textarea {
