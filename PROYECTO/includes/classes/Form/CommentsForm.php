@@ -54,7 +54,7 @@ EOF;
         if (count($result) === 0)
             $result = '/eventItem.php?event_id='.$_SESSION["event_id"];
         
-    
+        
         return $result;
     }
 }

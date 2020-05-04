@@ -12,7 +12,7 @@ require_once __DIR__.'/includes/config.php';
         $_SESSION["event_id"] = $_GET["event_id"];
 
     $event = $eventDAO->getEvent($_SESSION["event_id"]);
-    $event_id = $_SESSION["event_id"];
+    $eventId = $_SESSION["event_id"];
     $creatorId = $event->getCreator();
     
     $creator = $userDAO->getUser($creatorId);
@@ -27,8 +27,8 @@ require_once __DIR__.'/includes/config.php';
     $location = $event->getLocation();
     $descripcion = $event->getDescription();
 
-    //Assistentes del evento con id $event_id
-    $attendees = $eventDAO->getAttendees($event_id);
+    //Assistentes del evento con id $eventId
+    $attendees = $eventDAO->getAttendees($eventId);
     $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
 ?>
 
@@ -51,12 +51,12 @@ require_once __DIR__.'/includes/config.php';
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            if($userDAO->isMyEvent($currentUserId, $event_id)){
-                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
+            if($userDAO->isMyEvent($currentUserId, $eventId)){
+                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                 echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
             }
-            else if(!$userDAO->isAttending($currentUserId, $event_id)){
-                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
+            else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                 echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
             }
             else {
@@ -90,7 +90,7 @@ require_once __DIR__.'/includes/config.php';
 
     <div class = "tarjeta_naranja">
     <?php
-        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+        if(isset($_SESSION["userId"]) && $_SESSION["userId"])
             echo '<div class = "escribir_Comentario">';
             $form = new CommentsForm;
             $form->manage();

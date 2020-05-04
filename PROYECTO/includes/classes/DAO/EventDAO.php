@@ -22,12 +22,12 @@ class EventDAO extends DAO{
     * @param string $name               Nombre del evento
     * @param int $creator               Id del usuario TOUser
     * @param string $imgName            Nombre de la imagen en /includes/img/eventos
-    * @param Date $creationDate         Fecha de creaciï¿½n
+    * @param Date $creationDate         Fecha de creación
     * @param Date $eventDate            Fecha del evento
     * @param int $capacity              Aforo del evento
-    * @param string $location           Ubicaciï¿½n del evento
-    * @param string $description        Descripciï¿½n del evento
-    * @param string $eventTagsString    Cadena de string entera de los tags separado por ',' , se usa para la ediciï¿½n del evento
+    * @param string $location           Ubicación del evento
+    * @param string $description        Descripción del evento
+    * @param string $eventTagsString    Cadena de string entera de los tags separado por ',' , se usa para la edición del evento
     * @param array $eventTagsArray      Array de string de los tags sin el caracter ','
     * @return bool $tagsInserted        Devuelve true si se ha insertado el evento con exito a la BBDD.
     */
@@ -93,8 +93,8 @@ class EventDAO extends DAO{
 
     /**
     * Eliminar todos los tags de un evento en la tabla tags
-    * Se usa para la ediciï¿½n de un evento. Primero se usa esta funciï¿½n para
-    * eliminar todos los tags y aï¿½adirlos de nuevo.
+    * Se usa para la edición de un evento. Primero se usa esta función para
+    * eliminar todos los tags y añadirlos de nuevo.
     * 
     * @param int $eventId    Id del evento
     * @return bool $result   Devuelve true si se ha eliminado con exito los tags del evento con id $eventId
@@ -217,10 +217,10 @@ class EventDAO extends DAO{
     }
 
     /**
-    * Funciï¿½n para sacar los assistentes de un evento desde la tabla join_event.
+    * Función para sacar los assistentes de un evento desde la tabla join_event.
     *
     * @param int $eventId       Id del evento
-    * @return array $attendees  Array de int de los idï¿½s de los usuarios apuntados en dicho evento
+    * @return array $attendees  Array de int de los id´s de los usuarios apuntados en dicho evento
     */
     public function getAttendees($eventId){
         $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=1;";
@@ -233,14 +233,14 @@ class EventDAO extends DAO{
 	}
 
     /**
-    * Funciï¿½n para actualizar una fila de evento cuando se edita.
+    * Función para actualizar una fila de evento cuando se edita.
     * Diferencia con self::registerEvent: Esta tiene menos argumentos. (Argumentos que no se tiene que modificar)
     *
     * @param int $id                Id del evento 
     * @param string $name           Nombre del evento
     * @param int $capacity          Capacidad del evento
-    * @param string $location       Ubicaciï¿½n del evento
-    * @param string $description    Descripciï¿½n del evento
+    * @param string $location       Ubicación del evento
+    * @param string $description    Descripción del evento
     * @param string $tagsStr        Cadena de string con los tags separado por ','.   
     * @param array $tags            Array de string con los tags.
     * @return bool $success         Devuelve true si se ha modificado bien la fila del evento en la BBDD.
@@ -258,7 +258,7 @@ class EventDAO extends DAO{
         $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
 
         $eventInserted = $this->dbConn->query($updateQuery);
-        $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
+        $tagsInserted = this->removeTag($id) && this->addTag($id, $tags);
           
 
         return $eventInserted && $tagsInserted;
