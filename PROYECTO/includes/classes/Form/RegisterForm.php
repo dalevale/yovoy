@@ -58,9 +58,6 @@ EOF;
         
         $username = isset($data['username']) ? $data['username'] : null;
 		$password = isset($data['password']) ? $data['password'] : null;
-		$name = isset($data['name']) ? $data['name'] : null;
-		$email = isset($data['email']) ? $data['email'] : null;
-		$passwordConfirm = isset($data['passwordConfirm']) ? $data['passwordConfirm'] : null;
         
         if ( empty($username) || mb_strlen($username) < 5 ) {
             $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres. ";
@@ -70,17 +67,22 @@ EOF;
             $result[] = "La contraseña tiene que tener una longitud de al menos 5 caracteres. ";
         }
         
+		$name = isset($data['name']) ? $data['name'] : null;
         if ( empty($name) || mb_strlen($name) < 5 ) {
             $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
         }
         
+		$email = isset($data['email']) ? $data['email'] : null;
         if ( empty($email) || mb_strlen($email) < 5 ) {
             $result[] = "El email tiene que ser valido. ";
         }
        
+	    $passwordConfirm = isset($data['passwordConfirm']) ? $data['passwordConfirm'] : null;
         if ( empty($passwordConfirm) || strcmp($password, $passwordConfirm) !== 0 ) {
             $result[] = "Los passwords deben coincidir. ";
         }
+        
+		$result[] = var_dump($_FILES);
 		
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";
@@ -115,11 +117,12 @@ EOF;
 			$_SESSION["username"] = $username;
 	
 			// Cambiar el valor de $type si se elige la opci�n de ser usuario premium
-			if(isset($data["premium"])){
+			if(isset($_REQUEST["premium"])){
 				$type = 2;
 			}
 			//A�adir el usuario a la BBDD
 			if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type)) {
+				$_SESSION["regStatus"] = "Has sido registrado con �xito.";
 				return 'register.php';
 			} 
 			else {
