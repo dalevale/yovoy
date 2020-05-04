@@ -2,15 +2,11 @@
 
 <html>
 <head>
-    <meta charset="utf-8"/>
-     <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
     <title>BUSCAR</title>
 </head>
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php';
-			  include 'includes/classes/Form/SearchForm.php';
+        <?php include 'includes/comun/nav.php';
 		?>
     </header>
 	<h3> Buscar un evento </h3>
@@ -32,7 +28,7 @@
 			$form->manage();
 	?>
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

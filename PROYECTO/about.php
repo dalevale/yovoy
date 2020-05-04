@@ -1,16 +1,13 @@
-<?php 
-require_once __DIR__.'/includes/config.php';
-?>
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta charset="utf-8" />
-     <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
     <title>Nosotros</title>
 </head>
 <body>
+    <header>
+        <?php include 'includes/comun/nav.php' ?>
+    </header>
     <div>
         <div> 
         <h3> SOBRE NOSOTROS </h3>
@@ -34,5 +31,8 @@ require_once __DIR__.'/includes/config.php';
         <input type="image" id="image" alt="Volver" src="includes/img/boton_VOLVER.png" onclick="ret()">
        <!--<button onclick="ret()"><img src="includes/img/boton_VOLVER.png" alt="Volver"></button>!-->
     </div>
+    <footer>
+        <?php include 'includes/comun/footer.php' ?>
+    </footer>
 </body>
 </html>

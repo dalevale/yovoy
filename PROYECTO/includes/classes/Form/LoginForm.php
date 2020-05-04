@@ -34,18 +34,17 @@ EOF;
         $userDAO = new UserDAO($conn);
         $result = array();
         
+        //Validación campo email rellenado
         $email = isset($data['email']) ? $data['email'] : null;
-                
         if ( empty($email) ) {
             $result[] = "El nombre de usuario no puede estar vacío";
         }
-        
+        //Validación campo contraseña rellenado
         $password = isset($data['password']) ? $data['password'] : null;
         if ( empty($password) ) {
             $result[] = "El password no puede estar vacío.";
         }
-        
-        //OBTENEMOS USUARIO Y CONTRASEÑA DESDE LA BASE DE DATOS
+        //Obtenemos credenciales desde BBDD
         if ($userDAO->userExists($email)) {
             $userId = $userDAO->getId($email);
             $user = $userDAO->getUser($userId);
@@ -55,7 +54,7 @@ EOF;
 			}
         }
         else{
-            //ERROR CUANDO EL USUARIO NO ESTÁ REGISTRADO
+            //Error cuando el usuario no esta registrado
             $result[] = "El usuario no esta registrado.";
             $_SESSION["login"] = false;
             $_SESSION["userInDB"] = false;
@@ -69,7 +68,6 @@ EOF;
                 $_SESSION["userId"] = $user->getUserId();
                 //$_SESSION['esAdmin'] = strcmp($usuario->rol(), 'admin') == 0 ? true : false;
                 $result = 'feed.php';
-            
         }
         return $result;
     }

@@ -1,57 +1,31 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-	<meta charset="utf-8">
-    <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
 	<title>Login - YoVoy</title>
 </head>
 
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <div>
         <?php
-            if(!isset($_SESSION["login"])){
+            if(!isset($_SESSION["login"]) || (isset($_SESSION["login"]) && !$_SESSION["login"] )){
                 echo '<h3>Login de usuario</h3>'; 
                 $form = new LoginForm;
                 $form->manage();
-                
             }
-            else{
+            else {
                 echo '<p>Ya estas logueado.</p>'; 
             }
-        ?>
-        <!--<form method = "post" class="tarjeta_gris" action="<?php echo htmlspecialchars("includes/loginSubmit.php");?>">
-            <ul>
-                <li><label>Email</label><input type="text" name="email"/></li>
-                <li><label>Contraseña</label><input type="password" name="password"/></li>
-                <!--<li><input type="image" alt="submit" src="includes/img/boton_LOGIN.png"></li>
-                <li><input type="submit" value="Login" ></li>
-            </ul>
-        </form>-->
             
-        <?php 
-            if(isset($_SESSION["login"])){
-                if(!$_SESSION["login"]){
-                    echo '<p>Autenticación no válida</p>';
-                        
-                    if(!$_SESSION["userInDB"])
-                        echo '<p>Usuario no existente.</p>';
-                    else if(!$_SESSION["correctPass"]){
-                        echo '<p>Contraseña incorrecta</p>';
-                    }
-
-                    session_destroy();
-                }
-            }
         ?>
     </div>
  
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

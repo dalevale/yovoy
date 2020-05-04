@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
     <title>Ver Eventos - YoVoY</title>
     <script>
      function crearEvento(){
@@ -13,7 +10,7 @@
 </head>
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <div>
@@ -23,38 +20,35 @@
        
             $app = es\ucm\fdi\aw\Application::getSingleton();
 		    $conn = $app->bdConnection(); 
-            //mostrar eventos de BBDD
             $eventDAO = new EventDAO($conn);
             $userDAO = new userDAO($conn);
-          
-            $result = $eventDAO->getAllEvents();
-            if($result->num_rows > 0){
-                    echo "<ul>";
-                while($row = $result->fetch_assoc()){
-                        $eventId = $row["event_id"];
-                        $eventImgName = $eventDAO->getEvent($eventId)->getImgName();
-                        $eventImgDir = "includes/img/events/";
-                        $eventImgPath = $eventImgDir . $eventImgName;
-                        $eventId = $row["event_id"];
-                        echo "<li><ul class = 'evento'>";
-                            echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
-                            echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
-                            echo $row["name"] ." ";
-                            echo "Date: ". $row["event_date"] ." ";
-                            echo "Created by: ". $userDAO->getUser($row["creator"])->getUsername()." ";
-                            echo "Capacity: ". $row["capacity"]." ";
-                            echo "Location: ". $row["location"]." ";
-                            echo "</a>";
-                        echo "</ul></li>";
+            $eventsList = $eventDAO->getAllEvents();
+
+            //Mostrar eventos de BBDD
+            echo "<ul>";
+            while(sizeof($eventsList) > 0){
+                $event = array_pop($eventsList);
+                $eventImgName = $event->getImgName();
+                $eventImgDir = "includes/img/events/";
+                $eventImgPath = $eventImgDir . $eventImgName;
+                $eventId = $event->getEventId();
+                echo "<li class = 'evento'>";
+                    echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+                    echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
+                    echo $event->getName() ." ";
+                    echo "Date: ". $event->getEventDate() ." ";
+                    echo "Created by: ". $userDAO->getUser($event->getCreator())->getUsername()." ";
+                    echo "Capacity: ". $event->getCapacity()." ";
+                    echo "Location: ". $event->getLocation()." ";
+                    echo "</a>";
+                echo "</li>";
 			    }
             echo "</ul>";
-            }
         ?>
     </div>
 
-
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

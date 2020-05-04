@@ -1,14 +1,15 @@
-<?php session_start(); ?>
+
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta charset="utf-8" />
-     <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
     <title>Preguntas Precuentes</title>
 </head>
+
 <body>
+    <header>
+        <?php include 'includes/comun/nav.php' ?>
+    </header>
     <div>
         <div> 
         <h3> PREGUNTAS FRECUENTES </h3>
@@ -32,5 +33,8 @@
         
         <input type="image" id="image" alt="Volver" src="includes/img/boton_VOLVER.png" onclick="ret()">
     </div>
+    <footer>
+        <?php include 'includes/comun/footer.php' ?>
+    </footer>
 </body>
 </html>

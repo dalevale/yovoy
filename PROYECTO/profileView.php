@@ -1,9 +1,7 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8" />
-    <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
     <title>Ver Perfil - YoVoY</title>
 	<script>
         function editar(){
@@ -17,7 +15,7 @@
 </head>
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <div class = "tarjeta_gris">
@@ -43,7 +41,19 @@
 					$imgName = $user->getImgName();
 					$imgPath = $imgDir . $imgName;
 					echo "<img src='" . $imgPath . "' alt='usuario' height='200' width='200'>";
+					if($userId == $profileId){
+						// botón para editar perfil
+						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
+						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
 				
+						// botón para cambiar contraseña
+						echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
+						//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
+					}
+					else{
+						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
+						$relMan->manage();
+					}
 					// mostrar información
 					$username = $user->getUsername();
 					$name = $user->getName();
@@ -58,14 +68,12 @@
 						$type = "Usuario Premium";
 					}
 					$creationDate = $user->getCreationDate();
-					//$email = $user->getEmail();
 				
 					echo "<p>" . $username . "</p>";
 					echo "<p>" . $name . "</p>";
 					echo "<p>" . $type . "</p>";
 					echo "<p>Se unió " . $creationDate . "</p>";
-					//echo "<p>" . $email . "</p>"; //no queremos mostrar email
-					echo "<p>Mis Eventos:</p>";
+					echo "<h1>Mis Eventos:</h1>";
 			
 					$createdEvents = $userDAO->getCreatedEvents($profileId);
 					if(count($createdEvents) > 0){
@@ -80,44 +88,24 @@
 							echo '</p></a>';
 						}
 					}
-
-					if($userId == $profileId){
-						// botón para editar perfil
-						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
-						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
-				
-						// botón para cambiar contraseña
-						echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
-						//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
+					else {
+						echo '<p>Lamentablemente, no tiene eventos de momento.</p>';
 					}
-					else{
-						/*//chequear tabla de relacion para opciones de añadir, bloquear, etc..
-						//add friend
-						$friendStatus = $userDAO->checkStatus($userId, $profileId);
-						switch($friendStatus){
-							case 0: //PENDING
-								echo $friendStatus;
-								echo '<p>Pending friend request</p>';
-							break;
-							case 1: //ACCEPTED
-								echo $friendStatus;
-								echo '<p>You and '.$name.' are friends!</p>';
-							break;
-							case 2: //BLOCKED
-								echo $friendStatus;
-								echo '<p>'.$name.' blocked you!</p>';
-							break;
-							default:
-								echo $friendStatus;
-								echo '<form method="POST" action="includes/manageRelation.php"><input type="hidden" name="profileId" value="'.$profileId.'"/>';
-								echo '<input type="image" alt="submit" src="includes/img/icono_FRIENDS.png" title="Añadir amigo"/></form>';
-							break;
-						}*/
-						$relMan->manage();
-						
+					$friends = $userDAO->getFriends($profileId);
+					echo '<h1>Mis Amigos</h1>';
+					echo '<ul>';
+					while(sizeof($friends) > 0){
+						echo '<li><ul>';
+						$friend = array_pop($friends);
+						$imgDir = "includes/img/users/";
+						$imgName = $friend->getImgName();
+						$imgPath = $imgDir . $imgName;
+						echo '<a href="profileView.php?profileId='.$friend->getUserId().'"><li><img src="'.$imgPath.'" width="50px" height="50px"></li>';
+						echo '<li>'.$friend->getName().'</li>';
+						echo '<li>'.$friend->getUsername().'</li></a>';
+						echo '</ul></li>';
 					}
-					
-				
+					echo '</ul>';
 			}
 			else{
 				echo "<p>Login o registrate para ver esta información.</p>";
@@ -126,7 +114,7 @@
     </div>
 
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

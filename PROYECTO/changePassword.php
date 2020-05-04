@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-    <link href="estilos.css" rel="stylesheet" type="text/css" /> 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
 	<title>Cambiar Contraseña - YoVoy</title>
 </head>
 
 <body>
     <header>
-        <?php include 'includes/comun/cabecera.php' ?>
+        <?php include 'includes/comun/nav.php' ?>
     </header>
 
     <h3>Login de usuario</h3> 
     <div class = "tarjeta_gris">
         
-
         <form method = "post" action="<?php echo htmlspecialchars("includes/changePasswordSubmit.php");?>">
             <ul>
                 <label>Contraseña actual <input type="password" name="currPass" required/></label>
@@ -40,7 +36,7 @@
     </div>
  
     <footer>
-        <?php include 'includes/comun/pie.php' ?>
+        <?php include 'includes/comun/footer.php' ?>
     </footer>
 </body>
 </html>

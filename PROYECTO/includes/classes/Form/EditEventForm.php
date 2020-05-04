@@ -26,14 +26,12 @@ class EditEventForm extends Form
         $eventDescription = $event->getDescription();
         $html = <<<EOF
         <div class='tarjeta_gris'>
-                <input type="hidden" name="eventId" value="$eventId">
-				<label>Título: </label><input type="text" name="eventName" value="$eventName"required >
+                <p><label>Título: </label><input type="text" name="eventName"  value="$eventName"required ></p>
                 <p>
                     <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="$eventEventDate" min="2020-01-01" max="2020-12-31">
-					<label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" required >
 					<label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="$eventCapacity" min="1" max="100">
-					<!--<p><label>Email del organizador: <input type="email" id="email" placeholder="Introduce una dirección válida"required></label></p>
-				</p>-->
+			    </p>
+                <label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" required >
 				<label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" value="$eventTags" required>
 				<p> <label for="address">Descripción del evento:</label> </p>
 				<p> <textarea rows="9" cols="70" name="description">$eventDescription</textarea> </p>
