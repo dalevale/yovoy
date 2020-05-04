@@ -108,14 +108,16 @@ require_once __DIR__.'/includes/config.php';
                         $waitingUserId = $waitingUser->getUserId();
                         echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
 
-                        echo '<form method="POST" action="includes/acceptUserInEvent.php">';
+                        echo '<form method="POST" action="includes/processUserInEvent.php">';
                         echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
                         echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<input type="hidden" name="status" value="1">';
                         echo '<button type="submit">Aceptar</button></form>';
 
-                        echo '<form method="POST" action="includes/rejectUserInEvent.php">';
+                        echo '<form method="POST" action="includes/processUserInEvent.php">';
                         echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
                         echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<input type="hidden" name="status" value="0">';
                         echo '<button type="submit">Rechazar</button></form>';
                         echo '</div>';
                     }

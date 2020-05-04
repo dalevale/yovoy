@@ -9,7 +9,8 @@ require_once __DIR__.'/config.php';
 
    $eventId = $_POST["event_id"];
    $userId = $_POST["userId"];
+   $status = $_POST["status"];
 
-   $eventsDAO->userInEventRequest($userId,$eventId,false);
+   $eventsDAO->userInEventRequest($userId,$eventId,$status);
    
     header("Location: ../eventItem.php?event_id=".$eventId."");
