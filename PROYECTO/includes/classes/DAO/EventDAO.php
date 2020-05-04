@@ -223,10 +223,10 @@ class EventDAO extends DAO{
     * @return array $attendees  Array de int de los id�s de los usuarios apuntados en dicho evento
     */
     public function getAttendees($eventId,$accepted){
-        if($accepted)
-            $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=1;";
-        else
-            $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=0;";
+
+        $accepted = $accepted? 1:0;
+
+        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=$accepted";
         $result = $this->dbConn->query($eventQuery);
         $attendees = array();
         while($row = $result->fetch_assoc()) {
