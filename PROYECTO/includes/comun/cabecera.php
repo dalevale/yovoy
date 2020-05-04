@@ -22,7 +22,7 @@ require_once __DIR__.'/../config.php';
 			</ul>
 		</div>
 		
-		<div id="usuario">
+	<	<div id="usuario">
 			<?php
 
 				function logout(){
