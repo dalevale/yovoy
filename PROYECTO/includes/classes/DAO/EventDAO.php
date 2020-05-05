@@ -233,7 +233,7 @@ class EventDAO extends DAO{
             array_push($attendees, $row["user_id"]);
 		}
         return $attendees;
-	}
+    }
 
     /**
     * Funci�n para actualizar una fila de evento cuando se edita.
