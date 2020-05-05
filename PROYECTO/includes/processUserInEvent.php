@@ -15,6 +15,6 @@ require_once __DIR__.'/config.php';
    $eventsDAO->userInEventRequest($userId,$eventId,$status);
    
    if($source == "eventItem")
-      header("Location: ../eventItem.php?event_id='.$eventId.'");
+      header("Location: ../eventItem.php?event_id=$eventId");
    else if($source == "notifications")
       header("Location: /notifications.php");
