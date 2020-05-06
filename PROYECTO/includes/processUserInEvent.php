@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/config.php';
 
-//metemos el user y el evento en la tabla de joinEvent
+   //Gestión de procesamiento de eventos.
 
    $app = es\ucm\fdi\aw\Application::getSingleton();
    $conn = $app->bdConnection(); 
