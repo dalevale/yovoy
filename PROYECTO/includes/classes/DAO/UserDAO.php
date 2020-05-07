@@ -192,7 +192,7 @@ class UserDAO extends DAO{
     * @return array @$userArray     Devuelve un array de los identificadores de los usuarios.
     */
     public function getFriends($userId){
-        $query = "SELECT * FROM relationship WHERE status = 1 AND user_one_id = ".$userId." OR user_two_id =  ".$userId.";";
+        $query = "SELECT * FROM relationship WHERE status = 1 AND (user_one_id = ".$userId." OR user_two_id =  ".$userId.");";
         $userArray = array();
         $result = $this->dbConn->query($query);
         while($row = $result->fetch_assoc()) {

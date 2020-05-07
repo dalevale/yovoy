@@ -11,7 +11,7 @@
 	</header>
 	<script>
 		function goBack() {
-			window.location.href = "eventos.php";
+			window.location.href = "events.php";
 		}
 	</script>
 	

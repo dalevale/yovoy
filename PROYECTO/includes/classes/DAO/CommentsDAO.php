@@ -41,7 +41,7 @@ class CommentsDAO extends DAO{
 
         $commentsArray = array();
         while($row = $result->fetch_assoc()) {
-            $id = $row["id"];
+            $id = $row["comment_id"];
             $event_id= $row["event_id"];
             $user_id = $row["user_id"];
             $date = $row["date"];
@@ -67,7 +67,7 @@ class CommentsDAO extends DAO{
     * @return bool result   Devuelve true si se ha eliminado correctamente la fila en la BBDD
     */
     public function deleteComment($id){
-        $deleteComment= "DELETE FROM comments WHERE id = '".$id."'";
+        $deleteComment= "DELETE FROM comments WHERE comment_id = '".$id."'";
         return $this->dbConn->query($deleteComment);
     }
 }

@@ -46,7 +46,7 @@ require_once __DIR__.'/includes/config.php';
     <div class = "evento">
     <?php
         echo '<h1>'.$eventName.'</h1>';
-        echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a>';
+        echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
         echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
@@ -81,7 +81,10 @@ require_once __DIR__.'/includes/config.php';
                     $attendee =  $userDAO->getUser($attendees[$i]);
                     $attendeeName = $attendee->getUsername();
                     $attendeeId = $attendee->getUserId();
-                    echo '<a href="profileView.php?profileId='.$attendeeId.'"><p>'.$attendeeName.'</p></a>'; 
+                    $imgDir = "includes/img/users/";
+					$imgName = $attendee->getImgName();
+					$imgPath = $imgDir . $imgName;
+                    echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</p></a>'; 
 			    }
             }
             else{

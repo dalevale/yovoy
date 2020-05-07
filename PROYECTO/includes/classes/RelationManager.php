@@ -124,7 +124,7 @@ EOF;
             $this->deleteRow($this->userOneId, $this->userTwoId);
 	   }
        
-       $result = 'profileView.php?profileId=3';
+       $result = 'profileView.php?profileId='.$this->userTwoId;
        return $result;
     }
 

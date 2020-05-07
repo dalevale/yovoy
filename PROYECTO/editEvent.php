@@ -5,7 +5,7 @@
     <title> Editar Evento - YoVoY </title>
 	<script>
 		function goBack() {
-			window.location.href = "eventos.php";
+			window.location.href = "events.php";
 		}
 	</script>
 </head>
@@ -17,7 +17,7 @@
 	<div>	
 		<h1>Editar Evento</h1>
 		<?php 
-			$eventId = $_POST["eventId"];
+			$eventId = $_POST["event_id"];
 			$form = new EditEventForm($eventId);
 			$form->manage();
 		?>

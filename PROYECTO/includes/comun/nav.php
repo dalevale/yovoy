@@ -69,9 +69,9 @@ require_once __DIR__.'/../config.php';
 							echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 					
 							//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
-							if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
-								echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";
-							}   
+							//if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
+							//	echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";
+							//}   
 						}
 					}
 				?>
