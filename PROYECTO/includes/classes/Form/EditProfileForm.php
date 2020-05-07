@@ -5,7 +5,7 @@ require_once __DIR__.'/Form.php';
 class EditProfileForm extends Form
 {
     private $userId;
-    public function __construct($eventId) {
+    public function __construct($userId) {
         parent::__construct('editProfileForm');
         $this->userId = $userId;
     }
@@ -17,30 +17,89 @@ class EditProfileForm extends Form
         $conn = $app->bdConnection();
         $userDAO = new UserDAO($conn);
         $user = $userDAO->getUser($userId);
-        $username = $user->getUsername();
         $name = $user->getName();
-        $imgName = $user->getImgName();
 		
         $html = <<<EOF
 		<ul class="tarjeta_gris">
-			<li>
+			<div>
+				<li>
+					<label>
+						Nombre
+					</label>
+					<input type="text" name="name" value="$name" required/>
+					
+				</li>
+			</div>
+			<div>
 				<label>
-					Nombre
+					Foto de usuario
 				</label>
-				<input type="text" name="name" value="$name" required/>
-			</li>
-			<li>
+			</div>
+			<div>
+				<li>
+					<input type="radio" name="imgChoice" value="noChange" checked/>
+					<label>
+						No cambiar la foto
+					</label>
+				</li>
+				<li>
+					<input type="radio" name="imgChoice" value="upload"/>
+					<label>
+						Subir una foto para usar
+					</label>
+					<input type="file" accept =".png, .jpg, .jpeg" name="img" />
+				</li>
+				<li>
+					<input type="radio" name="imgChoice" value="defaultImg"/>
+					<label>
+						Cambiar foto a la predeterminada
+					</label>
+				</li>
+			</div>
+			<div>
 				<label>
-					Foto
+					Contraseña
 				</label>
-				<input type="file" accept =".png, .jpg, .jpeg" name="img"/>
-			</li>
-			<li>
+			</div>
+			<div>
+				<li>
+					<input type="radio" name="passChoice" value="noChange" checked/>
+					<label>
+						No cambiar la contraseña
+					</label>
+				</li>
+				<li>
+					<input type="radio" name="passChoice" value="change"/>
+					<label>
+						Cambiar la contraseña
+					</label>
+					
+				</li>
+			</div>
+			<div>
 				<label>
-					Cambiar foto a la predeterminada
+					Contraseña actual
 				</label>
-				<input type="checkbox" name="defaultImg" value="defaultImg">
-			</li>
+				<input class="control" type="password" name="currPass"/>
+			</div>
+			<div>
+				<label>
+					Confirme contraseña actual
+				</label>
+				<input class="control" type="password" name="currPassConfirm"/>
+			</div>
+			<div>
+				<label>
+					Contraseña nueva
+				</label>
+				<input class="control" type="password" name="newPass"/>
+			</div>
+			<div>
+				<label>
+					Confirme contraseña nueva
+				</label>
+				<input class="control" type="password" name="newPassConfirm"/>
+			</div>
 			<div>
 				<input type="image" name="submit" title="Confirmar" alt="submit" src="includes/img/boton_OK.png">
 				<input type="image" name="reset" title="Cancelar" alt="cancelar" src="includes/img/boton_CANCELAR.png">
@@ -55,73 +114,92 @@ EOF;
 
     protected function processForm($data)
     {
-		
+		//INICIAMOS CONEXIÓN CON MYSQL
+		$app = es\ucm\fdi\aw\Application::getSingleton();
+		$conn = $app->bdConnection(); 
+
+		$userDAO = new UserDAO($conn);
+		$userId = $this->userId;
+		$user = $userDAO->getUser($userId);
+
         $result = array();
         
-        $name = isset($data['name']) ? $data['name'] : null;
+		$name = isset($data['name']) ? $data['name'] : null;
 		
-		$defaultImgName = "default.jpg"; // Nombre de la foto predeterminada
-		$imgName = $defaultImgName;
+		$changeImg = isset($data['imgChoice']) && $data['imgChoice'] !="noChange";
+		$changePass = isset($data['passChoice']) && $data['passChoice'] != "noChange";
 		
-		$changeName = !empty($name);
-		$changeImg = !empty($_FILES['img']['name']) || isset($data['defaultImg']);
-        
-		// Si hay un nombre como entrada, cambiar el nombre del usuario
-        if ( $changeName ) {
-			if ( mb_strlen($name) < 5 ){ 
-				$result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
-			}
-			else{
-				
-			}
-        }
-		
-		// Si hay una foto subida por el usuario, cambiarlo
-		if ( $changeImg ){
-			$targetDir = "/Yovoy/Proyecto/includes/img/users/";
-			$imgName = basename($_FILES['img']['name']);
-			
-			// Si no hay foto subido y la casilla de elegir la foto predeterminada está activo, cambiar el valor de $imgName
-			if (empty($_FILES['img']['name']) && isset($data['defaultImg'])){
+		if ($changeImg){
+			$defaultImgName = "default.jpg"; // Nombre de la foto predeterminada
+
+			if ($data['imgChoice'] == "defaultImg"){
 				$imgName = $defaultImgName;
 			}
-			
-			// Conseguir la dirección en que se guarda la foto subida
-			$targetFilePath = $_SERVER['DOCUMENT_ROOT'] . $targetDir . $imgName;
-			
-			// Si la foto anterior no es default.jpg, borrarla
-			$currImgName = $user->getImgName();
-			if ($currImgName != $defaultImgName){
-				unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $currImgName);
-			}
-			
-			if ($imgName != $defaultImgName){
-				// Mover la foto al directorio especificada en $targetDir
-				if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
-					$result[] .= "Error: Se produjo un error al subir su foto.";
+			else{
+				// Si hay una foto subida por el usuario, cambiarlo
+				if (isset($_FILES['img'])){
+					$targetDir = "/Yovoy/Proyecto/includes/img/users/";
+					$imgName = basename($_FILES['img']['name']);
+					
+					// Conseguir la dirección en que se guarda la foto subida
+					$targetFilePath = $_SERVER['DOCUMENT_ROOT'] . $targetDir . $imgName;
+					
+					// Si la foto anterior no es default.jpg, borrarla
+					$currImgName = $user->getImgName();
+					if ($currImgName != $defaultImgName){
+						unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $currImgName);
+					}
+					
+					if ($imgName != $defaultImgName){
+						// Mover la foto al directorio especificada en $targetDir
+						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
+							$result[] = "Error: Se produjo un error al subir su foto.";
+						}
+					}
+				}
+				else{
+					$result[] = "Error: No hay ninguna foto subida.";
 				}
 			}
-			
+		}
+
+		if($changePass){
+			$currPass = isset($data['currPass']) ? $data['currPass'] : null;
+			$currPassConfirm = isset($data['currPassConfirm']) ? $data['currPassConfirm'] : null;
+			$newPass = isset($data['newPass']) ? $data['newPass'] : null;
+			$newPassConfirm = isset($data['newPassConfirm']) ? $data['newPassConfirm'] : null;
+
+			// Comprobar las contraseñas
+			if ($currPass != $currPassConfirm){
+				$result[] = "Error: Asegura que las contraseñas actuales sean iguales";
+			}
+			else if ($newPass != $newPassConfirm){
+				$result[] = "Error: Asegura que las contraseñas nuevas sean iguales";
+			}
+			else if (!$user->comparePassword($currPass)){
+				$result[] = "Error: Contraseña actual incorrecta";
+			}
+			else{
+				$password = $newPass;
+			}
 		}
 
         if (count($result) == 0) {
+			if(!$changeImg){
+				$imgName = $user->getImgName();
+			}
 
-            //INICIAMOS CONEXI�N CON MYSQL
-
-			$app = es\ucm\fdi\aw\Application::getSingleton();
-			$conn = $app->bdConnection(); 
-
-			$userDAO = new UserDAO($conn);
+			if(!$changePass){
+				$password = null;
+			}
 			
 			//Actualizar la BBDD
-			if ($changeName && !$userDAO->changeName($username, $name)){
+			if (!$userDAO->updateUser($userId, $password, $name, $imgName)){
 				$result[] = "Error: Se produjó un error al actualizar la base de datos.";
 			}
-			
-			if ($changeImg && !$userDAO->changeImg($userID, $imgName)){
-				$result[] .= "Error: Se produjó un error al actualizar la base de datos. ";
+			else{
+				$result='editProfile.php';
 			}
-			
         }
         return $result;
     }

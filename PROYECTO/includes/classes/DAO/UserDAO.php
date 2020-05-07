@@ -112,18 +112,19 @@ class UserDAO extends DAO{
 		return $this->dbConn->query($changePassQuery);
 	}
 	
-	public function updateUser($id, $email, $password, $username, $name, $imgName, $creationDate, $type){
+	public function updateUser($id, $password, $name, $imgName){
 		//VALORES A INSERTAR EN LA BBDD
         $userUpdated = false;
 
         $updateStr = 
-            "'".$email."',"
-            ."'".self::hashPassword($password)."',"
-			."'".$username."',"
-            ."'".$name."',"
-            ."'".$imgName."',"
-            ."'".$creationDate."',"
-            ."'".$type."'";
+        "name='".$name."',"
+        ."img_name='".$imgName."'";
+
+        // Si el valor de $password es null, podemos asumir que no se cambia la contraseña
+        if (!is_null($password)){
+            $updateStr .= ",password='" . self::hashPassword($password) . "'";
+        }
+
         $updateQuery = "UPDATE user SET ".$updateStr." WHERE user_id = '".$id."';";
 
         $userUpdated = $this->dbConn->query($updateQuery);

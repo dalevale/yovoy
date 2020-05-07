@@ -25,7 +25,7 @@ class RegisterForm extends Form
 				<label>Nombre completo:</label> <input class="control" type="text" name="name" value="$name" required />
 			</li>
 			<li class="grupo-control">
-				<label>Contrase�a:</label> <input class="control" type="password" name="password" required/>
+				<label>Contraseña:</label> <input class="control" type="password" name="password" required/>
 			</li>
             <li class="grupo-control">
 				<label>Confirme contraseña:</label> <input class="control" type="password" name="passwordConfirm" required/>
@@ -120,7 +120,7 @@ EOF;
 			}
 			//A�adir el usuario a la BBDD
 			if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type)) {
-				$_SESSION["regStatus"] = "Has sido registrado con �xito.";
+				//$_SESSION["regStatus"] = "Has sido registrado con �xito.";
 				return 'register.php';
 			} 
 			else {
