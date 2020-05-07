@@ -57,7 +57,7 @@
         if($empty)
             echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de eventos.</div>';
     ?>
-    </div>;
+    </div>
 
     <div class="tarjeta_gris">
     <?php
