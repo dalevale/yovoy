@@ -248,7 +248,7 @@ class EventDAO extends DAO{
     * @param array $tags            Array de string con los tags.
     * @return bool $success         Devuelve true si se ha modificado bien la fila del evento en la BBDD.
     */
-    public function updateEvent($id, $name, $capacity, $location, $description, $tagsStr, $tags){        
+    public function updateEvent($id, $name, $capacity, $location, $description, $tagsStr, $tags, $imgName){        
         //VALORES A INSERTAR EN LA BBDD
         $eventInserted = false;
         $tagInserted = false;
@@ -257,7 +257,8 @@ class EventDAO extends DAO{
                 ."capacity ='".$capacity."'". "," 
                 ."location ='".$location."'". "," 
                 ."description ='".$description."'". ","
-                ."tags ='".$tagsStr."'";
+                ."tags ='".$tagsStr."'". ","
+                ."img_name ='".$imgName."'";
         $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
 
         $eventInserted = $this->dbConn->query($updateQuery);

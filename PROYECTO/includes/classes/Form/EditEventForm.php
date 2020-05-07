@@ -26,18 +26,25 @@ class EditEventForm extends Form
         $eventDescription = $event->getDescription();
         $html = <<<EOF
         <div class='tarjeta_gris'>
-                <p><label>Título: </label><input type="text" name="eventName"  value="$eventName"required ></p>
-                <p>
-                    <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="$eventEventDate" min="2020-01-01" max="2020-12-31">
-					<label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="$eventCapacity" min="1" max="100">
-			    </p>
-                <label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" required >
-				<label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" value="$eventTags" required>
-				<p> <label for="address">Descripción del evento:</label> </p>
-				<p> <textarea rows="9" cols="70" name="description">$eventDescription</textarea> </p>
-				<button type="submit"> Enviar </button>
-				<button type="reset"> Borrar Campos </button>
-				<button type="text" onClick="goBack()"> Cancelar </button>
+            <input type="hidden" name="event_id" value="$eventId"/>'
+            <p><label>Título: </label><input type="text" name="eventName"  value="$eventName"required ></p>
+            <p><label>Foto de evento</label></p>
+            <p>
+                <li><input type="radio" name="imgChoice" value="noChange" checked/><label>No cambiar la foto </label></li>
+                <li><input type="radio" name="imgChoice" value="upload"/><label>Subir una foto para usar </label><input type="file" accept =".png, .jpg, .jpeg" name="img" /></li>
+                <li><input type="radio" name="imgChoice" value="defaultImg"/><label>Cambiar foto a la predeterminada </label></li>
+            </p>
+            <p>
+                <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="$eventEventDate" min="2020-01-01" max="2020-12-31">
+                <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="$eventCapacity" min="1" max="100">
+            </p>
+            <label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" required >
+            <label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" value="$eventTags" required>
+            <p> <label for="address">Descripción del evento:</label> </p>
+            <p> <textarea rows="9" cols="70" name="description">$eventDescription</textarea> </p>
+            <button type="submit"> Enviar </button>
+            <button type="reset"> Borrar Campos </button>
+            <button type="text" onClick="goBack()"> Cancelar </button>
 	    </div>
 EOF;
         return $html;
@@ -46,7 +53,13 @@ EOF;
 
     protected function processForm($data)
     {
-        
+        //Conectamos a BBDD
+        $app = es\ucm\fdi\aw\Application::getSingleton();
+        $conn = $app->bdConnection(); 
+        $eventDAO = new EventDAO($conn);
+        $eventId = $this->eventId;
+        $event = $eventDAO->getEvent($eventId);
+
         $result = array();
         //Valores introducidos por el creador del evento
         $eventTags = null;
@@ -83,20 +96,53 @@ EOF;
                 
         if ( empty($maxAssistants) ) {
             $result[] = "Numero afóro del evento no puede estar vacío";
-        }    
+        }
+        
+        $changeImg = isset($data['imgChoice']) && $data['imgChoice'] !="noChange";
+
+        if ($changeImg){
+			$defaultImgName = "default-event.png"; // Nombre de la foto predeterminada
+
+			if ($data['imgChoice'] == "defaultImg"){
+				$imgName = $defaultImgName;
+			}
+			else{
+				// Si hay una foto subida por el usuario, cambiarlo
+				if (isset($_FILES['img'])){
+					$targetDir = "/Yovoy/Proyecto/includes/img/events/";
+					$imgName = basename($_FILES['img']['name']);
+					
+					// Conseguir la dirección en que se guarda la foto subida
+					$targetFilePath = $_SERVER['DOCUMENT_ROOT'] . $targetDir . $imgName;
+					
+					// Si la foto anterior no es default.jpg, borrarla
+					$currImgName = $event->getImgName();
+					if ($currImgName != $defaultImgName){
+						unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $currImgName);
+					}
+					
+					if ($imgName != $defaultImgName){
+						// Mover la foto al directorio especificada en $targetDir
+						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
+							$result[] = "Error: Se produjo un error al subir su foto.";
+						}
+					}
+				}
+				else{
+					$result[] = "Error: No hay ninguna foto subida.";
+				}
+			}
+		}
 
         if (count($result) === 0) {
-            //Conectamos a BBDD
+            if(!$changeImg){ 
+				$imgName = $event->getImgName();
+            }
             
-            $app = es\ucm\fdi\aw\Application::getSingleton();
-            $conn = $app->bdConnection(); 
-            $eventDAO = new EventDAO($conn);
             $result = array();
             //Actualizar el evento en la BBDD
-	        //if ($eventDAO->updateEvent($this->eventId, $eventName, $creator, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTags) === true) {
-		    $id = $data["eventId"];
-            if($eventDAO->updateEvent($id, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsStr, $eventTags)){
-            $result = "eventos.php";
+            if($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsStr, $eventTags, $imgName)){
+                $result = "eventItem.php?event_id=".$eventId;
             }
             else {
                 $result[] = "Error en crear evento! Consulta un administrador.";

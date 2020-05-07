@@ -21,85 +21,22 @@ class EditProfileForm extends Form
 		
         $html = <<<EOF
 		<ul class="tarjeta_gris">
-			<div>
-				<li>
-					<label>
-						Nombre
-					</label>
-					<input type="text" name="name" value="$name" required/>
-					
-				</li>
-			</div>
-			<div>
-				<label>
-					Foto de usuario
-				</label>
-			</div>
-			<div>
-				<li>
-					<input type="radio" name="imgChoice" value="noChange" checked/>
-					<label>
-						No cambiar la foto
-					</label>
-				</li>
-				<li>
-					<input type="radio" name="imgChoice" value="upload"/>
-					<label>
-						Subir una foto para usar
-					</label>
-					<input type="file" accept =".png, .jpg, .jpeg" name="img" />
-				</li>
-				<li>
-					<input type="radio" name="imgChoice" value="defaultImg"/>
-					<label>
-						Cambiar foto a la predeterminada
-					</label>
-				</li>
-			</div>
-			<div>
-				<label>
-					Contraseña
-				</label>
-			</div>
-			<div>
-				<li>
-					<input type="radio" name="passChoice" value="noChange" checked/>
-					<label>
-						No cambiar la contraseña
-					</label>
-				</li>
-				<li>
-					<input type="radio" name="passChoice" value="change"/>
-					<label>
-						Cambiar la contraseña
-					</label>
-					
-				</li>
-			</div>
-			<div>
-				<label>
-					Contraseña actual
-				</label>
-				<input class="control" type="password" name="currPass"/>
-			</div>
-			<div>
-				<label>
-					Confirme contraseña actual
-				</label>
-				<input class="control" type="password" name="currPassConfirm"/>
-			</div>
-			<div>
-				<label>
-					Contraseña nueva
-				</label>
-				<input class="control" type="password" name="newPass"/>
-			</div>
-			<div>
-				<label>
-					Confirme contraseña nueva
-				</label>
-				<input class="control" type="password" name="newPassConfirm"/>
-			</div>
+			<p><li><label>Nombre </label><input type="text" name="name" value="$name" required/></li></p>
+			<p><label>Foto de usuario</label></p>
+			<p>
+				<li><input type="radio" name="imgChoice" value="noChange" checked/><label>No cambiar la foto</label></li>
+				<li><input type="radio" name="imgChoice" value="upload"/><label>Subir una foto para usar</label><input type="file" accept =".png, .jpg, .jpeg" name="img" /></li>
+				<li><input type="radio" name="imgChoice" value="defaultImg"/><label>Cambiar foto a la predeterminada</label></li>
+			</p>
+			<p><label>Contraseña</label></p>
+			<p>
+				<li><input type="radio" name="passChoice" value="noChange" checked/><label>No cambiar la contraseña</label></li>
+				<li><input type="radio" name="passChoice" value="change"/><label>Cambiar la contraseña</label></li>
+			</p>
+			<p><li><label>Contraseña actual </label><input class="control" type="password" name="currPass"/></li></p>
+			<p><li><label>Confirme contraseña actual </label><input class="control" type="password" name="currPassConfirm"/></li></p>
+			<p><li><label>Contraseña nueva </label><input class="control" type="password" name="newPass"/></li></p>
+			<p><li><label>Confirme contraseña nueva </label><input class="control" type="password" name="newPassConfirm"/></li></p>
 			<div>
 				<input type="image" name="submit" title="Confirmar" alt="submit" src="includes/img/boton_OK.png">
 				<input type="image" name="reset" title="Cancelar" alt="cancelar" src="includes/img/boton_CANCELAR.png">
