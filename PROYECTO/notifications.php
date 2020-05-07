@@ -22,7 +22,7 @@
 
         $empty = true;
 
-        echo '<label> Solicitud de eventos</label>';
+        echo '<label> Solicitudes de eventos</label>';
         for($i = 0; $i < count($createdEvents); $i++) {
             $eventId = $createdEvents[$i]->getEventId();
             $waitingList = $eventDAO->getAttendees($eventId,false);
@@ -53,12 +53,15 @@
                 echo '</div>';
                 $empty = false;
             }  
-
         }
+        if($empty)
+            echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de eventos.</div>';
+    ?>
+    </div>;
 
-        echo '</div>';
-
-        echo '<div class="tarjeta_gris">';
+    <div class="tarjeta_gris">
+    <?php
+        $empty = true;
         echo '<label> Solicitudes de amistad</label>';
         while(sizeof($friendRequests) != 0){
             $user = $userDAO->getUser(array_pop($friendRequests));
@@ -71,7 +74,7 @@
         }
 
         if($empty)
-            echo '<div class="tarjeta_blanca">No tienes nuevas notificaciones.</div>';
+            echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de amistad.</div>';
     ?>
     </div>
 
