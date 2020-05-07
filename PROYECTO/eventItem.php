@@ -117,6 +117,7 @@ require_once __DIR__.'/includes/config.php';
 
                     echo '<div class="tarjeta_gris">';
                     
+                    //Mejor manera
                     $date ="";
                     $dateInvert = explode("-", $comment->getDate());
 

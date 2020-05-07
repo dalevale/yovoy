@@ -258,7 +258,7 @@ class EventDAO extends DAO{
         $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
 
         $eventInserted = $this->dbConn->query($updateQuery);
-        $tagsInserted = this->removeTag($id) && this->addTag($id, $tags);
+        $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
           
 
         return $eventInserted && $tagsInserted;
