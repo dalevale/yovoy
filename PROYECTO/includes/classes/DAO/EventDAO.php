@@ -288,5 +288,18 @@ class EventDAO extends DAO{
         
         return $confirmed;
     }
+
+    public function isEventFull($eventId,$capacity){
+        $total = "";
+
+        $query = "SELECT count(event_id) AS total FROM join_event WHERE event_id='$eventId' AND accepted='1'";
+        $result = $this->dbConn->query($query);
+
+        while($row = $result->fetch_assoc()) {
+             $total = $row["total"];
+        }
+        
+        return $total >= $capacity;
+    }
 }
 ?>

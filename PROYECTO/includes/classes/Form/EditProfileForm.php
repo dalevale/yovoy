@@ -4,25 +4,30 @@
 require_once __DIR__.'/Form.php';
 class EditProfileForm extends Form
 {
-    public function __construct() {
+    private $userId;
+    public function __construct($eventId) {
         parent::__construct('editProfileForm');
+        $this->userId = $userId;
     }
     
     protected function generateFormFields($data)
     {
-        $username = '';
-        $name = '';
-        if ($data) {
-            $username = isset($data['username']) ? $data['username'] : $username;
-            $name = isset($data['name']) ? $data['name'] : $name;
-        }
+		$userId = $this->userId;
+        $app = es\ucm\fdi\aw\Application::getSingleton();
+        $conn = $app->bdConnection();
+        $userDAO = new UserDAO($conn);
+        $user = $userDAO->getUser($userId);
+        $username = $user->getUsername();
+        $name = $user->getName();
+        $imgName = $user->getImgName();
+		
         $html = <<<EOF
 		<ul class="tarjeta_gris">
 			<li>
 				<label>
 					Nombre
 				</label>
-				<input type="text" name="name"/>
+				<input type="text" name="name" value="$name" required/>
 			</li>
 			<li>
 				<label>

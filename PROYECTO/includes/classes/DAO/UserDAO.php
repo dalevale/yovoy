@@ -39,8 +39,8 @@ class UserDAO extends DAO{
     }
 
     /**
-    * Recoger el id del usuario correspondiente al su email cuando se inicia sesión.
-    * Se usa para después recoger el objeto TOUser con el Id recogido.
+    * Recoger el id del usuario correspondiente al su email cuando se inicia sesiï¿½n.
+    * Se usa para despuï¿½s recoger el objeto TOUser con el Id recogido.
     *
     * @param string $email  Email del usuario
     * @return int $result   Devuelve el identificador del usuario
@@ -57,7 +57,7 @@ class UserDAO extends DAO{
     }
 
     /**
-    * Función para verificar existencia de la fila correspondiente al email 
+    * Funciï¿½n para verificar existencia de la fila correspondiente al email 
     * integrado por el usuario. Para verificar existencia de su cuenta en la BBDD.
     * 
     * @param string $email          Email del usuario
@@ -111,9 +111,28 @@ class UserDAO extends DAO{
 		
 		return $this->dbConn->query($changePassQuery);
 	}
+	
+	public function updateUser($id, $email, $password, $username, $name, $imgName, $creationDate, $type){
+		//VALORES A INSERTAR EN LA BBDD
+        $userUpdated = false;
+
+        $updateStr = 
+            "'".$email."',"
+            ."'".self::hashPassword($password)."',"
+			."'".$username."',"
+            ."'".$name."',"
+            ."'".$imgName."',"
+            ."'".$creationDate."',"
+            ."'".$type."'";
+        $updateQuery = "UPDATE user SET ".$updateStr." WHERE user_id = '".$id."';";
+
+        $userUpdated = $this->dbConn->query($updateQuery);
+
+        return $userUpdated;
+	}
 
     /**
-    * Función para meter una fila en la BBDD en la tabla join_event
+    * Funciï¿½n para meter una fila en la BBDD en la tabla join_event
     * cuando un usuario con id $userId se apunta en un evento con id $eventId
     *
     * @param int $eventId   Id del evento
@@ -132,7 +151,7 @@ class UserDAO extends DAO{
 	}
 
     /**
-    * Función para recoger todos los eventos creados por el usuario con id $userId en la BBDD.
+    * Funciï¿½n para recoger todos los eventos creados por el usuario con id $userId en la BBDD.
     * 
     * @param int $userId            Id del usuario
     * @return array $eventArray     Array de objetos TOEvent creados con los datos en la BBDD.
@@ -158,7 +177,7 @@ class UserDAO extends DAO{
 	}
     
     /**
-    * Función para verificar si el evento con id $eventId es propio del usuario con id $userId
+    * Funciï¿½n para verificar si el evento con id $eventId es propio del usuario con id $userId
     *
     * @param int $userId    Id del usuario
     * @param int $eventId   Id del evento
@@ -172,7 +191,7 @@ class UserDAO extends DAO{
     }
 	
     /**
-    * Función para verificar si el usuario con id $userId es un asistente del evento con id $eventId
+    * Funciï¿½n para verificar si el usuario con id $userId es un asistente del evento con id $eventId
     *
     * @param int $userId    Id del usuario
     * @param int $eventId   Id del evento
@@ -185,7 +204,7 @@ class UserDAO extends DAO{
 	}
 
     /**
-    * Función para recoger todos los amigos del usuario con un query en la
+    * Funciï¿½n para recoger todos los amigos del usuario con un query en la
     * tabla relationship en la BBDD.
     *
     * @param int $userId            Id del usuario
