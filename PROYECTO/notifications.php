@@ -15,9 +15,14 @@
 		$app = es\ucm\fdi\aw\Application::getSingleton();
 		$conn = $app->bdConnection(); 
         $eventDAO = new EventDAO($conn);
+        $userDAO = new UserDAO($conn);
     
         $createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
+        $friendRequests= $userDAO->getFriendRequests($_SESSION["userId"]);
+
         $empty = true;
+
+        echo '<label> Solicitud de eventos</label>';
         for($i = 0; $i < count($createdEvents); $i++) {
             $eventId = $createdEvents[$i]->getEventId();
             $waitingList = $eventDAO->getAttendees($eventId,false);
@@ -47,13 +52,29 @@
                 echo '<button type="submit">Rechazar</button></form>';
                 echo '</div>';
                 $empty = false;
-            }    
+            }  
+
         }
+
+        echo '</div>';
+
+        echo '<div class="tarjeta_gris">';
+        echo '<label> Solicitudes de amistad</label>';
+        while(sizeof($friendRequests) != 0){
+            $user = $userDAO->getUser(array_pop($friendRequests));
+            $userId = $user->getUserId();
+            $username = $user->getUsername();
+
+            echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a> quiere ser tu amigo.</div>'; 
+
+            $empty = false;
+        }
+
         if($empty)
             echo '<div class="tarjeta_blanca">No tienes nuevas notificaciones.</div>';
-       
     ?>
     </div>
+
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>

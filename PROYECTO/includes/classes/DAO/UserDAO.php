@@ -220,6 +220,21 @@ class UserDAO extends DAO{
         }
         return $userArray;
 	
-	}
+    }
+    
+    public function getFriendRequests($userId){
+        $query = "SELECT * FROM relationship WHERE status = '0' AND (user_one_id='$userId' XOR user_two_id='$userId') AND action_user_id != '$userId'";
+        $result = $this->dbConn->query($query);
+        $requests = array();
+        
+        while($row = $result->fetch_assoc()) {
+            if($row["user_one_id"] == $row["action_user_id"])
+                array_push($requests, $row["user_one_id"]);
+            else
+                array_push($requests, $row["user_two_id"]);
+        }
+        
+        return $requests;
+    }
 }
 ?>

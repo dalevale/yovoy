@@ -35,6 +35,9 @@ require_once __DIR__.'/../config.php';
 					
 						$requests += sizeof($attendeesList);
 					}
+
+					$friendRequests = $userDAO->getFriendRequests($_SESSION["userId"]);
+					$requests += sizeof($friendRequests);
 					
 					echo "<li><a href='friends.php'>MIS AMIGOS</a></li>";
 					echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
