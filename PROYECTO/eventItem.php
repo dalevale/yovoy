@@ -12,7 +12,7 @@ require_once __DIR__.'/includes/config.php';
         $_SESSION["event_id"] = $_GET["event_id"];
 
     $event = $eventDAO->getEvent($_SESSION["event_id"]);
-    $eventId = $_SESSION["event_id"];
+    $event_id = $_SESSION["event_id"];
     $creatorId = $event->getCreator();
     
     $creator = $userDAO->getUser($creatorId);
@@ -27,8 +27,8 @@ require_once __DIR__.'/includes/config.php';
     $location = $event->getLocation();
     $descripcion = $event->getDescription();
 
-    //Assistentes del evento con id $eventId
-    $attendees = $eventDAO->getAttendees($eventId);
+    //Assistentes del evento con id $event_id
+    $attendees = $eventDAO->getAttendees($event_id,true);
     $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
 ?>
 
@@ -46,21 +46,24 @@ require_once __DIR__.'/includes/config.php';
     <div class = "evento">
     <?php
         echo '<h1>'.$eventName.'</h1>';
-        echo '<p>'.'Creador: '.$creatorName.'</p>';
+        echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a>';
         echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            if($userDAO->isMyEvent($currentUserId, $eventId)){
-                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+            if($userDAO->isMyEvent($currentUserId, $event_id)){
+                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                 echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
             }
-            else if(!$userDAO->isAttending($currentUserId, $eventId)){
-                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+            else if(!$userDAO->isAttending($currentUserId, $event_id)){
+                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                 echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
             }
             else {
-                echo '<p>Estas apuntado en este evento!</p>';        
+                if($eventDAO->isUserInEvent($currentUserId, $event_id))
+                    echo '<div class="tarjeta_blanca">¡Estás apuntado en este evento!</div>';
+                else
+                    echo '<div class="tarjeta_blanca">Esperando respuesta del organizador...</div>';       
 			}
         }
         echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
@@ -87,16 +90,58 @@ require_once __DIR__.'/includes/config.php';
         ?>
         </div>
     </div>
-
-    <div class = "tarjeta_naranja">
+    
+    
     <?php
-        if(isset($_SESSION["userId"]) && $_SESSION["userId"])
+        if(isset($_SESSION["login"]) && $_SESSION["login"]){
+            if($userDAO->isMyEvent($currentUserId, $event_id)){
+                echo "<div class='tarjeta_naranja'>";
+                $waitingList = $eventDAO->getAttendees($event_id,false);
+                echo "<label>Lista de espera</label>";
+
+                if(!count($waitingList)==0){
+                    for($i = 0; $i < count($waitingList); $i++) {
+                        echo '<div class="tarjeta_gris">';
+                        $waitingUser = $userDAO->getUser($waitingList[$i]);
+                        $waitingUserName = $waitingUser->getUsername();
+                        $waitingUserId = $waitingUser->getUserId();
+                        echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
+
+                        echo '<form method="POST" action="includes/processUserInEvent.php">';
+                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<input type="hidden" name="source" value="eventItem">';
+                        echo '<input type="hidden" name="status" value="1">';
+                        echo '<button type="submit">Aceptar</button></form>';
+
+                        echo '<form method="POST" action="includes/processUserInEvent.php">';
+                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                        echo '<input type="hidden" name="source" value="eventItem">';
+                        echo '<input type="hidden" name="status" value="0">';
+                        echo '<button type="submit">Rechazar</button></form>';
+                        echo '</div>';
+                    }
+                }
+                else{
+                    echo '<p>No hay nadie en lista de espera.</p>';
+                }
+
+                echo "</div>";
+            }
+        }
+    ?>
+
+   
+    <?php
+        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+            echo "<div class = 'tarjeta_naranja'>";
             echo '<div class = "escribir_Comentario">';
             $form = new CommentsForm;
             $form->manage();
+            echo "</div>";
         }
     ?>
-    </div>
 
     <div class = "tarjeta_naranja">
         <?php
@@ -125,7 +170,7 @@ require_once __DIR__.'/includes/config.php';
                         $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
                     }
 
-                    echo "Comentario de " .$username. " el ".$date. "</br>";
+                    echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
 
                     echo '<div class="tarjeta_blanca">';
                     echo $comment->getComment();

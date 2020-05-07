@@ -20,8 +20,25 @@ require_once __DIR__.'/../config.php';
 				<li><a href='calendar.php'>CALENDARIO</a></li>
 				<?php	
 				if(isset($_SESSION["login"]) && $_SESSION["login"]){
+					$app = es\ucm\fdi\aw\Application::getSingleton();
+					$conn = $app->bdConnection(); 
+					$userDAO = new UserDAO($conn);
+					$eventDAO = new EventDAO($conn);
+				
+					$createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
+					
+					//contamos numero de peticiones
+					$requests=0;
+					for($i=0; $i < count($createdEvents); $i++){
+						$eventId = $createdEvents[$i]->getEventId();
+						$attendeesList = $eventDAO->getAttendees($eventId,false);
+					
+						$requests += sizeof($attendeesList);
+					}
+					
 					echo "<li><a href='friends.php'>MIS AMIGOS</a></li>";
 					echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
+					echo "<li><a href='notifications.php'>NOTIFICACIONES ($requests)</a></li>";
 				}
 				?>
 			</ul>

@@ -81,8 +81,6 @@ EOF;
         if ( empty($passwordConfirm) || strcmp($password, $passwordConfirm) !== 0 ) {
             $result[] = "Los passwords deben coincidir. ";
         }
-        
-		$result[] = var_dump($_FILES);
 		
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";
