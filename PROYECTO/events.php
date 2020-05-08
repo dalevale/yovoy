@@ -32,7 +32,7 @@
                 $eventImgDir = "includes/img/events/";
                 $eventImgPath = $eventImgDir . $eventImgName;
                 $eventId = $event->getEventId();
-                echo "<div class = 'evento'>";
+                echo "<div class = 'eventos'>";
                     echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
                     echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
                     echo $event->getName() ." ";

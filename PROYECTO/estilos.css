@@ -14,7 +14,7 @@ p {
 }
 
 h2{
-    font-size: 24px;
+    font-size: 54px;
 }
 
 h3 {
@@ -65,10 +65,15 @@ input[type=checkbox]{
   max-width: inherit;
 }
 
-#pie{
+div#pie{
+  clear: both;
+	padding: 20px;
+  text-align: left;
+  /*
   position: relative;
   bottom: 0;
   height: 10pc;
+*/
 }
 
 .portada_inicio{
@@ -122,28 +127,45 @@ input[type=checkbox]{
   }
 }
 
+/*
 .escribir_Comentario{
   border-radius: 25px;
   background: #FF8000;
   padding: 10px;
-  width: auto;
-  height: auto;
+  width: fit-content;
   max-width: fit-content;
   margin: 20px;
 }
-.evento {
+*/
+div#comentarios{
+	float: right;
+	width: 40pc;
+  height: fit-content;
+}
+
+.eventos {
   border-radius: 25px;
   background: #FF8000;
   display: center;
   padding: 15px;
   height: auto;
   max-width: fit-content;
-  margin: 10px;
+  margin: 20px;
 }
 
-.evento a{
+.eventos a{
   color: white;
-  text-align: justify;
+}
+
+.evento {
+  float:left;
+  border-radius: 25px;
+  background: #FF8000;
+  display: center;
+  padding: 15px;
+  height: auto;
+  max-width: fit-content;
+  margin: 20px;
 }
 
 textarea {
@@ -195,6 +217,7 @@ textarea {
 
 ul li{
   display: initial;
+  font-size: large;
   border-radius: 3px;
   list-style-type:none;
   margin: 0;
@@ -202,6 +225,7 @@ ul li{
   color: black;
   text-decoration-color: black;
   max-width: inherit;
+  padding: 1px;
 }
 
 li a {

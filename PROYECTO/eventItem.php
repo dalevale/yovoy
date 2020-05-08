@@ -45,7 +45,7 @@ require_once __DIR__.'/includes/config.php';
 
     <div class = "evento">
     <?php
-        echo '<h1>'.$eventName.'</h1>';
+        echo '<h2>'.$eventName.'</h2>';
         echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
         echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
 
@@ -100,101 +100,104 @@ require_once __DIR__.'/includes/config.php';
         </div>
     </div>
     
-    
-    <?php
-        if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            if($userDAO->isMyEvent($currentUserId, $event_id)){
-                echo "<div class='tarjeta_naranja'>";
-                $waitingList = $eventDAO->getAttendees($event_id,false);
-                echo "<label>Lista de espera</label>";
-
-                if(!count($waitingList)==0){
-                    for($i = 0; $i < count($waitingList); $i++) {
-                        echo '<div class="tarjeta_gris">';
-                        $waitingUser = $userDAO->getUser($waitingList[$i]);
-                        $waitingUserName = $waitingUser->getUsername();
-                        $waitingUserId = $waitingUser->getUserId();
-                        echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
-
-                        echo '<form method="POST" action="includes/processUserInEvent.php">';
-                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
-                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                        echo '<input type="hidden" name="source" value="eventItem">';
-                        echo '<input type="hidden" name="status" value="1">';
-                        echo '<button type="submit">Aceptar</button></form>';
-
-                        echo '<form method="POST" action="includes/processUserInEvent.php">';
-                        echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
-                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                        echo '<input type="hidden" name="source" value="eventItem">';
-                        echo '<input type="hidden" name="status" value="0">';
-                        echo '<button type="submit">Rechazar</button></form>';
-                        echo '</div>';
-                    }
-                }
-                else{
-                    echo '<p>No hay nadie en lista de espera.</p>';
-                }
-
-                echo "</div>";
-            }
-        }
-    ?>
-
-   
-    <?php
-        if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
-            echo "<div class = 'tarjeta_naranja'>";
-            echo '<div class = "escribir_Comentario">';
-            $form = new CommentsForm;
-            $form->manage();
-            echo "</div>";
-        }
-    ?>
-
-    <div class = "tarjeta_naranja">
+    <!-- Parte de comentarios a la derecha-->
+    <div id = "comentarios">
         <?php
-            $commentList = $commentsDAO->getComments($_SESSION["event_id"]);
-            echo "<label>COMENTARIOS</label>";
+            if(isset($_SESSION["login"]) && $_SESSION["login"]){
+                if($userDAO->isMyEvent($currentUserId, $event_id)){
+                    echo "<div class='tarjeta_naranja'>";
+                    $waitingList = $eventDAO->getAttendees($event_id,false);
+                    echo "<label>Lista de espera</label>";
 
-            if(sizeof($commentList) == 0){
-                echo '<div class="tarjeta_blanca">';
-                echo 'Parece que aún no hay comentarios...';
-                echo '</div>';
-            }
-            else{
-                while(sizeof($commentList) > 0){
-                    $comment = array_pop($commentList);
-                    
-                    $username = $userDAO->getUser($comment->getUserID())->getUsername();
-                    $ownerId = $userDAO->getUser($comment->getUserID())->getUserId();
+                    if(!count($waitingList)==0){
+                        for($i = 0; $i < count($waitingList); $i++) {
+                            echo '<div class="tarjeta_gris">';
+                            $waitingUser = $userDAO->getUser($waitingList[$i]);
+                            $waitingUserName = $waitingUser->getUsername();
+                            $waitingUserId = $waitingUser->getUserId();
+                            echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
 
-                    echo '<div class="tarjeta_gris">';
-                    
-                    //Mejor manera
-                    $date ="";
-                    $dateInvert = explode("-", $comment->getDate());
+                            echo '<form method="POST" action="includes/processUserInEvent.php">';
+                            echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                            echo '<input type="hidden" name="source" value="eventItem">';
+                            echo '<input type="hidden" name="status" value="1">';
+                            echo '<button type="submit">Aceptar</button></form>';
 
-                    for($i = sizeof($dateInvert)-1; $i >= 0; $i--){
-                        $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
+                            echo '<form method="POST" action="includes/processUserInEvent.php">';
+                            echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
+                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                            echo '<input type="hidden" name="source" value="eventItem">';
+                            echo '<input type="hidden" name="status" value="0">';
+                            echo '<button type="submit">Rechazar</button></form>';
+                            echo '</div>';
+                        }
+                    }
+                    else{
+                        echo '<p>No hay nadie en lista de espera.</p>';
                     }
 
-                    echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
-
-                    echo '<div class="tarjeta_blanca">';
-                    echo $comment->getComment();
-                    echo '</div>';
-                    
-                    if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"])){
-                        echo '<form method="POST" action="includes/deleteComment.php">';
-                        echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
-                        echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                        echo '<button type="submit">Borrar comentario</button></form>';
-                    }
                     echo "</div>";
                 }
             }
         ?>
+
+   
+        <?php
+            if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+                
+                echo "<div class = 'tarjeta_naranja'>";
+                //echo '<div class = "escribir_Comentario">';
+                $form = new CommentsForm;
+                $form->manage();
+                echo "</div>";
+            }
+        ?>
+
+        <div class = "tarjeta_naranja">
+            <?php
+                $commentList = $commentsDAO->getComments($_SESSION["event_id"]);
+                echo "<label>COMENTARIOS</label>";
+
+                if(sizeof($commentList) == 0){
+                    echo '<div class="tarjeta_blanca">';
+                    echo 'Parece que aún no hay comentarios...';
+                    echo '</div>';
+                }
+                else{
+                    while(sizeof($commentList) > 0){
+                        $comment = array_pop($commentList);
+                        
+                        $username = $userDAO->getUser($comment->getUserID())->getUsername();
+                        $ownerId = $userDAO->getUser($comment->getUserID())->getUserId();
+
+                        echo '<div class="tarjeta_gris">';
+                        
+                        //Mejor manera
+                        $date ="";
+                        $dateInvert = explode("-", $comment->getDate());
+
+                        for($i = sizeof($dateInvert)-1; $i >= 0; $i--){
+                            $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
+                        }
+
+                        echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
+
+                        echo '<div class="tarjeta_blanca">';
+                        echo $comment->getComment();
+                        echo '</div>';
+                        
+                        if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"])){
+                            echo '<form method="POST" action="includes/deleteComment.php">';
+                            echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
+                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                            echo '<button type="submit">Borrar comentario</button></form>';
+                        }
+                        echo "</div>";
+                    }
+                }
+            ?>
+        </div>
     </div>
 
     <footer>
