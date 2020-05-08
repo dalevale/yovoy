@@ -11,11 +11,9 @@
     </header>
 	<h3>Notificaciones</h3>
     <div class="tarjeta_gris">
-    <?php 
-		$app = es\ucm\fdi\aw\Application::getSingleton();
-		$conn = $app->bdConnection(); 
-        $eventDAO = new EventDAO($conn);
-        $userDAO = new UserDAO($conn);
+    <?php ; 
+        $eventDAO = new EventDAO();
+        $userDAO = new UserDAO();
     
         $createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
         $friendRequests= $userDAO->getFriendRequests($_SESSION["userId"]);

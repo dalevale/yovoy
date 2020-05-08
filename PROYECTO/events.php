@@ -17,11 +17,9 @@
         <?php
         if(isset($_SESSION["login"]))
             echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Crear un nuevo evento' onclick='crearEvento();'>";
-       
-            $app = es\ucm\fdi\aw\Application::getSingleton();
-		    $conn = $app->bdConnection(); 
-            $eventDAO = new EventDAO($conn);
-            $userDAO = new userDAO($conn);
+        
+            $eventDAO = new EventDAO();
+            $userDAO = new userDAO();
             $eventsList = $eventDAO->getAllEvents();
 
             //Mostrar eventos de BBDD

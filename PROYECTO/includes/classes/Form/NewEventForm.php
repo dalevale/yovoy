@@ -89,10 +89,8 @@ EOF;
         if (count($result) === 0) {
             //Conectamos a BBDD
             
-            $app = es\ucm\fdi\aw\Application::getSingleton();
-            $conn = $app->bdConnection(); 
-            $userDAO = new UserDAO($conn);
-            $eventDAO = new EventDAO($conn);
+            $userDAO = new UserDAO();
+            $eventDAO = new EventDAO();
             $result = array();
             //Añadir el evento a la BBDD
 	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {

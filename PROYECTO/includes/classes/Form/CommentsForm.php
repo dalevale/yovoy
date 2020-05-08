@@ -32,9 +32,7 @@ EOF;
     {
         //Conectamos a BBDD
 
-        $app = es\ucm\fdi\aw\Application::getSingleton();
-        $conn = $app->bdConnection(); 
-        $commentsDAO = new CommentsDAO($conn);
+        $commentsDAO = new CommentsDAO();
         $result = array();
        
         $comment = isset($data['comment']) ? $data['comment'] : null;

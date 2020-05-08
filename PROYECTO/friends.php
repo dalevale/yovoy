@@ -11,11 +11,8 @@
 
     <div>
     <?php
-        if(isset($_SESSION["login"]) && $_SESSION["login"]){
-			
-            $app = es\ucm\fdi\aw\Application::getSingleton();
-			$conn = $app->bdConnection(); 
-			$userDAO = new UserDAO($conn);
+        if(isset($_SESSION["login"]) && $_SESSION["login"]){; 
+			$userDAO = new UserDAO();
             $userId = $_SESSION["userId"];
             //Lista de amigos
             $friends = $userDAO->getFriends($userId);

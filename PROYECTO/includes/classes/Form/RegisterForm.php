@@ -104,11 +104,7 @@ EOF;
 			$type = 1;
 
             //INICIAMOS CONEXI�N CON MYSQL
-
-			$app = es\ucm\fdi\aw\Application::getSingleton();
-			$conn = $app->bdConnection(); 
-
-			$userDAO = new UserDAO($conn);
+			$userDAO = new UserDAO();
 			
 			//$_SESSION["login"] = false;
 			$_SESSION["newUser"] = true;

@@ -3,16 +3,16 @@ require_once __DIR__.'/../TransferObjects/TOComments.php';
 require_once __DIR__.'/DAO.php';
 class CommentsDAO extends DAO{
     
-    public function __construct($conn){
-        parent::__construct($conn);
+    public function __construct(){
+        parent::__construct();
 	}
    
     /**
-    * Función para meter una fila en la tabla de comments en la BBDD
+    * Funciï¿½n para meter una fila en la tabla de comments en la BBDD
     *
     * @param int $eventId       Id del evento con que el comentario se vincula
     * @param int $userId        Id del usuario con que el comentario se vincula
-    * @param Date $date         Fecha de creación del comentario
+    * @param Date $date         Fecha de creaciï¿½n del comentario
     * @param string $comment    Cadena de string que pertenece al comentario
     * @return bool $result      Devuelve true si se ha insertado correctamente en la BBDD
     */
@@ -25,29 +25,32 @@ class CommentsDAO extends DAO{
 
         $postComment= "INSERT INTO comments (event_id, user_id, date, comment) 
                        VALUES(".$queryValues.")";
-        $result = $this->dbConn->query($postComment);
-        return $result;
+
+        return parent::executeInsert($postComment);
     }
     
     /**
-    * Función para recoger todos los comentarios vinculados a un event con id $eventId
+    * Funciï¿½n para recoger todos los comentarios vinculados a un event con id $eventId
     *
     * @param int $event_id          Id del evento
     * @return array $commentsArray  Array de objetos TOComments creados con los datos en la BBDD
     */
     public function getComments($event_id){
         $showCommentsQuery = "SELECT * FROM comments WHERE event_id = '".$event_id."'";
-        $result = $this->dbConn->query($showCommentsQuery);
+       
+        $dataArray = parent::executeQuery($showCommentsQuery);
+        $data = array_shift($dataArray);
 
         $commentsArray = array();
-        while($row = $result->fetch_assoc()) {
-            $id = $row["comment_id"];
-            $event_id= $row["event_id"];
-            $user_id = $row["user_id"];
-            $date = $row["date"];
-            $comment = $row["comment"];
+        while(!empty($data)) {
+            $id = $data["comment_id"];
+            $event_id= $data["event_id"];
+            $user_id = $data["user_id"];
+            $date = $data["date"];
+            $comment = $data["comment"];
 
             array_push($commentsArray, new TOComments($id, $event_id, $user_id, $date, $comment));
+            $data = array_shift($dataArray);
         }
 
         return $commentsArray;
@@ -68,7 +71,7 @@ class CommentsDAO extends DAO{
     */
     public function deleteComment($id){
         $deleteComment= "DELETE FROM comments WHERE comment_id = '".$id."'";
-        return $this->dbConn->query($deleteComment);
+        return parent::executeModification($deleteComment);
     }
 }
 ?>

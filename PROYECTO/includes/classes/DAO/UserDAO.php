@@ -3,8 +3,8 @@ require_once __DIR__.'/../TransferObjects/TOUser.php';
 require_once __DIR__.'/DAO.php';
 class UserDAO extends DAO{
 
-    public function __construct($conn){
-        parent::__construct($conn);
+    public function __construct(){
+        parent::__construct();
 	}
 
     /**
@@ -23,7 +23,7 @@ class UserDAO extends DAO{
     public function registerUser($email, $password, $username, $name, $imgName, $creationDate, $type){        
         //VALORES A INSERTAR EN LA BBDD
         $queryValues =  
-            "'".$email."',"
+             "'".$email."',"
             ."'".self::hashPassword($password)."',"
 			."'".$username."',"
             ."'".$name."',"
@@ -32,10 +32,9 @@ class UserDAO extends DAO{
             ."'".$type."'";
 
         $registerUser= "INSERT INTO user (email, password, username, name, img_name, creation_date, type) 
-                VALUES(".$queryValues.")";
-        $result = $this->dbConn->query($registerUser);
+                        VALUES(".$queryValues.")";
 
-        return $result;
+        return parent::executeInsert($registerUser);
     }
 
     /**
@@ -48,12 +47,9 @@ class UserDAO extends DAO{
     public function getId($email){
         $loginUserQuery = "SELECT user_id FROM user WHERE email = '".$email."';";
         
-        $result = $this->dbConn->query($loginUserQuery);
-        if( $result->num_rows > 0){
-            $row = $result->fetch_assoc();
-            $result = $row["user_id"];        
-        }
-        return $result;
+        $dataArray=parent::executeQuery($loginUserQuery);
+        $data = array_pop($dataArray);
+        return $data["user_id"];
     }
 
     /**
@@ -65,9 +61,11 @@ class UserDAO extends DAO{
     */
     public function userExists($email){
         $loginUserQuery = "SELECT email FROM user WHERE email = '".$email."';";
-        $result = $this->dbConn->query($loginUserQuery);
 
-        return $result->num_rows > 0;
+        $dataArray=parent::executeQuery($loginUserQuery);
+        $data = array_pop($dataArray);
+
+        return !empty($data["email"]);
     }
 
     /**
@@ -78,18 +76,19 @@ class UserDAO extends DAO{
     */
     public function getUser($userId){
         $loginUserQuery = "SELECT * FROM user WHERE user_id = ".$userId."";
-        $result = $this->dbConn->query($loginUserQuery);
+        
+        $dataArray= parent::executeQuery($loginUserQuery);
+        $data= array_pop($dataArray);
+        
+        $userId= $data["user_id"];
+        $username= $data["username"];
+        $password= $data["password"];
+        $creationDate= $data["creation_date"];
+        $name= $data["name"];
+        $email= $data["email"];
+        $imgName= $data["img_name"];
+        $type= $data["type"];
 
-        while($row = $result->fetch_assoc()) {
-            $userId= $row["user_id"];
-            $email = $row["email"];
-            $username = $row["username"];
-            $password = $row["password"];
-            $creationDate = $row["creation_date"];
-            $imgName = $row["img_name"];
-            $name = $row["name"];
-            $type = $row["type"];
-        }
         return new TOUser($userId, $username, $password, $creationDate, $name, $email, $imgName, $type);
     }
 	
@@ -97,19 +96,19 @@ class UserDAO extends DAO{
 	public function changeName($userId, $name){
 		$changeNameQuery = "UPDATE user SET name = '" . $name . "' WHERE user_id = '" . $userId . "';";
 		
-		return $this->dbConn->query($changeNameQuery);
+		return parent::executeModification($changeNameQuery);
 	}
 	
 	public function changeImg($userId, $imgName){
 		$changeImgQuery = "UPDATE user SET img_name = '" . $imgName . "' WHERE user_id = '" . $userId . "';";
 		
-		return $this->dbConn->query($changeImgQuery);
+		return parent::executeModification($changeImgQuery);
 	}
 	
 	public function changePassword($userId, $newPass){
 		$changePassQuery = "UPDATE user SET password = '" . self::hashPassword($newPass) . "' WHERE user_id = '" . $userId . "';";
 		
-		return $this->dbConn->query($changePassQuery);
+		return parent::executeModification($changePassQuery);
 	}
 	
 	public function updateUser($id, $password, $name, $imgName){
@@ -127,9 +126,7 @@ class UserDAO extends DAO{
 
         $updateQuery = "UPDATE user SET ".$updateStr." WHERE user_id = '".$id."';";
 
-        $userUpdated = $this->dbConn->query($updateQuery);
-
-        return $userUpdated;
+        return parent::executeModification($updateQuery);
 	}
 
     /**
@@ -144,7 +141,7 @@ class UserDAO extends DAO{
     public function joinEvent($eventId, $userId, $date){
         $joinEventQuery = "INSERT INTO join_event (event_id, user_id, join_date,accepted) VALUES ('$eventId','$userId' , '$date', '0');"; 
 
-        return $this->dbConn->query($joinEventQuery);
+        return parent::executeInsert($joinEventQuery);
 	}
 	
 	private function hashPassword($password){
@@ -158,21 +155,24 @@ class UserDAO extends DAO{
     * @return array $eventArray     Array de objetos TOEvent creados con los datos en la BBDD.
     */
     public function getCreatedEvents($userId){
-        $eventsQuery = "SELECT * FROM event WHERE creator = ".$userId.";";
+        $eventQuery = "SELECT * FROM event WHERE creator = ".$userId.";";
         $eventArray = array();
-        $result = $this->dbConn->query($eventsQuery);
-        while($row = $result->fetch_assoc()) {
-            $eventId= $row["event_id"];
-            $name = $row["name"];
-            $creator = $row["creator"];
-            $imgName = $row["img_name"];
-            $creationDate = $row["creation_date"];
-            $eventDate = $row["event_date"];
-            $capacity = $row["capacity"];
-            $location = $row["location"];
-            $tags = $row["tags"];
-            $description = $row["description"];
+
+        $dataArray = parent::executeQuery($eventQuery);
+        $data = array_pop($dataArray);
+        while(!empty($data)) {
+            $eventId= $data["event_id"];
+            $name = $data["name"];
+            $creator = $data["creator"];
+            $imgName = $data["img_name"];
+            $creationDate = $data["creation_date"];
+            $eventDate = $data["event_date"];
+            $capacity = $data["capacity"];
+            $location = $data["location"];
+            $tags = $data["tags"];
+            $description = $data["description"];
             array_push($eventArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            $data = array_pop($dataArray);
         }
         return $eventArray;
 	}
@@ -185,10 +185,12 @@ class UserDAO extends DAO{
     * @return bool @result  Devuelve true si se encuentra la fila en la BBDD.
     */
     public function isMyEvent($userId, $eventId){
-        $eventQuery = "SELECT * FROM event WHERE creator = ".$userId." AND event_id = ".$eventId.";";
-        $result = $this->dbConn->query($eventQuery);
-        
-        return $result->fetch_assoc() !== null;
+        $eventQuery = "SELECT event_id FROM event WHERE creator = ".$userId." AND event_id = ".$eventId.";";
+
+        $dataArray=parent::executeQuery($eventQuery);
+        $data = array_pop($dataArray);
+
+        return !empty($data["event_id"]);
     }
 	
     /**
@@ -199,9 +201,12 @@ class UserDAO extends DAO{
     * @return bool @result  Devuelve true si se encuentra la fila en la BBDD.
     */
     public function isAttending($userId, $eventId){
-        $eventQuery = "SELECT * FROM join_event WHERE user_id = ".$userId." AND event_id = ".$eventId.";";
-        $result = $this->dbConn->query($eventQuery);
-        return $result->fetch_assoc() !== null;
+        $eventQuery = "SELECT event_id FROM join_event WHERE user_id = ".$userId." AND event_id = ".$eventId.";";
+
+        $dataArray=parent::executeQuery($eventQuery);
+        $data = array_pop($dataArray);
+
+        return !empty($data["event_id"]);
 	}
 
     /**
@@ -214,28 +219,61 @@ class UserDAO extends DAO{
     public function getFriends($userId){
         $query = "SELECT * FROM relationship WHERE status = 1 AND (user_one_id = ".$userId." OR user_two_id =  ".$userId.");";
         $userArray = array();
-        $result = $this->dbConn->query($query);
-        while($row = $result->fetch_assoc()) {
-            $friendId= $row["user_one_id"] == $userId? $row["user_two_id"] : $row["user_one_id"];
+
+        $dataArray=parent::executeQuery($query);
+        $data = array_pop($dataArray);
+
+        while(!empty($data)){
+            $friendId= $data["user_one_id"] == $userId? $data["user_two_id"] : $data["user_one_id"];
             array_push($userArray, $this->getUser($friendId));
+
+            $data = array_pop($dataArray);
         }
+
         return $userArray;
 	
     }
     
     public function getFriendRequests($userId){
         $query = "SELECT * FROM relationship WHERE status = '0' AND (user_one_id='$userId' XOR user_two_id='$userId') AND action_user_id != '$userId'";
-        $result = $this->dbConn->query($query);
+        
+        $dataArray=parent::executeQuery($query);
+        $data = array_pop($dataArray);
+
         $requests = array();
         
-        while($row = $result->fetch_assoc()) {
-            if($row["user_one_id"] == $row["action_user_id"])
-                array_push($requests, $row["user_one_id"]);
+        while(!empty($data)) {
+            if($data["user_one_id"] == $data["action_user_id"])
+                array_push($requests, $data["user_one_id"]);
             else
-                array_push($requests, $row["user_two_id"]);
+                array_push($requests, $data["user_two_id"]);
+
+            $data = array_pop($dataArray);
         }
         
         return $requests;
+    }
+
+    public function searchUser($username){
+        $loginUserQuery = "SELECT * FROM user WHERE username = '$username'";
+
+        $dataArray= parent::executeQuery($loginUserQuery);
+        $data= array_pop($dataArray);
+        $userArray= array();
+        if(!empty($data)){
+            $userId= $data["user_id"];
+            $username= $data["username"];
+            $password= $data["password"];
+            $creationDate= $data["creation_date"];
+            $name= $data["name"];
+            $email= $data["email"];
+            $imgName= $data["img_name"];
+            $type= $data["type"];
+    
+            array_push($userArray, new TOUser($userId, $username, $password, $creationDate, $name, $email, $imgName, $type));
+        }
+
+        return $userArray;
     }
 }
 ?>
