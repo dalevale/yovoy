@@ -19,7 +19,7 @@ class CommentsForm extends Form
         $html = <<<EOF
         <div><label>Escribe un comentario: </label></div></br>
         <ul class="tarjeta_gris">
-            <div><textarea style="resize: none" name="comment" maxlength="240" placeholder="Di lo que piensas..." rows="5" cols="50"/></textarea></div>
+            <div><textarea style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." rows="5" cols="50"/></textarea></div>
             <div><button type="submit">Enviar comentario</button></div>
         </ul>
 EOF;

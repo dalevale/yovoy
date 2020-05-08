@@ -36,7 +36,7 @@ label{
   display: inline;
 }
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password],input[type=email]{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -46,7 +46,7 @@ input[type=text], input[type=password]{
   margin-bottom: 4px;
   display: list-item;
 }
-input[type=text]:focus {
+input[type=text]:focus, input[type=email]:focus {
   background-color: lightyellow;
 }
 
