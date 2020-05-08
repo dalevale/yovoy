@@ -292,8 +292,10 @@ class EventDAO extends DAO{
 
         $dataArray = parent::executeQuery($query);
         $data = array_pop($dataArray);
+        $confirmed = false;
 
-        $confirmed = $data["accepted"] == 1 ? true : false;
+        if(!empty($data))
+            $confirmed = $data["accepted"] == 1 ? true : false;
         
         return $confirmed;
     }
