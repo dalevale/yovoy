@@ -57,12 +57,12 @@ class EventDAO extends DAO{
 
             //Adding to tags table
             //Cambair la manera de coger el ultimo ID insertado, esto puede tener conflictos con nombres de eventos iguales etc.
-            $eventQuery = "SELECT event_id FROM event WHERE name =" ."'".$name."'"." AND creator=" ."'".$creator."'". " AND creation_date="."'".$creationDate."'". " AND event_date="."'". $eventDate."'".";";
+            $eventQuery = "SELECT IDENT_CURRENT('event') AS result";
          
             $dataArray=parent::executeQuery($eventQuery);
             $data = array_pop($dataArray);
       
-            $eventId= $data["event_id"];
+            $eventId= $data["result"];
             $tagInserted = $this->addTag($eventId, $eventTagsArray);
         
             return $eventInserted && $tagInserted;
