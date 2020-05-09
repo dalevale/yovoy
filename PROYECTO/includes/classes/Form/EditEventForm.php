@@ -7,7 +7,7 @@ class EditEventForm extends Form
 
     private $eventId;
     public function __construct($eventId) {
-        parent::__construct('newEventForm');
+        parent::__construct('editEventForm');
         $this->eventId = $eventId;
     }
     
@@ -26,8 +26,8 @@ class EditEventForm extends Form
         $eventDescription = $event->getDescription();
         $html = <<<EOF
         <div class='tarjeta_gris'>
-            <input type="hidden" name="event_id" value="$eventId"/>'
-            <p><label>Título: </label><input type="text" name="eventName"  value="$eventName"required ></p>
+            <input type="hidden" name="event_id" value="$eventId"/>
+            <p><label>Título: </label><input type="text" name="eventName"  value="$eventName" ></p>
             <p><label>Foto de evento</label></p>
             <p>
                 <li><input type="radio" name="imgChoice" value="noChange" checked/><label>No cambiar la foto </label></li>
@@ -36,16 +36,17 @@ class EditEventForm extends Form
             </p>
             <p>
                 <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="$eventEventDate" min="2020-01-01" max="2020-12-31">
-                <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="$eventCapacity" min="1" max="100">
+                <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" value="$eventCapacity" min="1" max="100">
             </p>
-            <label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" required >
-            <label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" value="$eventTags" required>
+            <label>Ubicación: </label><input type="text" name="eventLocation" value="$eventLocation" >
+            <label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" value="$eventTags">
             <p> <label for="address">Descripción del evento:</label> </p>
             <p> <textarea rows="9" cols="70" name="description">$eventDescription</textarea> </p>
-            <button type="submit"> Enviar </button>
-            <button type="reset"> Borrar Campos </button>
-            <button type="text" onClick="goBack()"> Cancelar </button>
+            <input type="image" name="submit" alt="submit" title="Enviar" src='includes/img/boton_SUBIR.png'>
+            <input type="image" id="editEventFormReset" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
+            <input type="image" id="editEventFormCancel" alt="text" title="Cancelar" src='includes/img/boton_CANCELAR.png'>
 	    </div>
+        <script type="text/javascript" src="includes/js/validateEditEvent.js"></script>
 EOF;
         return $html;
     }

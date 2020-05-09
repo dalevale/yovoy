@@ -21,7 +21,7 @@ class EditProfileForm extends Form
 		
         $html = <<<EOF
 		<ul class="tarjeta_gris">
-			<p><li><label>Nombre </label><input type="text" name="name" value="$name" required/></li></p>
+			<p><li><label>Nombre </label><input type="text" name="name" value="$name"/></li></p>
 			<p><label>Foto de usuario</label></p>
 			<p>
 				<li><input type="radio" name="imgChoice" value="noChange" checked/><label>No cambiar la foto</label></li>

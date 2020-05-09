@@ -19,33 +19,36 @@ class RegisterForm extends Form
         $html = <<<EOF
 		<ul class="tarjeta_gris">
 			<li class="grupo-control">
-				<label>Nombre de usuario:</label> <input class="control" type="text" name="username" value="$username" required/>
+				<label>Nombre de usuario: </label><span class="formPatron">(letras minúsculas y numeros, de 5 a 20 carácteres sin espacios blancos)</span> 
+				<input class="control" type="text" name="username" value="$username"/>
 			</li>
 			<div class="grupo-control">
-				<label>Nombre completo:</label> <input class="control" type="text" name="name" value="$name" required />
+				<label>Nombre completo:</label> <input class="control" type="text" name="name" value="$name" />
 			</li>
 			<li class="grupo-control">
-				<label>Contraseña:</label> <input class="control" type="password" name="password" required/>
+				<label>Contraseña:</label> <input class="control" type="password" name="password"/>
 			</li>
             <li class="grupo-control">
-				<label>Confirme contraseña:</label> <input class="control" type="password" name="passwordConfirm" required/>
+				<label>Confirme contraseña:</label> <input class="control" type="password" name="passwordConfirm"/>
 			</li>
             <li class="grupo-control">
-				<label>Email:</label> <input class="control" type="text" name="email" required/>
+				<label>Email:</label> <input class="control" type="text" name="email"/>
 			</li>
             <li class="grupo-control">
 				<label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
 			</li>
+			</div>
             <div class="grupo-control">
 				<label>Registrarse como Usuario Premium</label> <input class="control" type="checkbox" name="premium" value="premium"/>
 			</div>
             <div class="grupo-control">
 				<input type="image" alt="submit" src="includes/img/boton_REGISTER.png">
-				<input type="image" alt="reset" src="includes/img/boton_CANCELAR.png">
+				<input type="image" id="registerReset" alt="reset" src="includes/img/boton_CANCELAR.png">
 			</div>
-            <!--  <li><input type="submit" value="Registrarse"/></li>
-				<li><input type="reset" value="Borrar Campos"></li> !-->
+              <!--<<li><input type="submit" value="Registrarse"/></li>
+				<li><input type="reset" value="Borrar Campos"></li> -->
 		</ul>
+        <script type="text/javascript" src="includes/js/validateRegister.js"></script>
 EOF;
         return $html;
     }

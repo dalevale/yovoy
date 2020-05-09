@@ -13,6 +13,7 @@ require_once __DIR__.'/../config.php';
 		<div id="navbar">
 			<ul>
 				<!--logo aquí-->
+				<!--<img src="includes/img/YoVoy_Logo_BLANCO.png" width="80px" height="70px">-->
 				<!--<li><a href='index.html'>INICIO</a></li>-->
 				<li><a href='feed.php'>FEED</a></li>
 				<li><a href='events.php'>EVENTOS</a></li>
@@ -38,7 +39,6 @@ require_once __DIR__.'/../config.php';
 
 					$friendRequests = $userDAO->getFriendRequests($_SESSION["userId"]);
 					$requests += sizeof($friendRequests);
-					
 					echo "<li><a href='friends.php'>MIS AMIGOS</a></li>";
 					echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
 					echo "<li><a href='notifications.php'>NOTIFICACIONES ($requests)</a></li>";

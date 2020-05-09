@@ -12,6 +12,10 @@ class RelationManager extends Form {
     const USERTWOUNFR = 7;
     const USERONEUNBL = 8; //UNBLOCK
     const USERTWOUNBL = 9;
+    //constates para la columna STATUS de la tabla relationship
+    const ADD = 0;
+    const ACCEPT = 1;
+    const BLOCK = 2;
 
     public $dbConn;
     public $userOneId;
@@ -28,7 +32,7 @@ class RelationManager extends Form {
 	}
 
     /**
-    * Función para comprabar la columna 'status' en la tabla 'relationship' en la BBDD
+    * Función para comprabar la columna 'status' en la tabla 'relationship' en la BBDD para generar botones
     *
     * @param int $userId        Id del usuario con el que la sesion se inicia
     * @param int $profileId     Id del usuario de la perfil que se esta viendo
@@ -61,7 +65,8 @@ class RelationManager extends Form {
 
         if($this->status === null){
                $html = <<<EOF
-				<input type="submit" name="addFriend" value="Add Friend" title="Añadir amigo">
+				<input type ="submit" name="addFriend" value="Add Friend" title="Añadir amigo">
+                <input type ="submit" name="blockUser" value="Block User" title="Bloquear usuario">
 EOF;
 		}
         else {
@@ -89,6 +94,7 @@ EOF;
             case self::USERONEBLOCK:
                 $html = <<<EOF
                 <p>YOU BLOCKED THIS USER</p>
+                <input type="submit" name="unblock" value="Unblock">
 EOF;
                 break;
             case self::USERTWOBLOCK:
@@ -109,22 +115,30 @@ EOF;
 
     protected function processForm($data) {
         $result = array();
+        $u1 = $this->userOneId;
+        $u2 = $this->userTwoId;
        
-       if(isset($data['addFriend'])){
-            $this->insertRow($this->userOneId, $this->userTwoId, 0, $this->userOneId);
-	   }
-       else if(isset($data['cancelAddFriend'])){
-            $this->deleteRow($this->userOneId, $this->userTwoId);
-	   }
-       else if(isset($data['acceptFriend'])){
-            $this->deleteRow($this->userOneId, $this->userTwoId);
-            $this->insertRow($this->userOneId, $this->userTwoId, 1, $this->userOneId);
-	   }
-       else if(isset($data['unfriend'])){
-            $this->deleteRow($this->userOneId, $this->userTwoId);
-	   }
+        if(isset($data['addFriend'])){
+            $this->insertRow($u1, $u2, self::ADD, $u1);
+	    }
+        else if(isset($data['cancelAddFriend'])){
+            $this->deleteRow($u1, $u2);
+	    }
+        else if(isset($data['acceptFriend'])){
+            $this->deleteRow($u1, $u2);
+            $this->insertRow($u1, $u2, self::ACCEPT, $u1);
+	    }
+        else if(isset($data['unfriend'])){
+            $this->deleteRow($u1, $u2);
+	    }
+        else if(isset($data['blockUser'])){
+            $this->insertRow($u1, $u2, self::BLOCK, $u1);
+	    }
+        else if(isset($data['unblock'])){
+            $this->deleteRow($u1, $u2);
+		}
        
-       $result = 'profileView.php?profileId='.$this->userTwoId;
+       $result = 'profileView.php?profileId='.$u2;
        return $result;
     }
 

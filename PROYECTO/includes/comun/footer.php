@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <body>	
     <div id="pie">   
 		<ul>
 			<li><a href='about.php'>SOBRE NOSOTROS</a></li>

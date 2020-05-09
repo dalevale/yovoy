@@ -15,13 +15,13 @@ class LoginForm extends Form
             $email = isset($data['email']) ? $data['email'] : $email;
         }
         $html = <<<EOF
-        <script type="text/javascript" src="/includes/js/forms.js"></script>
+        
         <ul class="tarjeta_gris">
             <li><label>Email</label><input type="email" name="email" id="email" placeholder="Email"/></li>
-            <li><label>Contraseña</label><input type="password" name="password" placeholder="Introduce tu contraseña"/></li>
-            <div><input type="image" alt="submit" src="includes/img/boton_LOGIN.png"></div>
-            <span class="error" aria-live="polite"></span>
+            <li><label>Contraseña</label><input type="password" id="password" name="password" placeholder="Introduce tu contraseña"/></li>
+            <div><input type="image" id="loginSubmit" alt="submit" src="includes/img/boton_LOGIN.png"></div>
         </ul>
+        <script type="text/javascript" src="includes/js/validateLogin.js"></script>
 
 EOF;
         return $html;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2020 at 08:09 PM
+-- Generation Time: May 09, 2020 at 04:14 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
-  `id` int(20) NOT NULL,
+  `comment_id` int(20) NOT NULL,
   `event_id` int(11) NOT NULL,
   `user_id` int(9) NOT NULL,
   `date` date NOT NULL,
@@ -40,9 +40,12 @@ CREATE TABLE `comments` (
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `event_id`, `user_id`, `date`, `comment`) VALUES
-(1, 3, 8, '2020-04-26', 'hola'),
-(2, 3, 8, '2020-04-26', 'aaa');
+INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) VALUES
+(1, 2, 2, '2020-05-07', 'HOOHOHO'),
+(2, 2, 9, '2020-05-07', 'HOLAAAAAAAA COMO ESTAN! ESTO ES UN COMENTARIO LARGOoooooooooooooooooooooo y LARGOoooooooooooooooooooooo y LARGOoooooooooooooooooooooooooooooooo y LARGOooooooooooooooooooooooLARGOooooooooooooooooooooooLARGOoooooooooooooooooooooo'),
+(3, 2, 9, '2020-05-07', 'EjemplooooooooLARGOoooooooooooooooooooooo'),
+(5, 2, 9, '2020-05-07', 'Otra que soy pesado!'),
+(6, 2, 9, '2020-05-07', 'Otra que soy pesado!');
 
 -- --------------------------------------------------------
 
@@ -70,10 +73,11 @@ CREATE TABLE `event` (
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
 (2, 'Barra Libre', 2, 'default-event.png', '2020-03-30', '2020-03-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 2, 'default-event.png', '2020-03-30', '2020-04-01', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
-(8, 'Unli Rice', 2, 'default-event.png', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Hamburgesa gratis primer 100 personas!', 2, 'default-event.png', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, 'default-event.png', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!');
+(3, 'RokEnRol', 2, 'rokenrol.jpg', '2020-03-30', '2020-04-01', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
+(8, 'Unli Rice', 2, 'unli.jpg', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
+(10, 'Hamburgesa gratis primer 100 personas!', 2, 'hamburgesa.jpg', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
+(11, 'Bingo!', 4, 'bingo.jpg', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
+(15, 'GameAndWin', 9, 'game.jpg', '2020-05-07', '2020-05-28', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
 
 -- --------------------------------------------------------
 
@@ -98,7 +102,10 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (11, 'bingo'),
 (11, ' premio'),
 (2, 'cerveza'),
-(2, ' alcohol');
+(2, ' alcohol'),
+(15, 'games'),
+(15, ' win'),
+(15, ' prizes');
 
 -- --------------------------------------------------------
 
@@ -118,13 +125,14 @@ CREATE TABLE `join_event` (
 --
 
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
-(2, 2, '0000-00-00', 0),
-(2, 3, '0000-00-00', 1),
-(2, 4, '0000-00-00', 1),
-(2, 5, '0000-00-00', 1),
-(2, 6, '0000-00-00', 1),
-(3, 3, '0000-00-00', 1),
-(11, 2, '0000-00-00', 1);
+(2, 3, '2020-05-07', 1),
+(2, 4, '2020-05-07', 1),
+(2, 5, '2020-05-07', 1),
+(2, 6, '2020-05-07', 1),
+(2, 9, '2020-05-07', 1),
+(3, 3, '2020-05-07', 1),
+(11, 2, '2020-05-07', 1),
+(15, 2, '2020-05-09', 0);
 
 -- --------------------------------------------------------
 
@@ -144,8 +152,11 @@ CREATE TABLE `relationship` (
 --
 
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
-(2, 3, 0, 2),
-(2, 4, 1, 2);
+(2, 3, 1, 2),
+(2, 4, 1, 2),
+(2, 9, 1, 9),
+(4, 9, 1, 9),
+(5, 9, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -170,16 +181,24 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_name`, `creation_date`, `type`) VALUES
 (1, 'admin@yovoy.com', '$2y$10$hedED5zbm5TpTNTCizsURujEKUiA873d7Qj0HD8F/xtGesKM4g52m', 'eladmin', 'admin', 'admin.png', '2020-04-24', 0),
-(2, 'maria@yovoy.com', '$2y$10$C9h7umkfFpTVvvPQsHyFNubDrAv/rCbESjDemDOapg1Dbfx6RAo5.', 'megustaeventos', 'Maria', 'default.jpg', '2020-04-24', 1),
-(3, 'pablo@yovoy.com', '$2y$10$AgyNHL35/Iwl/EhgTD0kc.4i/0zJMpMf.NXlGkqOm/TKU9JHvbLFC', 'meaburro', 'Pablo', 'default.jpg', '2020-04-24', 1),
-(4, 'manuel123@yovoy.com', '$2y$10$IdGxa/yeRXlYiLjH1V5iZOT.1P8X5lv7lpr84fiIDW2rAFY3jrSvi', 'elcapitan', 'Manuel', 'default.jpg', '2020-04-24', 1),
-(5, 'isabel789@yovoy.com', '$2y$10$j1e5Oq8EUldBF0tWcRa9aeqlh8xp0blZLYxTen5Z3WZlFADBPqbAa', 'isadora', 'Isabel', 'default.jpg', '2020-04-24', 1),
-(6, 'ana12345@yovoy.com', '$2y$10$zQNBXXcyMdcVVDaqL6howOl4QeDj1fpXJBUaiAZ5SUdbKPd41Tyx6', 'anaanaana', 'Ana Velasquez', 'default.jpg', '2020-04-25', 1),
-(8, 'mario@yovoy.com', '$2y$10$yL4moLeRIhBLFM.iHTXZa.Ovt22S9E1O9CHfUfW.2q1DdnsxGNOvu', 'gamerfreak', 'Mario Mauricio Maurer', 'default.jpg', '2020-04-25', 1);
+(2, 'maria@yovoy.com', '$2y$10$C9h7umkfFpTVvvPQsHyFNubDrAv/rCbESjDemDOapg1Dbfx6RAo5.', 'megustaeventos', 'Maria Mercedes', 'maria.jpg', '2020-04-24', 1),
+(3, 'pablo@yovoy.com', '$2y$10$AgyNHL35/Iwl/EhgTD0kc.4i/0zJMpMf.NXlGkqOm/TKU9JHvbLFC', 'meaburro', 'Pablo Gonzales', 'pablo.jpg', '2020-04-24', 1),
+(4, 'manuel123@yovoy.com', '$2y$10$IdGxa/yeRXlYiLjH1V5iZOT.1P8X5lv7lpr84fiIDW2rAFY3jrSvi', 'elcapitan', 'Manuel Alvar', 'manuel.jpg', '2020-04-24', 1),
+(5, 'isabel789@yovoy.com', '$2y$10$j1e5Oq8EUldBF0tWcRa9aeqlh8xp0blZLYxTen5Z3WZlFADBPqbAa', 'isadora', 'Isabel Gapaz', 'isabel.jpg', '2020-04-24', 1),
+(6, 'ana12345@yovoy.com', '$2y$10$zQNBXXcyMdcVVDaqL6howOl4QeDj1fpXJBUaiAZ5SUdbKPd41Tyx6', 'anaanaana', 'Ana Velasquez', 'ana.png', '2020-04-25', 1),
+(8, 'mario@yovoy.com', '$2y$10$yL4moLeRIhBLFM.iHTXZa.Ovt22S9E1O9CHfUfW.2q1DdnsxGNOvu', 'gamerfreak', 'Mario Mauricio Maurer', 'mario.jpg', '2020-04-26', 1),
+(9, 'mariel@yovoy.com', '$2y$10$0sns19IcZFicXGa2ghV.W.lg2a4xOMUV.Lh4tusCUm8AnP8VgEpIy', 'vamosporalli', 'Mariel Sanchez', 'mariel.jpg', '2020-05-07', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `event`
@@ -206,7 +225,8 @@ ALTER TABLE `join_event`
 --
 ALTER TABLE `relationship`
   ADD PRIMARY KEY (`user_one_id`,`user_two_id`),
-  ADD UNIQUE KEY `user_one_id` (`user_one_id`,`user_two_id`);
+  ADD UNIQUE KEY `user_one_id` (`user_one_id`,`user_two_id`),
+  ADD KEY `user_id2` (`user_two_id`);
 
 --
 -- Indexes for table `user`
@@ -219,20 +239,32 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event`
@@ -252,6 +284,13 @@ ALTER TABLE `event_tags`
 ALTER TABLE `join_event`
   ADD CONSTRAINT `event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `relationship`
+--
+ALTER TABLE `relationship`
+  ADD CONSTRAINT `user_id1` FOREIGN KEY (`user_one_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id2` FOREIGN KEY (`user_two_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

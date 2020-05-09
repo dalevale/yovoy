@@ -131,12 +131,13 @@ abstract class Form
     {
 
         $html= $this->generateErrorList($errors);
-
+        $html .= '<ul id="printError" style="display:none;"></ul>';
         $html .= '<form enctype="multipart/form-data" method="POST" class="tarjeta-gris" action="'.$this->action.'" id="'.$this->formId.'" >';
         $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
 
         $html .= $this->generateFormFields($data);
         $html .= '</form>';
+        $html .= '<script type="text/javascript" src="includes/js/validatingFunctions.js"></script>';
         return $html;
     }
 
@@ -152,11 +153,11 @@ abstract class Form
         $html='';
         $numErrors = count($errors);
         if (  $numErrors == 1 ) {//TODO meter clase de error en el primer UL (tarjeta_roja)
-            $html .= "<ul><li>".$errors[0]."</li></ul>";
+            $html .= "<ul id="."printError"."><li class="."error"."><p>".$errors[0]."</p></li></ul>";
         } else if ( $numErrors > 1 ) {
-            $html .= "<ul><li>";
-            $html .= implode("</li><li>", $errors);
-            $html .= "</li></ul>";
+            $html .= "<ul><li><p>";
+            $html .= implode("</p></li><li class="."error"."><p>", $errors);
+            $html .= "</p></li></ul>";
         }
         return $html;
     }

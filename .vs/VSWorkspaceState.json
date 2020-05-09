@@ -7,8 +7,8 @@
     "\\PROYECTO\\includes\\classes\\DAO",
     "\\PROYECTO\\includes\\classes\\Form",
     "\\PROYECTO\\includes\\classes\\TransferObjects",
-    "\\PROYECTO\\includes\\comun"
+    "\\PROYECTO\\includes\\img"
   ],
-  "SelectedNode": "\\PROYECTO\\includes\\classes\\Form\\EditEventForm.php",
+  "SelectedNode": "\\PROYECTO\\includes\\classes\\Application.php",
   "PreviewInSolutionExplorer": false
 }

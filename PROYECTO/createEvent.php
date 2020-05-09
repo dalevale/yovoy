@@ -9,11 +9,6 @@
 	<header>
 		<?php include 'includes/comun/nav.php' ?>
 	</header>
-	<script>
-		function goBack() {
-			window.location.href = "events.php";
-		}
-	</script>
 	
 	<h3>¡Vamos a crear un evento!</h3>
 

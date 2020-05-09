@@ -14,21 +14,22 @@ class NewEventForm extends Form
         }
         $html = <<<EOF
         <div class = "tarjeta_gris">	
-				<p><label>Título: </label><input type="text" name="eventName" required ></p>
+				<p><label>Título: </label><input type="text" name="eventName"></p>
 				<p>    
                     <label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
-                    <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-1" min="2020-01-01" max="2020-12-31">
+                    <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-01" min="2020-01-01" max="2020-12-31">
                     <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="1" min="1" max="100">
 				</p>    
-                <label>Ubicación: </label><input type="text" name="eventLocation" required >
-				<label>Etiquetas (separar por comas): </label><input type="text" name="eventTags" required>
-				<p> <label for="address">Descripción del evento:</label> </p>
+                <label>Ubicación: </label><input type="text" name="eventLocation">
+				<label>Etiquetas (separar por comas): </label><input type="text" name="eventTags">
+				<p> <label for="description">Descripción del evento:</label> </p>
                 <p> <textarea rows="9" cols="70" name="description"></textarea> </p>
                 
                 <input type="image" name="submit" alt="submit" title="Enviar" src='includes/img/boton_SUBIR.png'>
-                <input type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
-                <input type="image" onClick="goBack()" alt="text" title="Cancelar" src='includes/img/boton_CANCELAR.png'>
+                <input type="image" id="newEventFormReset" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
+                <input type="image" id="newEventFormCancel" alt="text" title="Cancelar" src='includes/img/boton_CANCELAR.png'>
 	    </div>
+        <script type="text/javascript" src="includes/js/validateNewEvent.js"></script>
 EOF;
         //TODO: NO FUNCIONA EL RESET DEL FORMULARIO!!!
     /*<button type="submit"> Enviar </button>
