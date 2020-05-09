@@ -22,9 +22,10 @@ class RelationManager extends Form {
     public $userTwoId;
     private $status;
 
-    public function __construct($conn, $userOneId, $userTwoId){
+    public function __construct($userOneId, $userTwoId){
+        $app = es\ucm\fdi\aw\Application::getSingleton();
+        $this->dbConn = $app->bdConnection(); 
         parent::__construct('relationForm');
-        $this->dbConn = $conn;
         $this->userOneId = $userOneId;
         $this->userTwoId = $userTwoId;
         $this->status = $this->relationStatus($this->userOneId, $this->userTwoId);
@@ -104,7 +105,7 @@ EOF;
                 break;
             default:
                 $html = <<<EOF
-				<input type="image" alt="submit" src="includes/img/icono_FRIENDS.png" title="Añadir amigo"/></form> 
+				<input type="image" alt="submit" src="includes/img/icono_FRIENDS.png" title="Aï¿½adir amigo"/></form> 
 EOF;
                 break;
 		}
@@ -143,11 +144,11 @@ EOF;
     }
 
     /**
-    * Insertar una fila en la BBDD en la tabla relationship para establecer relación
-    * entre dos cuentas de usuario con id´s $userOneId y $userTwoId
+    * Insertar una fila en la BBDD en la tabla relationship para establecer relaciï¿½n
+    * entre dos cuentas de usuario con idï¿½s $userOneId y $userTwoId
     *
     * @param int $userOneId         Id del usuario con el que la sesion se inicia
-    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relación
+    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relaciï¿½n
     * @param int $status            Estado de relacion de las cuentas (0 - Pendiente, 1 - Amigos, 2 - Cuenta bloqueada)
     * @param int $action_user_id    Id del usuario ($userOneId o $userTwoId) que hizo el ultimo gesto (cambiar el estado)
     * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
@@ -165,7 +166,7 @@ EOF;
 	}
 
     /**
-    * Función para eliminar una fila en la tabla relationship
+    * Funciï¿½n para eliminar una fila en la tabla relationship
     *
     * @param int $userOneId         Id del usuario con el que la sesion se inicia
     * @param int $userTwoId         Id del otro usuario.

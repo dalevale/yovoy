@@ -21,10 +21,8 @@ require_once __DIR__.'/../config.php';
 				<li><a href='calendar.php'>CALENDARIO</a></li>
 				<?php	
 				if(isset($_SESSION["login"]) && $_SESSION["login"]){
-					$app = es\ucm\fdi\aw\Application::getSingleton();
-					$conn = $app->bdConnection(); 
-					$userDAO = new UserDAO($conn);
-					$eventDAO = new EventDAO($conn);
+					$userDAO = new UserDAO();
+					$eventDAO = new EventDAO();
 				
 					$createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
 					
@@ -57,9 +55,7 @@ require_once __DIR__.'/../config.php';
 					else{
 						//foto si hay
 						if($_SESSION["login"]){
-							$app = es\ucm\fdi\aw\Application::getSingleton();
-							$conn = $app->bdConnection(); 
-							$userDAO = new UserDAO($conn);
+							$userDAO = new UserDAO();
 						
 							$user = $userDAO->getUser($_SESSION["userId"]);
 							$imgDir = "includes/img/users/";

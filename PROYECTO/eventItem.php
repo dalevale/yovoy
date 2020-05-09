@@ -2,11 +2,9 @@
 require_once __DIR__.'/includes/config.php';
 
      //OBTENEMOS EVENTO Y CREADOR
-    $app = es\ucm\fdi\aw\Application::getSingleton();
-    $conn = $app->bdConnection(); 
-    $eventDAO = new EventDAO($conn);
-    $userDAO = new UserDAO($conn);
-    $commentsDAO = new CommentsDAO($conn);
+    $eventDAO = new EventDAO();
+    $userDAO = new UserDAO();
+    $commentsDAO = new CommentsDAO();
     
     if(!empty($_GET))
         $_SESSION["event_id"] = $_GET["event_id"];

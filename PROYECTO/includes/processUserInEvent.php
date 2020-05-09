@@ -2,10 +2,7 @@
 require_once __DIR__.'/config.php';
 
    //Gestión de procesamiento de eventos.
-
-   $app = es\ucm\fdi\aw\Application::getSingleton();
-   $conn = $app->bdConnection(); 
-   $eventsDAO = new EventDAO($conn);
+   $eventsDAO = new EventDAO();
 
    $eventId = $_POST["event_id"];
    $userId = $_POST["userId"];

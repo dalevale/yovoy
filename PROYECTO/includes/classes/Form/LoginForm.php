@@ -31,10 +31,7 @@ EOF;
     protected function processForm($data)
     {
         //Conectamos a BBDD
-            
-        $app = es\ucm\fdi\aw\Application::getSingleton();
-        $conn = $app->bdConnection(); 
-        $userDAO = new UserDAO($conn);
+        $userDAO = new UserDAO();
         $result = array();
         
         //Validación campo email rellenado

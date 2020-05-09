@@ -12,7 +12,7 @@
     <div>
         
        <?php
-            if(!isset($_SESSION["login"])){
+            if(!isset($_SESSION["login"]) || !$_SESSION["login"]){
                 echo '<h3>REGISTRARSE</h3>'; 
                 $form = new RegisterForm;
                 $form->manage();

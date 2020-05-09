@@ -21,14 +21,12 @@
     <div class = "tarjeta_gris">
 		<?php
 			if(isset($_SESSION["login"]) && $_SESSION["login"]){
-				$app = es\ucm\fdi\aw\Application::getSingleton();
-				$conn = $app->bdConnection(); 
-				$userDAO = new UserDAO($conn);
+				$userDAO = new UserDAO();
 				
 				// obtener usuario
 				$profileId = $_GET["profileId"];
 				$userId = $_SESSION["userId"];
-				$relMan = new RelationManager($conn, $userId, $profileId);
+				$relMan = new RelationManager($userId, $profileId);
 				/*if(isset($_GET["userId"]))
 					$userId = $_GET["userId"];*/
 					

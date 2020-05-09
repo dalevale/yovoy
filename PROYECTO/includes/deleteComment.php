@@ -2,9 +2,7 @@
 require_once __DIR__.'/config.php';
 
 //metemos el user y el evento en la tabla de joinEvent
-   $app = es\ucm\fdi\aw\Application::getSingleton();
-   $conn = $app->bdConnection(); 
-   $commentsDAO = new CommentsDAO($conn);
+   $commentsDAO = new CommentsDAO();
 
    $eventId = $_POST["event_id"];
 

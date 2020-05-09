@@ -13,9 +13,7 @@ class EditProfileForm extends Form
     protected function generateFormFields($data)
     {
 		$userId = $this->userId;
-        $app = es\ucm\fdi\aw\Application::getSingleton();
-        $conn = $app->bdConnection();
-        $userDAO = new UserDAO($conn);
+        $userDAO = new UserDAO();
         $user = $userDAO->getUser($userId);
         $name = $user->getName();
 		
