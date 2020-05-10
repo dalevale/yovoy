@@ -161,14 +161,13 @@ div#pie{
   height: fit-content;
   width: 40pc;
   max-width: 50pc;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 div#comentarios{
 	float: right;
 	width: 35pc;
   height: fit-content;
-  margin-top: 40px;
 }
 
 textarea {
