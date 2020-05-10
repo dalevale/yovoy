@@ -1,7 +1,6 @@
 var validate = function (event) {
 
-    event.preventDefault();
-    var valid = false;
+    var valid = true;
     var eventName = editEventForm["eventName"].value;
     var eventLocation = editEventForm["eventLocation"].value;
     var eventTags = editEventForm["eventTags"].value;

@@ -66,7 +66,7 @@ class RelationManager extends Form {
 
         if($this->status === null){
                $html = <<<EOF
-				<input type ="submit" name="addFriend" value="Add Friend" title="Añadir amigo">
+				<input type ="image" alt="submit" src="includes/img/boton_AMIGO.png" name="addFriend" value="Add Friend" title="Añadir amigo">
                 <input type ="submit" name="blockUser" value="Block User" title="Bloquear usuario">
 EOF;
 		}

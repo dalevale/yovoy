@@ -1,7 +1,4 @@
-﻿body header {
-    height: 80%;
-}
-body{
+﻿body{
     background-image: url("includes/img/fondo.png");
     background-size: cover;
     background-color: black;
@@ -57,15 +54,15 @@ input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
 
-div#usuario {
-    left: 99pc;
-    display: initial;
-    border-radius: 3px;
-    list-style-type: none;
-    margin: 0;
-    max-width: inherit;
-    float: right;
-    width: 30%;
+#usuario{
+  left: 99pc;
+  float: right;
+  margin: auto;
+  display: initial;
+  border-radius: 3px;
+  list-style-type:none;
+  margin: 0;
+  max-width: inherit;
 }
 
 div#pie{
@@ -88,10 +85,13 @@ div#menu {
     float:left;
     width:70%;
 }
+div#usuario {
+    float: right;
+    width: 30%;
 }
 div#usuario {
     flex‐direction: row‐reverse;
-    float: right;
+     float: right;
     width: 30%;
 }
 
@@ -185,7 +185,7 @@ div#usuario input{
   height: fit-content;
   width: 40pc;
   max-width: 50pc;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 div#comentarios {

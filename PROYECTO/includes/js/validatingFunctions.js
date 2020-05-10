@@ -111,8 +111,8 @@ function isValidEmail(email) {
 //Funciones para validar formularios de creacion y cambios de eventos
 
 //Constantes de tamaño minimo
-const EVENT_NAME_LENGTH = '4';
-const EVENT_TAG_LENGTH = '2';
+const EVENT_NAME_LENGTH = 4;
+const EVENT_TAG_LENGTH = 2;
 
 function isValidEventName(ename) {
     var enameStrArray = ename.split(' ');
