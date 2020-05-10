@@ -137,11 +137,6 @@ div#pie{
   margin: 20px;
 }
 */
-div#comentarios{
-	float: right;
-	width: 40pc;
-  height: fit-content;
-}
 
 .eventos {
   border-radius: 25px;
@@ -163,13 +158,22 @@ div#comentarios{
   background: #FF8000;
   display: center;
   padding: 15px;
-  height: auto;
-  max-width: fit-content;
-  margin: 20px;
+  height: fit-content;
+  width: 40pc;
+  max-width: 50pc;
+  margin-top: 30px;
+}
+
+div#comentarios{
+	float: right;
+	width: 35pc;
+  height: fit-content;
+  margin-top: 40px;
 }
 
 textarea {
   border-radius: 10px;
+  max-width: inherit;
 }
 
 .tarjeta_gris{
