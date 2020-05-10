@@ -44,9 +44,9 @@
 						// botón para editar perfil
 						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
 						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
-						if($userId == $profileId)
+						//if($userId == $profileId)
 						// botón para cambiar contraseña
-						echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
+						// TODO echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
 						//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
 					}
 					else{

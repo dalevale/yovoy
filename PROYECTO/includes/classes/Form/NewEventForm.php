@@ -16,7 +16,7 @@ class NewEventForm extends Form
         <div class = "tarjeta_gris">	
 				<p><label>Título: </label><input type="text" name="eventName"></p>
 				<p>    
-                    <label>Foto:</label> <input class="control" required type="file" accept =".png, .jpg, .jpeg" name="img" />
+                    <label>Foto:</label> <input class="control" type="file" accept =".png, .jpg, .jpeg" name="img" />
                     <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-01" min="2020-01-01" max="2020-12-31">
                     <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="1" min="1" max="100">
 				</p>    

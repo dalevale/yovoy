@@ -33,7 +33,7 @@ class RelationManager extends Form {
 	}
 
     /**
-    * Función para comprabar la columna 'status' en la tabla 'relationship' en la BBDD para generar botones
+    * Funciï¿½n para comprabar la columna 'status' en la tabla 'relationship' en la BBDD para generar botones
     *
     * @param int $userId        Id del usuario con el que la sesion se inicia
     * @param int $profileId     Id del usuario de la perfil que se esta viendo
@@ -66,7 +66,7 @@ class RelationManager extends Form {
 
         if($this->status === null){
                $html = <<<EOF
-				<input type ="image" alt="submit" src="includes/img/boton_AMIGO.png" name="addFriend" value="Add Friend" title="Añadir amigo">
+				<input type ="submit" name="addFriend" value="Add Friend" title="Aï¿½adir amigo">
                 <input type ="submit" name="blockUser" value="Block User" title="Bloquear usuario">
 EOF;
 		}
