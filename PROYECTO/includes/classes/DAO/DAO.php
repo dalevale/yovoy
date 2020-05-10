@@ -1,7 +1,7 @@
 <?php
 class DAO{
 
-    public $conn;
+    private $conn;
 
     public function __construct(){
         $app = es\ucm\fdi\aw\Application::getSingleton();
