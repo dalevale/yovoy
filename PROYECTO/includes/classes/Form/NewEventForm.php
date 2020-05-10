@@ -16,7 +16,7 @@ class NewEventForm extends Form
         <div class = "tarjeta_gris">	
 				<p><label>Título: </label><input type="text" name="eventName"></p>
 				<p>    
-                    <label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
+                    <label>Foto:</label> <input class="control" required type="file" accept =".png, .jpg, .jpeg" name="img" />
                     <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-01" min="2020-01-01" max="2020-12-31">
                     <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="1" min="1" max="100">
 				</p>    
@@ -76,7 +76,7 @@ EOF;
         
         // Si no hay un foto subido por el usuario, se usa default-event.jpg
 		$imgName = "default-event.png";
-		if (isset($_FILES["img"]["name"])){
+		if (!empty($_FILES["img"]["name"])){
 			$targetDir = "/Yovoy/Proyecto/includes/img/events/";
 			$imgName = basename($_FILES["img"]["name"]);
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
@@ -85,7 +85,8 @@ EOF;
 			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto";
 			}
-		}
+        }
+        
 
         if (count($result) === 0) {
             //Conectamos a BBDD

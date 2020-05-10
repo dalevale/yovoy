@@ -94,7 +94,6 @@ EOF;
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
-			$userId = $_SESSION["userId"];
 			if (!move_uploaded_file($_FILES["img"]["name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto. ";
 			}

@@ -14,9 +14,7 @@ class EditEventForm extends Form
     protected function generateFormFields($data)
     {
         $eventId = $this->eventId;
-        $app = es\ucm\fdi\aw\Application::getSingleton();
-        $conn = $app->bdConnection();
-        $eventDAO = new EventDAO($conn);
+        $eventDAO = new EventDAO();
         $event = $eventDAO->getEvent($eventId);
         $eventName = $event->getName();
         $eventLocation = $event->getLocation();
@@ -55,9 +53,7 @@ EOF;
     protected function processForm($data)
     {
         //Conectamos a BBDD
-        $app = es\ucm\fdi\aw\Application::getSingleton();
-        $conn = $app->bdConnection(); 
-        $eventDAO = new EventDAO($conn);
+        $eventDAO = new EventDAO();
         $eventId = $this->eventId;
         $event = $eventDAO->getEvent($eventId);
 
