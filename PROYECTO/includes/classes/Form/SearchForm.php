@@ -88,7 +88,7 @@ EOF;
 					$event = array_pop($result);
 					$eventId = $event->getEventId();
 
-					echo "<li><a href= '/eventItem.php?event_id=".$eventId."'>";
+					echo "<li><a href= 'eventItem.php?event_id=".$eventId."'>";
 					echo "Evento: ".$event->getName()."</a></li>";
 					echo "</ul>";
 				}
@@ -100,7 +100,7 @@ EOF;
 					$user = array_pop($result);
 					$userId = $user->getUserId();
 
-					echo "<li><a href= '/profileView.php?profileId=".$userId."'>";
+					echo "<li><a href= 'profileView.php?profileId=".$userId."'>";
 					echo "Usuario: ".$user->getUsername()."</a></li>";
 					echo "</ul>";
 				}
