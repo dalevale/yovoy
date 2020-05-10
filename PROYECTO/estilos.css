@@ -1,3 +1,6 @@
+﻿body header {
+    height: 80%;
+}
 body{
     background-image: url("includes/img/fondo.png");
     background-size: cover;
@@ -54,15 +57,15 @@ input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
 
-#usuario{
-  left: 99pc;
-  float: right;
-  margin: auto;
-  display: initial;
-  border-radius: 3px;
-  list-style-type:none;
-  margin: 0;
-  max-width: inherit;
+div#usuario {
+    left: 99pc;
+    display: initial;
+    border-radius: 3px;
+    list-style-type: none;
+    margin: 0;
+    max-width: inherit;
+    float: right;
+    width: 30%;
 }
 
 div#pie{
@@ -74,6 +77,27 @@ div#pie{
   bottom: 0;
   height: 10pc;
 */
+}
+
+
+div#navbar {
+    background-color: white;
+}
+
+div#menu {
+    float:left;
+    width:70%;
+}
+}
+div#usuario {
+    flex‐direction: row‐reverse;
+    float: right;
+    width: 30%;
+}
+
+div#usuario input{
+    width : 50px;
+    height :50px;
 }
 
 .portada_inicio{
@@ -164,11 +188,12 @@ div#pie{
   margin-top: 30px;
 }
 
-div#comentarios{
-	float: right;
-	width: 35pc;
-  height: fit-content;
-  margin-top: 40px;
+div#comentarios {
+    float: right;
+    width: 35pc;
+    padding: 15px;
+    height: fit-content;
+    margin-top: 30px;
 }
 
 textarea {
