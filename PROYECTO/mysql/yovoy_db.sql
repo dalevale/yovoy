@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2020 at 04:14 PM
+-- Generation Time: May 10, 2020 at 06:25 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -77,7 +77,8 @@ INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`,
 (8, 'Unli Rice', 2, 'unli.jpg', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
 (10, 'Hamburgesa gratis primer 100 personas!', 2, 'hamburgesa.jpg', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
 (11, 'Bingo!', 4, 'bingo.jpg', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
-(15, 'GameAndWin', 9, 'game.jpg', '2020-05-07', '2020-05-28', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
+(15, 'GameAndWin', 9, 'game.jpg', '2020-05-07', '2020-05-28', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
+(16, 'asdasdasdasd', 2, 'default-event.png', '2020-05-10', '2020-01-01', 1, 0, 'asdasd', '', '');
 
 -- --------------------------------------------------------
 
@@ -105,7 +106,8 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (2, ' alcohol'),
 (15, 'games'),
 (15, ' win'),
-(15, ' prizes');
+(15, ' prizes'),
+(16, '');
 
 -- --------------------------------------------------------
 
@@ -154,7 +156,6 @@ CREATE TABLE `relationship` (
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
 (2, 3, 1, 2),
 (2, 4, 1, 2),
-(2, 9, 1, 9),
 (4, 9, 1, 9),
 (5, 9, 2, 9);
 
@@ -248,7 +249,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user`

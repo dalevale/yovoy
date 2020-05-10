@@ -35,7 +35,7 @@ class RegisterForm extends Form
 				<label>Email:</label> <input class="control" type="text" name="email"/>
 			</li>
             <li class="grupo-control">
-				<label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
+				<label>Foto:</label> <input class="control" type="file" accept =".png, .jpg, .jpeg" name="img" />
 			</li>
 			</div>
             <div class="grupo-control">
@@ -94,7 +94,8 @@ EOF;
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
-			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
+			$userId = $_SESSION["userId"];
+			if (!move_uploaded_file($_FILES["img"]["name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto. ";
 			}
 		}
