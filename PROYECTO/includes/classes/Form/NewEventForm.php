@@ -76,7 +76,7 @@ EOF;
         
         // Si no hay un foto subido por el usuario, se usa default-event.jpg
 		$imgName = "default-event.png";
-		if (isset($_FILES["img"]["name"])){
+		if (!empty($_FILES["img"]["name"])){
 			$targetDir = "/Yovoy/Proyecto/includes/img/events/";
 			$imgName = basename($_FILES["img"]["name"]);
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
@@ -85,7 +85,8 @@ EOF;
 			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto";
 			}
-		}
+        }
+        
 
         if (count($result) === 0) {
             //Conectamos a BBDD
