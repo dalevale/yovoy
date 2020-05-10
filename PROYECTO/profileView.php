@@ -24,11 +24,11 @@
 				$userDAO = new UserDAO();
 				
 				// obtener usuario
-				$profileId = $_GET["profileId"];
+				if(isset($_GET["profileId"]))
+					$profileId = $_GET["profileId"];
+				//$profileId = $_GET["profileId"];
 				$userId = $_SESSION["userId"];
 				$relMan = new RelationManager($userId, $profileId);
-				/*if(isset($_GET["userId"]))
-					$userId = $_GET["userId"];*/
 					
 				
 					// conseguir información
@@ -39,11 +39,12 @@
 					$imgName = $user->getImgName();
 					$imgPath = $imgDir . $imgName;
 					echo "<img src='" . $imgPath . "' alt='usuario' height='200' width='200'>";
-					if($userId == $profileId){
+					echo "<div>";
+					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
 						// botón para editar perfil
 						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
 						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
-				
+						if($userId == $profileId)
 						// botón para cambiar contraseña
 						echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
 						//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
@@ -52,6 +53,7 @@
 						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
 						$relMan->manage();
 					}
+					echo "</div>";
 					// mostrar información
 					$username = $user->getUsername();
 					$name = $user->getName();

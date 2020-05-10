@@ -66,7 +66,7 @@ EOF;
             } else {*/
                 $_SESSION['login'] = true;
                 $_SESSION["userId"] = $user->getUserId();
-                //$_SESSION['esAdmin'] = strcmp($usuario->rol(), 'admin') == 0 ? true : false;
+                $_SESSION['esAdmin'] = $user->getUserType() == 0 ? true : false;
                 $result = 'feed.php';
         }
         return $result;

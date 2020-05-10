@@ -49,7 +49,7 @@ require_once __DIR__.'/includes/config.php';
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            if($userDAO->isMyEvent($currentUserId, $event_id)){
+            if($userDAO->isMyEvent($currentUserId, $event_id) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
                 echo '<form method="POST" action="editEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                 echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
             }
@@ -101,8 +101,8 @@ require_once __DIR__.'/includes/config.php';
     <!-- Parte de comentarios a la derecha-->
     <div id = "comentarios">
         <?php
-            if(isset($_SESSION["login"]) && $_SESSION["login"]){
-                if($userDAO->isMyEvent($currentUserId, $event_id)){
+            if(isset($_SESSION["login"]) && $_SESSION["login"] ){
+                if($userDAO->isMyEvent($currentUserId, $event_id) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
                     echo "<div class='tarjeta_naranja'>";
                     $waitingList = $eventDAO->getAttendees($event_id,false);
                     echo "<label>Lista de espera</label>";
@@ -142,7 +142,7 @@ require_once __DIR__.'/includes/config.php';
 
    
         <?php
-            if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
+            if(isset($_SESSION["userId"]) && $_SESSION["userId"] && (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
                 
                 echo "<div class = 'tarjeta_naranja'>";
                 //echo '<div class = "escribir_Comentario">';
@@ -185,7 +185,7 @@ require_once __DIR__.'/includes/config.php';
                         echo $comment->getComment();
                         echo '</div>';
                         
-                        if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"])){
+                        if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"]) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
                             echo '<form method="POST" action="includes/deleteComment.php">';
                             echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
                             echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';

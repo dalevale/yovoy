@@ -20,7 +20,7 @@ require_once __DIR__.'/../config.php';
 				<li><a href='search.php'>BUSCAR</a></li>
 				<li><a href='calendar.php'>CALENDARIO</a></li>
 				<?php	
-				if(isset($_SESSION["login"]) && $_SESSION["login"]){
+				if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
 					$userDAO = new UserDAO();
 					$eventDAO = new EventDAO();
 				
