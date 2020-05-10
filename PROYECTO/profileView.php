@@ -18,7 +18,7 @@
         <?php include 'includes/comun/nav.php' ?>
     </header>
 
-    <div class = "tarjeta_gris">
+    <div class = "miarea">
 		<?php
 			if(isset($_SESSION["login"]) && $_SESSION["login"]){
 				$userDAO = new UserDAO();

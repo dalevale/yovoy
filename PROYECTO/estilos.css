@@ -2,7 +2,7 @@
     background-image: url("includes/img/fondo.png");
     background-size: cover;
     background-color: black;
-	color: #ffffff;
+	  color: #ffffff;
     font-family: Ubuntu;
     max-width: 90pc;
     max-height: none;
@@ -78,7 +78,9 @@ div#pie{
 
 
 div#navbar {
-    background-color: white;
+  clear: both;
+	padding: 20px;
+  text-align: left;
 }
 
 div#menu {
@@ -86,13 +88,10 @@ div#menu {
     width:70%;
 }
 div#usuario {
+   /* flex‐direction: row‐reverse;*/
     float: right;
     width: 30%;
-}
-div#usuario {
-    flex‐direction: row‐reverse;
-     float: right;
-    width: 30%;
+    margin-top: 10px;
 }
 
 div#usuario input{
@@ -161,6 +160,19 @@ div#usuario input{
   margin: 20px;
 }
 */
+
+.miarea{
+  border-radius: 25px;
+  background: grey;
+  padding: 20px;
+  width: auto;
+  height: fit-content;
+  transition: all .2s ease-in-out;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 60px;
+}
 
 .eventos {
   border-radius: 25px;
