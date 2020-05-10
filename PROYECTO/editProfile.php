@@ -13,7 +13,7 @@
     <div class = "tarjeta_gris">
         <?php
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
-            echo '<h3>Editar Perfil</h3>'; 
+           // echo '<h3>Editar Perfil</h3>'; 
             $form = new EditProfileForm($_SESSION["userId"]);
             $form->manage();
         }
