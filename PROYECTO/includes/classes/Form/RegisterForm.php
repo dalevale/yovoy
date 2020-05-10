@@ -35,7 +35,7 @@ class RegisterForm extends Form
 				<label>Email:</label> <input class="control" type="text" name="email"/>
 			</li>
             <li class="grupo-control">
-				<label>Foto:</label> <input class="control"  type="file" accept =".png, .jpg, .jpeg" name="img" />
+				<label>Foto:</label> <input class="control" type="file" accept =".png, .jpg, .jpeg" name="img" />
 			</li>
 			</div>
             <div class="grupo-control">
