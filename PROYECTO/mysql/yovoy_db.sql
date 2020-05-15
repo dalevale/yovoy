@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2020 a las 19:10:00
+-- Servidor: localhost
+-- Tiempo de generación: 15-05-2020 a las 22:21:57
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.2
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,17 +36,6 @@ CREATE TABLE `comments` (
   `comment` varchar(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `comments`
---
-
-INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) VALUES
-(1, 2, 2, '2020-05-07', 'HOOHOHO'),
-(2, 2, 9, '2020-05-07', 'HOLAAAAAAAA COMO ESTAN! ESTO ES UN COMENTARIO LARGOoooooooooooooooooooooo y LARGOoooooooooooooooooooooo y LARGOoooooooooooooooooooooooooooooooo y LARGOooooooooooooooooooooooLARGOooooooooooooooooooooooLARGOoooooooooooooooooooooo'),
-(3, 2, 9, '2020-05-07', 'EjemplooooooooLARGOoooooooooooooooooooooo'),
-(5, 2, 9, '2020-05-07', 'Otra que soy pesado!'),
-(6, 2, 9, '2020-05-07', 'Otra que soy pesado!');
-
 -- --------------------------------------------------------
 
 --
@@ -67,19 +56,6 @@ CREATE TABLE `event` (
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `event`
---
-
-INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
-(2, 'Barra Libre', 2, 'default-event.png', '2020-03-30', '2020-03-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 2, 'rokenrol.jpg', '2020-03-30', '2020-04-01', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
-(8, 'Unli Rice', 2, 'unli.jpg', '2020-04-24', '2020-04-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Hamburgesa gratis primer 100 personas!', 2, 'hamburgesa.jpg', '2020-04-24', '2020-04-22', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, 'bingo.jpg', '2020-04-24', '2020-06-05', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
-(15, 'GameAndWin', 9, 'game.jpg', '2020-05-07', '2020-05-28', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
-(16, 'asdasdasdasd', 2, 'default-event.png', '2020-05-10', '2020-01-01', 1, 0, 'asdasd', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -90,24 +66,6 @@ CREATE TABLE `event_tags` (
   `event_id` int(11) NOT NULL,
   `tag` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `event_tags`
---
-
-INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
-(8, 'arroz'),
-(10, 'bk'),
-(10, ' hamburgesa'),
-(10, ' burgerking'),
-(11, 'bingo'),
-(11, ' premio'),
-(2, 'cerveza'),
-(2, ' alcohol'),
-(15, 'games'),
-(15, ' win'),
-(15, ' prizes'),
-(16, '');
 
 -- --------------------------------------------------------
 
@@ -122,19 +80,21 @@ CREATE TABLE `join_event` (
   `accepted` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `join_event`
+-- Estructura de tabla para la tabla `notifications`
 --
 
-INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
-(2, 3, '2020-05-07', 1),
-(2, 4, '2020-05-07', 1),
-(2, 5, '2020-05-07', 1),
-(2, 6, '2020-05-07', 1),
-(2, 9, '2020-05-07', 1),
-(3, 3, '2020-05-07', 1),
-(11, 2, '2020-05-07', 1),
-(15, 2, '2020-05-09', 0);
+CREATE TABLE `notifications` (
+  `id` int(10) NOT NULL,
+  `this_user_id` int(9) NOT NULL,
+  `that_user_id` int(9) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `type` int(1) NOT NULL,
+  `date` date NOT NULL,
+  `isRead` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -148,16 +108,6 @@ CREATE TABLE `relationship` (
   `status` int(1) NOT NULL,
   `action_user_id` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `relationship`
---
-
-INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
-(2, 3, 1, 2),
-(2, 4, 1, 2),
-(4, 9, 1, 9),
-(5, 9, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -191,7 +141,8 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (9, 'mariel@yovoy.com', '$2y$10$0sns19IcZFicXGa2ghV.W.lg2a4xOMUV.Lh4tusCUm8AnP8VgEpIy', 'vamosporalli', 'Mariel Sanchez', 'mariel.jpg', '2020-05-07', 1),
 (11, 'hhh@gmail.com', '$2y$10$T7429/pfwghwLyfNFCwpB.mvt1ocOvTvxvgD/y9QPD2eIiXR7ia5e', 'juanita', 'Juanita', 'default.jpg', '2020-05-10', 1),
 (12, 'hhhh@gmail.com', '$2y$10$wWJuMaayl2gt2VSpStJyuOo4QlceNYAn0xOEoX/fpT.vkpspU24OG', 'jajajajajajaajaj', 'VERY ANGERY', 'indexPic.jpg', '2020-05-10', 1),
-(13, 'premium@yovoy.com', '$2y$10$IgeqreB6jnXhCB8tk2RIuO1UDdg.xPEhzS3NPwQnaRQ/RBDNm1qbi', 'elonmusk', 'Elon Musk', 'boton_UNIRSE_2.png', '2020-05-10', 2);
+(13, 'premium@yovoy.com', '$2y$10$IgeqreB6jnXhCB8tk2RIuO1UDdg.xPEhzS3NPwQnaRQ/RBDNm1qbi', 'elonmusk', 'Elon Musk', 'boton_UNIRSE_2.png', '2020-05-10', 2),
+(14, 'richard@yovoy.com', '$2y$10$HnqoM6pFuc0Uk0DKwh9RKu7hBtubeacHfznKKCgEAjtzSITwNSQVe', 'richard2306', 'Richard Correa', 'default.jpg', '2020-05-15', 1);
 
 --
 -- Índices para tablas volcadas
@@ -225,6 +176,12 @@ ALTER TABLE `join_event`
   ADD KEY `user` (`user_id`);
 
 --
+-- Indices de la tabla `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `relationship`
 --
 ALTER TABLE `relationship`
@@ -246,19 +203,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
