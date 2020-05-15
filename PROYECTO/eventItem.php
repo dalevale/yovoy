@@ -108,20 +108,25 @@ require_once __DIR__.'/includes/config.php';
                     echo "<label>Lista de espera</label>";
 
                     if(!count($waitingList)==0){
+                        echo '<div class="tarjeta_gris">';
                         for($i = 0; $i < count($waitingList); $i++) {
-                            echo '<div class="tarjeta_gris">';
+                            
+                            echo '<div class="tarjeta_blanca">';
                             $waitingUser = $userDAO->getUser($waitingList[$i]);
                             $waitingUserName = $waitingUser->getUsername();
                             $waitingUserId = $waitingUser->getUserId();
                             echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
-
+                        
+                            echo '<div class="accept_reject">';
                             echo '<form method="POST" action="includes/processUserInEvent.php">';
                             echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
                             echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
                             echo '<input type="hidden" name="source" value="eventItem">';
                             echo '<input type="hidden" name="status" value="1">';
                             echo '<button type="submit">Aceptar</button></form>';
+                            echo '</div>';
 
+                            echo '<div class="accept_reject">';
                             echo '<form method="POST" action="includes/processUserInEvent.php">';
                             echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
                             echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
@@ -129,10 +134,12 @@ require_once __DIR__.'/includes/config.php';
                             echo '<input type="hidden" name="status" value="0">';
                             echo '<button type="submit">Rechazar</button></form>';
                             echo '</div>';
+                            echo '</div>';
                         }
+                        echo '</div>';
                     }
                     else{
-                        echo '<p>No hay nadie en lista de espera.</p>';
+                        echo '<div class="tarjeta_blanca"><p>No hay nadie en lista de espera.</p></div>';
                     }
 
                     echo "</div>";
