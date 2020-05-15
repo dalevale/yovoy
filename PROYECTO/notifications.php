@@ -15,9 +15,6 @@
         $eventDAO = new EventDAO();
         $userDAO = new UserDAO();
         $notificationsDAO = new NotificationsDAO();
-
-        $createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
-        $friendRequests= $userDAO->getFriendRequests($_SESSION["userId"]);
         $empty = true;
 
         $notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
