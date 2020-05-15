@@ -53,16 +53,8 @@ class EventDAO extends DAO{
         $registerEvent = "INSERT INTO event (name, creator, img_name, creation_date, event_date, capacity, current_attendees,location, tags, description) 
                           VALUES(".$queryValues.");";
 
-        if(parent::executeInsert($registerEvent)) $eventInserted = true;
-
-            //Adding to tags table
-            //Cambair la manera de coger el ultimo ID insertado, esto puede tener conflictos con nombres de eventos iguales etc.
-            $eventQuery = "SELECT event_id FROM event WHERE name =" ."'".$name."'"." AND creator=" ."'".$creator."'". " AND creation_date="."'".$creationDate."'". " AND event_date="."'". $eventDate."'".";";
-         
-            $dataArray=parent::executeQuery($eventQuery);
-            $data = array_pop($dataArray);
-      
-            $eventId= $data["event_id"];
+        if(parent::executeInsert($registerEvent)) $eventInserted = true;            
+            $eventId= $this->getLastEvent();
             $tagInserted = $this->addTag($eventId, $eventTagsArray);
         
             return $eventInserted && $tagInserted;
