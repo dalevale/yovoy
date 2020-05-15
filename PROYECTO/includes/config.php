@@ -16,7 +16,7 @@ require_once __DIR__.'/classes/Form/SearchForm.php';
  * Parámetros de conexión a la BD
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'yovoy_DB');
+define('DB_NAME', 'yovoy_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
