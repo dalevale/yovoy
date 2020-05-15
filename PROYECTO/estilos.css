@@ -237,6 +237,20 @@ textarea {
   max-width: inherit;
 }
 
+.tarjeta_error{
+  background-image: url("includes/img/fondo_ERROR.jpg");
+  font-size: 30px;
+  text-shadow: 2px 2px 20px #000000;
+  padding: 20px;
+  width: auto;
+  border-radius: 25px;
+  height: fit-content;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
 .tarjeta_gris{
   border-radius: 25px;
   background: grey;
