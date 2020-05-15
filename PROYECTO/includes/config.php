@@ -2,6 +2,7 @@
 require_once __DIR__.'/classes/DAO/EventDAO.php';
 require_once __DIR__.'/classes/DAO/UserDAO.php';
 require_once __DIR__.'/classes/DAO/CommentsDAO.php';
+require_once __DIR__.'/classes/DAO/NotificationsDAO.php';
 require_once __DIR__.'/classes/Application.php';
 require_once __DIR__.'/classes/Form/RegisterForm.php';
 require_once __DIR__.'/classes/Form/LoginForm.php';

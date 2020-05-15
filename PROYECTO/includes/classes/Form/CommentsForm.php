@@ -33,6 +33,11 @@ EOF;
         //Conectamos a BBDD
 
         $commentsDAO = new CommentsDAO();
+        $notificationsDAO = new NotificationsDAO();
+        $eventDAO = new EventDAO();
+        $event = $eventDAO->getEvent($_SESSION["event_id"]);
+        $ownerId = $event->getCreator();
+
         $result = array();
        
         $comment = isset($data['comment']) ? $data['comment'] : null;
@@ -45,8 +50,10 @@ EOF;
             $result[] = "¡Tienes que escribir algo!";
         }
         else{
-            if(isset($_SESSION["userId"]) && $_SESSION["userId"])
+            if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
                 $commentsDAO->postComment($_SESSION["event_id"],$_SESSION["userId"], date("Y-m-d"), $comment);
+                $notificationsDAO->notify(NotificationsDAO::NEW_COMMENT, $ownerId, $_SESSION["userId"], $_SESSION["event_id"]);
+            }
         }
         
         if (count($result) === 0)

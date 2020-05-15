@@ -14,13 +14,107 @@
     <?php ; 
         $eventDAO = new EventDAO();
         $userDAO = new UserDAO();
-    
+        $notificationsDAO = new NotificationsDAO();
+
         $createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
         $friendRequests= $userDAO->getFriendRequests($_SESSION["userId"]);
-
         $empty = true;
 
-        echo '<label> Solicitudes de eventos</label>';
+        $notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
+        
+        foreach($notificationsList as &$notification){
+            $id = $notification->getId();
+            $thatUser = $notification->getThatUser();
+            $eventId = $notification->getEventId();
+            $type = $notification->getType();
+            $date = $notification->getDate();
+            $isRead = $notification->isRead();
+            
+            if(!$isRead)
+                $notificationsDAO->setRead(true);
+
+            if($thatUser != NULL){
+                $user= $userDAO->getUser($thatUser);
+                $userId = $user->getUserId();
+                $username = $user->getUsername();
+            }
+
+            if($eventId != NULL){
+                $event = $eventDAO->getEvent($eventId);
+                $eventName = $event->getName();
+            }
+        
+            switch($type){
+                case NotificationsDAO::NEW_FRIEND_REQUEST:
+                    echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a> quiere ser tu amigo.</div>';
+                break;
+
+                case NotificationsDAO::FRIEND_REQUEST_ACCEPTED:
+                    echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a> ha aceptado tu solicitud de amistad.</div>';
+                break;
+
+                case NotificationsDAO::NEW_EVENT_REQUEST:
+                    echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
+                    echo ' quiere unirse al evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.</div>';
+                break;
+
+                case NotificationsDAO::EVENT_REQUEST_ACCEPTED:
+                    echo '<div class="tarjeta_blanca">Has sido aceptado en el evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.</div>';
+                break;
+
+                case NotificationsDAO::EVENT_EDITED:
+                    echo '<div class="tarjeta_blanca">El evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a> ha sido modificado.</div>';
+                break;
+
+                case NotificationsDAO::NEW_COMMENT:
+                    echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
+                    echo ' ha comentado en el evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.</div>';
+                break;
+
+                case NotificationsDAO::EVENT_IS_NEAR:
+                    //pendiente
+                break;
+
+                case NotificationsDAO::HAS_NEW_EVENT:
+                    echo '<div class="tarjeta_blanca"><a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
+                    echo ' ha creado un nuevo evento: <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.</div>';
+                break;
+
+                default:
+                    echo 'Ha habido un error';
+                break;
+            }
+
+
+            $empty = false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       /* echo '<label> Solicitudes de eventos</label>';
         for($i = 0; $i < count($createdEvents); $i++) {
             $eventId = $createdEvents[$i]->getEventId();
             $waitingList = $eventDAO->getAttendees($eventId,false);
@@ -52,14 +146,16 @@
                 $empty = false;
             }  
         }
+        */
         if($empty)
-            echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de eventos.</div>';
+            echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de nada.</div>';
     ?>
     </div>
+    
+    
 
-    <div class="tarjeta_gris">
     <?php
-        $empty = true;
+       /* $empty = true;
         echo '<label> Solicitudes de amistad</label>';
         while(sizeof($friendRequests) != 0){
             $user = $userDAO->getUser(array_pop($friendRequests));
@@ -73,8 +169,9 @@
 
         if($empty)
             echo '<div class="tarjeta_blanca">No tienes nuevas solicitudes de amistad.</div>';
+        */
     ?>
-    </div>
+
 
     <footer>
         <?php include 'includes/comun/footer.php' ?>

@@ -24,23 +24,21 @@ require_once __DIR__.'/../config.php';
 					if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
 						$userDAO = new UserDAO();
 						$eventDAO = new EventDAO();
-				
+						$notificationsDAO = new NotificationsDAO();
 						$createdEvents = $userDAO->getCreatedEvents($_SESSION["userId"]);
 					
 						//contamos numero de peticiones
-						$requests=0;
-						for($i=0; $i < count($createdEvents); $i++){
-							$eventId = $createdEvents[$i]->getEventId();
-							$attendeesList = $eventDAO->getAttendees($eventId,false);
-					
-							$requests += sizeof($attendeesList);
+						$counter=0;
+						$notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
+						foreach($notificationsList as $notification){
+							$isRead = $notification->isRead();
+							if(!$isRead)
+								$counter++;
 						}
-
-						$friendRequests = $userDAO->getFriendRequests($_SESSION["userId"]);
-						$requests += sizeof($friendRequests);
+						
 						echo "<li><a href='friends.php'>AMIGOS</a></li>";
 						echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
-						echo "<li><a href='notifications.php'>NOTIFICACIONES ($requests)</a></li>";
+						echo "<li><a href='notifications.php'>NOTIFICACIONES ($counter)</a></li>";
 					}
 					?>
 				</ul>

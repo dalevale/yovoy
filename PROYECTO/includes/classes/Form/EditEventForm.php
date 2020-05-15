@@ -139,10 +139,20 @@ EOF;
             $result = array();
             //Actualizar el evento en la BBDD
             if($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsStr, $eventTags, $imgName)){
+                $notificationsDAO = new NotificationsDAO();
+                $eventsDAO = new EventDAO();
+                $attendees = $eventsDAO->getAttendees($this->eventId,true);
+
+                $user = array_pop($attendees);
+                while(!empty($user)){
+                    $notificationsDAO->notify(NotificationsDAO::EVENT_EDITED, $user, 'NULL', $this->eventId);
+                    $user = array_pop($attendees);
+                }
+               
                 $result = "eventItem.php?event_id=".$eventId;
             }
             else {
-                $result[] = "Error en crear evento! Consulta un administrador.";
+                $result[] = "¡Error al editar el evento! Consulta un administrador.";
 			}
         }
         return $result;

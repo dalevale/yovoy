@@ -93,11 +93,21 @@ EOF;
             
             $userDAO = new UserDAO();
             $eventDAO = new EventDAO();
+            $notificationsDAO = new NotificationsDAO();
+
             $result = array();
             //Añadir el evento a la BBDD
 	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
-		    $_SESSION["eventCreated"] = true;
-            $result = "createEvent.php";
+                $_SESSION["eventCreated"] = true;
+                $eventId = $eventDAO->getLastEvent();
+                $friends = $userDAO->getFriends($creator);
+                $user = array_pop($friends);
+                while(!empty($user)){
+                    $notificationsDAO->notify(NotificationsDAO::HAS_NEW_EVENT, $user->getUserId(), $creator, $eventId);
+                    $user = array_pop($friends);
+                }
+
+                $result = "createEvent.php";
             }
             else {
                 $result[] = "Error en crear evento! Consulta un administrador.";

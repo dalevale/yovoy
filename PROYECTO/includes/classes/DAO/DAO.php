@@ -8,6 +8,10 @@ class DAO{
         $this->conn = $app->bdConnection(); 
     }
     
+    public function getConnection(){
+        return $this->conn;
+    }
+    
     public function executeQuery($sql){
         if($sql != ""){
             $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1));
@@ -24,15 +28,15 @@ class DAO{
 
     public function executeModification($sql){
         if($sql != ""){
-            $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1));
+            $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ".$sql);
             return $this->conn->affected_rows;
         }
-        else return 0;
+        //else return 0;
     }
 
     public function executeInsert($sql){
         if($sql != ""){
-           return $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1));
+           return $this->conn->query($sql) or die($this->conn->error. " en la linea ".(__LINE__-1).": ".$sql);
         }
         else return 0;   
     }

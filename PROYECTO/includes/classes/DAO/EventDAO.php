@@ -101,8 +101,8 @@ class EventDAO extends DAO{
     */
     private function removeTag($eventId){
   
-        $insertTags = "DELETE FROM event_tags WHERE event_id = '".$eventId."';";
-
+        $insertTags = "DELETE FROM event_tags WHERE event_id = '$eventId'";
+        echo $insertTags;
         return parent::executeModification($insertTags);
 	}
 
@@ -273,7 +273,6 @@ class EventDAO extends DAO{
 
         $eventInserted = parent::executeModification($updateQuery);
         $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
-          
 
         return $eventInserted && $tagsInserted;
     }
@@ -311,6 +310,15 @@ class EventDAO extends DAO{
         $total = $data["total"];
         
         return $total >= $capacity;
+    }
+
+    public function getLastEvent(){
+        $query = "SELECT event_id FROM event ORDER BY event_id DESC LIMIT 1";
+        $dataArray = parent::executeQuery($query);
+
+        $data = array_pop($dataArray);
+
+        return $data["event_id"];
     }
 }
 ?>

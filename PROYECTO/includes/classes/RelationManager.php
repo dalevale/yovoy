@@ -21,15 +21,18 @@ class RelationManager extends Form {
     public $userOneId;
     public $userTwoId;
     private $status;
+    private $notificationsDAO;
 
     public function __construct($userOneId, $userTwoId){
         $app = es\ucm\fdi\aw\Application::getSingleton();
-        $this->dbConn = $app->bdConnection(); 
+        $this->dbConn = $app->bdConnection();
+
         parent::__construct('relationForm');
         $this->userOneId = $userOneId;
         $this->userTwoId = $userTwoId;
         $this->status = $this->relationStatus($this->userOneId, $this->userTwoId);
         $this->action.= "?profileId=".$userTwoId;
+        $this->notificationsDAO = new NotificationsDAO();
 	}
 
     /**
@@ -121,13 +124,16 @@ EOF;
        
         if(isset($data['addFriend'])){
             $this->insertRow($u1, $u2, self::ADD, $u1);
+            $this->notificationsDAO->notify(NotificationsDAO::NEW_FRIEND_REQUEST,$u2, $u1, 'NULL');
 	    }
         else if(isset($data['cancelAddFriend'])){
             $this->deleteRow($u1, $u2);
+            $this->notificationsDAO->removeNotificationsByUsers($u2,$u1);
 	    }
         else if(isset($data['acceptFriend'])){
             $this->deleteRow($u1, $u2);
             $this->insertRow($u1, $u2, self::ACCEPT, $u1);
+            $this->notificationsDAO->notify(NotificationsDAO::FRIEND_REQUEST_ACCEPTED,$u2, $u1, 'NULL');
 	    }
         else if(isset($data['unfriend'])){
             $this->deleteRow($u1, $u2);
