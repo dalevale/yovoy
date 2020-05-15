@@ -200,6 +200,30 @@ div#usuario input{
   margin-top: 30px;
 }
 
+.eventoOver{
+  float:left;
+  border-radius: 25px;
+  background: brown;
+  display: center;
+  padding: 15px;
+  height: fit-content;
+  width: 40pc;
+  max-width: 50pc;
+  margin-top: 30px;
+}
+
+.eventoFull{
+  float:left;
+  border-radius: 25px;
+  background: rgb(56, 56, 56);
+  display: center;
+  padding: 15px;
+  height: fit-content;
+  width: 40pc;
+  max-width: 50pc;
+  margin-top: 30px;
+}
+
 div#comentarios {
     float: right;
     width: 35pc;
