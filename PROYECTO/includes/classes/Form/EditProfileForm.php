@@ -50,10 +50,7 @@ EOF;
     protected function processForm($data)
     {
 		//INICIAMOS CONEXIÓN CON MYSQL
-		$app = es\ucm\fdi\aw\Application::getSingleton();
-		$conn = $app->bdConnection(); 
-
-		$userDAO = new UserDAO($conn);
+		$userDAO = new UserDAO();
 		$userId = $this->userId;
 		$user = $userDAO->getUser($userId);
 

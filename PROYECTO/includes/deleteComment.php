@@ -11,4 +11,4 @@ require_once __DIR__.'/config.php';
   
     header("Location: ../eventItem.php?event_id=".$eventId."");
 
-?>
+
