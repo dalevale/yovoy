@@ -290,6 +290,7 @@ textarea {
   overflow:auto;
   transition: all .2s ease-in-out;
   margin: 5px;
+  margin-bottom: 15px;
 }
 
 .tarjeta_naranja:hover{
@@ -327,6 +328,19 @@ div.accept_reject{
   float:left;
 }
 
-div.right_button{
+div.notificationRight{
   float:right;
+}
+div.notificationLeft{
+  padding-top: 1%;
+  float:left;
+}
+
+#circle {
+  width: 10px;
+  height: 6px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: red;
 }

@@ -270,6 +270,7 @@ class EventDAO extends DAO{
     }
 
     public function userInEventRequest($userId,$eventId,$accepted){
+        $accepted = $accepted == "1"? true:false;
         if($accepted)
             $query = "UPDATE join_event SET accepted='1' WHERE event_id='$eventId' AND user_id='$userId'";
         else

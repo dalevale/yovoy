@@ -12,6 +12,11 @@ require_once __DIR__.'/classes/Form/EditEventForm.php';
 require_once __DIR__.'/classes/Form/EditProfileForm.php';
 require_once __DIR__.'/classes/RelationManager.php';
 require_once __DIR__.'/classes/Form/SearchForm.php';
+require_once __DIR__.'/classes/Form/AcceptEventForm.php';
+require_once __DIR__.'/classes/Form/RejectEventForm.php';
+require_once __DIR__.'/classes/Form/AcceptFriendRequestForm.php';
+require_once __DIR__.'/classes/Form/RejectFriendRequestForm.php';
+require_once __DIR__.'/classes/Form/CancelEventRequestForm.php';
 
 /**
  * Parámetros de conexión a la BD

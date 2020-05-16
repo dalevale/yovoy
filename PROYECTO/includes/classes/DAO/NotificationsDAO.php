@@ -20,7 +20,7 @@ class NotificationsDAO extends DAO{
     }
 
     /** 
-    * @param int $type       Tipo de notificación
+    * @param int $type          Tipo de notificación
     * @param int $thisUser      ID del usuario que recibe la notificación
     * @param int $thatUser      ID del usuario que aparece en la notificación
     * @param int $eventId       ID del evento
@@ -37,13 +37,17 @@ class NotificationsDAO extends DAO{
         parent::executeModification($query);
     }
 
-    public function removeNotificationsByUsers($thisUser, $thatUser){
-        $query = "DELETE FROM notifications WHERE this_user_id = '$thisUser' AND that_user_id = '$thatUser'";
+    public function removeNotificationsByUsers($thisUser, $thatUser, $type){
+        $query = "DELETE FROM notifications WHERE 
+        ((this_user_id = '$thisUser' AND that_user_id = '$thatUser') OR
+        (this_user_id = '$thatUser' AND that_user_id = '$thisUser')) AND
+        type = $type";
+        
         parent::executeModification($query);
     }
 
-    public function removeNotificationsByEvent($thisUser, $thatUser,$eventId){
-        $query = "DELETE FROM notifications WHERE this_user_id = '$thisUser' AND that_user_id = '$thatUser' AND event_id='$eventId'";
+    public function removeNotificationsByEvent($thisUser, $thatUser,$eventId,$type){
+        $query = "DELETE FROM notifications WHERE this_user_id = '$thisUser' AND that_user_id = '$thatUser' AND event_id='$eventId' AND type = '$type'";
         parent::executeModification($query);
     }
 
@@ -74,8 +78,11 @@ class NotificationsDAO extends DAO{
         return $notificationsArray;
     }
 
-    public function setRead($status){
-        $query = "UPDATE notifications SET isRead = $status";
+    /** 
+    * @param bool $status   Estado de lectura de la notificación
+    */
+    public function markAsRead($status,$id){
+        $query = "UPDATE notifications SET isRead = $status WHERE id = $id";
         parent::executeModification($query);
     }
 }

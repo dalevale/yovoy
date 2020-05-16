@@ -128,7 +128,7 @@ EOF;
 	    }
         else if(isset($data['cancelAddFriend'])){
             $this->deleteRow($u1, $u2);
-            $this->notificationsDAO->removeNotificationsByUsers($u2,$u1);
+            $this->notificationsDAO->removeNotificationsByUsers($u2,$u1,NotificationsDAO::NEW_FRIEND_REQUEST);
 	    }
         else if(isset($data['acceptFriend'])){
             $this->deleteRow($u1, $u2);
@@ -159,12 +159,12 @@ EOF;
     * @param int $action_user_id    Id del usuario ($userOneId o $userTwoId) que hizo el ultimo gesto (cambiar el estado)
     * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
     */
-    private function insertRow($userOneId, $userTwoId, $status, $action_user_id){
+    public function insertRow($userOneId, $userTwoId, $status, $action_user_id){
         $queryValues =  
                 "'".min($userOneId, $userTwoId)."',"
 			    ."'".max($userOneId, $userTwoId)."',"
                 ."".$status.","
-                ."'".$userOneId."'";
+                ."'".$action_user_id."'";
         $query = "INSERT INTO relationship (user_one_id, user_two_id, status, action_user_id) VALUES (".$queryValues.")";
         $result = $this->dbConn->query($query);
 
@@ -178,7 +178,7 @@ EOF;
     * @param int $userTwoId         Id del otro usuario.
     * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
     */
-    private function deleteRow($userOneId, $userTwoId){
+    public function deleteRow($userOneId, $userTwoId){
         $query = "DELETE FROM relationship WHERE user_one_id = '".min($userOneId, $userTwoId)."' AND user_two_id = '".max($userOneId, $userTwoId)."';";
         $result = $this->dbConn->query($query);
 

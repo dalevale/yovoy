@@ -61,10 +61,17 @@ require_once __DIR__.'/includes/config.php';
                     echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                     echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
                 }
-
-                else if($eventDAO->isUserInEvent($currentUserId, $event_id))
-                    echo '<div class="tarjeta_blanca">¡Estás apuntado en este evento!</div>';  
-
+                else {
+                    echo '<div class="tarjeta_blanca">';
+                    if($eventDAO->isUserInEvent($currentUserId, $event_id))
+                        echo '¡Estás apuntado en este evento!';
+                    else
+                        echo 'Esperando respuesta del organizador...';
+                
+                $cancelForm = new CancelEventRequestForm;
+                $cancelForm->manage(); 
+                echo '</div>';
+                }
                 if(!$userDAO->isPromoting($currentUserId, $event_id)){
                     echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                     echo '<input type="image" alt="submit" src="includes/img/boton_PROMO.png" title="Promocionar!" name="promoBtn"/></form>';
@@ -74,12 +81,12 @@ require_once __DIR__.'/includes/config.php';
                     echo '<input type="image" alt="submit" src="includes/img/boton_UNPROMO.png" title="Quitar promocion!" name="unpromoBtn"/></form>';
                 }
             }
+            echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
+            echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
+            echo '<p>'.'Capacidad: '.$capacity.'</p>';
+            echo '<p>'.'Lugar: '.$location.'</p>';
+            echo '<p>'.'Descripción: '.$descripcion.'</p>';
         }
-        echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
-        echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
-        echo '<p>'.'Capacidad: '.$capacity.'</p>';
-        echo '<p>'.'Lugar: '.$location.'</p>';
-        echo '<p>'.'Descripción: '.$descripcion.'</p>';
     ?>
     
         <div class="tarjeta_gris">
@@ -121,24 +128,12 @@ require_once __DIR__.'/includes/config.php';
                             $waitingUserName = $waitingUser->getUsername();
                             $waitingUserId = $waitingUser->getUserId();
                             echo '<a href="profileView.php?profileId='.$waitingUserId.'"><p>'.$waitingUserName.'</p></a>';
-                        
-                            echo '<div class="accept_reject">';
-                            echo '<form method="POST" action="includes/processUserInEvent.php">';
-                            echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
-                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                            echo '<input type="hidden" name="source" value="eventItem">';
-                            echo '<input type="hidden" name="status" value="1">';
-                            echo '<button type="submit">Aceptar</button></form>';
-                            echo '</div>';
-
-                            echo '<div class="accept_reject">';
-                            echo '<form method="POST" action="includes/processUserInEvent.php">';
-                            echo '<input type="hidden" name="userId" value="'.$waitingUserId.'">';
-                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                            echo '<input type="hidden" name="source" value="eventItem">';
-                            echo '<input type="hidden" name="status" value="0">';
-                            echo '<button type="submit">Rechazar</button></form>';
-                            echo '</div>';
+                            
+                            $_SESSION["thatUserId"] = $waitingUserId;
+                            $_SESSION["event_id"] = $event_id;
+                            $_SESSION["source"] = "eventItem";
+                            $form = new AcceptEventForm;
+                            $form->manage();
                             echo '</div>';
                         }
                         echo '</div>';
@@ -183,13 +178,7 @@ require_once __DIR__.'/includes/config.php';
 
                         echo '<div class="tarjeta_gris">';
                         
-                        //Mejor manera
-                        $date ="";
-                        $dateInvert = explode("-", $comment->getDate());
-
-                        for($i = sizeof($dateInvert)-1; $i >= 0; $i--){
-                            $date .= $i == 0 ? $dateInvert[$i] : $dateInvert[$i]."-";
-                        }
+                        $date = date("d-m-Y", strtotime($comment->getDate()));
 
                         echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
 
