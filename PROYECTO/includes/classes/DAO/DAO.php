@@ -28,7 +28,7 @@ class DAO{
 
     public function executeModification($sql){
         if($sql != ""){
-            $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ".$sql);
+            $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ". $sql);
             return $this->conn->affected_rows;
         }
         //else return 0;
@@ -36,7 +36,7 @@ class DAO{
 
     public function executeInsert($sql){
         if($sql != ""){
-           return $this->conn->query($sql) or die($this->conn->error. " en la linea ".(__LINE__-1).": ".$sql);
+           return $this->conn->query($sql) or die($this->conn->error. " en la linea ".(__LINE__-1).": ". $sql);
         }
         else return 0;   
     }
