@@ -339,8 +339,6 @@ div.notificationLeft{
 #circle {
   width: 10px;
   height: 6px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  border-radius: 50%;
   background: red;
 }
