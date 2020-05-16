@@ -61,11 +61,11 @@ require_once __DIR__.'/../config.php';
 						$imgName = $user->getImgName();
 						$imgPath = $imgDir . $imgName;
 						$name = $user->getName();
-
-						echo "Hola, " . $name . "!";						
+						
 						echo "<img src='" . $imgPath . "' alt='usuario' height='50' width='50'>";
 						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 					
+						echo "<p>Hola, " . $name . "!</p>";
 						//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
 						//if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
 						//	echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";

@@ -275,5 +275,50 @@ class UserDAO extends DAO{
 
         return $userArray;
     }
+
+    public function promote($userId, $eventId){
+        $query = "INSERT INTO promote_event VALUES ('".$userId."', '".$eventId."');";
+
+        return parent::executeInsert($query);
+	}
+
+    public function unpromote($userId, $eventId){
+        $query = "DELETE FROM promote_event WHERE user_id = '".$userId."' AND event_id = '".$eventId."';";
+
+        return parent::executeInsert($query);
+	}
+
+    public function isPromoting($userId, $eventId){
+        $eventQuery = "SELECT * FROM promote_event WHERE user_id = ".$userId." AND event_id = ".$eventId.";";
+
+        $dataArray=parent::executeQuery($eventQuery);
+        $data = array_pop($dataArray);
+
+        return !empty($data["event_id"]);
+    }
+
+    public function getPromotedEvents($userId){
+        $eventQuery = "SELECT e.event_id, name, creator, img_name, creation_date, event_date, capacity, location, tags, description
+        FROM event e JOIN promote_event pe WHERE pe.user_id = ".$userId." AND pe.event_id = e.event_id;";
+        $eventArray = array();
+
+        $dataArray = parent::executeQuery($eventQuery);
+        $data = array_pop($dataArray);
+        while(!empty($data)) {
+            $eventId= $data["event_id"];
+            $name = $data["name"];
+            $creator = $data["creator"];
+            $imgName = $data["img_name"];
+            $creationDate = $data["creation_date"];
+            $eventDate = $data["event_date"];
+            $capacity = $data["capacity"];
+            $location = $data["location"];
+            $tags = $data["tags"];
+            $description = $data["description"];
+            array_push($eventArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            $data = array_pop($dataArray);
+        }
+        return $eventArray;
+	}
 }
 ?>

@@ -106,6 +106,21 @@
 						echo '</ul></li>';
 					}
 					echo '</ul>';
+					
+					echo '<h1>Eventos Promocionados</h1>';
+					$promotedEvents = $userDAO->getPromotedEvents($profileId);
+					if(count($promotedEvents) > 0){
+					for($i=0; $i < count($promotedEvents); $i++){
+							$eventId = $promotedEvents[$i]->getEventId();
+							$eventImgDir = "includes/img/events/";
+							$eventImgName =  $promotedEvents[$i]->getImgName();
+							$eventImgPath = $eventImgDir . $eventImgName;
+							echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+							echo "<p><img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
+							echo $promotedEvents[$i]->getName();
+							echo '</p></a>';
+						}
+					}
 			}
 			else{
 				echo "<p>Login o registrate para ver esta información.</p>";

@@ -2,13 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\PROYECTO",
+    "\\PROYECTO\\css",
     "\\PROYECTO\\includes",
     "\\PROYECTO\\includes\\classes",
     "\\PROYECTO\\includes\\classes\\DAO",
-    "\\PROYECTO\\includes\\classes\\Form",
-    "\\PROYECTO\\includes\\classes\\TransferObjects",
-    "\\PROYECTO\\includes\\img"
+    "\\PROYECTO\\includes\\classes\\DAO\\Form",
+    "\\PROYECTO\\includes\\comun",
+    "\\PROYECTO\\includes\\js",
+    "\\PROYECTO\\mysql"
   ],
-  "SelectedNode": "\\PROYECTO\\includes\\classes\\Application.php",
+  "SelectedNode": "\\PROYECTO\\includes\\config.php",
   "PreviewInSolutionExplorer": false
 }

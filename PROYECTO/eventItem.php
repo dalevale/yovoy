@@ -53,33 +53,40 @@ require_once __DIR__.'/includes/config.php';
                 echo '<form method="POST" action="editEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
                 echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
             }
-            else if($eventDAO->isEventFull($event_id,$capacity)){
-                echo '<div class="tarjeta_blanca">Este evento ya está lleno.</div>';
-
-                if($eventDAO->isUserInEvent($currentUserId, $event_id))
-                    echo '<div class="tarjeta_blanca">¡Estás apuntado en este evento!</div>';  
-			}
-            else if(!$userDAO->isAttending($currentUserId, $event_id)){
-                echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
-                echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
-            }
             else {
-                echo '<div class="tarjeta_blanca">';
-                if($eventDAO->isUserInEvent($currentUserId, $event_id))
-                    echo '¡Estás apuntado en este evento!';
-                else
-                    echo 'Esperando respuesta del organizador...';
+                if($eventDAO->isEventFull($event_id,$capacity))
+                    echo '<div class="tarjeta_blanca">Este evento ya está lleno.</div>';
+               
+                else if(!$userDAO->isAttending($currentUserId, $event_id)){
+                    echo '<form method="POST" action="includes/joinEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
+                    echo '<input type="image" alt="submit" src="includes/img/boton_UNIRSE_1.png" title="Me apunto!" name="Submit" id="frm1_submit" /></form>';
+                }
+                else {
+                    echo '<div class="tarjeta_blanca">';
+                    if($eventDAO->isUserInEvent($currentUserId, $event_id))
+                        echo '¡Estás apuntado en este evento!';
+                    else
+                        echo 'Esperando respuesta del organizador...';
                 
                 $cancelForm = new CancelEventRequestForm;
                 $cancelForm->manage(); 
                 echo '</div>';
+                }
+                if(!$userDAO->isPromoting($currentUserId, $event_id)){
+                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
+                    echo '<input type="image" alt="submit" src="includes/img/boton_PROMO.png" title="Promocionar!" name="promoBtn"/></form>';
+                }
+                else {
+                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="event_id" value="'.$event_id.'"/>';
+                    echo '<input type="image" alt="submit" src="includes/img/boton_UNPROMO.png" title="Quitar promocion!" name="unpromoBtn"/></form>';
+                }
             }
+            echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
+            echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
+            echo '<p>'.'Capacidad: '.$capacity.'</p>';
+            echo '<p>'.'Lugar: '.$location.'</p>';
+            echo '<p>'.'Descripción: '.$descripcion.'</p>';
         }
-        echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
-        echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
-        echo '<p>'.'Capacidad: '.$capacity.'</p>';
-        echo '<p>'.'Lugar: '.$location.'</p>';
-        echo '<p>'.'Descripción: '.$descripcion.'</p>';
     ?>
     
         <div class="tarjeta_gris">
