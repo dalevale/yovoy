@@ -18,7 +18,7 @@ class CancelEventRequestForm extends Form
         <input type="hidden" name="userId" value="$userId">
         <input type="hidden" name="event_id" value="$eventId">
         <input type="hidden" name="status" value="0">
-        <button type="submit">Yonovoy</button>
+        <button type="submit">YaNoVoy</button>
         </div>
        
 EOF;
