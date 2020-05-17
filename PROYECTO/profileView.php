@@ -28,7 +28,6 @@
 					$profileId = $_GET["profileId"];
 				//$profileId = $_GET["profileId"];
 				$userId = $_SESSION["userId"];
-				$relMan = new RelationManager($userId, $profileId);
 					
 				
 					// conseguir información
@@ -51,7 +50,8 @@
 					}
 					else{
 						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
-						$relMan->manage();
+						$relMan = new RelationManager($userId, $profileId);
+						echo $relMan->printButtons();
 					}
 					echo "</div>";
 					// mostrar información

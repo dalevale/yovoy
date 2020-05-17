@@ -320,5 +320,66 @@ class UserDAO extends DAO{
         }
         return $eventArray;
 	}
+
+    
+    /**
+    * Insertar una fila en la BBDD en la tabla relationship para establecer relaci�n
+    * entre dos cuentas de usuario con id�s $userOneId y $userTwoId
+    *
+    * @param int $userOneId         Id del usuario con el que la sesion se inicia
+    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relaci�n
+    * @param int $status            Estado de relacion de las cuentas (0 - Pendiente, 1 - Amigos, 2 - Cuenta bloqueada)
+    * @param int $action_user_id    Id del usuario ($userOneId o $userTwoId) que hizo el ultimo gesto (cambiar el estado)
+    * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
+    */
+    public function insertRelationship($userOneId, $userTwoId, $status, $action_user_id){
+        $queryValues =  
+                "'".min($userOneId, $userTwoId)."',"
+			    ."'".max($userOneId, $userTwoId)."',"
+                ."".$status.","
+                ."'".$action_user_id."'";
+        $query = "INSERT INTO relationship (user_one_id, user_two_id, status, action_user_id) VALUES (".$queryValues.")";
+        $result = parent::executeInsert($query);
+
+        return $result;
+	}
+
+    /**
+    * Funci�n para eliminar una fila en la tabla relationship
+    *
+    * @param int $userOneId         Id del usuario con el que la sesion se inicia
+    * @param int $userTwoId         Id del otro usuario.
+    * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.
+    */
+    public function deleteRelationship($userOneId, $userTwoId){
+        $query = "DELETE FROM relationship WHERE user_one_id = '".min($userOneId, $userTwoId)."' AND user_two_id = '".max($userOneId, $userTwoId)."';";
+        $result = parent::executeModification($query);
+
+        return $result;
+	}
+
+    /**
+    * Funci�n para comprabar la columna 'status' en la tabla 'relationship' en la BBDD para generar botones
+    *
+    * @param int $userId        Id del usuario con el que la sesion se inicia
+    * @param int $profileId     Id del usuario de la perfil que se esta viendo
+    * @return enum $ret         Valor int que va a corresponder a los enums definidos
+    */
+    public function relationStatus($userId, $profileId){
+        $query = "SELECT status, action_user_id FROM relationship WHERE user_one_id = ".min($userId, $profileId)." AND user_two_id = ".max($userId, $profileId).";";
+        $dataArray=parent::executeQuery($query);
+        if(empty($dataArray))
+            $ret = null;
+        else{
+            $ret = 0;
+            $data = array_pop($dataArray);
+            $status = $data["status"];
+            $actionId = $data["action_user_id"];
+            $ret = $status * 2;
+            if($actionId == $profileId)
+                $ret++;
+		}
+        return $ret;
+    }
 }
 ?>

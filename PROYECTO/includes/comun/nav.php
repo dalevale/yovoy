@@ -64,6 +64,7 @@ require_once __DIR__.'/../config.php';
 						$name = $user->getName();
 						
 						echo "<img src='" . $imgPath . "' alt='usuario' height='50' width='50'>";
+						echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
 						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 					
 						echo "<p>Hola, " . $name . "!</p>";
