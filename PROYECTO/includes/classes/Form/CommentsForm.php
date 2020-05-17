@@ -54,7 +54,9 @@ EOF;
         else{
             if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
                 $commentsDAO->postComment($_SESSION["event_id"],$_SESSION["userId"], date("Y-m-d"), $comment);
-                $notificationsDAO->notify(NotificationsDAO::NEW_COMMENT, $ownerId, $_SESSION["userId"], $_SESSION["event_id"]);
+
+                if($_SESSION["userId"] != $ownerId)
+                    $notificationsDAO->notify(NotificationsDAO::NEW_COMMENT, $ownerId, $_SESSION["userId"], $_SESSION["event_id"]);
             }
         }
         

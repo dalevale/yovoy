@@ -99,7 +99,7 @@
                 break;
 
                 case NotificationsDAO::HAS_NEW_EVENT:
-                    echo '<a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
+                    echo 'Tu amigo <a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
                     echo ' ha creado un nuevo evento: <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
                 break;
 
