@@ -171,8 +171,7 @@ require_once __DIR__.'/includes/config.php';
                 echo "<label>COMENTARIOS</label>";
 
                 echo '<div id="commentsSection" class="tarjeta_blanca">';
-                    $countComments = sizeof($commentList);
-                    while($countComments > 0){
+                    while(sizeof($commentList) > 0){
                         $comment = array_pop($commentList);
                         
                         $username = $userDAO->getUser($comment->getUserID())->getUsername();
@@ -195,10 +194,6 @@ require_once __DIR__.'/includes/config.php';
                             echo '<button id="deleteCommentBtn" type="submit" value="'.$comment->getID().'">Borrar comentario</button>';
                         }
                         echo "</div>";
-                    }
-
-                    if($countComments <= 0){
-                        echo '<p>Parece que aún no hay comentarios...</p>';
                     }
                 
                  echo '</div>';
