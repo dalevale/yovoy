@@ -151,11 +151,17 @@ require_once __DIR__.'/includes/config.php';
         <?php
             if(isset($_SESSION["userId"]) && $_SESSION["userId"] && (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
                 
-                echo "<div class = 'tarjeta_naranja'>";
                 //echo '<div class = "escribir_Comentario">';
-                $form = new CommentsForm;
-                $form->manage();
-                echo "</div>";
+                //$form = new CommentsForm;
+                //$form->manage();
+                echo '<div class = "tarjeta_naranja">
+                 <label>Escribe un comentario: </label>
+        
+                    <div class="tarjeta_gris">
+                        <div><textarea id="newCommentText" style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." rows="5" cols="50"/></textarea></div>
+                        <div><button id="submitCommentBtn" type="button" value="'.$event_id.'">Enviar comentario</button></div>
+                    </div>
+                </div>';
             }
         ?>
 
@@ -164,12 +170,7 @@ require_once __DIR__.'/includes/config.php';
                 $commentList = $commentsDAO->getComments($_SESSION["event_id"]);
                 echo "<label>COMENTARIOS</label>";
 
-                if(sizeof($commentList) == 0){
-                    echo '<div class="tarjeta_blanca">';
-                    echo 'Parece que aún no hay comentarios...';
-                    echo '</div>';
-                }
-                else{
+                echo '<div id="commentsSection" class="tarjeta_blanca">';
                     while(sizeof($commentList) > 0){
                         $comment = array_pop($commentList);
                         
@@ -180,21 +181,22 @@ require_once __DIR__.'/includes/config.php';
                         
                         $date = date("d-m-Y", strtotime($comment->getDate()));
 
-                        echo "Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </br>";
+                        echo "<p>Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </p>";
 
-                        echo '<div class="tarjeta_blanca">';
+                        echo '<div class="tarjeta_blanca ">';
                         echo $comment->getComment();
                         echo '</div>';
                         
                         if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"]) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                            echo '<form method="POST" action="includes/deleteComment.php">';
-                            echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
-                            echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
-                            echo '<button type="submit">Borrar comentario</button></form>';
+                            //echo '<form method="POST" action="includes/deleteComment.php">';
+                            //echo '<input type="hidden" name="comment_id" value="'.$comment->getID().'">';
+                            //echo '<input type="hidden" name="event_id" value="'.$_SESSION["event_id"].'">';
+                            echo '<button id="deleteCommentBtn" type="submit" value="'.$comment->getID().'">Borrar comentario</button>';
                         }
                         echo "</div>";
                     }
-                }
+                
+                 echo '</div>';
             ?>
         </div>
     </div>

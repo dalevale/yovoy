@@ -36,9 +36,12 @@ class DAO{
 
     public function executeInsert($sql){
         if($sql != ""){
-           return $this->conn->query($sql) or die($this->conn->error. " en la linea ".(__LINE__-1).": ". $sql);
+           if($this->conn->query($sql) === TRUE)
+               $ret = $this->conn->insert_id;
+            else
+               $ret = die($this->conn->error. " en la linea ".(__LINE__-1).": ". $sql);
         }
-        else return 0;   
+        return $ret;  
     }
 
 }

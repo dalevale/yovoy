@@ -10,5 +10,7 @@
 			<li>Yovoy &copy; 2020</li>
 		</ul>
     </div>
+	
+	<script src="includes/js/eventItemButtons.js" type="text/javascript" ></script>
     </body>
 </html>

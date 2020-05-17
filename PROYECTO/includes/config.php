@@ -6,7 +6,6 @@ require_once __DIR__.'/classes/DAO/NotificationsDAO.php';
 require_once __DIR__.'/classes/Application.php';
 require_once __DIR__.'/classes/Form/RegisterForm.php';
 require_once __DIR__.'/classes/Form/LoginForm.php';
-require_once __DIR__.'/classes/Form/CommentsForm.php';
 require_once __DIR__.'/classes/Form/NewEventForm.php';
 require_once __DIR__.'/classes/Form/EditEventForm.php';
 require_once __DIR__.'/classes/Form/EditProfileForm.php';

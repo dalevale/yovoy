@@ -7,6 +7,7 @@ require_once __DIR__.'/../config.php';
 <head>
 	<link href="estilos.css" rel="stylesheet" type="text/css" /> 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
     <body>
     <div id="cabecera">   
