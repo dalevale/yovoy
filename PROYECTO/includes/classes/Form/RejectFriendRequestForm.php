@@ -34,9 +34,9 @@ EOF;
         $source = $_POST["source"];
 
         $notificationsDAO = new NotificationsDAO;
-        $relMan = new RelationManager($u1,$u2);
+        $relMan = new UserDAO;
 
-        $relMan->deleteRow($u1, $u2);
+        $relMan->deleteRelationship($u1, $u2);
         $notificationsDAO->removeNotificationsByUsers($u1,$u2, NotificationsDAO::NEW_FRIEND_REQUEST);
 
         if($source == "profileView")

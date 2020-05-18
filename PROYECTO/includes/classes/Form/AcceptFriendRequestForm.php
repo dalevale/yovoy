@@ -34,10 +34,10 @@ EOF;
         $u2 = $_POST["userId"];
         $source = $_POST["source"];
 
-        $relMan = new RelationManager($u1,$u2);
+        $relMan = new UserDAO;
 
-        $relMan->deleteRow($u1, $u2);
-        $relMan->insertRow($u1, $u2, RelationManager::ACCEPT, $u1);
+        $relMan->deleteRelationship($u1, $u2);
+        $relMan->insertRelationship($u1, $u2, RelationManager::ACCEPT, $u1);
         $notificationsDAO->notify(NotificationsDAO::FRIEND_REQUEST_ACCEPTED,$u2, $u1, 'NULL');
         $notificationsDAO->removeNotificationsByUsers($u1,$u2, NotificationsDAO::NEW_FRIEND_REQUEST);
 
