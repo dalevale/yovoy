@@ -9,7 +9,7 @@
         <?php include 'includes/comun/nav.php' ?>
     </header>
 
-    <div>
+    <div class= "friends">
     <?php
         if(isset($_SESSION["login"]) && $_SESSION["login"]){; 
 			$userDAO = new UserDAO();
@@ -17,7 +17,7 @@
             //Lista de amigos
             $friends = $userDAO->getFriends($userId);
             
-            echo '<h1>Mis Amigos</h1>';
+            echo '<h2>Mis Amigos</h2>';
                 echo '<ul>';
             while(sizeof($friends) > 0){
                     echo '<li><ul>';

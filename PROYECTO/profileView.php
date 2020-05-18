@@ -68,11 +68,15 @@
 						$type = "Usuario Premium";
 					}
 					$creationDate = $user->getCreationDate();
-				
+					
+					echo "<div class = 'datos_miarea'>";
 					echo "<p>" . $username . "</p>";
 					echo "<p>" . $name . "</p>";
 					echo "<p>" . $type . "</p>";
 					echo "<p>Se unió " . $creationDate . "</p>";
+					echo "</div>";
+					
+					echo "<div class = 'tarjeta_naranja'>";
 					echo "<h1>Mis Eventos:</h1>";
 			
 					$createdEvents = $userDAO->getCreatedEvents($profileId);
@@ -91,8 +95,11 @@
 					else {
 						echo '<p>Lamentablemente, no tiene eventos de momento.</p>';
 					}
+					echo "</div>";
+
 					$friends = $userDAO->getFriends($profileId);
-					echo '<h1>Mis Amigos</h1>';
+					echo "<div class = 'tarjeta_naranja'>";
+					echo '<h1>Mis Amigos: </h1>';
 					echo '<ul>';
 					while(sizeof($friends) > 0){
 						echo '<li><ul>';
@@ -100,14 +107,16 @@
 						$imgDir = "includes/img/users/";
 						$imgName = $friend->getImgName();
 						$imgPath = $imgDir . $imgName;
-						echo '<a href="profileView.php?profileId='.$friend->getUserId().'"><li><img src="'.$imgPath.'" width="50px" height="50px"></li>';
+						echo '<a class= "tarjeta_blanca" href="profileView.php?profileId='.$friend->getUserId().'"><li><img src="'.$imgPath.'" width="50px" height="50px"></li>';
 						echo '<li>'.$friend->getName().'</li>';
 						echo '<li>'.$friend->getUsername().'</li></a>';
 						echo '</ul></li>';
 					}
 					echo '</ul>';
+					echo "</div>";
 					
-					echo '<h1>Eventos Promocionados</h1>';
+					echo "<div class = 'tarjeta_naranja'>";
+					echo '<h1>Eventos Promocionados: </h1>';
 					$promotedEvents = $userDAO->getPromotedEvents($profileId);
 					if(count($promotedEvents) > 0){
 					for($i=0; $i < count($promotedEvents); $i++){
@@ -121,6 +130,7 @@
 							echo '</p></a>';
 						}
 					}
+					echo "</div>";
 			}
 			else{
 				echo "<p>Login o registrate para ver esta información.</p>";
