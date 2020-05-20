@@ -57,7 +57,8 @@ EOF;
     protected function processForm($data)
     {
 		
-        $result = array();
+		$result = array();
+		$success = false;
         
         $username = isset($data['username']) ? $data['username'] : null;
 		$password = isset($data['password']) ? $data['password'] : null;
@@ -88,45 +89,58 @@ EOF;
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";
 
-		if (!empty($_FILES["img"]["name"])){
-			$targetDir = "/Yovoy/Proyecto/includes/img/users/";
-			$imgName = basename($_FILES["img"]["name"]);
-			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
-		
-			// Mover el foto al directorio de fotos de usuarios
-			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
-				$result[] = "Error: Se produjo un error al subir su foto. ";
-			}
-		}
-
         if (count($result) == 0) {
-
 
 			//Valores por defecto
 			$creationDate = date("Y-m-d");
 			$type = 1;
 
-            //INICIAMOS CONEXI�N CON MYSQL
+            //INICIAMOS CONEXIÓN CON MYSQL
 			$userDAO = new UserDAO();
 			
 			//$_SESSION["login"] = false;
 			$_SESSION["newUser"] = true;
 			$_SESSION["username"] = $username;
 	
-			// Cambiar el valor de $type si se elige la opci�n de ser usuario premium
+			// Cambiar el valor de $type si se elige la opción de ser usuario premium
 			if(isset($_REQUEST["premium"])){
 				$type = 2;
 			}
-			//A�adir el usuario a la BBDD
+			//Añadir el usuario a la BBDD
 			if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type)) {
-				//$_SESSION["regStatus"] = "Has sido registrado con �xito.";
-				return 'register.php';
-			} 
-			else {
+				$success = true;
+			}
+			else{
 				$result[] = "Error en registrarse.";
 			}
-			
-        }
+		}
+		
+		if (count($result) == 0 && !empty($_FILES["img"]["name"])){
+			//Conseguir id de usuario
+			$userId = $userDAO->getId($email);
+
+			$targetDir = "/Yovoy/Proyecto/includes/img/users/";
+			$imgName = $userId . ".png";
+			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
+		
+			// Mover el foto al directorio de fotos de usuarios
+			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
+				$result[] = "Error: Se produjo un error al subir su foto. ";
+			}
+			else{
+				if($userDAO->updateUser($userId, null, $name, $imgName)){
+					$success = true;
+				}
+				else{
+					$result[] = "Error: Se produjo un error al subir su foto. ";
+				}
+			}
+		}
+
+		if ($success){
+			$result = "register.php";
+		}
+
         return $result;
     }
 }
