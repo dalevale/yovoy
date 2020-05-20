@@ -1,3 +1,7 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -18,7 +22,6 @@
         $empty = true;
 
         $notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
-        $_SESSION["source"] = "notifications";
         foreach($notificationsList as &$notification){
             $id = $notification->getId();
             $thatUser = $notification->getThatUser();
@@ -56,12 +59,6 @@
                     echo '<div>';
                     echo '<a href="profileView.php?profileId='.$userId.'">'.$username.'</a> quiere ser tu amigo.';
                     echo '</div>';
-
-                    $acceptForm = new AcceptFriendRequestForm;
-                    $rejectForm = new RejectFriendRequestForm;
-                    $acceptForm->manage();
-                    $rejectForm->manage();
-
                 break;
 
                 case NotificationsDAO::FRIEND_REQUEST_ACCEPTED:
@@ -73,11 +70,6 @@
                     echo '<a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
                     echo ' quiere unirse al evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
                     echo '</div>';
-                       
-                    $acceptForm = new AcceptEventForm;
-                    $rejectForm = new RejectEventForm;
-                    $acceptForm->manage();
-                    $rejectForm->manage();
 
                 break;
 

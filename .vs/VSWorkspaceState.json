@@ -6,11 +6,11 @@
     "\\PROYECTO\\includes",
     "\\PROYECTO\\includes\\classes",
     "\\PROYECTO\\includes\\classes\\DAO",
-    "\\PROYECTO\\includes\\classes\\DAO\\Form",
-    "\\PROYECTO\\includes\\comun",
+    "\\PROYECTO\\includes\\classes\\Form",
+    "\\PROYECTO\\includes\\classes\\TransferObjects",
     "\\PROYECTO\\includes\\js",
     "\\PROYECTO\\mysql"
   ],
-  "SelectedNode": "\\PROYECTO\\includes\\config.php",
+  "SelectedNode": "\\PROYECTO\\eventItem.php",
   "PreviewInSolutionExplorer": false
 }

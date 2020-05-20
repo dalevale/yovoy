@@ -5,14 +5,13 @@ var validateLogin = function (event) {
     var email = loginForm['email'].value;
     var password = loginForm['password'].value;
     var validEmail = isValidEmail(email);
-    var validPassword = isEmpty(password);
     if (validEmail != '') {
         var l = document.createElement('LI');
         l.innerHTML = validEmail;
         u.append(l);
         valid = false;
     }
-    if (validPassword == '') {
+    if (password == '') {
         var l = document.createElement('LI');
         l.innerHTML = "<p>Password no puede estar vacio!</p>";
         u.append(l);

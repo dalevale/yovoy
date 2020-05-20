@@ -1,3 +1,10 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+	
+    $form = new SearchForm;
+	$html = $form->manage();
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -6,15 +13,11 @@
 </head>
 <body>
     <header>
-        <?php include 'includes/comun/nav.php';
-		?>
+        <?php include 'includes/comun/nav.php';?>
     </header>
-	<h3> Buscar un evento </h3>
+	    <h3> Buscar un evento </h3>
 
-	<?php 
-			$form = new SearchForm;
-			$form->manage();
-	?>
+	<?= $html; ?>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>
