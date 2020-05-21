@@ -88,7 +88,7 @@ EOF;
 					$event = array_pop($result);
 					$eventId = $event->getEventId();
 
-					echo "<li><a href= 'eventItem.php?event_id=".$eventId."'>";
+					echo "<li><a href= 'eventItem.php?eventId=".$eventId."'>";
 					echo "Evento: ".$event->getName()."</a></li>";
 					echo "</ul>";
 				}

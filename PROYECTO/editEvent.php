@@ -1,7 +1,7 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
 
-	$eventId = $_POST["event_id"];
+	$eventId = $_POST["eventId"];
 	$form = new EditEventForm($eventId);
 	$html = $form->manage();
 ?>

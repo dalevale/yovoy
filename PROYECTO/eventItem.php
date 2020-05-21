@@ -51,7 +51,7 @@
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
             if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                 echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
             }
             else {
@@ -75,11 +75,11 @@
                 }
                 echo '</div>';
                 if(!$userDAO->isPromoting($currentUserId, $eventId)){
-                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                     echo '<input type="image" alt="submit" src="includes/img/boton_PROMO.png" title="Promocionar!" name="promoBtn"/></form>';
                 }
                 else {
-                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="event_id" value="'.$eventId.'"/>';
+                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                     echo '<input type="image" alt="submit" src="includes/img/boton_UNPROMO.png" title="Quitar promocion!" name="unpromoBtn"/></form>';
                 }
             }
@@ -165,10 +165,11 @@
 
         <div class = "tarjeta_naranja">
             <?php
-                $commentList = $commentsDAO->getComments($_SESSION["event_id"]);
+                $commentList = $commentsDAO->getComments($_SESSION["eventId"]);
                 echo "<label>COMENTARIOS</label>";
 
                 echo '<div id="commentsSection" class="tarjeta_blanca">';
+
                     while(sizeof($commentList) > 0){
                         $comment = array_pop($commentList);
                         

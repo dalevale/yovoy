@@ -40,7 +40,7 @@
             if($eventId != NULL){
                 $event = $eventDAO->getEvent($eventId);
                 $eventName = $event->getName();
-                $_SESSION["event_id"] = $eventId;
+                $_SESSION["eventId"] = $eventId;
             }
 
             echo '<div>';
@@ -68,22 +68,22 @@
                 case NotificationsDAO::NEW_EVENT_REQUEST:
                     echo '<div>';
                     echo '<a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
-                    echo ' quiere unirse al evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
+                    echo ' quiere unirse al evento <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>.';
                     echo '</div>';
 
                 break;
 
                 case NotificationsDAO::EVENT_REQUEST_ACCEPTED:
-                    echo 'Has sido aceptado en el evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
+                    echo 'Has sido aceptado en el evento <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>.';
                 break;
 
                 case NotificationsDAO::EVENT_EDITED:
-                    echo 'El evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a> ha sido modificado.';
+                    echo 'El evento <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a> ha sido modificado.';
                 break;
 
                 case NotificationsDAO::NEW_COMMENT:
                     echo '<a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
-                    echo ' ha comentado en el evento <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
+                    echo ' ha comentado en el evento <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>.';
                 break;
 
                 case NotificationsDAO::EVENT_IS_NEAR:
@@ -92,7 +92,7 @@
 
                 case NotificationsDAO::HAS_NEW_EVENT:
                     echo 'Tu amigo <a href="profileView.php?profileId='.$userId.'">'.$username.'</a>';
-                    echo ' ha creado un nuevo evento: <a href="eventItem.php?event_id='.$eventId.'">'.$eventName.'</a>.';
+                    echo ' ha creado un nuevo evento: <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>.';
                 break;
 
                 default:

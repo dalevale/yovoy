@@ -76,17 +76,17 @@ class EventDAO extends DAO{
     * @return bool $tagsInserted    Devuelve true si se ha insertado los tags con exito. 
     */
     private function addTag($eventId, $eventTags){
-        $tagsInserted = false;
+        $tagsInserted = true;
         for($i = 0; $i < count($eventTags); $i++){
                 $queryValues =  
                      "'".$eventId."'". "," 
                     ."'".$eventTags[$i]."'";
 
                 $insertTags = "INSERT INTO event_tags (event_id, tag) VALUES(".$queryValues.");";
-
-                if(parent::executeInsert($insertTags)) $tagsInserted = true;
-                else $tagsInserted = false;
-            }
+                $ret = parent::executeInsert($insertTags);
+                if($ret != 0)
+                    $tagsInserted = false;
+        }
         return $tagsInserted;   
 	}
 
@@ -101,7 +101,6 @@ class EventDAO extends DAO{
     private function removeTag($eventId){
   
         $insertTags = "DELETE FROM event_tags WHERE event_id = '$eventId'";
-        echo $insertTags;
         return parent::executeModification($insertTags);
 	}
 
@@ -271,14 +270,13 @@ class EventDAO extends DAO{
         $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
 
         $eventInserted = parent::executeModification($updateQuery);
-
-        if (is_null($tags)){
+        $this->removeTag($id);
+        if (is_null($tags))
             $tagsInserted = true;
+        else{
+            $tagsInserted = $this->addTag($id, $tags);
+            // $this->removeTag($id) && No valido, puede intentar borrar una fila que no existe y asi devuelve 0;
         }
-        else{  
-            $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
-        }
-        
         return $eventInserted && $tagsInserted;
     }
 

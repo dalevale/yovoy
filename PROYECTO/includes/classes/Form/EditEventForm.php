@@ -24,7 +24,7 @@ class EditEventForm extends Form
         $eventDescription = $event->getDescription();
         $html = <<<EOF
         <div class='tarjeta_gris'>
-            <input type="hidden" name="event_id" value="$eventId"/>
+            <input type="hidden" name="eventId" value="$eventId"/>
             <p><label>Título: </label><input type="text" name="eventName"  value="$eventName" ></p>
             <p><label>Foto de evento</label></p>
             <p>
@@ -60,7 +60,8 @@ EOF;
         $result = array();
         //Valores introducidos por el creador del evento
         $eventTags = null;
-        if(isset($data["eventTags"])){
+        $eventTagsStr = null;
+        if(isset($data["eventTags"]) && $data["eventTags"] != ""){
             $eventTagsStr = $data["eventTags"];
             $eventTags = explode(",", $data["eventTags"]);
         }
@@ -149,7 +150,7 @@ EOF;
                     $user = array_pop($attendees);
                 }
                
-                $result = "eventItem.php?event_id=".$eventId;
+                $result = "eventItem.php?eventId=".$eventId;
             }
             else {
                 $result[] = "¡Error al editar el evento! Consulta un administrador.";

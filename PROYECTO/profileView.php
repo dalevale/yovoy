@@ -90,7 +90,7 @@
 							$eventImgDir = "includes/img/events/";
 							$eventImgName =  $createdEvents[$i]->getImgName();
 							$eventImgPath = $eventImgDir . $eventImgName;
-							echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+							echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
 							echo "<p><img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
 							echo $createdEvents[$i]->getName();
 							echo '</p></a>';
@@ -128,7 +128,7 @@
 							$eventImgDir = "includes/img/events/";
 							$eventImgName =  $promotedEvents[$i]->getImgName();
 							$eventImgPath = $eventImgDir . $eventImgName;
-							echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+							echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
 							echo "<p><img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
 							echo $promotedEvents[$i]->getName();
 							echo '</p></a>';

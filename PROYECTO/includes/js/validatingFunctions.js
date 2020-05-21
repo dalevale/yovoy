@@ -139,14 +139,16 @@ function isValidLocation(elocation) {
 
 function isValidTags(etags) {
     etagsArray = etags.split(',');
+    etagsArray = etagsArray.filter(v => v != "");
     var errMessage = '';
     var i = 0;
     if (etags != '') {
         while ((i < etagsArray.length) && errMessage == '') {
             var tagsWithSpaces = etagsArray[i].split(' ');
+            tagsWithSpaces = tagsWithSpaces.filter(v => v != "");
             if (tagsWithSpaces.length > 1)
                 errMessage = "<p>Cada tag separado por ',' no puede tener dos palabras!</p>";
-            else if (!hasPattern(etagsArray[i], /^[0-9a-zA-Z]+$/)) {
+            else if (!hasPattern(tagsWithSpaces[0], /^[0-9a-zA-Z]+$/)) {
                 errMessage = "<p>Tags invalidos! No puede contener simbolos.</p>";
             }
             else if (etagsArray[i].length < EVENT_TAG_LENGTH)
