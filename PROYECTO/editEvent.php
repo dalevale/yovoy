@@ -1,3 +1,10 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+
+	$eventId = $_POST["event_id"];
+	$form = new EditEventForm($eventId);
+	$html = $form->manage();
+?>
 <!DOCTYPE html>
 
 <html>
@@ -16,11 +23,7 @@
 	
 	<div>	
 		<h1>Editar Evento</h1>
-		<?php 
-			$eventId = $_POST["event_id"];
-			$form = new EditEventForm($eventId);
-			$form->manage();
-		?>
+		<?= $html; ?>
 	</div>	
 	<footer>
         <?php include 'includes/comun/footer.php' ?>

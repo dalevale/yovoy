@@ -11,11 +11,6 @@ require_once __DIR__.'/classes/Form/EditEventForm.php';
 require_once __DIR__.'/classes/Form/EditProfileForm.php';
 require_once __DIR__.'/classes/RelationManager.php';
 require_once __DIR__.'/classes/Form/SearchForm.php';
-require_once __DIR__.'/classes/Form/AcceptEventForm.php';
-require_once __DIR__.'/classes/Form/RejectEventForm.php';
-require_once __DIR__.'/classes/Form/AcceptFriendRequestForm.php';
-require_once __DIR__.'/classes/Form/RejectFriendRequestForm.php';
-require_once __DIR__.'/classes/Form/CancelEventRequestForm.php';
 
 /**
  * Parámetros de conexión a la BD
@@ -24,6 +19,8 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'yovoy_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+/*define('DB_HOST', 'vm16.db.swarm.test');
+define('DB_PASS', '}8fSiCZAhg(49czZQ_S4');*/
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria

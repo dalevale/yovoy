@@ -1,3 +1,7 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+?>
+
 <?php
 
 $connect = new PDO('mysql:host=localhost; dbname=yovoy_db; charset=utf8', 'root', '');

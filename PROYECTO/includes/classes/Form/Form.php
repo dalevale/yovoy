@@ -67,13 +67,17 @@ abstract class Form
      */
     public function manage()
     {   
+     
         if ( ! $this->formSent($_POST) ) {
-            echo $this->generateForm();
-        } else {
+            return $this->generateForm();
+        } 
+        else {
+        
             $result = $this->processForm($_POST);
             if ( is_array($result) ) {
-                echo $this->generateForm($result, $_POST);
+                return $this->generateForm($result, $_POST);
             } else {
+            
                 header('Location: '.$result);
                 exit();
             }

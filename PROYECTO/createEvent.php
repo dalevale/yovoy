@@ -1,3 +1,9 @@
+<?php 
+    require_once __DIR__.'/../config.php';
+
+	$form = new NewEventForm;
+	$html = $form->manage();
+?>
 <!DOCTYPE html>
 
 <html>
@@ -12,11 +18,8 @@
 	
 	<h3>¡Vamos a crear un evento!</h3>
 
-	<div>	
-		<?php 
-		$form = new NewEventForm;
-		$form->manage();
-		?>
+	<div>
+		<?= $html; ?>
 	</div>	
 
 	<footer>

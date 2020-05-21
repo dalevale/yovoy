@@ -1,3 +1,15 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+    
+    if(!isset($_SESSION["login"]) || (isset($_SESSION["login"]) && !$_SESSION["login"] )){
+        $form = new LoginForm;
+        $html = $form->manage();
+    }
+    else {
+        $html = '<p>Ya estas logueado.</p>'; 
+    }
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -11,17 +23,8 @@
     </header>
 
     <div>
-        <?php
-            if(!isset($_SESSION["login"]) || (isset($_SESSION["login"]) && !$_SESSION["login"] )){
-                echo '<h3>Login de usuario</h3>'; 
-                $form = new LoginForm;
-                $form->manage();
-            }
-            else {
-                echo '<p>Ya estas logueado.</p>'; 
-            }
-            
-        ?>
+        <h3>Login de usuario</h3>
+        <?= $html; ?>
     </div>
  
     <footer>

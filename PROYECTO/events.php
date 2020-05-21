@@ -1,3 +1,7 @@
+<?php 
+    require_once __DIR__.'/includes/config.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +35,7 @@
                 $eventImgPath = $eventImgDir . $eventImgName;
                 $eventId = $event->getEventId();
                 echo "<div class = 'eventos'>";
-                    echo "<a href= 'eventItem.php?event_id=".$eventId."'>";
+                    echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
                     echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
                     echo $event->getName() ." ";
                     echo "Date: ". $event->getEventDate() ." ";
