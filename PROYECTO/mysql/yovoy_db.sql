@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2020 at 06:06 PM
+-- Generation Time: May 21, 2020 at 11:17 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -62,11 +62,11 @@ CREATE TABLE `event` (
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
 (2, 'Barra Libre', 2, 'default-event.png', '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 2, 'rokenrol.jpg', '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
-(8, 'Unli Rice', 2, 'unli.jpg', '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Hamburgesa gratis primer 100 personas!', 2, 'hamburgesa.jpg', '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, 'bingo.jpg', '2020-04-24', '2020-05-30', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
-(15, 'GameAndWin', 9, 'game.jpg', '2020-05-07', '2020-05-30', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
+(3, 'RokEnRol', 2, '3.png', '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
+(8, 'Unli Rice', 2, '8.png', '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
+(10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
+(11, 'Bingo!', 4, '11.png', '2020-04-24', '2020-05-30', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
+(15, 'GameAndWin', 9, '15.png', '2020-05-07', '2020-05-30', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
 
 -- --------------------------------------------------------
 
@@ -286,13 +286,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `user`
