@@ -40,11 +40,15 @@ EOF;
     
     protected function processForm($data) {
         $result = array();
+        $success = false;
+
         //Valores introducidos por el creador del evento
         $eventTagsString= $data["eventTags"];
-        $eventTagsArray = isset($data["eventTags"]) ? explode(",", $data["eventTags"]) : null;
+        $eventTagsArray = ($eventTagsString != "") ? explode(",", $data["eventTags"]) : null;
         //$email = $_REQUEST["email"];
         $text = isset($data["description"]) ? $data["description"] : null;
+
+        //$result[] = var_dump($eventTagsString) . " " . var_dump($eventTagsArray);
 
         //Valores por defecto
         $creationDate = date("Y-m-d");
@@ -76,16 +80,7 @@ EOF;
         
         // Si no hay un foto subido por el usuario, se usa default-event.jpg
 		$imgName = "default-event.png";
-		if (!empty($_FILES["img"]["name"])){
-			$targetDir = "/Yovoy/Proyecto/includes/img/events/";
-			$imgName = basename($_FILES["img"]["name"]);
-			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
-			// Mover el foto al directorio de fotos de usuarios
-			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
-				$result[] = "Error: Se produjo un error al subir su foto";
-			}
-        }
         
 
         if (count($result) === 0) {
@@ -102,17 +97,42 @@ EOF;
                 $eventId = $eventDAO->getLastEvent();
                 $friends = $userDAO->getFriends($creator);
                 $user = array_pop($friends);
+
                 while(!empty($user)){
                     $notificationsDAO->notify(NotificationsDAO::HAS_NEW_EVENT, $user->getUserId(), $creator, $eventId);
                     $user = array_pop($friends);
                 }
 
-                $result = "createEvent.php";
+                $success = true;
             }
             else {
                 $result[] = "Error en crear evento! Consulta un administrador.";
 			}
         }
+
+        if (count($result) == 0 && !empty($_FILES["img"]["name"])){
+            $success = false;
+
+			$targetDir = "/Yovoy/Proyecto/includes/img/events/";
+			$imgName = $eventId . ".png";
+			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
+		
+			// Mover el foto al directorio de fotos de usuarios
+			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
+				$result[] = "Error: Se produjo un error al subir su foto";
+            }
+            else if ($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray, $imgName)){
+                $success = true;
+            }
+            else{
+                $result[] = "Error: Se produjo un error al subir su foto. ";
+            }
+        }
+
+        if ($success){
+            $result = "createEvent.php";
+        }
+
         return $result;
     }
 }

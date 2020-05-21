@@ -32,7 +32,7 @@ function isOnlyLetters(str) {
 
 //Funciones para validar formularios de registro y cambios de cuenta de usuario
 
-//Constantes de tamaño minimo
+//Constantes de tamaÃ±o minimo
 const NAME_LENGTH = 4;
 const USERNAME_LENGTH = 5;
 const PASSWORD_LENGTH = 8;
@@ -44,9 +44,9 @@ function isValidUsername(uname) {
     else if (!isLowerCase(uname))
         errMessage = "<p>Username - formato invalido! (Solo letras minusculas)</p>";
     else if (!hasPattern(uname, /^[0-9a-zA-Z]+$/))
-        errMessage = "<p>Username - formato invalido! (Solo letras y números)</p>";
+        errMessage = "<p>Username - formato invalido! (Solo letras y nï¿½meros)</p>";
     else if (uname.length < USERNAME_LENGTH)
-        errMessage = "<p>Tamaño de username tiene que ser mas de " + (USERNAME_LENGTH + 1) + " cáracteres</p>";
+        errMessage = "<p>TamaÃ±o de username tiene que ser mas de " + (USERNAME_LENGTH + 1) + " cï¿½racteres</p>";
 
 
     return errMessage;
@@ -59,7 +59,7 @@ function isValidName(name) {
     else if (!isOnlyLetters(name))
         errMessage = "<p>Nombre invalido!</p>";
     else if (name.length < NAME_LENGTH)
-        errMessage = "<p>Tamaño de username tiene que ser mas de " + (NAME_LENGTH + 1) + "cáracteres</p>";
+        errMessage = "<p>TamaÃ±o de username tiene que ser mas de " + (NAME_LENGTH + 1) + "cï¿½racteres</p>";
 
     return errMessage;
 }
@@ -86,9 +86,9 @@ function isValidPassword(pass1, pass2) {
     if ((pass1 == '') || (pass2 == ''))
         errMess = "<p>Password no puede estar vacio!</p>";
     else if (pass1 != pass2)
-        errMess = "<p>Confirmación de password no coincide.</p>";
+        errMess = "<p>ConfirmaciÃ³n de password no coincide.</p>";
     else if (pass1.length < PASSWORD_LENGTH)
-        errMessage = "<p>Tamaño de password tiene que ser mas de " + (PASSWORD_LENGTH + 1) + "cáracteres</p>";
+        errMessage = "<p>TamaÃ±o de password tiene que ser mas de " + (PASSWORD_LENGTH + 1) + " cÃ¡racteres</p>";
 
 
     return errMess;
@@ -110,7 +110,7 @@ function isValidEmail(email) {
 
 //Funciones para validar formularios de creacion y cambios de eventos
 
-//Constantes de tamaño minimo
+//Constantes de tamaÃ±o minimo
 const EVENT_NAME_LENGTH = 4;
 const EVENT_TAG_LENGTH = 2;
 
@@ -122,7 +122,7 @@ function isValidEventName(ename) {
     else if (!hasPattern(enameStrArray[0], /^[a-zA-Z0-9]/))
         errMessage = "<p>Nombre invalido! Tiene que empezar por letras o numeros.</p>";
     else if (ename.length < EVENT_NAME_LENGTH)
-        errMessage = "<p>Tamaño del nombre tiene que ser mas de " + (EVENT_NAME_LENGTH + 1) + "cáracteres</p>";
+        errMessage = "<p>TamaÃ±o del nombre tiene que ser mas de " + (EVENT_NAME_LENGTH + 1) + " cÃ¡racteres</p>";
 
     return errMessage;
 }
@@ -130,9 +130,9 @@ function isValidEventName(ename) {
 function isValidLocation(elocation) {
     var errMessage = '';
     if (elocation == '')
-        errMessage = "<p>Ubicación del evento no puede estar vacio!</p>";
+        errMessage = "<p>UbicaciÃ³n del evento no puede estar vacio!</p>";
     else if (!hasPattern(elocation, /^[0-9a-zA-Z,.\s]+$/))
-        errMessage = "<p>Ubicación invalido! No puede contener simbolos.</p>";
+        errMessage = "<p>UbicaciÃ³n invalido! No puede contener simbolos.</p>";
 
     return errMessage;
 }
@@ -149,8 +149,8 @@ function isValidTags(etags) {
             else if (!hasPattern(etagsArray[i], /^[0-9a-zA-Z]+$/)) {
                 errMessage = "<p>Tags invalidos! No puede contener simbolos.</p>";
             }
-            else if (etagsArray[i].length < EVENT_NAME_LENGTH)
-                errMessage = "<p>Tamaño de cada tag tiene que ser mas de " + (EVENT_TAG_LENGTH + 1) + "cáracteres</p>";
+            else if (etagsArray[i].length < EVENT_TAG_LENGTH)
+                errMessage = "<p>TamaÃ±o de cada tag tiene que ser mas de " + (EVENT_TAG_LENGTH + 1) + " cÃ¡racteres</p>";
             i++;
         }
     }

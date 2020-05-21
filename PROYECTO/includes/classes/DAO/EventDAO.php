@@ -53,9 +53,16 @@ class EventDAO extends DAO{
         $registerEvent = "INSERT INTO event (name, creator, img_name, creation_date, event_date, capacity, current_attendees,location, tags, description) 
                           VALUES(".$queryValues.");";
 
-        if(parent::executeInsert($registerEvent)) $eventInserted = true;            
-            $eventId= $this->getLastEvent();
-            $tagInserted = $this->addTag($eventId, $eventTagsArray);
+        if(parent::executeInsert($registerEvent)) {
+            $eventInserted = true;          
+            if (is_null($eventTagsArray)){
+                $tagInserted = true;
+            }
+            else{  
+                $eventId= $this->getLastEvent();
+                $tagInserted = $this->addTag($eventId, $eventTagsArray);
+            }
+        }
         
             return $eventInserted && $tagInserted;
     }
@@ -264,8 +271,14 @@ class EventDAO extends DAO{
         $updateQuery = "UPDATE event SET ".$updateStr." WHERE event_id = '".$id."';";
 
         $eventInserted = parent::executeModification($updateQuery);
-        $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
 
+        if (is_null($tags)){
+            $tagsInserted = true;
+        }
+        else{  
+            $tagsInserted = $this->removeTag($id) && $this->addTag($id, $tags);
+        }
+        
         return $eventInserted && $tagsInserted;
     }
 

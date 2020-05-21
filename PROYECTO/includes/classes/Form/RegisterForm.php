@@ -116,6 +116,8 @@ EOF;
 		}
 		
 		if (count($result) == 0 && !empty($_FILES["img"]["name"])){
+			$success = false;
+
 			//Conseguir id de usuario
 			$userId = $userDAO->getId($email);
 
@@ -127,13 +129,11 @@ EOF;
 			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
 				$result[] = "Error: Se produjo un error al subir su foto. ";
 			}
+			else if($userDAO->updateUser($userId, null, $name, $imgName)){
+				$success = true;
+			}
 			else{
-				if($userDAO->updateUser($userId, null, $name, $imgName)){
-					$success = true;
-				}
-				else{
-					$result[] = "Error: Se produjo un error al subir su foto. ";
-				}
+				$result[] = "Error: Se produjo un error al subir su foto. ";
 			}
 		}
 

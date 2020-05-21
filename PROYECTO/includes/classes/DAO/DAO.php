@@ -31,7 +31,7 @@ class DAO{
             $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ". $sql);
             return $this->conn->affected_rows;
         }
-        //else return 0;
+        else return 0;
     }
 
     public function executeInsert($sql){

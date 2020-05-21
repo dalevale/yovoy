@@ -62,25 +62,22 @@ EOF;
 		$changePass = isset($data['passChoice']) && $data['passChoice'] != "noChange";
 		
 		if ($changeImg){
+			$targetDir = "/Yovoy/Proyecto/includes/img/users/";
 			$defaultImgName = "default.jpg"; // Nombre de la foto predeterminada
+
+			// Si la foto anterior no es default.jpg, conseguir su nombre
+			$prevImgName = $user->getImgName();
 
 			if ($data['imgChoice'] == "defaultImg"){
 				$imgName = $defaultImgName;
 			}
 			else{
 				// Si hay una foto subida por el usuario, cambiarlo
-				if (isset($_FILES['img'])){
-					$targetDir = "/Yovoy/Proyecto/includes/img/users/";
-					$imgName = basename($_FILES['img']['name']);
+				if (!empty($_FILES['img']['name'])){
+					$imgName = $userId . ".png";
 					
 					// Conseguir la dirección en que se guarda la foto subida
 					$targetFilePath = $_SERVER['DOCUMENT_ROOT'] . $targetDir . $imgName;
-					
-					// Si la foto anterior no es default.jpg, borrarla
-					$currImgName = $user->getImgName();
-					if ($currImgName != $defaultImgName){
-						unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $currImgName);
-					}
 					
 					if ($imgName != $defaultImgName){
 						// Mover la foto al directorio especificada en $targetDir
@@ -130,6 +127,11 @@ EOF;
 				$result[] = "Error: Se produjó un error al actualizar la base de datos.";
 			}
 			else{
+				// Si la foto anterior no es default.jpg, borrarla
+				if ($changeImg && $prevImgName != $defaultImgName){
+					unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $prevImgName);
+				}
+
 				$result='editProfile.php';
 			}
         }
