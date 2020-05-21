@@ -47,7 +47,7 @@ EOF;
         $eventTagsArray = ($eventTagsString != "") ? explode(",", $data["eventTags"]) : null;
         //$email = $_REQUEST["email"];
         $text = isset($data["description"]) ? $data["description"] : null;
-
+        
         //$result[] = var_dump($eventTagsString) . " " . var_dump($eventTagsArray);
 
         //Valores por defecto
