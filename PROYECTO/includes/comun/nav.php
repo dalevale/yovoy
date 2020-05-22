@@ -59,7 +59,7 @@
 						$imgPath = $imgDir . $imgName;
 						$name = $user->getName();
 						
-						echo "<img src='" . $imgPath . "' alt='usuario' height='50' width='50'>";
+						echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'>";
 						echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
 						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 					

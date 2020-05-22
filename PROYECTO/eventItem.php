@@ -46,7 +46,7 @@
         echo '<input type="hidden" id="eventId" value="'. $eventId.'">';
         echo '<h2>'.$eventName.'</h2>';
         echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
-        echo "<img src='" . $eventImgPath . "' alt='event' height='500' width='500'>";
+        echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='500' width='500'>";
 
         //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
         if(isset($_SESSION["login"]) && $_SESSION["login"]){
