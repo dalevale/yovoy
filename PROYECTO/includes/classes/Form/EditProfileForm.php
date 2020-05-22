@@ -128,7 +128,7 @@ EOF;
 			}
 			else{
 				// Si la foto anterior no es default.jpg, borrarla
-				if ($changeImg && $prevImgName != $defaultImgName){
+				if ($changeImg && $prevImgName != $defaultImgName && $imgName == $defaultImgName){
 					unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $prevImgName);
 				}
 

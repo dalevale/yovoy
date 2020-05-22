@@ -36,7 +36,7 @@
                 $eventId = $event->getEventId();
                 echo "<div class = 'eventos'>";
                     echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
-                    echo "<img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
+                    echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='50' width='50'>";
                     echo $event->getName() ." ";
                     echo "Date: ". $event->getEventDate() ." ";
                     echo "Created by: ". $userDAO->getUser($event->getCreator())->getUsername()." ";

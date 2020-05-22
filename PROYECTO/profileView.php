@@ -41,7 +41,7 @@
 					$imgDir = "includes/img/users/";
 					$imgName = basename($user->getImgName());
 					$imgPath = $imgDir . $imgName;
-					echo "<img src='" . $imgPath . "' alt='usuario' height='200' width='200'>";
+					echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='200' width='200'>";
 					echo "<div>";
 					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
 						// botón para editar perfil
