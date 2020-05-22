@@ -4,9 +4,9 @@
     background-color: black;
 	  color: #ffffff;
     font-family: Ubuntu;
-    max-width: 90pc;
+/*  max-width: 90pc;
     max-height: none;
-    margin:auto;
+    margin:auto;*/
 }
 
 p {
@@ -76,7 +76,6 @@ div#pie{
 */
 }
 
-
 div#navbar {
   clear: both;
 	padding: 20px;
@@ -89,7 +88,6 @@ div#menu {
     width:70%;
 }
 div#usuario {
-   /* flex‐direction: row‐reverse;*/
     float: right;
     width: 30%;
     margin-top: 10px;
@@ -102,22 +100,21 @@ div#usuario input{
 
 .portada_inicio{
   font-family: Ubuntu;
-  position: absolute; /* or absolute */
-  top: 70%;
-  left: 27%;
+}
+
+.row.portada_inicio{
+  height: 70vmax;
 }
 
 .portada_inicio button{
   background-color: rgb(255, 192, 56);
   padding: 10px 24px;
-  font-family: Ubuntu;
   font-size: xx-large;
-  text-align: center;
   color: white;
   border: 4px solid rgb(255, 136, 0);
   border-radius: 22px;
-  margin: 10px;
-
+  height: max-content;
+  margin: 6px;
 }
 
 .portada_inicio .button3{
@@ -340,11 +337,6 @@ textarea {
   margin-bottom: 15px;
 }
 
-.tarjeta_naranja:hover{
-    /*transform: scale(1.02);*/
-    background: blur(8px);
-}
-
 ul li{
   display: initial;
   font-size: large;
@@ -378,6 +370,7 @@ div.accept_reject{
 div.notificationRight{
   float:right;
 }
+
 div.notificationLeft{
   padding-top: 1%;
   float:left;
