@@ -15,12 +15,14 @@ p {
 
 h2{
     font-size: 54px;
+    color: #ffffff;
 }
 
 h3 {
 	font-size: 54px;
     font-weight: bold;
     text-shadow: 2px 2px 15px black;
+    color: #ffffff;
 }
 
 em {
@@ -54,48 +56,24 @@ input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
 
-#usuario{
-  left: 99pc;
-  float: right;
-  margin: auto;
-  display: initial;
-  border-radius: 3px;
-  list-style-type:none;
-  margin: 0;
-  max-width: inherit;
-}
-
 div#pie{
   clear: both;
-	padding: 20px;
-  text-align: left;
-  /*
-  position: relative;
-  bottom: 0;
-  height: 10pc;
-*/
+  width: 100vmax;
+	padding-top: 20px;
+  text-align: center;
+  font-size: large;
+  backdrop-filter: blur(4px);
 }
 
-div#navbar {
+.cabecera {
   clear: both;
-	padding: 20px;
-  text-align: left;
-  margin-bottom: 5pc;
+	padding-top: 20px;
+  font-size: large;
 }
 
-div#menu {
-    float:left;
-    width:70%;
-}
-div#usuario {
-    float: right;
-    width: 30%;
-    margin-top: 10px;
-}
-
-div#usuario input{
-    width : 50px;
-    height :50px;
+div.usuario input{
+  width : 50px;
+  height :50px;
 }
 
 .portada_inicio{
@@ -209,9 +187,22 @@ div#usuario input{
   background: #FF8000;
   display: center;
   padding: 15px;
-  height: auto;
-  max-width: fit-content;
+  height: fit-content;
+  width: fit-content;
+  max-width: fixed;
   margin: 30px;
+}
+
+.nombreEvento{
+  float: left;
+  font-weight: bold;
+  border-radius: 10px;
+  background: white;
+  color:black;
+  padding: 12px;
+  width: fit-content;
+  height: fit-content;
+  margin-right: 10px;
 }
 
 .eventos a{
@@ -340,7 +331,7 @@ textarea {
 ul li{
   display: initial;
   font-size: large;
-  border-radius: 3px;
+  border-radius: 4px;
   list-style-type:none;
   margin: 0;
   background-color: #f1f1f1;

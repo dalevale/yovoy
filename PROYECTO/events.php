@@ -37,8 +37,10 @@
                 echo "<div class = 'eventos'>";
                     echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
                     echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='50' width='50'>";
+                    echo "<div class = 'nombreEvento'>";
                     echo $event->getName() ." ";
-                    echo "Date: ". $event->getEventDate() ." ";
+                    echo "</div>";
+                    echo "  Date: ". $event->getEventDate() ." ";
                     echo "Created by: ". $userDAO->getUser($event->getCreator())->getUsername()." ";
                     echo "Capacity: ". $event->getCapacity()." ";
                     echo "Location: ". $event->getLocation()." ";
