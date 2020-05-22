@@ -100,6 +100,7 @@ EOF;
 
         if ($changeImg){
 			$defaultImgName = "default-event.png"; // Nombre de la foto predeterminada
+            $targetDir = "/Yovoy/Proyecto/includes/img/events/";
 
             // Si la foto anterior no es default.jpg, borrarla
             $currImgName = $event->getImgName();
@@ -112,8 +113,8 @@ EOF;
 			}
 			else{
 				// Si hay una foto subida por el usuario, cambiarlo
-				if (isset($_FILES['img'])){
-					$targetDir = "/Yovoy/Proyecto/includes/img/events/";
+				if (!empty($_FILES['img']['name'])){
+					
 					$imgName = $eventId . ".png";
 					
 					// Conseguir la dirección en que se guarda la foto subida

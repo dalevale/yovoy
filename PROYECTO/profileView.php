@@ -39,7 +39,7 @@
 				
 					// foto
 					$imgDir = "includes/img/users/";
-					$imgName = $user->getImgName();
+					$imgName = basename($user->getImgName());
 					$imgPath = $imgDir . $imgName;
 					echo "<img src='" . $imgPath . "' alt='usuario' height='200' width='200'>";
 					echo "<div>";

@@ -28,8 +28,8 @@ class DAO{
 
     public function executeModification($sql){
         if($sql != ""){
-            $query = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ". $sql);
-            return $this->conn->affected_rows;
+            $ret = $this->conn->query($sql) or die($this->conn->error. "en la linea ".(__LINE__-1).": ". $sql);
+            return $ret;
         }
         else return 0;
     }
