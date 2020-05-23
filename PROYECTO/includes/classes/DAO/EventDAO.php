@@ -176,28 +176,28 @@ class EventDAO extends DAO{
 
         switch($filter){
             case "EVENT_TAGS": 
-                $eventQuery = "SELECT DISTINCT * FROM event JOIN event_tags WHERE event_tags.tag='".$value."' AND event.event_id=event_tags.event_id;"; 
+                $eventQuery = "SELECT DISTINCT * FROM event JOIN event_tags WHERE event_tags.tag LIKE '%".$value."%' AND event.event_id=event_tags.event_id;"; 
                 break;
             case "EVENT_NAME":
-                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name LIKE '%".$value."%'"; 
                 break;
             case "EVENT_CREATOR":
-                $eventQuery = "SELECT DISTINCT event_id, event.name, creator, event.img_name, event.creation_date, event_date, capacity, current_attendees, location, tags, description FROM event JOIN user WHERE username = '$value' AND creator=user_id;"; 
+                $eventQuery = "SELECT DISTINCT event_id, event.name, creator, event.img_name, event.creation_date, event_date, capacity, current_attendees, location, tags, description FROM event JOIN user WHERE username LIKE '%".$value."%' AND creator=user_id;"; 
                 break;
             case "EVENT_CAPACITY":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE capacity='".$value."';"; 
                 break;
             case "EVENT_LOCATION":
-                $eventQuery = "SELECT DISTINCT * FROM event WHERE location='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE location LIKE '%".$value."%';"; 
                 break;
             case "EVENT_DATE":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE event_date='".$value."';"; 
                 break;
             default:
-                $eventQuery = "SELECT DISTINCT * FROM event WHERE name='".$value."';"; 
+                $eventQuery = "SELECT DISTINCT * FROM event WHERE name LIKE '%".$value."%';"; 
                 break;
         }
-        
+
         $eventsArray = array();
 
         $dataArray = parent::executeQuery($eventQuery);
@@ -324,6 +324,30 @@ class EventDAO extends DAO{
         $data = array_pop($dataArray);
 
         return $data["event_id"];
+    }
+
+    public function getPremiumEvents(){
+        $query = "SELECT *,event.img_name,event.name FROM event JOIN user WHERE creator = user_id AND type = '2'";
+        
+        $eventArray = array();
+
+        $dataArray = parent::executeQuery($query);
+        $data = array_pop($dataArray);
+        while(!empty($data)) {
+            $eventId= $data["event_id"];
+            $name = $data["name"];
+            $creator = $data["creator"];
+            $imgName = $data["img_name"];
+            $creationDate = $data["creation_date"];
+            $eventDate = $data["event_date"];
+            $capacity = $data["capacity"];
+            $location = $data["location"];
+            $tags = $data["tags"];
+            $description = $data["description"];
+            array_push($eventArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            $data = array_pop($dataArray);
+        }
+        return $eventArray;
     }
 }
 ?>

@@ -10,7 +10,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
     <body>
-	<div class = "container">
+	<div class = "container-fluid">
 	<div class = "row justify-content-between cabecera">  
 			<div class="col-10 align-items-start menu">
 					<ul>
