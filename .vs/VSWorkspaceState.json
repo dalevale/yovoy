@@ -8,9 +8,9 @@
     "\\PROYECTO\\includes\\classes\\DAO",
     "\\PROYECTO\\includes\\classes\\Form",
     "\\PROYECTO\\includes\\classes\\TransferObjects",
-    "\\PROYECTO\\includes\\js",
-    "\\PROYECTO\\mysql"
+    "\\PROYECTO\\includes\\comun",
+    "\\PROYECTO\\includes\\js"
   ],
-  "SelectedNode": "\\PROYECTO\\eventItem.php",
+  "SelectedNode": "\\PROYECTO\\includes\\classes\\Form\\SearchForm.php",
   "PreviewInSolutionExplorer": false
 }

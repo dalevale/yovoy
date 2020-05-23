@@ -61,7 +61,7 @@
                
                 else if(!$userDAO->isAttending($currentUserId, $eventId)){
                     echo '<div id="joinCancelEventBtns">
-                    <button type="button" id="joinEventBtn" value="'.$eventId.'">Join Event</button>
+                    <button type="button" class="joinEventBtn">YoVoy</button>
                     </div>';
                 }
                 else {
@@ -69,19 +69,22 @@
                         echo '¡Estás apuntado en este evento!';
                     else
                         echo '<div id="joinCancelEventBtns">
-                            <p>Esperando respuesta del organizador...</p>
-                            <button type="button" id="cancelEventBtn" value="'.$eventId.'">YaNoVoy</button>
+                            <button type="button" class="cancelEventBtn" value="'.$eventId.'">YaNoVoy</button>
                         </div>';
                 }
                 echo '</div>';
+                echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
                 if(!$userDAO->isPromoting($currentUserId, $eventId)){
-                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="submit" src="includes/img/boton_PROMO.png" title="Promocionar!" name="promoBtn"/></form>';
+                    //echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    //echo '<input type="image" alt="submit" src="includes/img/boton_PROMO.png" title="Promocionar!" name="promoBtn"/></form>';
+                    echo '<button type="button" class="promoEventBtn">Promocionar</button>';
                 }
                 else {
-                    echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="submit" src="includes/img/boton_UNPROMO.png" title="Quitar promocion!" name="unpromoBtn"/></form>';
+                    //echo '<form method="POST" action="includes/promoteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    //echo '<input type="image" alt="submit" src="includes/img/boton_UNPROMO.png" title="Quitar promocion!" name="unpromoBtn"/></form>';
+                    echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
                 }
+                echo '</div>';
             }
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
@@ -96,13 +99,15 @@
             if(!count($attendees)==0){
                 echo '<p>En este evento también van:</p>';
                 for($i = 0; $i < count($attendees); $i++) {
-                    $attendee =  $userDAO->getUser($attendees[$i]);
+                    $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
+                    $joinDate = $attendees[$i]["joinDate"];
+                            $date = date("Y-m-d g:ia", strtotime($joinDate));
                     $attendeeName = $attendee->getUsername();
                     $attendeeId = $attendee->getUserId();
                     $imgDir = "includes/img/users/";
 					$imgName = $attendee->getImgName();
 					$imgPath = $imgDir . $imgName;
-                    echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</p></a>'; 
+                    echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
 			    }
             }
             else{
@@ -124,7 +129,9 @@
                     if(!count($waitingList)==0){
                         echo '<div class="tarjeta_gris">';
                         for($i = 0; $i < count($waitingList); $i++) {
-                            $waitingUser = $userDAO->getUser($waitingList[$i]);
+                            $waitingUser = $userDAO->getUser($waitingList[$i]["userId"]);
+                            $joinDate = $waitingList[$i]["joinDate"];
+                            $date = date("Y-m-d g:ia", strtotime($joinDate));
                             $waitingUserName = $waitingUser->getUsername();
                             $waitingUserId = $waitingUser->getUserId();
                             $imgDir = "includes/img/users/";
@@ -132,9 +139,9 @@
 				            $imgPath = $imgDir . $imgName;
                             echo '<div class="tarjeta_blanca user'.$waitingUserId.'">';
                             echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
-                            echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a></p>';
-                            echo '<button type="button" id="acceptUserBtn" value="'.$waitingUserId.'">Aceptar</button>';
-                            echo '<button type="button" id="rejectUserBtn" value="'.$waitingUserId.'">Rechazar</button>';
+                            echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a> se ha puntado en '.$date.'</p>';
+                            echo '<button type="button" class="acceptUserBtn" value="'.$waitingUserId.'">Aceptar</button>';
+                            echo '<button type="button" class="rejectUserBtn" value="'.$waitingUserId.'">Rechazar</button>';
                             echo '</div>';
                         }
                         echo '</div>';
@@ -178,7 +185,7 @@
 
                         echo '<div class="tarjeta_gris">';
                         
-                        $date = date("d-m-Y", strtotime($comment->getDate()));
+                        $date = date("Y-m-d g:ia", strtotime($comment->getDate()));
 
                         echo "<p>Comentario de <a href='profileView.php?profileId=$ownerId'>$username</a> el $date </p>";
 
@@ -187,7 +194,7 @@
                         echo '</div>';
                         
                         if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"]) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                            echo '<button id="deleteCommentBtn" type="submit" value="'.$comment->getID().'">Borrar comentario</button>';
+                            echo '<button class="deleteCommentBtn" type="submit" value="'.$comment->getID().'">Borrar comentario</button>';
                         }
                         echo "</div>";
                     }

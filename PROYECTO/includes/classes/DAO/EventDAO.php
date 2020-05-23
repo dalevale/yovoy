@@ -231,13 +231,14 @@ class EventDAO extends DAO{
 
         $accepted = $accepted? 1:0;
         $attendees = array();
-        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=$accepted";
+        $eventQuery = "SELECT * FROM join_event WHERE event_id='".$eventId."' AND accepted=$accepted ORDER by join_date" ;
 
         $dataArray = parent::executeQuery($eventQuery);
         $data = array_shift($dataArray);
 
         while(!empty($data)) {
-            array_push($attendees, $data["user_id"]);
+            $dataArrayToReturn = array("userId"=>$data["user_id"], "joinDate"=>$data["join_date"]);
+            array_push($attendees, $dataArrayToReturn);
 
             $data = array_shift($dataArray);
 		}
@@ -280,10 +281,10 @@ class EventDAO extends DAO{
         return $eventInserted && $tagsInserted;
     }
 
-    public function userInEventRequest($userId,$eventId,$accepted){
+    public function userInEventRequest($userId,$eventId,$accepted,$currDate){
         $accepted = $accepted == "1"? true:false;
         if($accepted)
-            $query = "UPDATE join_event SET accepted='1' WHERE event_id='$eventId' AND user_id='$userId'";
+            $query = "UPDATE join_event SET accepted='1', join_date='$currDate' WHERE event_id='$eventId' AND user_id='$userId'";
         else
             $query = "DELETE FROM join_event WHERE event_id='$eventId' AND user_id='$userId'";
         

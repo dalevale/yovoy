@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2020 at 11:17 AM
+-- Generation Time: May 23, 2020 at 03:33 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -32,7 +32,7 @@ CREATE TABLE `comments` (
   `comment_id` int(20) NOT NULL,
   `event_id` int(11) NOT NULL,
   `user_id` int(9) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
   `comment` varchar(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -61,7 +61,7 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
-(2, 'Barra Libre', 2, 'default-event.png', '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
+(2, 'Barra Libre', 2, '2.png', '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
 (3, 'RokEnRol', 2, '3.png', '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
 (8, 'Unli Rice', 2, '8.png', '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
 (10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
@@ -90,11 +90,11 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (10, ' burgerking'),
 (11, 'bingo'),
 (11, ' premio'),
-(2, 'cerveza'),
-(2, ' alcohol'),
 (15, 'games'),
 (15, ' win'),
-(15, ' prizes');
+(15, ' prizes'),
+(2, 'cerveza'),
+(2, ' alcohol');
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 CREATE TABLE `join_event` (
   `event_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `join_date` date DEFAULT current_timestamp(),
+  `join_date` datetime DEFAULT current_timestamp(),
   `accepted` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -114,13 +114,12 @@ CREATE TABLE `join_event` (
 --
 
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
-(2, 3, '2020-05-16', 1),
-(2, 4, '2020-05-16', 1),
-(2, 5, '2020-05-16', 1),
-(2, 6, '2020-05-16', 1),
-(2, 9, '2020-05-16', 1),
-(3, 3, '2020-05-16', 1),
-(11, 2, '2020-05-16', 0);
+(2, 3, '2020-05-23 13:50:23', 0),
+(2, 4, '2020-05-23 13:50:23', 0),
+(2, 5, '2020-05-23 13:48:31', 0),
+(2, 6, '2020-05-23 13:48:39', 0),
+(3, 3, '2020-05-16 00:00:00', 0),
+(11, 2, '2020-05-16 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -148,6 +147,13 @@ CREATE TABLE `promote_event` (
   `user_id` int(9) NOT NULL,
   `event_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `promote_event`
+--
+
+INSERT INTO `promote_event` (`user_id`, `event_id`) VALUES
+(2, 15);
 
 -- --------------------------------------------------------
 
@@ -280,7 +286,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `event`
@@ -292,7 +298,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `user`

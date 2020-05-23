@@ -17,7 +17,7 @@ require_once __DIR__.'/config.php';
             $event = $eventDAO->getEvent($eventId);
             $ownerId = $event->getCreator();
 
-            $commentId = $commentsDAO->postComment($eventId, $userId, date("Y-m-d"), $comment);
+            $commentId = $commentsDAO->postComment($eventId, $userId, date("Y-m-d H:i:s"), $comment);
 
             if($_SESSION["userId"] != $ownerId)
                 $notificationsDAO->notify(NotificationsDAO::NEW_COMMENT, $ownerId, $userId, $eventId);
