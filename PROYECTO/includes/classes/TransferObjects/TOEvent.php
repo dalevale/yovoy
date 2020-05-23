@@ -67,7 +67,7 @@ class TOEvent{
 
     public function isEventOver(){
         $now = date('Y-m-d g:ia');
-        $evtDate = date("Y-m-d g:ia", strtotime($this->endDate));
+        $evtDate = date("Y-m-d g:ia", strtotime($this->eventDate));
         return $evtDate < $now;
 	}
 }   

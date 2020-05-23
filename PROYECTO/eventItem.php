@@ -113,20 +113,17 @@
                         echo '<div id="joinCancelEventBtns">
                             <button type="button" class="joinEventBtn">YoVoy</button>
                         </div>';
-
-                        }
-
-                        else{
-                            echo '<div id="joinCancelEventBtns">
-                                <button type="button" class="cancelEventBtn">YaNoVoy</button>
-                            </div>';
-                        }
-                        if($eventDAO->isUserInEvent($currentUserId, $eventId)){
-                            echo '¡Estás apuntado en este evento!';
-                        }
-                        echo '</div>';
-
                     }
+
+                    else{
+                        echo '<div id="joinCancelEventBtns">
+                            <button type="button" class="cancelEventBtn">YaNoVoy</button>
+                        </div>';
+                    }
+                    if($eventDAO->isUserInEvent($currentUserId, $eventId)){
+                        echo '¡Estás apuntado en este evento!';
+                    }
+                        echo '</div>';
                 }
                 echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
                 if(!$userDAO->isPromoting($currentUserId, $eventId)){
