@@ -186,10 +186,10 @@ $(document).ready(function () {
 		processJoinEvent(eventId, userId, 'join');
 	});
 	$("#userWaitingList div div button.acceptUserBtn").click(function () {
-		processJoinEvent(eventId, userId, 'accept');
+		processJoinEvent(eventId, $(this).val(), 'accept');
 	});
 	$("#userWaitingList div div button.rejectUserBtn").click(function () {
-		processJoinEvent(eventId, userId, 'reject');
+		processJoinEvent(eventId, $(this).val(), 'reject');
 	});
 	$("#promoteEventBtns button").click(function () {
 		promoteEvent(eventId, userId);
