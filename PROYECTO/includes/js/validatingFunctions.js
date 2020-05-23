@@ -95,7 +95,7 @@ function isValidPassword(pass1, pass2) {
 }
 
 function isValidEmail(email) {
-    var errMessage = '';
+    /*var errMessage = '';
     var emailStr = email.slice(0, email.indexOf('@'));
     var emailDomain = email.slice(email.indexOf('@') + 1, email.indexOf('.'));
     var emailSuffix = email.slice(email.indexOf('.'), email.length);
@@ -105,6 +105,14 @@ function isValidEmail(email) {
         !hasPattern(emailDomain, /^([a-zA-Z])[a-zA-Z0-9-_]([a-zA-Z])*$/) ||
         !(emailSuffix == '.com' || emailSuffix == '.cc' || emailSuffix == '.org'))
         errMessage = "<p>Formato de email invalido!</p>";
+    */
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (email == "")
+        errMessage = "<p>Email no puede estar vacio!</p>";
+    else if(regex.test(correo)){
+        errMessage = "<p>Formato de email invalido!</p>";
+    }
+    
     return errMessage;
 }
 
