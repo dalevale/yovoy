@@ -70,13 +70,14 @@
                                 <button type="button" class="joinEventBtn">YoVoy</button>
                             </div>';
                         }
+
+                        else{
+                            echo '<div id="joinCancelEventBtns"><button type="button" class="cancelEventBtn">YaNoVoy</button>
+                            </div>';
+                        }
                         
                         if($eventDAO->isUserInEvent($currentUserId, $eventId)){
                             echo '¡Estás apuntado en este evento!';
-                           
-                            //echo '<div id="joinCancelEventBtns">
-                             //   <button type="button" class="cancelEventBtn">YaNoVoy</button>
-                            //</div>';
                         }
                         
                         echo '</div>';
