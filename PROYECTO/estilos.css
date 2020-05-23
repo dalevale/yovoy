@@ -69,6 +69,7 @@ div#pie{
   clear: both;
 	padding-top: 20px;
   font-size: large;
+  top: 0.5em;
 }
 
 div.usuario input{
@@ -138,14 +139,10 @@ div.usuario input{
 */
 
 .miarea{
-  float:left;
-  border-radius: 25px;
-  background: rgb(129, 129, 129);
-  display: center;
   padding: 15px;
   height: fit-content;
-  width: auto;
-  margin-top: 20px;
+  margin:10px;
+  margin-bottom: 150px;
 }
 
 .miarea p{
@@ -158,19 +155,13 @@ div.usuario input{
   margin: 5px;
   margin-bottom: 15px;
 }
-
 .miarea .tarjeta_naranja{
-  width:20pc;
-  float: left;
+  margin:20px;
 }
-
 .datos_miarea{
   border-radius: 25px;
   background: rgb(32, 32, 32);
-  padding: 15px;
   height: fit-content;
-  max-width: 45pc;
-  margin: 30px;
 }
 
 .friends{
@@ -211,14 +202,12 @@ div.usuario input{
 
 .evento {
   float:left;
+  padding: 20px;
   border-radius: 25px;
   background: #FF8000;
   display: center;
-  padding: 15px;
   height: fit-content;
-  width: 40pc;
-  max-width: 50pc;
-  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .evento p{
@@ -260,16 +249,31 @@ div.usuario input{
   margin-top: 30px;
 }
 
-div#comentarios {
-    float: right;
-    width: 35pc;
-    padding: 15px;
+.comentarios {
     height: fit-content;
-    margin-top: 30px;
+}
+
+.lista_coments{
+  border-radius: 25px;
+  background: #FF8000;
+  padding: 20px;
+  width: auto;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 300px;
+}
+
+#userWaitingList{
+  margin-bottom: 20px;
 }
 
 textarea {
   border-radius: 10px;
+  max-width: auto;
+}
+
+textarea#newCommentText{
+  width: unset;
   max-width: inherit;
 }
 
@@ -309,10 +313,6 @@ textarea {
   padding: 20px;
   width: auto;
   height: auto;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 20px;
 }
 
 .tarjeta_blanca {

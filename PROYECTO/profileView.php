@@ -6,6 +6,10 @@
 
 <html>
 <head>
+	<!-- FOR BOOTSTRAP POSITIONING -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- -->
     <title>Ver Perfil - YoVoY</title>
 	<script>
         function editar(){
@@ -21,8 +25,9 @@
     <header>
         <?php include 'includes/comun/nav.php' ?>
     </header>
-
-    <div class = "miarea">
+	
+    <div class = "container-fluid miarea">
+	<div class = "row justify-content-center align-items-center">  
 		<?php
 			if(isset($_SESSION["login"]) && $_SESSION["login"]){
 				$userDAO = new UserDAO();
@@ -36,12 +41,12 @@
 				
 					// conseguir información
 					$user = $userDAO->getUser($profileId);
-				
+					echo "<div class = 'col-md-2 col-12 datos_miarea'>";
 					// foto
 					$imgDir = "includes/img/users/";
 					$imgName = basename($user->getImgName());
 					$imgPath = $imgDir . $imgName;
-					echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='200' width='200'>";
+					echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='100%' width='100%'>";
 					echo "<div>";
 					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
 						// botón para editar perfil
@@ -72,16 +77,15 @@
 						$type = "Usuario Premium";
 					}
 					$creationDate = $user->getCreationDate();
-					
-					echo "<div class = 'datos_miarea'>";
+
 					echo "<p>" . $username . "</p>";
 					echo "<p>" . $name . "</p>";
 					echo "<p>" . $type . "</p>";
 					echo "<p>Se unió " . $creationDate . "</p>";
 					echo "</div>";
 					
-					echo "<div class = 'tarjeta_naranja'>";
-					echo "<h1>Mis Eventos:</h1>";
+					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
+					echo "<h2>Mis Eventos:</h2>";
 			
 					$createdEvents = $userDAO->getCreatedEvents($profileId);
 					if(count($createdEvents) > 0){
@@ -102,8 +106,8 @@
 					echo "</div>";
 
 					$friends = $userDAO->getFriends($profileId);
-					echo "<div class = 'tarjeta_naranja'>";
-					echo '<h1>Mis Amigos: </h1>';
+					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
+					echo '<h2>Mis Amigos: </h2>';
 					echo '<ul>';
 					while(sizeof($friends) > 0){
 						echo '<li><ul>';
@@ -119,8 +123,8 @@
 					echo '</ul>';
 					echo "</div>";
 					
-					echo "<div class = 'tarjeta_naranja'>";
-					echo '<h1>Eventos Promocionados: </h1>';
+					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
+					echo '<h2>Eventos Promocionados: </h2>';
 					$promotedEvents = $userDAO->getPromotedEvents($profileId);
 					if(count($promotedEvents) > 0){
 					for($i=0; $i < count($promotedEvents); $i++){
@@ -141,7 +145,7 @@
 			}
 		?>
     </div>
-
+	</div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>
