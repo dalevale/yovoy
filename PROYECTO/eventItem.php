@@ -28,6 +28,12 @@
     //Assistentes del evento con id $eventId
     $attendees = $eventDAO->getAttendees($eventId,true);
     $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
+
+    //Conseguir los nombres de fotos auxiliares del evento (TODO: acceder la BBDD)
+    $auxImages = array();
+
+    //La siguiente línea es para probar la funcionalidad de carousel
+    $auxImages[] = "default-event.png";
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +43,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <?php echo '<title>'.$event->getName().'</title>';?>
 </head>
 
@@ -47,55 +56,88 @@
 <div class = "container">
 	<div class = "row justify-content-between">  
     <div class="col-md-6 col-12 evento">
-            <?php
-                echo '<input type="hidden" id="eventId" value="'. $eventId.'">';
-                echo '<h2>'.$eventName.'</h2>';
-                echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
-                echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+        <?php
+            echo '<input type="hidden" id="eventId" value="'. $eventId.'">';
+            echo '<h2>'.$eventName.'</h2>';
+            echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
+            
+            echo 
+                "<div id='imageCarousel' class='carousel slide' data-ride='carousel'>
+                    <ol class='carousel-indicators'>
+                        <li data-target='#imageCarousel' data-slide-to='0' class='active'></li>";
+            
+            for ($i = 1; $i <= count($auxImages); $i++){
+                echo   "<li data-target='#imageCarousel' data-slide-to='" . $i ."'></li>";
+            }
 
-                //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
-                if(isset($_SESSION["login"]) && $_SESSION["login"]){
-                    if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                        echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                        echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+            echo
+                    "</ol>
+                    <div class='carousel-inner'>
+                        <div class='carousel-item active'>
+                            <img class='d-block w-100' src='" . $eventImgDir . $eventImgName . "?random=" . rand(0, 100000) . "' alt='' >
+                        </div>";
+
+            foreach ($auxImages as $img){
+                echo
+                        "<div class='carousel-item'>
+                            <img class='d-block w-100' src='" . $eventImgDir . $img . "?random=" . rand(0, 100000) . "' alt='' >
+                        </div>";
+            }
+
+            echo 
+                    "</div>
+                    <a class='carousel-control-prev' href='#imageCarousel' role='button' data-slide='prev'>
+                        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                        <span class='sr-only'>Previous</span>
+                    </a>
+                    <a class='carousel-control-next' href='#imageCarousel' role='button' data-slide='next'>
+                        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                        <span class='sr-only'>Next</span>
+                    </a>
+                </div>";
+
+            //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
+            if(isset($_SESSION["login"]) && $_SESSION["login"]){
+                if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+                    echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+                }
+                else {
+                    echo '<div class="tarjeta_blanca">';
+                    if($eventDAO->isEventFull($eventId,$capacity))
+                        echo '<p>Este evento ya está lleno.</p>';
+            
+                    else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                        echo '<div id="joinCancelEventBtns">
+                            <button type="button" class="joinEventBtn">YoVoy</button>
+                        </div>';
                     }
                     else {
-                        echo '<div class="tarjeta_blanca">';
-                        if($eventDAO->isEventFull($eventId,$capacity))
-                            echo '<p>Este evento ya está lleno.</p>';
-                
-                        else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                        if($eventDAO->isUserInEvent($currentUserId, $eventId))
+                            echo '¡Estás apuntado en este evento!';
+                        else
                             echo '<div id="joinCancelEventBtns">
-                                <button type="button" class="joinEventBtn">YoVoy</button>
+                                <button type="button" class="cancelEventBtn">YaNoVoy</button>
                             </div>';
-                        }
-                        else {
-                            if($eventDAO->isUserInEvent($currentUserId, $eventId))
-                                echo '¡Estás apuntado en este evento!';
-                            else
-                                echo '<div id="joinCancelEventBtns">
-                                    <button type="button" class="cancelEventBtn">YaNoVoy</button>
-                                </div>';
-                        }
-                        echo '</div>';
-
-                    }
-                    echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
-                    if(!$userDAO->isPromoting($currentUserId, $eventId)){
-                      echo '<button type="button" class="promoEventBtn">Promocionar</button>';
-                    }
-                    else {
-                        echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
                     }
                     echo '</div>';
-                }
-                echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
-                echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
-                echo '<p>'.'Capacidad: '.$capacity.'</p>';
-                echo '<p>'.'Lugar: '.$location.'</p>';
-                echo '<p>'.'Descripción: '.$descripcion.'</p>';
-            ?>
 
+                }
+                echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
+                if(!$userDAO->isPromoting($currentUserId, $eventId)){
+                    echo '<button type="button" class="promoEventBtn">Promocionar</button>';
+                }
+                else {
+                    echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
+                }
+                echo '</div>';
+            }
+            echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
+            echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
+            echo '<p>'.'Capacidad: '.$capacity.'</p>';
+            echo '<p>'.'Lugar: '.$location.'</p>';
+            echo '<p>'.'Descripción: '.$descripcion.'</p>';
+        ?>
             
         <div id="attendeeList" class="tarjeta_gris">
                 <?php
