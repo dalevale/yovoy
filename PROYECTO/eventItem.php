@@ -113,12 +113,35 @@
                         </div>';
                     }
                     else {
-                        if($eventDAO->isUserInEvent($currentUserId, $eventId))
-                            echo '¡Estás apuntado en este evento!';
-                        else
+                        echo '<div class="tarjeta_blanca">';
+                        if($eventDAO->isEventFull($eventId,$capacity)){
+                            echo '<p>Este evento ya está lleno.</p>';
+                        }
+                
+                        else if(!$userDAO->isAttending($currentUserId, $eventId)){
                             echo '<div id="joinCancelEventBtns">
                                 <button type="button" class="cancelEventBtn">YaNoVoy</button>
                             </div>';
+                        }
+
+                        else{
+                            echo '<div id="joinCancelEventBtns"><button type="button" class="cancelEventBtn">YaNoVoy</button>
+                            </div>';
+                        }
+                        
+                        if($eventDAO->isUserInEvent($currentUserId, $eventId)){
+                            echo '¡Estás apuntado en este evento!';
+                        }
+                        
+                        echo '</div>';
+
+                    }
+                    echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
+                    if(!$userDAO->isPromoting($currentUserId, $eventId)){
+                      echo '<button type="button" class="promoEventBtn">Promocionar</button>';
+                    }
+                    else {
+                        echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
                     }
                     echo '</div>';
 
@@ -155,8 +178,12 @@
                             echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
 			            }
                     }
-                    else
-                        echo '<p>Se el primero en apuntar a este evento!</p>';
+                    else{
+                        if($event->getCreator() != $currentUserId)
+                            echo '<p>Se el primero en apuntar a este evento!</p>';
+                        else
+                            echo '<p>Aún no hay nadie en tu evento</p>';
+                    }
                 ?>
                 <!-- Parte de comentarios a la derecha-->
         </div>

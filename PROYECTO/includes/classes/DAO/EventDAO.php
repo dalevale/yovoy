@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../TransferObjects/TOEvent.php';
+require_once __DIR__.'/UserDAO.php';
 require_once __DIR__.'/DAO.php';
 
 class EventDAO extends DAO{
@@ -236,9 +237,17 @@ class EventDAO extends DAO{
         $dataArray = parent::executeQuery($eventQuery);
         $data = array_shift($dataArray);
 
+        $userDAO = new UserDAO;
+
         while(!empty($data)) {
             $dataArrayToReturn = array("userId"=>$data["user_id"], "joinDate"=>$data["join_date"]);
-            array_push($attendees, $dataArrayToReturn);
+            $user = $userDAO->getUser($data["user_id"]);
+            $type = $user->getUserType();
+            
+            if($type == 1)
+                array_push($attendees, $dataArrayToReturn);
+            else if($type == 2)
+                array_unshift($attendees, $dataArrayToReturn);
 
             $data = array_shift($dataArray);
 		}
@@ -325,6 +334,15 @@ class EventDAO extends DAO{
 
         return $data["event_id"];
     }
+
+    /*public function getLastNoPremiumUserInEvent($eventId){
+        $query = "SELECT join_event.user_id FROM join_event JOIN user WHERE event_id = '$eventId' AND user.type != 2 AND accepted = 1 ORDER BY join_date DESC LIMIT 1";
+        $dataArray = parent::executeQuery($query);
+
+        $data = array_pop($dataArray);
+
+        return $data["user_id"];
+    }*/
 
     public function getPremiumEvents(){
         $query = "SELECT *,event.img_name,event.name FROM event JOIN user WHERE creator = user_id AND type = '2'";
