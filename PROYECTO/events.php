@@ -17,7 +17,7 @@
         <?php include 'includes/comun/nav.php' ?>
     </header>
 
-    <div>
+    <div id="latestEventsLists">
         <?php
         if(isset($_SESSION["login"]))
             echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Crear un nuevo evento' onclick='crearEvento();'>";

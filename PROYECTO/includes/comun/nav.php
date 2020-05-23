@@ -18,7 +18,7 @@
 						<!--<img src="includes/img/YoVoy_Logo_BLANCO.png" width="80px" height="70px">-->
 						<!--<li><a href='index.html'>INICIO</a></li>-->
 						<li><a href='feed.php'>FEED</a></li>
-						<li><a href='events.php'>EVENTOS</a></li>
+						<!--<li><a href='events.php'>EVENTOS</a></li>-->
 						<li><a href='search.php'>BUSCAR</a></li>
 						<li><a href='calendar.php'>CALENDARIO</a></li>
 						<?php	
@@ -38,7 +38,7 @@
 							}
 							
 							echo "<li><a href='friends.php'>AMIGOS</a></li>";
-							echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
+							//echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
 							echo "<li><a href='notifications.php'>NOTIFICACIONES ($counter)</a></li>";
 						}
 						?>
@@ -64,7 +64,8 @@
 							$imgPath = $imgDir . $imgName;
 							$name = $user->getName();
 							
-							echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'>";
+							echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'>
+								<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
 							echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
 							echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 						

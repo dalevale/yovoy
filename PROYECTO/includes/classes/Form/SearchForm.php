@@ -15,19 +15,20 @@ class SearchForm extends Form
             $search = isset($data['search']) ? $data['search'] : $search;
         }
         $html = <<<EOF
-		<div class="tarjeta_gris">
-        <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario">
-			<p>
+		<div id="searchbar" class="tarjeta_gris">
+        <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario"></p>
+		<p>
 			<input type="radio" name="option" value="username"> Usuario
 			<input type="radio" name="option" value="eventName"> Nombre de Evento
 			<input type="radio" name="option" value="creator"> Creador
 			<input type="radio" name="option" value="tag"> Etiqueta
 			<input type="radio" name="option" value="capacity"> Capacidad
 			<input type="radio" name="option" value="location"> Ubicacion
-			</p>
+		</p>
+		<p class="searchBtns">
             <input type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
             <input type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
-			</p>
+		</p>
 		</div>
 EOF;
         return $html;
