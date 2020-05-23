@@ -105,6 +105,20 @@ class EventDAO extends DAO{
         return parent::executeModification($insertTags);
 	}
 
+    private function createEvent($data){
+        $eventId= $data["event_id"];
+        $name = $data["name"];
+        $creator = $data["creator"];
+        $imgName = $data["img_name"];
+        $creationDate = $data["creation_date"];
+        $eventDate = $data["event_date"];
+        $capacity = $data["capacity"];
+        $location = $data["location"];
+        $tags = $data["tags"];
+        $description = $data["description"];
+
+        return new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description);
+	}
 
     /**
     * Devolver un objeto TOEvent tras un query a la BBDD.
@@ -116,20 +130,8 @@ class EventDAO extends DAO{
         $eventQuery = "SELECT * FROM event WHERE event_id = ".$eventId."";
         $dataArray= parent::executeQuery($eventQuery);
         $data= array_pop($dataArray);
-
-
-        $eventId= $data["event_id"];
-        $name = $data["name"];
-        $creator = $data["creator"];
-        $imgName = $data["img_name"];
-        $creationDate = $data["creation_date"];
-        $eventDate = $data["event_date"];
-        $capacity = $data["capacity"];
-        $location = $data["location"];
-        $tags = $data["tags"];
-        $description = $data["description"];
         
-        return new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description);
+        return $this->createEvent($data);
     }
 
     /**
@@ -147,18 +149,7 @@ class EventDAO extends DAO{
         $data = array_shift($dataArray);
 
         while(!empty($data)) {
-            $eventId= $data["event_id"];
-            $name = $data["name"];
-            $creator = $data["creator"];
-            $imgName = $data["img_name"];
-            $creationDate = $data["creation_date"];
-            $eventDate = $data["event_date"];
-            $capacity = $data["capacity"];
-            $location = $data["location"];
-            $tags = $data["tags"];
-            $description = $data["description"];
-
-            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            array_push($eventsArray, $this->createEvent($data));
             
             $data = array_shift($dataArray);
         }
@@ -205,18 +196,7 @@ class EventDAO extends DAO{
         $data = array_shift($dataArray);
 
         while(!empty($data)) {
-            $eventId= $data["event_id"];
-            $name = $data["name"];
-            $creator = $data["creator"];
-			$imgName = $data["img_name"];
-            $creationDate = $data["creation_date"];
-            $eventDate = $data["event_date"];
-            $capacity = $data["capacity"];
-            $location = $data["location"];
-            $tags = $data["tags"];
-            $description = $data["description"];
-
-            array_push($eventsArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            array_push($eventsArray, $this->createEvent($data));
             $data = array_shift($dataArray);
         }
         return $eventsArray;
@@ -352,20 +332,11 @@ class EventDAO extends DAO{
         $dataArray = parent::executeQuery($query);
         $data = array_pop($dataArray);
         while(!empty($data)) {
-            $eventId= $data["event_id"];
-            $name = $data["name"];
-            $creator = $data["creator"];
-            $imgName = $data["img_name"];
-            $creationDate = $data["creation_date"];
-            $eventDate = $data["event_date"];
-            $capacity = $data["capacity"];
-            $location = $data["location"];
-            $tags = $data["tags"];
-            $description = $data["description"];
-            array_push($eventArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            array_push($eventArray, $this->createEvent($data));
             $data = array_pop($dataArray);
         }
         return $eventArray;
     }
+
 }
 ?>

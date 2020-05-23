@@ -22,11 +22,9 @@ foreach($result as $row)
   'id'   		=> $row["event_id"],
   'title'   	=> $row["name"],
   'start'   	=> $row["event_date"],
-  'end'   		=> $row["event_date"],
   'locat' 		=> $row["location"],
   'eventInfo'	=> $row["description"],
-  'eventCap' 	=> $row["capacity"],
-  'eventAtt' 	=> $row["current_attendees"]
+  'eventCap' 	=> $row["capacity"]
  );
 }
 

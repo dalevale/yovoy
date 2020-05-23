@@ -64,5 +64,11 @@ class TOEvent{
     public function getTags(){
         return $this->tags;
     }
+
+    public function isEventOver(){
+        $now = date('Y-m-d g:ia');
+        $evtDate = date("Y-m-d g:ia", strtotime($this->endDate));
+        return $evtDate < $now;
+	}
 }   
 ?>

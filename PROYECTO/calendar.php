@@ -7,59 +7,43 @@
 <html>
  <head>
     <title>CALENDAR</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <link href="includes/css/calendar.css" rel="stylesheet">
+<link href='includes/js/calendar/fullcalendar/packages/core/main.css'
+	rel='stylesheet' />
+<link href='includes/js/calendar/fullcalendar/packages/daygrid/main.css'
+	rel='stylesheet' />
+<link href='includes/js/calendar/fullcalendar/packages/timegrid/main.css'
+	rel='stylesheet' />
+<script src='includes/js/calendar/fullcalendar/packages/core/main.js'></script>
+<script src='includes/js/calendar/fullcalendar/packages/interaction/main.js'></script>
+<script src='includes/js/calendar/fullcalendar/packages/daygrid/main.js'></script>
+<script src='includes/js/calendar/fullcalendar/packages/timegrid/main.js'></script>
+
     <script>
    
-  $(document).ready(function() {
-   var calendar = $('#calendar').fullCalendar({
-    editable:true,
-    header:{
-     left:'prev,next today',
-     center:'title',
-     right:'month,agendaWeek,agendaDay'
-    },
-    events: 'load.php',
-    displayEventTime: false,
-    selectable:true,
-    selectHelper:true,
-    select: function(start, end, allDay)
-    {
-     var title = prompt("Enter Event Title");
-     if(title)
-     {
-      var start = $.fullCalendar.formatDate(start, "DD-MM-Y HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "DD-MM-Y HH:mm:ss");
-      $.ajax({
-       url:"insert.php",
-       type:"POST",
-       data:{title:title, start:start, end:end},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
-       }
-      })
-     }
-    },
-    editable:true,
+ document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
 
-    eventClick:function(event)
-    {
-      var title = event.title;
-      var locat = event.locat;
-      var eventInfo = event.eventInfo;
-      var eventCap = event.eventCap;
-      var eventAtt = event.eventAtt;
-      var start = $.fullCalendar.formatDate(event.start, "DD-MM-Y HH:mm:ss");
-      alert("\nEvento: " + title + "\nFecha evento: " + start + "\nInformación del evento: " + eventInfo + "\nLugar: " + locat
-        + "\nAforo máximo: " + eventCap + "\nNúmero asistentes actuales: " + eventAtt);
-    },
-   });
+  
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        select: function(arg) { 
+            },
+                
+        editable: false,
+        eventLimit: true, // allow "more" link when too many events
+        events: 'load.php'
+    });
+    calendar.render();
+  
   });
    
   </script>

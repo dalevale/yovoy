@@ -40,7 +40,8 @@
                     echo "<div class = 'nombreEvento'>";
                     echo $event->getName() ." ";
                     echo "</div>";
-                    echo "  Date: ". $event->getEventDate() ." ";
+                    $date = date("Y-m-d g:ia", strtotime( $event->getEventDate() ));
+                    echo "  Date: ".$date." ";
                     echo "Created by: ". $userDAO->getUser($event->getCreator())->getUsername()." ";
                     echo "Capacity: ". $event->getCapacity()." ";
                     echo "Location: ". $event->getLocation()." ";

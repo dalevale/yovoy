@@ -18,6 +18,7 @@ class NewEventForm extends Form
 				<p>    
                     <label>Foto:</label> <input class="control" type="file" accept =".png, .jpg, .jpeg" name="img" />
                     <label>Fecha: </label><input type="date" name="eventDate" name="fecha" value="2020-01-01" min="2020-01-01" max="2020-12-31">
+                    <label>Hora: </label><input type="time" name="eventHour" name="hora">
                     <label>Número máximo de asistentes: </label><input type="number" name="maxAssistants" required value="1" min="1" max="100">
 				</p>    
                 <label>Ubicación: </label><input type="text" name="eventLocation">
@@ -51,7 +52,7 @@ EOF;
         //$result[] = var_dump($eventTagsString) . " " . var_dump($eventTagsArray);
 
         //Valores por defecto
-        $creationDate = date("Y-m-d");
+        $creationDate = date("Y-m-d g:ia");
         $creator = $_SESSION["userId"];
 
         $eventName = isset($data['eventName']) ? $data['eventName'] : null;
@@ -65,6 +66,14 @@ EOF;
         if ( empty($eventDate) ) {
             $result[] = "La fecha del evento no puede estar vacío";
         }
+
+        $eventHour = isset($data['eventHour']) ? $data['eventHour'] : null;
+                
+        if ( empty($eventHour) ) {
+            $result[] = "La hora del evento no puede estar vacío";
+        }
+
+        $eventDate = $eventDate . ' ' . $eventHour;
       
         $eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : null;
                 
@@ -92,7 +101,7 @@ EOF;
 
             $result = array();
             //Añadir el evento a la BBDD
-	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
+	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $endDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
                 $_SESSION["eventCreated"] = true;
                 $eventId = $eventDAO->getLastEvent();
                 $friends = $userDAO->getFriends($creator);

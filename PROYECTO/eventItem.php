@@ -16,6 +16,7 @@
     $creator = $userDAO->getUser($creatorId);
     $creatorName = $creator->getName();
     $eventName = $event->getName();
+    $eventClass = $event->isEventOver()? 'eventoOver' : 'evento';
     $eventImgName = $event->getImgName();
     $eventImgDir = "includes/img/events/";
     $eventImgPath = $eventImgDir . $eventImgName;
@@ -46,7 +47,7 @@
 </header>
 <div class = "container">
 	<div class = "row justify-content-between">  
-    <div class="col-md-6 col-12 evento">
+    <div id="eventItem" class="col-md-6 col-12 <?php echo $eventClass?>">
             <?php
                 echo '<input type="hidden" id="eventId" value="'. $eventId.'">';
                 echo '<h2>'.$eventName.'</h2>';
@@ -71,12 +72,10 @@
                             </div>';
                         }
                         
-                        if($eventDAO->isUserInEvent($currentUserId, $eventId)){
-                            echo '¡Estás apuntado en este evento!';
-                           
-                            //echo '<div id="joinCancelEventBtns">
-                             //   <button type="button" class="cancelEventBtn">YaNoVoy</button>
-                            //</div>';
+                        if($userDAO->isAttending($currentUserId, $eventId)){
+                            echo '<div id="joinCancelEventBtns">
+                               <button type="button" class="cancelEventBtn">YaNoVoy</button>
+                            </div>';
                         }
                         
                         echo '</div>';
