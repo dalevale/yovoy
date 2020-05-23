@@ -338,5 +338,24 @@ class EventDAO extends DAO{
         return $eventArray;
     }
 
+    public function getPromotedEvents(){
+        $query = "SELECT event_id, COUNT(*) as total FROM `promote_event` GROUP BY event_id ORDER BY COUNT(*) DESC;";
+
+        $eventArray = array();
+        $dataArray = parent::executeQuery($query);
+        $data = array_pop($dataArray);
+        while(!empty($data)) {
+            $eventId = $data["event_id"];
+            $total = $data["total"];
+            
+            $evtWtTotalArray = [
+                "event" => $this->getEvent($eventId),
+                "total" => $total,
+            ];
+            array_unshift($eventArray, $evtWtTotalArray);
+            $data = array_pop($dataArray);
+        }
+        return $eventArray;
+	}
 }
 ?>

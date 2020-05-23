@@ -19,14 +19,15 @@
         <?php
         $userDAO = new UserDAO;
         $eventDAO = new EventDAO;
-        $promotedEventsList = $eventDAO->getPremiumEvents();
+        $promotedEventsList = $eventDAO->getPromotedEvents();
         
         $eventImgDir = "includes/img/events/";
 
         if(!empty($promotedEventsList)){
-            foreach($promotedEventsList as $promotedEvent){
+            foreach($promotedEventsList as $promotedEventWithTotal){
                 echo '<div class="tarjeta_blanca"';
-            
+                $total = $promotedEventWithTotal["total"];
+                $promotedEvent = $promotedEventWithTotal["event"];
                 $eventId=$promotedEvent->getEventId();
                 $eventName = $promotedEvent->getName();
                 $creatorId = $promotedEvent->getCreator();
@@ -41,6 +42,7 @@
                 echo '<p> Fecha: '.$eventDate.'</p>';
                 echo '<p> Lugar: '.$location.'</p>';
                 echo '<a href="eventItem.php?eventId='.$eventId.'">'."<img src='" . $eventImgPath . "' alt='event' height='200' width='200'></a>";
+                echo '<p> Promocionado '.$total.' vec(es)!</p>';
                 echo '</div>';
             }
         }
