@@ -136,15 +136,6 @@
                         echo '</div>';
 
                     }
-                    echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
-                    if(!$userDAO->isPromoting($currentUserId, $eventId)){
-                      echo '<button type="button" class="promoEventBtn">Promocionar</button>';
-                    }
-                    else {
-                        echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
-                    }
-                    echo '</div>';
-
                 }
                 echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
                 if(!$userDAO->isPromoting($currentUserId, $eventId)){
