@@ -324,5 +324,29 @@ class EventDAO extends DAO{
 
         return $data["event_id"];
     }
+
+    public function getPremiumEvents(){
+        $query = "SELECT *,event.img_name,event.name FROM event JOIN user WHERE creator = user_id AND type = '2'";
+        
+        $eventArray = array();
+
+        $dataArray = parent::executeQuery($query);
+        $data = array_pop($dataArray);
+        while(!empty($data)) {
+            $eventId= $data["event_id"];
+            $name = $data["name"];
+            $creator = $data["creator"];
+            $imgName = $data["img_name"];
+            $creationDate = $data["creation_date"];
+            $eventDate = $data["event_date"];
+            $capacity = $data["capacity"];
+            $location = $data["location"];
+            $tags = $data["tags"];
+            $description = $data["description"];
+            array_push($eventArray, new TOEvent($eventId, $name, $creator, $imgName, $creationDate, $eventDate, $capacity, $location, $tags, $description));
+            $data = array_pop($dataArray);
+        }
+        return $eventArray;
+    }
 }
 ?>

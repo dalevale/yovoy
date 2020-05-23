@@ -14,34 +14,39 @@
     </header>
 
     <div>
-        <label>Eventos promocionados</label>
+        <label>Eventos premium</label>
         <div class="tarjeta_naranja">
         <?php
         $userDAO = new UserDAO;
         $eventDAO = new EventDAO;
-        $promotedEventsList = $userDAO->getPromotedEvents($_SESSION["userId"]);
+        $promotedEventsList = $eventDAO->getPremiumEvents();
         
         $eventImgDir = "includes/img/events/";
-       
 
-        foreach($promotedEventsList as $promotedEvent){
-            echo '<div class="tarjeta_blanca"';
+        if(!empty($promotedEventsList)){
+            foreach($promotedEventsList as $promotedEvent){
+                echo '<div class="tarjeta_blanca"';
             
-            $eventId=$promotedEvent->getEventId();
-            $eventName = $promotedEvent->getName();
-            $creatorId = $promotedEvent->getCreator();
-            $creator = $userDAO->getUser($creatorId);
-            $creatorName = $creator->getName();
-            $eventDate = $promotedEvent->getEventDate();
-            $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
-            $location = $promotedEvent->getLocation();
+                $eventId=$promotedEvent->getEventId();
+                $eventName = $promotedEvent->getName();
+                $creatorId = $promotedEvent->getCreator();
+                $creator = $userDAO->getUser($creatorId);
+                $creatorName = $creator->getName();
+                $eventDate = $promotedEvent->getEventDate();
+                $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
+                $location = $promotedEvent->getLocation();
 
-            echo '<p> Evento: <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></p>';
-            echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
-            echo '<p> Fecha: '.$eventDate.'</p>';
-            echo '<p> Lugar: '.$location.'</p>';
-            echo '<a href="eventItem.php?eventId='.$eventId.'">'."<img src='" . $eventImgPath . "' alt='event' height='200' width='200'></a>";
-
+                echo '<p> Evento: <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></p>';
+                echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
+                echo '<p> Fecha: '.$eventDate.'</p>';
+                echo '<p> Lugar: '.$location.'</p>';
+                echo '<a href="eventItem.php?eventId='.$eventId.'">'."<img src='" . $eventImgPath . "' alt='event' height='200' width='200'></a>";
+                echo '</div>';
+            }
+        }
+        else{
+            echo '<div class="tarjeta_blanca"';
+            echo '<p>Aún no hay eventos premium</p>';
             echo '</div>';
         }
         
