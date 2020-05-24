@@ -13,8 +13,10 @@
         <?php include 'includes/comun/nav.php';
 		?>
     </header>
-	<h3>Notificaciones</h3>
+	<div class="container">
+    <h1>Notificaciones</h1>
     <div class="tarjeta_gris">
+
     <?php 
         $eventDAO = new EventDAO();
         $userDAO = new UserDAO();
@@ -129,7 +131,7 @@
         if($empty)
             echo '<div class="tarjeta_blanca">No tienes nuevas notificaciones.</div>';
     ?>
-    </div>
+    </div></div>
     
     <footer>
         <?php include 'includes/comun/footer.php' ?>

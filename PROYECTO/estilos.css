@@ -297,10 +297,15 @@ textarea#newCommentText{
   background: white;
   color:black;
   padding: 20px;
-  width: fit-content;
+  width: auto;
   height: fit-content;
   margin: 5px;
-  margin-bottom: 15px;
+}
+
+.feed_item:hover{
+  transform: scale(1.07);
+  transition: transform .4s;
+  box-shadow: 0 25px 60px rgba(0,0,0,.8);
 }
 
 .tarjeta_error{
@@ -329,8 +334,7 @@ textarea#newCommentText{
   margin-right: 20px;
   margin-top: 20px;
   height: fit-content;
-  overflow:auto;
-  
+  overflow:auto; 
 }
 
 .tarjeta_naranja {

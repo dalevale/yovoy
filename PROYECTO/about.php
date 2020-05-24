@@ -1,20 +1,25 @@
 <?php 
-    require_once __DIR__.'/../config.php';
+    require_once __DIR__.'/includes/config.php';
 ?>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+    <!-- FOR BOOTSTRAP POSITIONING -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- -->
     <title>Nosotros</title>
 </head>
 <body>
     <header>
         <?php include 'includes/comun/nav.php' ?>
     </header>
-    <div>
+
+    <div class="container">
         <div> 
-        <h3> SOBRE NOSOTROS </h3>
+        <h1> SOBRE NOSOTROS </h1>
             <script>
             function ret(){
                window.history.go(-2);
@@ -24,8 +29,8 @@
         </div>
         
         <div class = "tarjeta_naranja">
-            <div class = "tarjeta_gris">
-                <h2> Que es YoVoy?</h2>
+        <h2> Que es YoVoy?</h2>
+            <div class = "tarjeta_blanca">
                 <p> YoVoy es la primera plataforma online en la que cualquier persona puede crear, publicar y dar a conocer un evento, de manera que tenga mayor exposición que con los medios de publicidad tradicionales.
                     Además, los usuarios pueden encontrar en YoVoy, un sitio común donde encontrar planes interesantes, que, de otra manera, habrían pasado desapercibidos!
 

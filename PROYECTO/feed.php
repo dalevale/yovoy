@@ -29,7 +29,7 @@
 
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
-                echo '<div class="col-md-3 col-6 feed_item"';
+                echo '<div class="col-md-3 col-12 feed_item"';
                 $total = $promotedEventWithTotal["total"];
                 $promotedEvent = $promotedEventWithTotal["event"];
                 $eventId=$promotedEvent->getEventId();
@@ -41,12 +41,14 @@
                 $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
                 $location = $promotedEvent->getLocation();
                 
-             echo '<ul><a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></ul>
-                    <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
-                    <p> Fecha: '.$eventDate.'</p>
-                    <p> Lugar: '.$location.'</p>';
-                    echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
-                    echo '<p> Promocionado '.$total.' vec(es)!</p></div></a>';
+             echo '<ul><a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></ul>';
+
+            // echo ' <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
+                echo '<p>Creador:  '.$creatorName.'</a></p>
+                     <p> Fecha: '.$eventDate.'</p>
+                     <p> Lugar: '.$location.'</p>';
+                echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+                echo '<p> Promocionado '.$total.' vec(es)!</p></div></a>';
             }
         }
         else{
