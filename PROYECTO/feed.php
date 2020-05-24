@@ -18,7 +18,7 @@
     </header>
 
     <div class="container">
-        <div class="row align-items-center"><h1>Eventos premium</h1></div>
+        <div class="row align-items-center"><h1>Eventos promocionados</h1></div>
         <div class="row justify-content-between">
         <?php
         $userDAO = new UserDAO;
@@ -29,7 +29,7 @@
 
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
-                echo '<div class="col-md-3 col-12 feed_item"';
+                echo '<div class="col-md-3 col-12 feed_item">';
                 $total = $promotedEventWithTotal["total"];
                 $promotedEvent = $promotedEventWithTotal["event"];
                 $eventId=$promotedEvent->getEventId();

@@ -15,7 +15,7 @@
     </header>
 	<div class="container">
     <h1>Notificaciones</h1>
-    <div class="tarjeta_gris">
+    <div id="notifStart" class="tarjeta_gris">
 
     <?php 
         $eventDAO = new EventDAO();
@@ -45,9 +45,7 @@
                 $_SESSION["eventId"] = $eventId;
             }
 
-            echo '<div>';
-            echo "<label>".$date."</label>";
-            echo '</div>';
+           
             
             echo '<div class="tarjeta_blanca">';
             echo '<div class="notificationLeft">';
@@ -55,6 +53,10 @@
             if(!$isRead)
                 echo '<div class="notificationLeft" id="circle"></div>';
 
+            
+            echo '<span>';
+            echo "$date";
+            echo '---></span>';
             echo '<div class="notificationRight">';
             switch($type){
                 case NotificationsDAO::NEW_FRIEND_REQUEST:
@@ -105,22 +107,13 @@
             echo '</div>'; //div notificationLeft
             echo '<div class = "notificationRight">';
 
-            if($isRead){
-                echo '<div><form method="POST" action="includes/markAsRead.php">';
-                echo '<input type="hidden" name="read" value="0">';
-                echo '<input type="hidden" name="id" value='.$id.'>';
-                echo '<button type="submit">Marcar como no leído</button></form></div>';
-            }
-            else{
-                echo '<div><form method="POST" action="includes/markAsRead.php">';
-                echo '<input type="hidden" name="read" value="1">';
-                echo '<input type="hidden" name="id" value='.$id.'>';
-                echo '<button type="submit">Marcar como leído</button></form></div>';
-            }
-
-            echo '<div><form method="POST" action="includes/deleteNotification.php">';
-            echo '<input type="hidden" name="notificationId" value="'.$id.'">';
-            echo '<button type="submit">Borrar notificación</button></form></div>';
+            echo'<div class="notifBtns">';
+            if($isRead)
+                echo '<button type="button" class="markAsNotReadBtn" value="'.$id.'">Marcar como no leído</button>';
+            else
+                echo '<button type="button" class="markAsReadBtn" value="'.$id.'">Marcar como leído</button>';
+            echo '<button type="button" class="deleteNotifBtn" value="'.$id.'">Borrar notificación</button>';
+            echo '</div>';
 
             echo '</div>';
             echo '</div>';
