@@ -54,8 +54,9 @@
     </header>
   <br></br>
   <div class="container">
+        <div class="row align-items-center"><h1>Calendario</h1></div>
    <div id="calendar" class="tarjeta_gris"></div>
-  </div>
+  </div></div>
   <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>
