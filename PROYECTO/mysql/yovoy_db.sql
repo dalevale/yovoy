@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2020 at 03:33 PM
+-- Generation Time: May 24, 2020 at 01:22 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -47,6 +47,7 @@ CREATE TABLE `event` (
   `name` varchar(50) NOT NULL,
   `creator` int(9) NOT NULL,
   `img_name` varchar(50) DEFAULT NULL,
+  `aux_autoinc` int(3) NOT NULL DEFAULT 1,
   `creation_date` date NOT NULL DEFAULT current_timestamp(),
   `event_date` date NOT NULL,
   `capacity` int(11) NOT NULL,
@@ -60,13 +61,39 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
-(2, 'Barra Libre', 2, '2.png', '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 2, '3.png', '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
-(8, 'Unli Rice', 2, '8.png', '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, '11.png', '2020-04-24', '2020-05-30', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
-(15, 'GameAndWin', 9, '15.png', '2020-05-07', '2020-05-30', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
+INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
+(2, 'Barra Libre', 2, '2.png', 3, '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
+(3, 'RokEnRol', 2, '3.png', 1, '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
+(8, 'Unli Rice', 2, '8.png', 1, '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
+(10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
+(11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
+(15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_aux_imgs`
+--
+
+CREATE TABLE `event_aux_imgs` (
+  `event_id` int(11) NOT NULL,
+  `img_id` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `event_aux_imgs`
+--
+
+INSERT INTO `event_aux_imgs` (`event_id`, `img_id`) VALUES
+(2, 1);
+
+--
+-- Triggers `event_aux_imgs`
+--
+DELIMITER $$
+CREATE TRIGGER `aux_autoinc_update` AFTER INSERT ON `event_aux_imgs` FOR EACH ROW UPDATE event SET event.aux_autoinc=event.aux_autoinc+1 WHERE event.event_id=NEW.event_id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -232,6 +259,12 @@ ALTER TABLE `event`
   ADD KEY `event_id` (`event_id`);
 
 --
+-- Indexes for table `event_aux_imgs`
+--
+ALTER TABLE `event_aux_imgs`
+  ADD PRIMARY KEY (`event_id`,`img_id`) USING BTREE;
+
+--
 -- Indexes for table `event_tags`
 --
 ALTER TABLE `event_tags`
@@ -322,6 +355,12 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `createEvent` FOREIGN KEY (`creator`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `event_aux_imgs`
+--
+ALTER TABLE `event_aux_imgs`
+  ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `event_tags`
