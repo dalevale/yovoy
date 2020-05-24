@@ -18,8 +18,8 @@ h2{
     color: #ffffff;
 }
 
-h3 {
-	font-size: 54px;
+h3, h1 {
+  	font-size: 54px;
     font-weight: bold;
     text-shadow: 2px 2px 15px black;
     color: #ffffff;
@@ -275,6 +275,32 @@ textarea {
 textarea#newCommentText{
   width: unset;
   max-width: inherit;
+}
+
+.feed_item{
+  border-radius: 25px;
+  background: #FF8000;
+  padding: 20px;
+  width: auto;
+  height: fit-content;
+  margin:20px;
+}
+
+.feed_item a{
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
+.feed_item p{
+  border-radius: 10px;
+  background: white;
+  color:black;
+  padding: 20px;
+  width: fit-content;
+  height: fit-content;
+  margin: 5px;
+  margin-bottom: 15px;
 }
 
 .tarjeta_error{

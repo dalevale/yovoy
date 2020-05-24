@@ -6,6 +6,10 @@
 
 <html>
 <head>
+    <!-- FOR BOOTSTRAP POSITIONING -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- -->
     <title>FEED</title>
 </head>
 <body>
@@ -13,9 +17,9 @@
         <?php include 'includes/comun/nav.php' ?>
     </header>
 
-    <div>
-        <label>Eventos premium</label>
-        <div class="tarjeta_naranja">
+    <div class="container">
+        <div class="row align-items-center"><h1>Eventos premium</h1></div>
+        <div class="row justify-content-between">
         <?php
         $userDAO = new UserDAO;
         $eventDAO = new EventDAO;
@@ -25,7 +29,7 @@
 
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
-                echo '<div class="tarjeta_blanca"';
+                echo '<div class="col-md-3 col-6 feed_item"';
                 $total = $promotedEventWithTotal["total"];
                 $promotedEvent = $promotedEventWithTotal["event"];
                 $eventId=$promotedEvent->getEventId();
@@ -36,24 +40,21 @@
                 $eventDate = $promotedEvent->getEventDate();
                 $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
                 $location = $promotedEvent->getLocation();
-
-                echo '<p> Evento: <a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></p>';
-                echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
-                echo '<p> Fecha: '.$eventDate.'</p>';
-                echo '<p> Lugar: '.$location.'</p>';
-                echo '<a href="eventItem.php?eventId='.$eventId.'">'."<img src='" . $eventImgPath . "' alt='event' height='200' width='200'></a>";
-                echo '<p> Promocionado '.$total.' vec(es)!</p>';
-                echo '</div>';
+                
+             echo '<ul><a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></ul>
+                    <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
+                    <p> Fecha: '.$eventDate.'</p>
+                    <p> Lugar: '.$location.'</p>';
+                    echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+                    echo '<p> Promocionado '.$total.' vec(es)!</p></div></a>';
             }
         }
         else{
-            echo '<div class="tarjeta_blanca"';
+            echo '<div class="tarjeta_gris"';
             echo '<p>Aún no hay eventos premium</p>';
             echo '</div>';
         }
-        
-        
-        
+
         ?>
         </div>
     </div>

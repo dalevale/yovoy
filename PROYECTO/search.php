@@ -9,6 +9,13 @@
 
 <html>
 <head>
+    <meta charset="utf-8">
+    <link href="estilos.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
+    <!-- FOR BOOTSTRAP POSITIONING -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- -->
     <title>BUSCAR</title>
     <script>
      function crearEvento(){
@@ -20,11 +27,12 @@
     <header>
         <?php include 'includes/comun/nav.php';?>
     </header>
-	    <h3> Buscar un evento </h3>
-    
-	<?= $html; ?>
-    
-    <div id="latestEventsLists">
+	    
+    <div class = "container">
+        
+        <h1> Buscar un evento </h1>
+        <?= $html; ?>
+        <div id="latestEventsLists">
         <?php
         if(isset($_SESSION["login"])) {
         ?>  
@@ -67,6 +75,7 @@
         ?>
     </div>
 
+            </div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>
