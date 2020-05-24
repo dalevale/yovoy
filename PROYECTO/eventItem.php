@@ -5,6 +5,7 @@
     $eventDAO = new EventDAO();
     $userDAO = new UserDAO();
     $commentsDAO = new CommentsDAO();
+    $auxImgDAO = new AuxImgDAO();
 
     if(!empty($_GET))
         $_SESSION["eventId"] = $_GET["eventId"];
@@ -30,11 +31,9 @@
     $attendees = $eventDAO->getAttendees($eventId,true);
     $currentUserId = isset($_SESSION["userId"]) ? $_SESSION["userId"] : null;
 
-    //Conseguir los nombres de fotos auxiliares del evento (TODO: acceder la BBDD)
-    $auxImages = array();
-
-    //La siguiente línea es para probar la funcionalidad de carousel
-    $auxImages[] = "default-event.png";
+    //Conseguir los nombres de fotos auxiliares del evento
+    $auxImgDir = "includes/img/events_aux/";
+    $auxImages = $auxImgDAO->getAuxImgs($eventId);
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +81,7 @@
             foreach ($auxImages as $img){
                 echo
                         "<div class='carousel-item'>
-                            <img class='d-block w-100' src='" . $eventImgDir . $img . "?random=" . rand(0, 100000) . "' alt='' >
+                            <img class='d-block w-100' src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' alt='' >
                         </div>";
             }
 

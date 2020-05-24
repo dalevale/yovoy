@@ -39,10 +39,12 @@ class EventDAO extends DAO{
 
           //currentAttendees es un valor provisional
         $current_attendees = 0;
+        $aux_autoinc = 1;
         $queryValues =  
                "'".$name."'". "," 
               ."'".$creator."'". "," 
               ."'".$imgName."'". "," 
+              ."'".$aux_autoinc."'". "," 
               ."'".$creationDate."'". ","
               ."'".$eventDate."'". ","
               ."'".$capacity."'". ","
@@ -51,7 +53,7 @@ class EventDAO extends DAO{
               ."'".$eventTagsString."'". ","
               ."'".$description."'";
 
-        $registerEvent = "INSERT INTO event (name, creator, img_name, creation_date, event_date, capacity, current_attendees,location, tags, description) 
+        $registerEvent = "INSERT INTO event (name, creator, img_name, aux_autoinc, creation_date, event_date, capacity, current_attendees,location, tags, description) 
                           VALUES(".$queryValues.");";
 
         if(parent::executeInsert($registerEvent)) {
