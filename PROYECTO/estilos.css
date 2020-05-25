@@ -77,6 +77,10 @@ div.usuario input{
   height :50px;
 }
 
+.whiteFont p{
+  color: white;
+}
+
 .portada_inicio{
   font-family: Ubuntu;
 }
@@ -109,6 +113,9 @@ div.usuario input{
   perspective: 1000px;
 }
 
+ul#eventList{
+  display: initial;
+}
 @keyframes shake {
   10%, 90% {
     transform: translate3d(-3px, 0, 0);

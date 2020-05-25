@@ -12,7 +12,7 @@
     <body>
 	<div class = "container-fluid">
 	<div class = "row justify-content-between cabecera">  
-			<div class="col-10 align-items-start menu">
+			<div class="col-md-9 col-12 align-items-start menu">
 					<ul>
 						<!--logo aquí-->
 						<!--<img src="includes/img/YoVoy_Logo_BLANCO.png" width="80px" height="70px">-->
@@ -45,7 +45,7 @@
 					</ul>
 			</div>
 				
-			<div class="col-2 usuario">
+			<div class="col-md-2 col-12 usuario">
 				<?php
 					if((isset($_SESSION["login"]) && !$_SESSION["login"]) || !isset($_SESSION["login"])){
 						echo "<ul>";
@@ -66,12 +66,19 @@
 							$nameArr = explode(' ', $name);
 							$firstName = $nameArr[0];
 							
-							echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'>
-								<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
+							echo "<div class = 'container'>";
+							
+							echo "<div class = 'row'>";
+							echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'><img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
 							echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
+							echo "</div>";
+
+							echo "<div class = 'row'>";
 							echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
-						
+							echo "<div class = 'row'>";
 							echo "<p>Hola, " . $firstName . "!</p>";
+							echo "</div>";
+							echo "</div>";
 							//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
 							//if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
 							//	echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";

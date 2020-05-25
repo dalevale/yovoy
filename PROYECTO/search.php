@@ -52,11 +52,12 @@
 		<?php
         }
         ?>
-        <ul id='eventList'>
-        </ul>
+        
+        <div class = "row">
+        <ul id='eventList'></ul>
+        </div>
     </div>
-
-            </div>
+    </div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>
