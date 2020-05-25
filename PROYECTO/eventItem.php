@@ -211,7 +211,7 @@
                 <label>Escribe un comentario: </label>
             
                     <div class="tarjeta_gris">
-                        <div><textarea id="newCommentText" style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." rows="5" cols="50"/></textarea></div>
+                        <div><textarea id="newCommentText" style="resize: none" required name="comment" placeholder="Di lo que piensas..." /></textarea></div>
                         <div><button id="submitCommentBtn" type="button" value="'.$eventId.'">Enviar comentario</button></div>
                     </div>
                 </div>';

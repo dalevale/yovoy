@@ -27,7 +27,7 @@
     </header>
 	
     <div class = "container-fluid miarea">
-	<div class = "row justify-content-center align-items-center">  
+	<div class = "row justify-content-center">  
 		<?php
 			if(isset($_SESSION["login"]) && $_SESSION["login"]){
 				$userDAO = new UserDAO();
