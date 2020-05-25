@@ -56,7 +56,7 @@
             
             echo '<span>';
             echo "$date";
-            echo '---></span>';
+            echo '-----></span>';
             echo '<div class="notificationRight">';
             switch($type){
                 case NotificationsDAO::NEW_FRIEND_REQUEST:

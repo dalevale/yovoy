@@ -63,13 +63,15 @@
 							$imgName = $user->getImgName();
 							$imgPath = $imgDir . $imgName;
 							$name = $user->getName();
+							$nameArr = explode(' ', $name);
+							$firstName = $nameArr[0];
 							
 							echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'>
 								<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
 							echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
 							echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 						
-							echo "<p>Hola, " . $name . "!</p>";
+							echo "<p>Hola, " . $firstName . "!</p>";
 							//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
 							//if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
 							//	echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";
