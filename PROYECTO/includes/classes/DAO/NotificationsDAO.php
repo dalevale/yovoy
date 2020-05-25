@@ -78,6 +78,21 @@ class NotificationsDAO extends DAO{
         return $notificationsArray;
     }
 
+    public function getNotification($notifId){
+        $query = "SELECT * FROM notifications WHERE id = '$notifId'";
+        $dataArray = parent::executeQuery($query);
+        $data = array_pop($dataArray);
+
+        $id = $data["id"];
+        $thisUser = $data["this_user_id"];
+        $thatUser = $data["that_user_id"];
+        $eventId = $data["event_id"];
+        $type = $data["type"];
+        $date = $data["date"];
+        $isRead = $data["isRead"];
+
+        return new TONotifications($id,$thisUser,$thatUser,$eventId,$type,$date,$isRead);
+	}
     /** 
     * @param bool $status   Estado de lectura de la notificación
     */

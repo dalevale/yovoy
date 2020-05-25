@@ -5,13 +5,13 @@ require_once __DIR__.'/DAO.php';
 
 class EventDAO extends DAO{
     //Constantes a usar en searchEventBy()
-    public const EVENT_TAGS = "EVENT_TAGS";
+    /*public const EVENT_TAGS = "EVENT_TAGS";
     public const EVENT_NAME = "EVENT_NAME";
     public const EVENT_CREATOR = "EVENT_CREATOR";
     public const EVENT_CAPACITY = "EVENT_CAPACITY";
     public const EVENT_LOCATION = "EVENT_LOCATION";
     public const EVENT_DATE = "EVENT_DATE";
-    public const DEFAULT = "EVENT_NAME";
+    public const DEFAULT = "EVENT_NAME";*/
 	
     public function __construct(){
         parent::__construct();
@@ -169,27 +169,31 @@ class EventDAO extends DAO{
     public function searchEventBy($filter, $value){
 
         switch($filter){
-            case "EVENT_TAGS": 
+            case "tags": 
                 $eventQuery = "SELECT DISTINCT * FROM event JOIN event_tags WHERE event_tags.tag LIKE '%".$value."%' AND event.event_id=event_tags.event_id;"; 
                 break;
-            case "EVENT_NAME":
+            case "name":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE name LIKE '%".$value."%'"; 
                 break;
-            case "EVENT_CREATOR":
+            case "creator":
                 $eventQuery = "SELECT DISTINCT event_id, event.name, creator, event.img_name, event.creation_date, event_date, capacity, current_attendees, location, tags, description FROM event JOIN user WHERE username LIKE '%".$value."%' AND creator=user_id;"; 
                 break;
-            case "EVENT_CAPACITY":
+            case "capacity":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE capacity='".$value."';"; 
                 break;
-            case "EVENT_LOCATION":
+            case "location":
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE location LIKE '%".$value."%';"; 
                 break;
-            case "EVENT_DATE":
-                $eventQuery = "SELECT DISTINCT * FROM event WHERE event_date='".$value."';"; 
+            //case "date":
+               // $eventQuery = "SELECT DISTINCT * FROM event WHERE event_date='".$value."';"; 
+               // break;
+            case "latest":
+                $eventQuery = "SELECT DISTINCT * FROM event ORDER BY creation_date DESC;";
                 break;
             default:
                 $eventQuery = "SELECT DISTINCT * FROM event WHERE name LIKE '%".$value."%';"; 
                 break;
+
         }
 
         $eventsArray = array();

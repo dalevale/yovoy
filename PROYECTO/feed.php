@@ -18,7 +18,7 @@
     </header>
 
     <div class="container">
-        <div class="row align-items-center"><h1>Eventos premium</h1></div>
+        <div class="row align-items-center"><h1>Eventos promocionados</h1></div>
         <div class="row justify-content-between">
         <?php
         $userDAO = new UserDAO;
@@ -29,7 +29,7 @@
 
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
-                echo '<div class="col-md-3 col-12 feed_item"';
+                echo '<div class="col-md-3 col-12 feed_item">';
                 $total = $promotedEventWithTotal["total"];
                 $promotedEvent = $promotedEventWithTotal["event"];
                 $eventId=$promotedEvent->getEventId();
@@ -37,7 +37,9 @@
                 $creatorId = $promotedEvent->getCreator();
                 $creator = $userDAO->getUser($creatorId);
                 $creatorName = $creator->getName();
-                $eventDate = $promotedEvent->getEventDate();
+                $date = $promotedEvent->getEventDate();
+                $eventDate = date("Y-m-d g:ia", strtotime($date));
+
                 $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
                 $location = $promotedEvent->getLocation();
                 
@@ -48,7 +50,13 @@
                      <p> Fecha: '.$eventDate.'</p>
                      <p> Lugar: '.$location.'</p>';
                 echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
-                echo '<p> Promocionado '.$total.' vec(es)!</p></div></a>';
+
+                if($total > 1)
+                    echo '<p>Promocionado '.$total.' veces!</p></div></a>';
+                else if($total == 1)
+                    echo '<p>Promocionado '.$total.' vez!</p></div></a>';
+                else
+                    echo '<p>No promocionado</p></div></a>';
             }
         }
         else{

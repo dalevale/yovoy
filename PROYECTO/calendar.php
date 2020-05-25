@@ -52,9 +52,8 @@
   <header>
         <?php include 'includes/comun/nav.php' ?>
     </header>
-  <br></br>
   <div class="container">
-        <div class="row align-items-center"><h1>Calendario</h1></div>
+        <h1>Calendario</h1>
    <div id="calendar" class="tarjeta_gris"></div>
   </div></div>
   <footer>

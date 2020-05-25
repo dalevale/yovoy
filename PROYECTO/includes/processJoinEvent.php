@@ -19,10 +19,12 @@ require_once __DIR__.'/config.php';
             $result = 1;
         $notificationsDAO->notify(NotificationsDAO::NEW_EVENT_REQUEST, $ownerId, $userId, $eventId);
 	}
-    else {
+    else{
         $result = $eventDAO->userInEventRequest($userId,$eventId,$status,$currDate);
         $notificationsDAO->removeNotificationsByEvent($ownerId,$userId, $eventId, NotificationsDAO::NEW_EVENT_REQUEST);
-        $notificationsDAO->notify(NotificationsDAO::EVENT_REQUEST_ACCEPTED,$userId,'NULL',$eventId);
+        
+        if($status == 1)
+            $notificationsDAO->notify(NotificationsDAO::EVENT_REQUEST_ACCEPTED,$userId,'NULL',$eventId);
 	}
     echo $result;
 ?>
