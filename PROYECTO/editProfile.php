@@ -12,6 +12,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- FOR BOOTSTRAP POSITIONING -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- -->
 	<title>Editar Perfil - YoVoy</title>
 </head>
 
@@ -20,11 +24,12 @@
         <?php include 'includes/comun/nav.php' ?>
     </header>
 
-    <h3>Editar Perfil</h3> 
+    <div class = "container">
+    <h1>Editar Perfil</h1> 
     <div class = "tarjeta_gris">
         <?= $html; ?>
         
-    </div>
+    </div></div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>

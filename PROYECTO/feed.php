@@ -43,7 +43,7 @@
                 $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
                 $location = $promotedEvent->getLocation();
                 
-             echo '<ul><a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a></ul>';
+             echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
 
             // echo ' <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
                 echo '<p>Creador:  '.$creatorName.'</a></p>
