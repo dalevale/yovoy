@@ -280,7 +280,7 @@ textarea {
 }
 
 textarea#newCommentText{
-  width: unset;
+  width: 100%;
   max-width: inherit;
 }
 
@@ -340,7 +340,6 @@ textarea#newCommentText{
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
-  height: fit-content;
 }
 
 .tarjeta_naranja {
