@@ -1,8 +1,5 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
-	
-    $form = new SearchForm;
-	$html = $form->manage();
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +28,20 @@
     <div class = "container">
         
         <h1> Buscar un evento </h1>
-        <?= $html; ?>
-        <div id="latestEventsLists">
+        <div id="searchbar" class="tarjeta_gris">
+            <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario"></p>
+		    <p>
+			    <input type="radio" name="option" value="eventName"> Nombre de Evento
+			    <input type="radio" name="option" value="creator"> Creador
+			    <input type="radio" name="option" value="tag"> Etiqueta
+			    <input type="radio" name="option" value="capacity"> Capacidad
+			    <input type="radio" name="option" value="location"> Ubicacion
+		    </p>
+		    <p class="searchBtns">
+                <input id="searchEventBtn" type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
+                <input id="resetSearchEventBtn" type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
+		    </p>
+		    </div>
         <?php
         if(isset($_SESSION["login"])) {
         ?>  
@@ -43,36 +52,8 @@
 		<?php
         }
         ?>
-        
-        <?php
-            $eventDAO = new EventDAO();
-            $userDAO = new userDAO();
-            $eventsList = $eventDAO->getAllEvents();
-
-            //Mostrar eventos de BBDD
-            echo "<ul>";
-            while(sizeof($eventsList) > 0){
-                $event = array_pop($eventsList);
-                $eventImgName = $event->getImgName();
-                $eventImgDir = "includes/img/events/";
-                $eventImgPath = $eventImgDir . $eventImgName;
-                $eventId = $event->getEventId();
-                echo "<div class = 'eventos'>";
-                    echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
-                    echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='50' width='50'>";
-                    echo "<div class = 'nombreEvento'>";
-                    echo $event->getName() ." ";
-                    echo "</div>";
-                    $date = date("Y-m-d g:ia", strtotime( $event->getEventDate() ));
-                    echo "  Date: ".$date." ";
-                    echo "Created by: ". $userDAO->getUser($event->getCreator())->getUsername()." ";
-                    echo "Capacity: ". $event->getCapacity()." ";
-                    echo "Location: ". $event->getLocation()." ";
-                    echo "</a>";
-                echo "</div>";
-			    }
-            echo "</ul>";
-        ?>
+        <ul id='eventList'>
+        </ul>
     </div>
 
             </div>
