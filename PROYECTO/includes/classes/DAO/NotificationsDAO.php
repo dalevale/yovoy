@@ -92,8 +92,6 @@ class NotificationsDAO extends DAO{
         $isRead = $data["isRead"];
 
         return new TONotifications($id,$thisUser,$thatUser,$eventId,$type,$date,$isRead);
-
-        return $notificationsArray;
 	}
     /** 
     * @param bool $status   Estado de lectura de la notificación
