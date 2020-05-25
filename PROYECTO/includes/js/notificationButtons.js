@@ -1,7 +1,3 @@
-function deleteNotif(notifId) {
-
-}
-
 function manageNotif(action, element, toUpdate) {
 	var data = {
 		"notifId": element.val(),

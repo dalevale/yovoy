@@ -18,10 +18,11 @@ function printEvent(data) {
                         '<a href="eventItem.php?eventId=' + event.id + '">' +
                         '<img src="' + eventImgPath + '?random=' + Math.random(0, 100000) + ' alt="event" height="50" width="50">' +
                         '<div class="nombreEvento">' + event.name + '</div>' +
-                        '  Date: ' + event.date + '  ' +
-                        'Created by: ' + event.creator + ' ' +
-                        'Capacity: ' + event.capacity + ' ' +
-                        'Location: ' + event.location + ' ' +
+                        '  Fecha: ' + event.date + '  ' +
+                        '  Hora: ' + event.time + '  ' +
+                        'Creador: ' + event.creator + ' ' +
+                        'Aforo: ' + event.capacity + ' ' +
+                        'Ubicación: ' + event.location + ' ' +
                         '</a></div>');
                     $("#eventList").append(toAppend);
                 }

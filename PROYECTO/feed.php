@@ -37,7 +37,9 @@
                 $creatorId = $promotedEvent->getCreator();
                 $creator = $userDAO->getUser($creatorId);
                 $creatorName = $creator->getName();
-                $eventDate = $promotedEvent->getEventDate();
+                $date = $promotedEvent->getEventDate();
+                $eventDate = date("Y-m-d g:ia", strtotime($date));
+
                 $eventImgPath =  $eventImgDir.$promotedEvent->getImgName();
                 $location = $promotedEvent->getLocation();
                 

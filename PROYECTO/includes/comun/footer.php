@@ -30,5 +30,6 @@
 	<script src="includes/js/profileViewButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/notificationButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/printEvents.js" type="text/javascript" ></script>
+	<script src="includes/js/globalFunctions.js" type="text/javascript" ></script>
     </body>
 </html>
