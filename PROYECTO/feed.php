@@ -48,7 +48,13 @@
                      <p> Fecha: '.$eventDate.'</p>
                      <p> Lugar: '.$location.'</p>';
                 echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
-                echo '<p> Promocionado '.$total.' vec(es)!</p></div></a>';
+
+                if($total > 1)
+                    echo '<p>Promocionado '.$total.' veces!</p></div></a>';
+                else if($total == 1)
+                    echo '<p>Promocionado '.$total.' vez!</p></div></a>';
+                else
+                    echo '<p>No promocionado</p></div></a>';
             }
         }
         else{
