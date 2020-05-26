@@ -55,7 +55,7 @@ class EventDAO extends DAO{
 
         $registerEvent = "INSERT INTO event (name, creator, img_name, aux_autoinc, creation_date, event_date, capacity, current_attendees,location, tags, description) 
                           VALUES(".$queryValues.");";
-
+        
         if(parent::executeInsert($registerEvent)) {
             $eventInserted = true;          
             if (is_null($eventTagsArray)){
@@ -362,6 +362,11 @@ class EventDAO extends DAO{
             $data = array_pop($dataArray);
         }
         return $eventArray;
-	}
+    }
+    
+    public function deleteEvent($id){
+        $query = "DELETE FROM event WHERE event_id = '$id'";
+        return parent::executeModification($query);
+    }
 }
 ?>

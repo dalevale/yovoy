@@ -50,7 +50,17 @@
 					echo "<div>";
 					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
 						// botón para editar perfil
+						echo '<span class="editSpan">'; 
 						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
+						echo '</span>';
+
+						if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"]){
+							echo '<span class="editSpan">';
+							echo '<form method="POST" action="includes/deleteUser.php"><input type="hidden" name="userId" value="'.$profileId.'"/>';
+							echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+							echo '</span>';
+						}
+
 						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
 						//if($userId == $profileId)
 						// botón para cambiar contraseña

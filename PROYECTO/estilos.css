@@ -281,6 +281,7 @@ textarea {
 
 textarea#newCommentText{
   width: 100%;
+  height:150px;
   max-width: inherit;
 }
 
@@ -407,4 +408,15 @@ div.notificationLeft{
   height: 10px;
   border-radius: 50%;
   background: red;
+}
+
+div#commentsSection{
+  max-height: 500px;
+  height: fit-content;
+  overflow:auto;
+  transition: all .2s ease-in-out;
+}
+
+span.editSpan{
+  display:inline-block;
 }
