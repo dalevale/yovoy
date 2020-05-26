@@ -11,6 +11,7 @@ require_once __DIR__.'/classes/Form/NewEventForm.php';
 require_once __DIR__.'/classes/Form/EditEventForm.php';
 require_once __DIR__.'/classes/Form/EditProfileForm.php';
 require_once __DIR__.'/classes/RelationManager.php';
+require_once __DIR__.'/classes/DAO/ActivityDAO.php';
 
 /**
  * Parámetros de conexión a la BD

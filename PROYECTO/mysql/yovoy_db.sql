@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2020 at 01:22 PM
+-- Generation Time: May 26, 2020 at 11:22 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -25,6 +25,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `activity`
+--
+
+CREATE TABLE `activity` (
+  `activity_id` int(11) NOT NULL,
+  `user_id` int(9) NOT NULL,
+  `object_type` int(1) NOT NULL,
+  `obj_user_id` int(9) DEFAULT NULL,
+  `obj_event_id` int(11) DEFAULT NULL,
+  `activity_date` datetime NOT NULL,
+  `activity_type` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`activity_id`, `user_id`, `object_type`, `obj_user_id`, `obj_event_id`, `activity_date`, `activity_type`) VALUES
+(4, 2, 1, NULL, 42, '2020-05-26 21:10:37', 1),
+(5, 2, 0, 9, NULL, '2020-05-26 21:18:44', 0),
+(6, 9, 0, 2, NULL, '2020-05-26 21:18:45', 0),
+(13, 2, 1, NULL, 11, '2020-05-26 23:03:18', 2),
+(14, 2, 1, NULL, 11, '2020-05-26 23:08:58', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -35,6 +62,14 @@ CREATE TABLE `comments` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `comment` varchar(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) VALUES
+(81, 2, 9, '2020-05-24 21:58:15', 'awaw'),
+(82, 2, 3, '2020-05-24 23:32:15', 'aasdasdsad');
 
 -- --------------------------------------------------------
 
@@ -49,7 +84,7 @@ CREATE TABLE `event` (
   `img_name` varchar(50) DEFAULT NULL,
   `aux_autoinc` int(3) NOT NULL DEFAULT 1,
   `creation_date` date NOT NULL DEFAULT current_timestamp(),
-  `event_date` date NOT NULL,
+  `event_date` datetime NOT NULL,
   `capacity` int(11) NOT NULL,
   `current_attendees` int(11) NOT NULL,
   `location` varchar(30) DEFAULT NULL,
@@ -62,12 +97,13 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
-(2, 'Barra Libre', 2, '2.png', 3, '2020-03-30', '2020-05-30', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
-(3, 'RokEnRol', 2, '3.png', 1, '2020-03-30', '2020-05-30', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
-(8, 'Unli Rice', 2, '8.png', 1, '2020-04-24', '2020-05-30', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
-(10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
-(11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
-(15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m');
+(2, 'Barra Libre', 2, '2.png', 3, '2020-03-01', '2020-05-01 15:00:00', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
+(3, 'RokEnRol', 2, '3.png', 1, '2020-03-30', '2020-05-30 00:00:00', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
+(8, 'Unli Rice', 2, '8.png', 1, '2020-04-24', '2020-05-30 00:00:00', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
+(10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30 00:00:00', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
+(11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30 00:00:00', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
+(15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30 00:00:00', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
+(42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 0, 0, '30', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.', 'Centro Comercial Principe Pio');
 
 -- --------------------------------------------------------
 
@@ -121,7 +157,8 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (15, ' win'),
 (15, ' prizes'),
 (2, 'cerveza'),
-(2, ' alcohol');
+(2, ' alcohol'),
+(42, 'c');
 
 -- --------------------------------------------------------
 
@@ -143,10 +180,10 @@ CREATE TABLE `join_event` (
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
 (2, 3, '2020-05-23 13:50:23', 0),
 (2, 4, '2020-05-23 13:50:23', 0),
-(2, 5, '2020-05-23 13:48:31', 0),
+(2, 5, '2020-05-25 17:51:54', 1),
 (2, 6, '2020-05-23 13:48:39', 0),
 (3, 3, '2020-05-16 00:00:00', 0),
-(11, 2, '2020-05-16 00:00:00', 0);
+(11, 2, '2020-05-26 23:08:58', 1);
 
 -- --------------------------------------------------------
 
@@ -164,6 +201,24 @@ CREATE TABLE `notifications` (
   `isRead` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `type`, `date`, `isRead`) VALUES
+(190, 2, 9, 2, 5, '2020-05-27', 0),
+(192, 5, NULL, 2, 3, '2020-05-25', 0),
+(207, 2, 9, NULL, 0, '2020-05-26', 0),
+(208, 9, 2, NULL, 1, '2020-05-26', 0),
+(209, 9, 2, NULL, 1, '2020-05-26', 0),
+(210, 9, 2, NULL, 1, '2020-05-26', 0),
+(211, 9, 2, NULL, 1, '2020-05-26', 0),
+(212, 9, 2, NULL, 1, '2020-05-26', 0),
+(213, 9, 2, NULL, 1, '2020-05-26', 0),
+(214, 9, 2, NULL, 1, '2020-05-26', 0),
+(215, 9, 2, NULL, 1, '2020-05-26', 0),
+(219, 2, NULL, 11, 3, '2020-05-26', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -180,6 +235,7 @@ CREATE TABLE `promote_event` (
 --
 
 INSERT INTO `promote_event` (`user_id`, `event_id`) VALUES
+(2, 11),
 (2, 15);
 
 -- --------------------------------------------------------
@@ -201,7 +257,8 @@ CREATE TABLE `relationship` (
 
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
 (2, 3, 1, 3),
-(2, 4, 0, 2);
+(2, 4, 0, 2),
+(2, 9, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -241,6 +298,15 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `activity`
+--
+ALTER TABLE `activity`
+  ADD PRIMARY KEY (`activity_id`),
+  ADD KEY `obj_user_id` (`obj_user_id`),
+  ADD KEY `obj_event_id` (`obj_event_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `comments`
@@ -316,22 +382,28 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -342,6 +414,14 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `activity`
+--
+ALTER TABLE `activity`
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`obj_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`obj_event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comments`

@@ -53,8 +53,7 @@
         }
         ?>
         
-        <div class = "row">
-        <ul id='eventList'></ul>
+        <div id="eventList" class = "row justify-content-between">
         </div>
     </div>
     </div>

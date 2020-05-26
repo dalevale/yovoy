@@ -15,7 +15,7 @@ function printEvent(data) {
                     var eventImgPath = eventImgDir + eventImgName;
                     //Insertar col-md-3 col-12 a cada elemento
                     var toAppend = $(
-                        '<div class = "eventos">' +
+                        '<div class = "eventos col-md-3 col-12">' +
                         '<a href="eventItem.php?eventId=' + event.id + '">' +
                         '<img src="' + eventImgPath + '?random=' + Math.random(0, 100000) + ' alt="event" height="50" width="50">' +
                         '<div class=" nombreEvento">' + event.name + '</div>' +

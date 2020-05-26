@@ -2,6 +2,7 @@
 require_once __DIR__.'/config.php';
 
     $userDAO = new UserDAO();
+    $activityDAO = new ActivityDAO();
     $notificationsDAO = new NotificationsDAO();
     if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
         
@@ -33,6 +34,8 @@ require_once __DIR__.'/config.php';
                 $userDAO->deleteRelationship($u1, $u2);
                 $userDAO->insertRelationship($u1, $u2, RelationManager::ACCEPT, $u1);
                 $notificationsDAO->notify(NotificationsDAO::FRIEND_REQUEST_ACCEPTED,$u2, $u1, 'NULL');
+                $activityDAO->addActivity($u1,ActivityDAO::USER, $u2, 'null', ActivityDAO::NEW_FRIEND);
+                $activityDAO->addActivity($u2,ActivityDAO::USER, $u1, 'null', ActivityDAO::NEW_FRIEND);
                 $script = '<script>$("#unfriendBtn").click(function () {
                 changeRelation($(this), "unfriend");
                 });</script>';

@@ -3,13 +3,18 @@ require_once __DIR__.'/config.php';
 
 //metemos el user y el evento en la tabla de joinEvent
     $userDAO = new UserDAO();
+    $activityDAO = new ActivityDAO();
     $userId = $_POST["userId"];
     $eventId = $_POST["eventId"];
 
-    if(!$userDAO->isPromoting($userId, $eventId))
+    if(!$userDAO->isPromoting($userId, $eventId)){
          $userDAO->promote($userId, $eventId);
-    else 
+         $activityDAO->addActivity($userId, ActivityDAO::EVENT, 'null', $eventId, ActivityDAO::PROMOTED_EVENT);
+	}
+    else {
         $userDAO->unpromote($userId, $eventId);
+         $activityDAO->removeActivityByObject($userId, ActivityDAO::EVENT, $eventId, ActivityDAO::PROMOTED_EVENT);
+	}
 
     echo 0;
 

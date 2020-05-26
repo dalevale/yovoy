@@ -97,6 +97,7 @@ EOF;
             
             $userDAO = new UserDAO();
             $eventDAO = new EventDAO();
+            $activityDAO = new ActivityDAO();
             $notificationsDAO = new NotificationsDAO();
 
             $result = array();
@@ -104,13 +105,15 @@ EOF;
 	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $endDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
                 $_SESSION["eventCreated"] = true;
                 $eventId = $eventDAO->getLastEvent();
-                $friends = $userDAO->getFriends($creator);
+                
+                $activityDAO->addActivity($_SESSION["userId"], ActivityDAO::EVENT, 'null', $eventId, ActivityDAO::NEW_EVENT);
+                /*$friends = $userDAO->getFriends($creator);
                 $user = array_pop($friends);
 
                 while(!empty($user)){
                     $notificationsDAO->notify(NotificationsDAO::HAS_NEW_EVENT, $user->getUserId(), $creator, $eventId);
                     $user = array_pop($friends);
-                }
+                }*/
 
                 $success = true;
             }

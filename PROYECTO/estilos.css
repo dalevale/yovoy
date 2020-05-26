@@ -52,6 +52,23 @@ input[type=text]:focus, input[type=email]:focus {
   background-color: lightyellow;
 }
 
+input.searchUser {
+    width: auto;
+    display:inline;
+}
+
+div#searchUser{
+    width: 30%;
+}
+
+div#userActivity{
+    width: 70%;
+}
+
+div#friendsList{
+    width:30%
+}
+
 input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
@@ -176,7 +193,7 @@ ul#eventList{
   background: rgb(32, 32, 32);
   padding: 15px;
   height: fit-content;
-  width: auto;
+  width: 100%;
   margin-top: 100px;
 }
 
