@@ -100,8 +100,16 @@
             //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
             if(isset($_SESSION["login"]) && $_SESSION["login"]){
                 if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+                    echo '<span class="editSpan">';
                     echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                     echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                    
+                    echo '<span class="editSpan">';
+                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                    
                 }
                 else {
                     echo '<div class="tarjeta_blanca">';
@@ -211,7 +219,7 @@
                 <label>Escribe un comentario: </label>
             
                     <div class="tarjeta_gris">
-                        <div><textarea id="newCommentText" style="resize: none" required name="comment" placeholder="Di lo que piensas..." /></textarea></div>
+                        <div><textarea id="newCommentText" style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." /></textarea></div>
                         <div><button id="submitCommentBtn" type="button" value="'.$eventId.'">Enviar comentario</button></div>
                     </div>
                 </div>';
@@ -225,6 +233,13 @@
 
                 echo '<div id="commentsSection">';
 
+                if(empty($commentList)){
+                    echo '<div class="tarjeta_blanca" id="emptyCom">';
+                    echo "Parece que aún no hay comentarios...";
+                    echo '</div>';
+                }
+
+                else{
                     while(sizeof($commentList) > 0){
                         $comment = array_pop($commentList);
                         
@@ -246,6 +261,9 @@
                         }
                         echo "</div>";
                     }
+                }
+
+
                 echo '</div>';
             ?>
         </div>

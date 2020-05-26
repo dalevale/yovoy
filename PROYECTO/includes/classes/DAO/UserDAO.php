@@ -381,5 +381,10 @@ class UserDAO extends DAO{
 		}
         return $ret;
     }
+
+    public function deleteUser($id){
+        $query = "DELETE FROM user WHERE user_id = '$id'";
+        return parent::executeModification($query);
+    }
 }
 ?>

@@ -149,6 +149,7 @@ $(document).ready(function () {
 					'<script>$("#commentsSection button.deleteCommentBtn").click(deleteComment);</script>'
 				);
 				$("#newCommentText").val("");
+				$("#emptyCom").hide();
 				$("#commentsSection").prepend(newComment);
 			},
 			error: e => {
