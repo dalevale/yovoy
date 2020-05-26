@@ -31,5 +31,7 @@
 	<script src="includes/js/notificationButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/printEvents.js" type="text/javascript" ></script>
 	<script src="includes/js/globalFunctions.js" type="text/javascript" ></script>
+	<script src="includes/js/friendsViewBtns.js" type="text/javascript" ></script>
+	<script src="includes/js/validatingFunctions.js" type="text/javascript" ></script>
     </body>
 </html>

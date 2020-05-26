@@ -57,18 +57,6 @@ input.searchUser {
     display:inline;
 }
 
-div#searchUser{
-    width: 30%;
-}
-
-div#userActivity{
-    width: 70%;
-}
-
-div#friendsList{
-    width:30%
-}
-
 input[type=checkbox]{
   background-image: url("includes/img/boton_PREMIUM.png");
 }
@@ -194,7 +182,7 @@ ul#eventList{
   padding: 15px;
   height: fit-content;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .eventos {
