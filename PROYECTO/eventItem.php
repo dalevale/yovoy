@@ -152,7 +152,7 @@
                     echo '</span>';
                     
                     echo '<span class="editSpan">';
-                    echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
+                    echo '<input type="image" src="includes/img/boton_FOTOS.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
                     echo '</span>';
                 }
                 else {
