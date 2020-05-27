@@ -180,4 +180,7 @@ $(document).ready(function () {
 
 	$("#commentsSection button.deleteCommentBtn").click(deleteComment);
 	
+	$("#manageAuxImgBtn").click(function(){
+		window.location.href = "manageAuxImg.php";
+	});
 });

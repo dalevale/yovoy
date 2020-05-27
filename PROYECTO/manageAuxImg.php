@@ -27,11 +27,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     -->
     <title>Gestionar Fotos - YoVoY</title>
-    <script>
-     function addImage(){
-            window.location.href = "addImage.php";
-        }
-    </script>
 </head>
 
 <body>
@@ -44,14 +39,14 @@
     <div class="col-md-6 col-12  <?php echo $eventClass?>">
         <?php
         // boton para subir fotos
-        echo "<input type='image' src='includes/img/boton_CREAREVENTO.png' title='Subir un nuevo foto' onclick='addImage();'>";
+        echo "<input id='addImgBtn' type='image' src='includes/img/boton_CREAREVENTO.png' title='Subir un nuevo foto'>";
 
         foreach($auxImages as $img){
             // aux img
             echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' >";
 
             // boton para descartar
-            echo '<button class="deleteImgBtn" type="submit" value="'. basename($img, ".php") .'">Borrar foto</button>';
+            echo '<button id="deleteImgBtn" type="submit" value="'. basename($img, ".php") .'">Borrar foto</button>';
         }
         ?>
     </div>

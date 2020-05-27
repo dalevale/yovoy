@@ -110,6 +110,9 @@
                     echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
                     echo '</span>';
                     
+                    echo '<span class="editSpan">';
+                    echo '<button id="manageAuxImgBtn" type="submit">Gestionar fotos</button>';
+                    echo '</span>';
                 }
                 else {
                     echo '<div class="tarjeta_blanca">';

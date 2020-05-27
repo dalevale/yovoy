@@ -28,6 +28,7 @@
 	
 	<script src="includes/js/eventItemButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/profileViewButtons.js" type="text/javascript" ></script>
+	<script src="includes/js/manageAuxImgButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/notificationButtons.js" type="text/javascript" ></script>
 	<script src="includes/js/printEvents.js" type="text/javascript" ></script>
 	<script src="includes/js/globalFunctions.js" type="text/javascript" ></script>

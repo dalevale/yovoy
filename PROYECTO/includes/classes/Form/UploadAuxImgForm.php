@@ -61,7 +61,7 @@ EOF;
 
         if (count($result) == 0) {			
 			//Actualizar la BBDD
-			if (!$auxImgDAO->addImg($eventId){
+			if ($auxImgDAO->addImg($eventId) === FALSE){
 				$result[] = "Error: Se produjó un error al actualizar la base de datos.";
 			}
 			else{

@@ -29,7 +29,8 @@ class AuxImgDAO extends DAO{
         $query = "SELECT aux_autoinc FROM event WHERE event_id=" . $event_id . ";";
         $result = null;
 
-        $data = parent::executeQuery($query);
+        $dataArray = parent::executeQuery($query);
+        $data = array_shift($dataArray);
 
         if(!empty($data)){
             $result = $event_id . "_" . $data["aux_autoinc"] . ".png";
@@ -40,13 +41,28 @@ class AuxImgDAO extends DAO{
     }
 
     public function addImg($event_id){
+        $img_id = -1;
+
+        $query1 = "SELECT aux_autoinc FROM event WHERE event_id=" . $event_id . ";";
+
+        $dataArray = parent::executeQuery($query1);
+        $data = array_shift($dataArray);
+
+        if(!empty($data)){
+            $img_id = $data["aux_autoinc"];
+        }
+
+        if($img_id == -1){
+            return false;
+        }
+
         $queryValues = 
             "'".$event_id."'". "," 
-            ."'".$creator."'";
+            ."'".$img_id."'";
 
-        $query = "INSERT INTO event_aux_imgs (event_id, img_id) VALUES (" . $queryValues . ");";
+        $query2 = "INSERT INTO event_aux_imgs (event_id, img_id) VALUES (" . $queryValues . ");";
 
-        return parent::executeInsert($query);
+        return parent::executeInsert($query2);
     }
 
     public function deleteImg($event_id, $img_id){

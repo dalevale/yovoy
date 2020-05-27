@@ -40,7 +40,7 @@ class DAO{
                $ret = $this->conn->insert_id;
             else
                //$ret = die($this->conn->error. " en la linea ".(__LINE__-1).": ". $sql);
-               $ret = 0;
+               $ret = FALSE;
         }
         return $ret;  
     }

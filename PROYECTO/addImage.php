@@ -1,9 +1,16 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
 
-	$eventId = $_POST["eventId"];
-	$form = new EditEventForm($eventId);
-	$html = $form->manage();
+    //TODO: check if user logged in, event exists, user made event
+
+
+	if(!empty($_GET))
+        $_SESSION["eventId"] = $_GET["eventId"];
+
+    $eventId = $_SESSION["eventId"];
+	$form = new UploadAuxImgForm($eventId);
+    $html = $form->manage();
+    
 ?>
 <!DOCTYPE html>
 
