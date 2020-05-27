@@ -52,7 +52,7 @@ EOF;
         //$result[] = var_dump($eventTagsString) . " " . var_dump($eventTagsArray);
 
         //Valores por defecto
-        $creationDate = date("Y-m-d g:ia");
+        $creationDate = date("Y-m-d");
         $creator = $_SESSION["userId"];
 
         $eventName = isset($data['eventName']) ? $data['eventName'] : null;
@@ -102,7 +102,7 @@ EOF;
 
             $result = array();
             //Añadir el evento a la BBDD
-	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $endDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
+	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
                 $_SESSION["eventCreated"] = true;
                 $eventId = $eventDAO->getLastEvent();
                 
