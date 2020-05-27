@@ -23,7 +23,7 @@
     <div class= "friends row justify-content-between">
         <div class="col-md-4 col-12">
             <div id="searchUser" class="tarjeta_gris">
-                <input id="searchUserInput" type="text" name="search" required placeholder="Nombre usuario">
+                <input id="searchUserInput" type="text" name="search" required placeholder="Nombre de usuario">
                 <input id="searchUserBtn" type='image' title="Buscar" alt="submit" width="20%" length="20%" src='includes/img/boton_BUSCAR.png'>
             </div>
        

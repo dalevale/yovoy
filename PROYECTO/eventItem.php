@@ -96,7 +96,14 @@
                         <span class='sr-only'>Next</span>
                     </a>
                 </div>";
-            
+
+            //Contenedor interno
+            /*echo '<div class = "container">';
+	        echo '<div class = "row justify-content-between">';
+            //Cierre del contenedor interno
+            echo '</div>';
+            echo '</div>';*/
+
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';

@@ -56,10 +56,10 @@ EOF;
 
         $result = array();
         
-		$name = isset($data['name']) ? $data['name'] : null;
+		$name = isset($data['name']) ? htmlspecialchars(trim(strip_tags($data['name']))) : null;
 		
 		$changeImg = isset($data['imgChoice']) && $data['imgChoice'] !="noChange";
-		$changePass = isset($data['passChoice']) && $data['passChoice'] != "noChange";
+		$changePass = isset($data['passChoice']) && htmlspecialchars(trim(strip_tags($data['passChoice']))) != "noChange";
 		
 		if ($changeImg){
 			$targetDir = "/Yovoy/Proyecto/includes/img/users/";

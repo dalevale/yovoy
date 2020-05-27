@@ -16,7 +16,7 @@ require_once __DIR__.'/config.php';
             $userId = $_SESSION["userId"];
             $event = $eventDAO->getEvent($eventId);
             $ownerId = $event->getCreator();
-
+  
             $commentId = $commentsDAO->postComment($eventId, $userId, date("Y-m-d H:i:s"), $comment);
 
             if($_SESSION["userId"] != $ownerId)
@@ -34,4 +34,3 @@ require_once __DIR__.'/config.php';
 		}
     }
 
-?>
