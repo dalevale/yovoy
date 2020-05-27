@@ -29,11 +29,11 @@
         
         <h1> Buscar un evento </h1>
         <div id="searchbar" class="tarjeta_gris">
-            <p><input type="text" name="search" required placeholder="Busca por nombre, etiqueta o usuario"></p>
+            <p><input type="text" name="search" required placeholder="Busca por nombre, creador, etiqueta, capacidad o ubicación"></p>
 		    <p>
-			    <input type="radio" name="option" value="eventName"> Nombre de Evento
+			    <input type="radio" name="option" value="eventName" checked="checked"> Nombre de Evento
 			    <input type="radio" name="option" value="creator"> Creador
-			    <input type="radio" name="option" value="tag"> Etiqueta
+			    <input type="radio" name="option" value="tags"> Etiqueta
 			    <input type="radio" name="option" value="capacity"> Capacidad
 			    <input type="radio" name="option" value="location"> Ubicacion
 		    </p>

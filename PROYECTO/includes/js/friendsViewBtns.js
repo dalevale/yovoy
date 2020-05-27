@@ -34,7 +34,7 @@ function searchUser(username) {
 
 $(document).ready(function () {
 	$("#searchUserBtn").click(function () {
-		var username = $("#searchUserInput").val();
+		var username = $("#searchUserInput").val().replace(/<\/?[^>]+(>|$)/g, "");
         $("#searchUser div.err").remove();
         var errMessage = isValidUsername(username);
         if (errMessage == '') {

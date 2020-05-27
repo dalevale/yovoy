@@ -125,7 +125,7 @@ $(document).ready(function () {
 
 	$("#submitCommentBtn").click(function () {
 		var id = $(this).val();
-		var text = $("#newCommentText").val();
+		var text = $("#newCommentText").val().replace(/<\/?[^>]+(>|$)/g, "");
 		var comment = {
 			"function": "submit",
 			"eventId": id,

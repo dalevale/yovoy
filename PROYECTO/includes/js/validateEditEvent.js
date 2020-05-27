@@ -1,10 +1,10 @@
 var validate = function (event) {
 
     var valid = true;
-    var eventName = editEventForm["eventName"].value;
-    var eventLocation = editEventForm["eventLocation"].value;
-    var eventTags = editEventForm["eventTags"].value;
-    var eventDescription = editEventForm["description"].value;
+    var eventName = editEventForm["eventName"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var eventLocation = editEventForm["eventLocation"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var eventTags = editEventForm["eventTags"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var eventDescription = editEventForm["description"].value.replace(/<\/?[^>]+(>|$)/g, "");
     var u = document.getElementById('printError');
     u.innerHTML = '';
     var formArray = {
