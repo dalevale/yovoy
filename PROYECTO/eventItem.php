@@ -96,7 +96,6 @@
                         <span class='sr-only'>Next</span>
                     </a>
                 </div>";
-
             
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
