@@ -35,9 +35,19 @@
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         selectMirror: true,
-        select: function(arg) { 
-            },
-                
+        eventClick: function(event, jsEvent, view) {
+            var title = event.event.title;
+            var id = event.event.id;
+            console.log(title);
+            /*var locat = event.locat;
+            var eventInfo = event.eventInfo;
+            var eventCap = event.eventCap;
+            var eventAtt = event.eventAtt;
+            var start = $.fullCalendar.formatDate(event.start, "DD-MM-Y HH:mm:ss");*/
+            window.location.href = 'eventItem.php?eventId='+id;
+            //"\nEvento: " + title + "\nFecha evento: " + start + "\nInformación del evento: " + eventInfo + "\nLugar: " + locat
+            //+ "\nAforo máximo: " + eventCap + "\nNúmero asistentes actuales: " + eventAtt);
+        },
         editable: false,
         eventLimit: true, // allow "more" link when too many events
         events: 'load.php'
