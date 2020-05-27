@@ -97,6 +97,10 @@
                     </a>
                 </div>";
 
+            //Contenedor interno
+            echo '<div class = "container">';
+	        echo '<div class = "row justify-content-between">';
+
             //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
             if(isset($_SESSION["login"]) && $_SESSION["login"]){
                 if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
@@ -133,7 +137,7 @@
                     if($eventDAO->isUserInEvent($currentUserId, $eventId)){
                         echo '¡Estás apuntado en este evento!';
                     }
-                        echo '</div>';
+                    echo '</div>';
                 }
                 echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
                 if(!$userDAO->isPromoting($currentUserId, $eventId)){
@@ -144,11 +148,15 @@
                 }
                 echo '</div>';
             }
+
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';
             echo '<p>'.'Lugar: '.$location.'</p>';
             echo '<p>'.'Descripción: '.$descripcion.'</p>';
+            //Cierre del contenedor interno
+            echo '</div>';
+            echo '</div>';
         ?>
             
         <div id="attendeeList" class="tarjeta_gris">
