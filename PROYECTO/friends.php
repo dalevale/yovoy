@@ -35,7 +35,7 @@
                         echo '<h2>Amigos</h2>';
                         //Lista de amigos
                         $friends = $userDAO->getFriends($userId);
-                            echo '<div>';
+                            echo '<div class="tarjeta_blanca">';
                         while(sizeof($friends) > 0){
                                 echo '<div>';
                                  $friend = array_pop($friends);
@@ -68,7 +68,8 @@
 				$imgName = $activityUser->getImgName();
 				$imgPath = $imgDir . $imgName;
                 $activityDate = date("Y-m-d g:ia", strtotime($activity->getActivityDate()));
-                echo '<div>';
+                echo '<div class="tarjeta_blanca">';
+                echo '<p>'.$activityDate.'</p>';
                 echo '<a href="profileView.php?profileId='. $activityUserId .'"><img src="'.$imgPath.'" width="50px" height="50px"></a>';
                 echo '<a href="profileView.php?profileId='. $activityUserId .'">'.$activityUserName.'</a>';
                 echo $activityDAO->getActivityString($activity->getActivityType());
@@ -81,7 +82,6 @@
                     echo '<a href="eventItem.php?eventId='. $objEvent->getEventId() .'">'. $objEvent->getName().'</a>';
                 }
                     
-                echo '--'.$activityDate;
                 echo '</div>';
 			}
                 

@@ -39,8 +39,8 @@ class RelationManager{
         $html = '<div id="profileViewButtons">';
         if($this->status === null){
                $html .= 
-				'<button id="addFriendBtn" type ="button" title="A�adir amigo" value="'.$this->userTwoId.'">Añadir</button>
-                <button id="blockUserBtn" type ="button" title="Bloquear usuario" value="'.$this->userTwoId.'">Bloquear</button>';
+				'<input type="image" src="includes/img/boton_AMIGO.png" width="40%" length="40%" id="addFriendBtn" alt="Añadir amigo" title="Añadir amigo" value="'.$this->userTwoId.'">
+                <input type="image" src="includes/img/boton_BLOQUEAR.png" width="40%" length="40%" id="blockUserBtn" type ="button" alt="Bloquear Usuario" title="Bloquear usuario" value="'.$this->userTwoId.'">';
 		}
         else {
         switch($this->status){
@@ -52,10 +52,10 @@ class RelationManager{
                 <button type="button" id="rejectFriendBtn" value="'.$this->userTwoId.'">Reject Friend Request</button>';
                 break;
             case self::USERONEACCEPT:
-                $html .= '<button type="button" id="unfriendBtn" value="'.$this->userTwoId.'">Unfriend</button>';
+                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" id="unfriendBtn" value="'.$this->userTwoId.'">';
                 break;
             case self::USERTWOACCEPT:
-                $html .= '<button type="button" id="unfriendBtn" value="'.$this->userTwoId.'">Unfriend</button>';
+                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" id="unfriendBtn" value="'.$this->userTwoId.'">';
                 break;
             case self::USERONEBLOCK:
                 $html .= '<p>YOU BLOCKED THIS USER</p>
@@ -66,7 +66,7 @@ class RelationManager{
                 break;
             default:
                 $html .= '
-				<input type="image" alt="submit" src="includes/img/icono_FRIENDS.png" title="A�adir amigo"/></form>';
+				<input type="image" alt="submit" src="includes/img/AMIGO.png" title="A�adir amigo"/></form>';
                 break;
 		}
 		}
