@@ -98,65 +98,17 @@
                 </div>";
 
             //Contenedor interno
-            echo '<div class = "container">';
+            /*echo '<div class = "container">';
 	        echo '<div class = "row justify-content-between">';
-
-            //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
-            if(isset($_SESSION["login"]) && $_SESSION["login"]){
-                if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                    echo '<span class="editSpan">';
-                    echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
-                    echo '</span>';
-                    
-                    echo '<span class="editSpan">';
-                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
-                    echo '</span>';
-                    
-                    echo '<span class="editSpan">';
-                    echo '<button id="manageAuxImgBtn" type="submit">Gestionar fotos</button>';
-                    echo '</span>';
-                }
-                else {
-                    echo '<div class="tarjeta_blanca">';
-                    if($eventDAO->isEventFull($eventId,$capacity))
-                        echo '<p>Este evento ya está lleno.</p>';
-            
-                    else if(!$userDAO->isAttending($currentUserId, $eventId)){
-                        echo '<div id="joinCancelEventBtns">
-                            <button type="button" class="joinEventBtn">YoVoy</button>
-                        </div>';
-                    }
-
-                    else{
-                        echo '<div id="joinCancelEventBtns">
-                            <button type="button" class="cancelEventBtn">YaNoVoy</button>
-                        </div>';
-                    }
-                    if($eventDAO->isUserInEvent($currentUserId, $eventId)){
-                        echo '¡Estás apuntado en este evento!';
-                    }
-                    echo '</div>';
-                }
-                echo '<div id="promoteEventBtns" class="tarjeta_blanca">';
-                if(!$userDAO->isPromoting($currentUserId, $eventId)){
-                    echo '<button type="button" class="promoEventBtn">Promocionar</button>';
-                }
-                else {
-                    echo '<button type="button" class="unpromoEventBtn">No Promocionar</button>';
-                }
-                echo '</div>';
-            }
+            //Cierre del contenedor interno
+            echo '</div>';
+            echo '</div>';*/
 
             echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';
             echo '<p>'.'Lugar: '.$location.'</p>';
             echo '<p>'.'Descripción: '.$descripcion.'</p>';
-            //Cierre del contenedor interno
-            echo '</div>';
-            echo '</div>';
         ?>
             
         <div id="attendeeList" class="tarjeta_gris">
@@ -183,6 +135,48 @@
                     }
                 ?>
                 <!-- Parte de comentarios a la derecha-->
+        </div>
+        <div id="eventItemBtns">
+        <?php
+            //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
+            if(isset($_SESSION["login"]) && $_SESSION["login"]){
+                if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+                    echo '<span class="editSpan">';
+                    echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                    
+                    echo '<span class="editSpan">';
+                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                    
+                    echo '<span class="editSpan">';
+                    echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
+                    echo '</span>';
+                }
+                else {
+                    echo '<span id="joinCancelEventBtns">';
+                    if($eventDAO->isEventFull($eventId,$capacity))
+                        echo '<p>Este evento ya está lleno.</p>';
+                    else if(!$userDAO->isAttending($currentUserId, $eventId))
+                        echo '<input type="image" src="includes/img/boton_UNIRSE_2.png" alt="YoVoy" title="YoVoy" class="joinEventBtn">';
+                    else
+                        echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" alt="YaNoVoy" title="YaNoVoy" class="cancelEventBtn">';
+                    
+                    if($eventDAO->isUserInEvent($currentUserId, $eventId))
+                        echo '¡Estás apuntado en este evento!';
+                    echo '</span>';
+                }
+                echo '<span id="promoteEventBtns">';
+                if(!$userDAO->isPromoting($currentUserId, $eventId))
+                    echo '<input type="image" src="includes/img/boton_PROMO.png" alt="Promocionar" title="Promocionar" class="promoEventBtn">';
+                
+                else 
+                    echo '<input type="image" src="includes/img/boton_UNPROMO.png" alt="No promocionar" title="No promocionar" class="unpromoEventBtn">';
+                echo '</span>';
+            }
+        ?>
         </div>
     </div>
 
@@ -230,8 +224,8 @@
                 <label>Escribe un comentario: </label>
             
                     <div class="tarjeta_gris">
-                        <div><textarea id="newCommentText" style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." /></textarea></div>
-                        <div><button id="submitCommentBtn" type="button" value="'.$eventId.'">Enviar comentario</button></div>
+                        <textarea id="newCommentText" style="resize: none" required name="comment" maxlength="240" placeholder="Di lo que piensas..." /></textarea>
+                        <input type="image" width="15%" length="15%" src="includes/img/boton_COMENTAR.png" alt="Enviar Comentario" title="Enviar Comentario" id="submitCommentBtn" value="'.$eventId.'">
                     </div>
                 </div>';
             }
@@ -268,7 +262,7 @@
                         echo '</div>';
                         
                         if(isset($_SESSION["userId"]) && ($ownerId == $_SESSION["userId"]) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                            echo '<button class="deleteCommentBtn" type="submit" value="'.$comment->getID().'">Borrar comentario</button>';
+                            echo '<input type="image"  width="15%" length="15%" src="includes/img/boton_BORRARCOMENTARIO.png" alt="Enviar Comentario" title="Enviar Comentario" class="deleteCommentBtn" type="submit" value="'.$comment->getID().'">';
                         }
                         echo "</div>";
                     }

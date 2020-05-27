@@ -35,8 +35,8 @@
 				// obtener usuario
 				if(isset($_GET["profileId"]))
 					$profileId = $_GET["profileId"];
-				//$profileId = $_GET["profileId"];
-				$userId = $_SESSION["userId"];
+					//$profileId = $_GET["profileId"];
+					$userId = $_SESSION["userId"];
 					
 				
 					// conseguir información
@@ -47,32 +47,7 @@
 					$imgName = basename($user->getImgName());
 					$imgPath = $imgDir . $imgName;
 					echo "<img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='100%' width='100%'>";
-					echo "<div>";
-					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-						// botón para editar perfil
-						echo '<span class="editSpan">'; 
-						echo  "<input type='image' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
-						echo '</span>';
-
-						if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"]){
-							echo '<span class="editSpan">';
-							echo '<form method="POST" action="includes/deleteUser.php"><input type="hidden" name="userId" value="'.$profileId.'"/>';
-							echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
-							echo '</span>';
-						}
-
-						//echo  "<input type='button' value='Editar Perfil' onclick='editar();' />";
-						//if($userId == $profileId)
-						// botón para cambiar contraseña
-						// TODO echo  "<input type='image' src='includes/img/boton_NEWPASSW.png' title='Cambiar Contraseña' onclick='contrasena();' />";
-						//echo  "<input type='button' value='Cambiar Contraseña' onclick='contrasena();' />";
-					}
-					else{
-						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
-						$relMan = new RelationManager($userId, $profileId);
-						echo $relMan->printButtons();
-					}
-					echo "</div>";
+					
 					// mostrar información
 					$username = $user->getUsername();
 					$name = $user->getName();
@@ -92,6 +67,31 @@
 					echo "<p>" . $name . "</p>";
 					echo "<p>" . $type . "</p>";
 					echo "<p>Se unió " . $creationDate . "</p>";
+					
+					echo "<div>";
+					if($userId == $profileId  || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+						// botón para editar perfil
+						echo '<span class="editSpan">'; 
+						echo  "<input type='image' width='80%' height='80%' src='includes/img/boton_EDITAR.png' title='Editar Perfil' onclick='editar();' />";
+						echo '</span>';
+
+						if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"]){
+							echo '<span class="editSpan">';
+							echo '<form method="POST" action="includes/deleteUser.php"><input type="hidden" name="userId" value="'.$profileId.'"/>';
+							echo '<input type="image" width="20%" height="20%" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+							echo '</span>';
+						}
+
+					}
+					else{
+						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
+						$relMan = new RelationManager($userId, $profileId);
+						echo $relMan->printButtons();
+					}
+					echo "</div>";
+					
+					
+					
 					echo "</div>";
 					
 					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";

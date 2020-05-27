@@ -56,8 +56,8 @@ function processJoinEvent(eventId, userId, task) {
 				switch (task) {
 					case 'cancel':
 						$("#joinCancelEventBtns").empty();
-						var html = '<button type="button" class="joinEventBtn" value="' + eventId + '">YoVoy</button>' +
-							'<script> $("#joinCancelEventBtns button.joinEventBtn").click(function () {' +
+						var html = '<input type="image" src="includes/img/boton_UNIRSE_2.png" class="joinEventBtn" alt="YoVoy" title="YoVoy" value="' + eventId + '">' +
+							'<script> $("#joinCancelEventBtns input	.joinEventBtn").click(function () {' +
 							'processJoinEvent($("#eventId").val(), $("#userId").val(), "join");' +
 							'});</script >';
 						$("#joinCancelEventBtns").append(html);
@@ -74,8 +74,8 @@ function processJoinEvent(eventId, userId, task) {
 						break;
 					case 'join':
 						$("#joinCancelEventBtns").empty();
-						var html = '<button type = "button" class="cancelEventBtn" value = "' + eventId + '" > YaNoVoy</button >' +
-							'<script>$("#joinCancelEventBtns button.cancelEventBtn").click(function () {' +
+						var html = '<input type="image" src="includes/img/boton_UNIRSE_3.png" class="cancelEventBtn" alt="YaNoVoy" title="YaNoVoy" value="' + eventId + '" >' +
+							'<script>$("#joinCancelEventBtns input.cancelEventBtn").click(function () {' +
 							'processJoinEvent($("#eventId").val(), $("#userId").val(), "cancel");' +
 							'});</script>';
 						$("#joinCancelEventBtns").append(html);
@@ -101,19 +101,23 @@ function promoteEvent(eventId, userId) {
 		url: "includes/promoteEvent.php",
 		data: data,
 		success: data => {
-			var check = $("#promoteEventBtns button").hasClass('promoEventBtn');
+			var check = $("#promoteEventBtns input").hasClass('promoEventBtn');
 			var before = 'promoEventBtn';
 			var after = 'unpromoEventBtn';
-			var string = 'No Promocionar';
+			var imgString = 'boton_UNPROMO.png';
+			var altString = 'No Promocionar';
 			if (!check) {
 				var temp = before;
 				before = after;
 				after = temp;
-				var string = 'Promocionar';
+				var imgString = 'boton_PROMO.png';
 			}
-			$("#promoteEventBtns button").removeClass(before);
-			$("#promoteEventBtns button").addClass(after);
-			$("#promoteEventBtns button").text(string);
+			var toChange = $("#promoteEventBtns input");
+			toChange.removeClass(before);
+			toChange.addClass(after);
+			toChange.attr("src", "includes/img/" + imgString);
+			toChange.attr("alt", altString);
+			toChange.attr("title", altString);
 		},
 		error: e => {
 			console.log(e);
@@ -125,7 +129,7 @@ $(document).ready(function () {
 
 	$("#submitCommentBtn").click(function () {
 		var id = $(this).val();
-		var text = $("#newCommentText").val();
+		var text = $("#newCommentText").val().replace(/<\/?[^>]+(>|$)/g, "");
 		var comment = {
 			"function": "submit",
 			"eventId": id,
@@ -144,9 +148,9 @@ $(document).ready(function () {
 					'<div class="tarjeta_blanca">' +
 					text +
 					'</div>' +
-					'<button class="deleteCommentBtn" type="submit" value="'+ json.id +'">Borrar comentario</button>' +
+					'<input type="image"  width="15%" length="15%" src="includes/img/boton_BORRARCOMENTARIO.png" alt="Enviar Comentario" title="Enviar Comentario" class="deleteCommentBtn" type="submit" value="'+ json.id +'">' +
 					'</div>' +
-					'<script>$("#commentsSection button.deleteCommentBtn").click(deleteComment);</script>'
+					'<script>$("#commentsSection input.deleteCommentBtn").click(deleteComment);</script>'
 				);
 				$("#newCommentText").val("");
 				$("#emptyCom").hide();
@@ -161,10 +165,10 @@ $(document).ready(function () {
 	var eventId = $("#eventId").val();
 	var userId = $("#userId").val();
 
-	$("#joinCancelEventBtns button.cancelEventBtn").click(function () {
+	$("#joinCancelEventBtns input.cancelEventBtn").click(function () {
 		processJoinEvent(eventId, userId, 'cancel');
 	});
-	$("#joinCancelEventBtns button.joinEventBtn").click(function () {
+	$("#joinCancelEventBtns input.joinEventBtn").click(function () {
 		processJoinEvent(eventId, userId, 'join');
 	});
 	$("#userWaitingList div div button.acceptUserBtn").click(function () {
@@ -173,12 +177,12 @@ $(document).ready(function () {
 	$("#userWaitingList div div button.rejectUserBtn").click(function () {
 		processJoinEvent(eventId, $(this).val(), 'reject');
 	});
-	$("#promoteEventBtns button").click(function () {
+	$("#promoteEventBtns input").click(function () {
 		promoteEvent(eventId, userId);
 	});
 
 
-	$("#commentsSection button.deleteCommentBtn").click(deleteComment);
+	$("#commentsSection input.deleteCommentBtn").click(deleteComment);
 	
 	$("#manageAuxImgBtn").click(function(){
 		window.location.href = "manageAuxImg.php";

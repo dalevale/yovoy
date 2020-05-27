@@ -7,11 +7,11 @@ var reset = function (event) {
 
 var validate = function (event) {
     var valid = true;
-    var uname = registerForm["username"].value;
-    var name = registerForm["name"].value;
-    var email = registerForm["email"].value;
-    var pass = registerForm["password"].value;
-    var passConf = registerForm["passwordConfirm"].value;
+    var uname = registerForm["username"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var name = registerForm["name"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var email = registerForm["email"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var pass = registerForm["password"].value.replace(/<\/?[^>]+(>|$)/g, "");
+    var passConf = registerForm["passwordConfirm"].value.replace(/<\/?[^>]+(>|$)/g, "");
     var u = document.getElementById('printError');
     u.innerHTML = '';
     var formArray = {

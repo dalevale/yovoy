@@ -12,7 +12,7 @@ function searchUser(username) {
 				alert("Cant delete this comment at the moment.");
 			else {
 				$("#searchUser div.searchList").remove();
-				var newList = $('<div class="searchList"></div>');
+				var newList = $('<div class="searchList tarjeta_blanca"></div>');
 				for (var i = 0; i < data.length; i++) {
 					var user = data[i];
 					var userImgName = user.imgName;
@@ -34,7 +34,7 @@ function searchUser(username) {
 
 $(document).ready(function () {
 	$("#searchUserBtn").click(function () {
-		var username = $("#searchUserInput").val();
+		var username = $("#searchUserInput").val().replace(/<\/?[^>]+(>|$)/g, "");
         $("#searchUser div.err").remove();
         var errMessage = isValidUsername(username);
         if (errMessage == '') {

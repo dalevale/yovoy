@@ -23,7 +23,7 @@
     <div class= "friends row justify-content-between">
         <div class="col-md-4 col-12">
             <div id="searchUser" class="tarjeta_gris">
-                <input id="searchUserInput" type="text" name="search" required placeholder="Nombre usuario">
+                <input id="searchUserInput" type="text" name="search" required placeholder="Nombre de usuario">
                 <input id="searchUserBtn" type='image' title="Buscar" alt="submit" width="20%" length="20%" src='includes/img/boton_BUSCAR.png'>
             </div>
        
@@ -35,7 +35,7 @@
                         echo '<h2>Amigos</h2>';
                         //Lista de amigos
                         $friends = $userDAO->getFriends($userId);
-                            echo '<div>';
+                            echo '<div class="tarjeta_blanca">';
                         while(sizeof($friends) > 0){
                                 echo '<div>';
                                  $friend = array_pop($friends);
@@ -68,7 +68,8 @@
 				$imgName = $activityUser->getImgName();
 				$imgPath = $imgDir . $imgName;
                 $activityDate = date("Y-m-d g:ia", strtotime($activity->getActivityDate()));
-                echo '<div>';
+                echo '<div class="tarjeta_blanca">';
+                echo '<p>'.$activityDate.'</p>';
                 echo '<a href="profileView.php?profileId='. $activityUserId .'"><img src="'.$imgPath.'" width="50px" height="50px"></a>';
                 echo '<a href="profileView.php?profileId='. $activityUserId .'">'.$activityUserName.'</a>';
                 echo $activityDAO->getActivityString($activity->getActivityType());
@@ -81,7 +82,6 @@
                     echo '<a href="eventItem.php?eventId='. $objEvent->getEventId() .'">'. $objEvent->getName().'</a>';
                 }
                     
-                echo '--'.$activityDate;
                 echo '</div>';
 			}
                 
