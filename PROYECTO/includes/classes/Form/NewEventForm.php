@@ -142,7 +142,8 @@ EOF;
         }
 
         if ($success){
-            $result = "createEvent.php";
+            $newEventId = $eventDAO->getLastEvent();
+            $result = "eventItem.php?eventId=$newEventId";
         }
 
         return $result;
