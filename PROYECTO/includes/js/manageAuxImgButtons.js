@@ -1,11 +1,9 @@
-function deleteImg() {
+function deleteImg(eventId, imgId) {
+    
     //parse
     var ids = $(this).val().split("_");
     var eventId = ids[0];
     var imgId = ids[1];
-
-    //call php script to delete img
-    //var url = "includes/deleteImage.php?eventId=" + eventId + "&imgId=" + imgId;
     
     var input = {
         "event_id"  : eventId,
@@ -19,9 +17,11 @@ function deleteImg() {
 		data: input,
 		success: result => {
 			if (result == 0)
-				alert("Cant delete this comment at the moment.");
-			else
-				$(this).parent().css("display", "none");
+				alert("Cant delete this image at the moment.");
+            else
+                //ARREGLAR ESTO
+                $(this).parent().css("display", "none");
+                //window.location.reload(true);
 		},
 		error: e => {
 			console.log(e);
@@ -34,5 +34,5 @@ $(document).ready(function () {
         window.location.href = "addImage.php";
     });
 
-    $("#deleteImgBtn").click(deleteImg);
+    $(".deleteImgBtn").click(deleteImg);
 });
