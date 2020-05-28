@@ -1,6 +1,6 @@
 function appendNewButtons(element, html) {
-	var div = element.parent().parent();
-	div.children().eq(0).css("display", "none");
+	var div = element.parent();
+	div.empty();
 	div.prepend(html);
 }
 

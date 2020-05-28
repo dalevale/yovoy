@@ -85,9 +85,15 @@
 					}
 					else{
 						//chequear tabla de relacion para opciones de añadir, bloquear, etc..
+						echo '<span id="profileViewButtons">';
 						$relMan = new RelationManager($userId, $profileId);
 						echo $relMan->printButtons();
+						echo '</span>';
+						echo '<input type="image" id="reportUser" width="40%" height="40%" src="includes/img/boton_REPORTAR.png" alt="Reportar" title="Reportar" onclick="report()">';
+						echo '<script>function report(){ window.location.href="report.php?userId='.$profileId.'"}</script>';
+					
 					}
+
 					echo "</div>";
 					
 					
@@ -118,19 +124,14 @@
 					$friends = $userDAO->getFriends($profileId);
 					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 					echo '<h2>Mis Amigos: </h2>';
-					echo '<ul>';
 					while(sizeof($friends) > 0){
-						echo '<li><ul>';
 						$friend = array_pop($friends);
 						$imgDir = "includes/img/users/";
 						$imgName = $friend->getImgName();
 						$imgPath = $imgDir . $imgName;
-						echo '<a class= "tarjeta_blanca" href="profileView.php?profileId='.$friend->getUserId().'"><li><img src="'.$imgPath.'" width="50px" height="50px"></li>';
-						echo '<li>'.$friend->getName().'</li>';
-						echo '<li>'.$friend->getUsername().'</li></a>';
-						echo '</ul></li>';
+						echo '<a class= "tarjeta_blanca" href="profileView.php?profileId='.$friend->getUserId().'"><img src="'.$imgPath.'" width="50px" height="50px">';
+						echo ''.$friend->getName().'</a>';
 					}
-					echo '</ul>';
 					echo "</div>";
 					
 					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";

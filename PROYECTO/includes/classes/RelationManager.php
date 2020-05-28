@@ -36,7 +36,7 @@ class RelationManager{
     * @return string $html          Cadenas de html a generar en la pagina
     */
     public function printButtons(){
-        $html = '<div id="profileViewButtons">';
+        $html = '';
         if($this->status === null){
                $html .= 
 				'<input type="image" src="includes/img/boton_AMIGO.png" width="40%" length="40%" id="addFriendBtn" alt="Añadir amigo" title="Añadir amigo" value="'.$this->userTwoId.'">
@@ -70,7 +70,6 @@ class RelationManager{
                 break;
 		}
 		}
-        $html.= '</div>';
         return $html;
 	}
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2020 at 11:22 PM
+-- Generation Time: May 28, 2020 at 09:41 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -208,7 +208,6 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `type`, `date`, `isRead`) VALUES
 (190, 2, 9, 2, 5, '2020-05-27', 0),
 (192, 5, NULL, 2, 3, '2020-05-25', 0),
-(207, 2, 9, NULL, 0, '2020-05-26', 0),
 (208, 9, 2, NULL, 1, '2020-05-26', 0),
 (209, 9, 2, NULL, 1, '2020-05-26', 0),
 (210, 9, 2, NULL, 1, '2020-05-26', 0),
@@ -216,8 +215,9 @@ INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `
 (212, 9, 2, NULL, 1, '2020-05-26', 0),
 (213, 9, 2, NULL, 1, '2020-05-26', 0),
 (214, 9, 2, NULL, 1, '2020-05-26', 0),
-(215, 9, 2, NULL, 1, '2020-05-26', 0),
-(219, 2, NULL, 11, 3, '2020-05-26', 0);
+(219, 2, NULL, 11, 3, '2020-05-26', 0),
+(225, 2, 9, 2, 5, '2020-05-27', 0),
+(242, 2, 9, NULL, 0, '2020-05-27', 0);
 
 -- --------------------------------------------------------
 
@@ -236,7 +236,8 @@ CREATE TABLE `promote_event` (
 
 INSERT INTO `promote_event` (`user_id`, `event_id`) VALUES
 (2, 11),
-(2, 15);
+(2, 15),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -258,7 +259,32 @@ CREATE TABLE `relationship` (
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
 (2, 3, 1, 3),
 (2, 4, 0, 2),
-(2, 9, 1, 2);
+(2, 9, 1, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report`
+--
+
+CREATE TABLE `report` (
+  `report_id` int(9) NOT NULL,
+  `object_type` int(1) NOT NULL,
+  `obj_user_id` int(11) DEFAULT NULL,
+  `obj_event_id` int(11) DEFAULT NULL,
+  `report_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `resolved` int(1) NOT NULL,
+  `report_text` varchar(150) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`report_id`, `object_type`, `obj_user_id`, `obj_event_id`, `report_date`, `user_id`, `resolved`, `report_text`) VALUES
+(2, 0, 5, NULL, '2020-05-28 08:53:38', 8, 1, 'ES QUE'),
+(21, 0, 2, NULL, '2020-05-28 00:04:11', 9, 1, 'aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -369,6 +395,15 @@ ALTER TABLE `relationship`
   ADD KEY `user_id2` (`user_two_id`);
 
 --
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `obj_event_id` (`obj_event_id`),
+  ADD KEY `obj_user_id` (`obj_user_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -385,25 +420,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `report_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -476,6 +517,14 @@ ALTER TABLE `promote_event`
 ALTER TABLE `relationship`
   ADD CONSTRAINT `user_id1` FOREIGN KEY (`user_one_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_id2` FOREIGN KEY (`user_two_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`obj_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`obj_event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
