@@ -16,12 +16,13 @@
     <header>
         <?php include 'includes/comun/nav.php' ?>
     </header>
-    <div class= "container">
+    <div class= "container">  
     <h1>Mis Amigos</h1>
-    
-    
-    <div class= "friends row justify-content-between">
+    </div>
+    <div class= "container friends">    
+    <div class= "row justify-content-between">
         <div class="col-md-4 col-12">
+
             <div id="searchUser" class="tarjeta_gris">
                 <input id="searchUserInput" type="text" name="search" required placeholder="Nombre de usuario">
                 <input id="searchUserBtn" type='image' title="Buscar" alt="submit" width="20%" length="20%" src='includes/img/boton_BUSCAR.png'>
@@ -44,14 +45,15 @@
 					            $imgPath = $imgDir . $imgName;
                                 echo '<p><a href="profileView.php?profileId='.$friend->getUserId().'"><img src="'.$imgPath.'" width="50px" height="50px">';
                                 echo $friend->getUsername().'</p></a>';
-                                echo '</div></div>';
+                                echo '</div>';
                         }
+                        echo '</div>';
                     }
                 ?>
             </div>
         </div>
 
-        <div id="userActivity" class="col-md-7 col-12 tarjeta_gris">
+        <div class="col-md-6 col-11 tarjeta_gris" >
         <h2>Actividades recientes</h2>
         <?php
 			$userDAO = new UserDAO();
@@ -84,9 +86,9 @@
                     
                 echo '</div>';
 			}
-                
                 echo '</div>';
         ?>
+        </div>
         </div>
     </div>
     </div>

@@ -53,7 +53,6 @@ input[type=text]:focus, input[type=email]:focus {
 }
 
 input.searchUser {
-    width: auto;
     display:inline;
 }
 
