@@ -123,8 +123,13 @@
                             $attendeeId = $attendee->getUserId();
                             $imgDir = "includes/img/users/";
 					        $imgName = $attendee->getImgName();
-					        $imgPath = $imgDir . $imgName;
-                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
+                            $imgPath = $imgDir . $imgName;
+                            $type = $attendee->getUserType();
+
+                            if($type == 2)
+                                echo '<a href="profileView.php?profileId='.$attendeeId.'"><p>★ <img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>';
+                            else
+                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>';
 			            }
                     }
                     else{
@@ -198,8 +203,12 @@
                             $imgDir = "includes/img/users/";
                             $imgName = $waitingUser->getImgName();
                             $imgPath = $imgDir . $imgName;
+                            $type = $waitingUser->getUserType();
                             echo '<div class="tarjeta_blanca user'.$waitingUserId.'">';
-                            echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
+                            if($type == 2)
+                                echo '<p>★ <img src="'.$imgPath.'" width="20px" height="20px">';
+                            else
+                                echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
                             echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a>'. $joinDate.'</p>';
                             echo '<button type="button" class="acceptUserBtn" value="'.$waitingUserId.'">Aceptar</button>';
                             echo '<button type="button" class="rejectUserBtn" value="'.$waitingUserId.'">Rechazar</button>';
