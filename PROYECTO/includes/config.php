@@ -13,6 +13,8 @@ require_once __DIR__.'/classes/Form/EditProfileForm.php';
 require_once __DIR__.'/classes/Form/UploadAuxImgForm.php';
 require_once __DIR__.'/classes/RelationManager.php';
 require_once __DIR__.'/classes/DAO/ActivityDAO.php';
+require_once __DIR__.'/classes/Form/ReportForm.php';
+require_once __DIR__.'/classes/DAO/ReportDAO.php';
 
 /**
  * Parámetros de conexión a la BD

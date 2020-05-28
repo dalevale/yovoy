@@ -109,7 +109,7 @@
 
             echo'<div class="notifBtns">';
             if($isRead)
-                echo '<input type="image" width="20%" height="20%" src="includes/img/boton_LEIDO.png" class="markAsNotReadBtn" alt="Marcar como no leído" title="Marcar como no leído" value="'.$id.'">';
+                echo '<input type="image" width="20%" height="20%" src="includes/img/boton_NOLEIDO.png" class="markAsNotReadBtn" alt="Marcar como no leído" title="Marcar como no leído" value="'.$id.'">';
             else
                 echo '<input type="image"width="20%" height="20%" src="includes/img/boton_LEIDO.png" class="markAsReadBtn" alt="Marcar como leído" title="Marcar como leído" value="'.$id.'">';
             echo '<input type="image" width="20%" height="20%" src="includes/img/boton_BORRARCOMENTARIO.png" class="deleteNotifBtn" alt="Borrar notificación" title="Borrar notificación" value="'.$id.'">';

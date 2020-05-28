@@ -36,17 +36,21 @@
 <div class = "container">
 	<div class = "row justify-content-between">  
 
-    <div class="col-md-6 col-12  <?php echo $eventClass?>">
+    <div class="col-md-6 col-12">
         <?php
         // boton para subir fotos
         echo "<input id='addImgBtn' type='image' src='includes/img/boton_CREAREVENTO.png' title='Subir un nuevo foto'>";
 
         foreach($auxImages as $img){
+            echo "<div>";
+            
             // aux img
             echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' >";
 
             // boton para descartar
-            echo '<button id="deleteImgBtn" type="submit" value="'. basename($img, ".php") .'">Borrar foto</button>';
+            echo '<button class="deleteImgBtn" type="submit" value="'. basename($img, ".png") .'">Borrar foto</button>';
+
+            echo "</div>";
         }
         ?>
     </div>

@@ -16,6 +16,47 @@
     <header>
         <?php include 'includes/comun/nav.php' ?>
     </header>
+    <div class="container">
+        <div class="row align-items-center"><h1>Eventos premium</h1></div>
+        <div class="row justify-content-between">
+        <?php
+        $userDAO = new UserDAO;
+        $eventDAO = new EventDAO;
+        $promotedEventsList = $eventDAO->getPromotedEvents();
+        $premiumEventsList = $eventDAO->getPremiumEvents();
+        
+        $eventImgDir = "includes/img/events/";
+        if(!empty($premiumEventsList)){
+            foreach($premiumEventsList as $premiumEvent){
+                echo '<div class="col-md-3 col-12 feed_item">';
+                $eventId=$premiumEvent->getEventId();
+                $eventName = $premiumEvent->getName();
+                $creatorId = $premiumEvent->getCreator();
+                $creator = $userDAO->getUser($creatorId);
+                $creatorName = $creator->getName();
+                $date = $premiumEvent->getEventDate();
+                $eventDate = date("Y-m-d g:ia", strtotime($date));
+
+                $eventImgPath =  $eventImgDir.$premiumEvent->getImgName();
+                $location = $premiumEvent->getLocation();
+                
+                echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
+
+            // echo ' <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
+                echo '<p>Creador:  '.$creatorName.'</a></p>
+                     <p> Fecha: '.$eventDate.'</p>
+                     <p> Lugar: '.$location.'</p>';
+                echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+            }
+        }
+        else{
+            echo '<div class="tarjeta_blanca"';
+            echo '<p>Aún no hay eventos premium</p>';
+            echo '</div>';
+        }
+        ?>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row align-items-center"><h1>Eventos promocionados</h1></div>
@@ -24,9 +65,10 @@
         $userDAO = new UserDAO;
         $eventDAO = new EventDAO;
         $promotedEventsList = $eventDAO->getPromotedEvents();
+        $premiumEventsList = $eventDAO->getPremiumEvents();
         
         $eventImgDir = "includes/img/events/";
-
+    
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
                 echo '<div class="col-md-3 col-12 feed_item">';
@@ -59,9 +101,9 @@
                     echo '<p>No promocionado</p></div></a>';
             }
         }
-        else{
-            echo '<div class="tarjeta_gris"';
-            echo '<p>Aún no hay eventos premium</p>';
+        else{   
+            echo '<div class="tarjeta_blanca"';
+            echo '<p>Aún no hay eventos promocionados</p>';
             echo '</div>';
         }
 

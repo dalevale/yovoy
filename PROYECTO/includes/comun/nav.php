@@ -19,7 +19,7 @@
 						<!--<li><a href='index.html'>INICIO</a></li>-->
 						<li><a href='feed.php'>FEED</a></li>
 						<!--<li><a href='events.php'>EVENTOS</a></li>-->
-						<li><a href='search.php'>BUSCAR</a></li>
+						<li><a href='search.php'>EVENTOS</a></li>
 						<li><a href='calendar.php'>CALENDARIO</a></li>
 						<?php	
 						if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
@@ -41,6 +41,10 @@
 							//echo "<li><a href='profileView.php?profileId=". $_SESSION["userId"] ."'>MI ÁREA</a></li>";
 							echo "<li><a href='notifications.php'>NOTIFICACIONES ($counter)</a></li>";
 						}
+						else if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+							echo "<li><a href='showReports.php'>REPORTS</a></li>";
+						}
+
 						?>
 					</ul>
 			</div>

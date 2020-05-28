@@ -36,7 +36,7 @@ class RelationManager{
     * @return string $html          Cadenas de html a generar en la pagina
     */
     public function printButtons(){
-        $html = '<div id="profileViewButtons">';
+        $html = '';
         if($this->status === null){
                $html .= 
 				'<input type="image" src="includes/img/boton_AMIGO.png" width="40%" length="40%" id="addFriendBtn" alt="Añadir amigo" title="Añadir amigo" value="'.$this->userTwoId.'">
@@ -45,21 +45,21 @@ class RelationManager{
         else {
         switch($this->status){
             case self::USERONEADD:
-                $html .= '<button type="button" id="cancelAddFriendBtn"  value="'.$this->userTwoId.'">Cancel Friend Request</button>';
+                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Cancelar Solicitud" title="Cancelar Solicitud" id="cancelAddFriendBtn"  value="'.$this->userTwoId.'">';
                 break;
             case self::USERTWOADD:
-                $html .= '<button type="button" id="acceptFriendBtn" value="'.$this->userTwoId.'">Accept Friend Request</button>
-                <button type="button" id="rejectFriendBtn" value="'.$this->userTwoId.'">Reject Friend Request</button>';
+                $html .= '<p>Aceptar amigo?</p><input type="image" src="includes/img/boton_OK.png" alt="Aceptar Solicitud" title="Aceptar Solicitud" width="40%" length="40%" id="acceptFriendBtn" value="'.$this->userTwoId.'">
+                <input type="image" src="includes/img/boton_CANCELAR.png" alt="Rechazar Solicitud" title="Rechazar Solicitud" width="40%" length="40%" id="rejectFriendBtn" value="'.$this->userTwoId.'">';
                 break;
             case self::USERONEACCEPT:
-                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" id="unfriendBtn" value="'.$this->userTwoId.'">';
+                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
                 break;
             case self::USERTWOACCEPT:
-                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" id="unfriendBtn" value="'.$this->userTwoId.'">';
+                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
                 break;
             case self::USERONEBLOCK:
                 $html .= '<p>YOU BLOCKED THIS USER</p>
-                <button id="unblockUserBtn" type="button" value="'.$this->userTwoId.'">Unblock</button>';
+                <input type="image" src="includes/img/boton_DESBLOQUEAR.png" id="unblockUserBtn" alt="Desbloquear" title="Desbloquear" width="40%" length="40%" value="'.$this->userTwoId.'">';
                 break;
             case self::USERTWOBLOCK:
                 $html .= '<p>THIS USER BLOCKED YOU</p>';
@@ -70,7 +70,6 @@ class RelationManager{
                 break;
 		}
 		}
-        $html.= '</div>';
         return $html;
 	}
 }

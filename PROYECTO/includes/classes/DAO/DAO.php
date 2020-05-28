@@ -36,7 +36,7 @@ class DAO{
 
     public function executeInsert($sql){
         if($sql != ""){
-            if($this->conn->query($sql) === TRUE)
+            if($this->conn->query($sql) === TRUE or die($this->conn->error. "en la linea ".(__LINE__-1).": ". $sql))
                $ret = $this->conn->insert_id;
             else
                //$ret = die($this->conn->error. " en la linea ".(__LINE__-1).": ". $sql);

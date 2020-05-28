@@ -17,7 +17,7 @@ function manageNotif(action, element, toUpdate) {
 				var before = 'markAsReadBtn';
 				var after = 'markAsNoReadBtn';
 				var altString = 'Marcar como no leído';
-				var imgString = 'includes/img/boton_LEIDO.png';
+				var imgString = 'includes/img/boton_NOLEIDO.png';
 				if (!check) {
 					var temp = before;
 					before = after;
