@@ -152,11 +152,6 @@
                     echo '</span>';
                     
                     echo '<span class="editSpan">';
-                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
-                    echo '</span>';
-                    
-                    echo '<span class="editSpan">';
                     echo '<input type="image" src="includes/img/boton_FOTOS.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
                     echo '</span>';
                 }
@@ -180,6 +175,13 @@
                 else 
                     echo '<input type="image" src="includes/img/boton_UNPROMO.png" alt="No promocionar" title="No promocionar" class="unpromoEventBtn">';
                 echo '</span>';
+
+                if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
+                    echo '<span class="editSpan">';
+                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                }
             }
         ?>
         </div>
