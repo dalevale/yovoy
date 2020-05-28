@@ -123,13 +123,8 @@
                             $attendeeId = $attendee->getUserId();
                             $imgDir = "includes/img/users/";
 					        $imgName = $attendee->getImgName();
-                            $imgPath = $imgDir . $imgName;
-                            $type = $attendee->getUserType();
-
-                            if($type == 2)
-                                echo '<a href="profileView.php?profileId='.$attendeeId.'"><p>★ <img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>';
-                            else
-                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>';
+					        $imgPath = $imgDir . $imgName;
+                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
 			            }
                     }
                     else{
@@ -152,7 +147,12 @@
                     echo '</span>';
                     
                     echo '<span class="editSpan">';
-                    echo '<input type="image" src="includes/img/boton_FOTOS.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
+                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+                    echo '</span>';
+                    
+                    echo '<span class="editSpan">';
+                    echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
                     echo '</span>';
                 }
                 else {
@@ -175,13 +175,6 @@
                 else 
                     echo '<input type="image" src="includes/img/boton_UNPROMO.png" alt="No promocionar" title="No promocionar" class="unpromoEventBtn">';
                 echo '</span>';
-
-                if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                    echo '<span class="editSpan">';
-                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
-                    echo '</span>';
-                }
             }
         ?>
         </div>
@@ -205,12 +198,8 @@
                             $imgDir = "includes/img/users/";
                             $imgName = $waitingUser->getImgName();
                             $imgPath = $imgDir . $imgName;
-                            $type = $waitingUser->getUserType();
                             echo '<div class="tarjeta_blanca user'.$waitingUserId.'">';
-                            if($type == 2)
-                                echo '<p>★ <img src="'.$imgPath.'" width="20px" height="20px">';
-                            else
-                                echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
+                            echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
                             echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a>'. $joinDate.'</p>';
                             echo '<button type="button" class="acceptUserBtn" value="'.$waitingUserId.'">Aceptar</button>';
                             echo '<button type="button" class="rejectUserBtn" value="'.$waitingUserId.'">Rechazar</button>';

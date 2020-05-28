@@ -43,9 +43,9 @@
 
         foreach($auxImages as $img){
             echo "<div>";
-            
+
             // aux img
-            echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' >";
+            echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' width=500px >";
 
             // boton para descartar
             echo '<button class="deleteImgBtn" type="submit" value="'. basename($img, ".png") .'">Borrar foto</button>';

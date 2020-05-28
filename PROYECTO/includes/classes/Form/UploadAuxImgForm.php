@@ -16,7 +16,6 @@ class UploadAuxImgForm extends Form
 		
         $html = <<<EOF
 		<ul class="tarjeta_gris">
-			<p><label>Foto de usuario</label></p>
 			<p>
 				<li><label>Subir una foto para usar</label><input type="file" accept =".png, .jpg, .jpeg" name="img" /></li>
 			</p>
