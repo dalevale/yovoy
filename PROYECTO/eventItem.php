@@ -17,7 +17,8 @@
     $creator = $userDAO->getUser($creatorId);
     $creatorName = $creator->getName();
     $eventName = $event->getName();
-    $eventClass = $event->isEventOver()? 'eventoOver' : 'evento';
+    $eventClass = 'evento';
+    $eventOver = $event->isEventOver(); 
     $eventImgName = $event->getImgName();
     $eventImgDir = "includes/img/events/";
     $eventImgPath = $eventImgDir . $eventImgName;
@@ -59,7 +60,12 @@
     <div class="col-md-6 col-12  <?php echo $eventClass?>">
         <?php
             echo '<input type="hidden" id="eventId" value="'. $eventId.'">';
-            echo '<h2>'.$eventName.'</h2>';
+            echo '<h2>'.$eventName;
+            if($eventOver)
+                echo ' (Ha terminado)';
+            else if($eventDAO->isEventFull($eventId,$capacity))
+                echo ' (Lleno)';
+            echo '</h2>';
             echo '<p>'.'Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>';
             
             echo 
@@ -97,14 +103,6 @@
                     </a>
                 </div>";
 
-            //Contenedor interno
-            /*echo '<div class = "container">';
-	        echo '<div class = "row justify-content-between">';
-            //Cierre del contenedor interno
-            echo '</div>';
-            echo '</div>';*/
-
-            echo '<p>'.'Fecha de creación: '.$creationDate.'</p>';
             echo '<p>'.'Fecha del evento: '.$eventDate.'</p>';
             echo '<p>'.'Capacidad: '.$capacity.'</p>';
             echo '<p>'.'Lugar: '.$location.'</p>';
@@ -113,26 +111,29 @@
             
         <div id="attendeeList" class="tarjeta_gris">
                 <?php
-                    if(!count($attendees)==0){
-                        echo '<p>En este evento también van:</p>';
-                        for($i = 0; $i < count($attendees); $i++) {
-                            $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
-                            $joinDate = $attendees[$i]["joinDate"];
-                            $date = date("Y-m-d g:ia", strtotime($joinDate));
-                            $attendeeName = $attendee->getUsername();
-                            $attendeeId = $attendee->getUserId();
-                            $imgDir = "includes/img/users/";
-					        $imgName = $attendee->getImgName();
-					        $imgPath = $imgDir . $imgName;
-                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
-			            }
-                    }
-                    else{
-                        if($event->getCreator() != $currentUserId)
-                            echo '<p>Se el primero en apuntar a este evento!</p>';
-                        else
-                            echo '<p>Aún no hay nadie en tu evento</p>';
-                    }
+                        if(!count($attendees)==0){
+                            if($eventOver)
+                                echo '<p>En este evento han ido:</p>';
+                            else
+                                echo '<p>En este evento también van:</p>';
+                            for($i = 0; $i < count($attendees); $i++) {
+                                $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
+                                $joinDate = $attendees[$i]["joinDate"];
+                                $date = date("Y-m-d g:ia", strtotime($joinDate));
+                                $attendeeName = $attendee->getUsername();
+                                $attendeeId = $attendee->getUserId();
+                                $imgDir = "includes/img/users/";
+					            $imgName = $attendee->getImgName();
+					            $imgPath = $imgDir . $imgName;
+                                echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
+			                }
+                        }
+                        else{
+                            if($event->getCreator() != $currentUserId)
+                                echo '<p>Se el primero en apuntar a este evento!</p>';
+                            else
+                                echo '<p>Aún no hay nadie en tu evento</p>';
+                        }
                 ?>
                 <!-- Parte de comentarios a la derecha-->
         </div>
@@ -140,20 +141,34 @@
         <?php
             //Condiciones para diferentes botones: Editar si es propio evento del usuario o Unirse si el contrario.
             if(isset($_SESSION["login"]) && $_SESSION["login"]){
+                echo '<span id="promoteEventBtns">';
+                if(!$eventOver){
+                    if(!$userDAO->isPromoting($currentUserId, $eventId))
+                        echo '<input type="image" src="includes/img/boton_PROMO.png" alt="Promocionar" title="Promocionar" class="promoEventBtn">';
+                
+                    else 
+                        echo '<input type="image" src="includes/img/boton_UNPROMO.png" alt="No promocionar" title="No promocionar" class="unpromoEventBtn">';
+				}
+                
+                echo '</span>';
+                
                 if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
-                    echo '<span class="editSpan">';
-                    echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
-                    echo '</span>';
+                    if(!$eventOver){
+                        echo '<span class="editSpan">';
+                        echo '<form method="POST" action="editEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
+                        echo '<input type="image" alt="Editar" src="includes/img/boton_EDITAR.png" title="Editar" name="Submit" id="frm1_submit" /></form>';
+                        echo '</span>';
+                    }
                     
+                    echo '<span class="editSpan">';
+                    echo '<input type="image" src="includes/img/boton_FOTOS.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
+                    echo '</span>';
+
                     echo '<span class="editSpan">';
                     echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
                     echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
                     echo '</span>';
                     
-                    echo '<span class="editSpan">';
-                    echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" id="manageAuxImgBtn" alt="Subir Fotos" title="Subir Fotos" type="submit">';
-                    echo '</span>';
                 }
                 else {
                     echo '<span id="joinCancelEventBtns">';
@@ -168,13 +183,7 @@
                         echo '¡Estás apuntado en este evento!';
                     echo '</span>';
                 }
-                echo '<span id="promoteEventBtns">';
-                if(!$userDAO->isPromoting($currentUserId, $eventId))
-                    echo '<input type="image" src="includes/img/boton_PROMO.png" alt="Promocionar" title="Promocionar" class="promoEventBtn">';
-                
-                else 
-                    echo '<input type="image" src="includes/img/boton_UNPROMO.png" alt="No promocionar" title="No promocionar" class="unpromoEventBtn">';
-                echo '</span>';
+               
             }
         ?>
         </div>
@@ -182,7 +191,7 @@
 
     <div class = "col-md-5 col-12 comentarios">
         <?php
-            if(isset($_SESSION["login"]) && $_SESSION["login"] ){
+            if(isset($_SESSION["login"]) && $_SESSION["login"] && !$eventOver){
                 if($userDAO->isMyEvent($currentUserId, $eventId) || (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"])){
                     echo "<div id='userWaitingList' class='tarjeta_naranja'>";
                     $waitingList = $eventDAO->getAttendees($eventId,false);
@@ -201,8 +210,8 @@
                             echo '<div class="tarjeta_blanca user'.$waitingUserId.'">';
                             echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
                             echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a>'. $joinDate.'</p>';
-                            echo '<button type="button" class="acceptUserBtn" value="'.$waitingUserId.'">Aceptar</button>';
-                            echo '<button type="button" class="rejectUserBtn" value="'.$waitingUserId.'">Rechazar</button>';
+                            echo '<input type="image" src="includes/img/boton_OK.png" width="20%" length="20%" alt="Aceptar" title="Aceptar" class="acceptUserBtn" value="'.$waitingUserId.'">';
+                            echo '<input type="image" src="includes/img/boton_CANCELAR.png" width="20%" length="20%" alt="Rechazar" title="Rechazar" class="rejectUserBtn" value="'.$waitingUserId.'">';
                             echo '</div>';
                         }
                         echo '</div>';

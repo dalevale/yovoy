@@ -171,10 +171,10 @@ $(document).ready(function () {
 	$("#joinCancelEventBtns input.joinEventBtn").click(function () {
 		processJoinEvent(eventId, userId, 'join');
 	});
-	$("#userWaitingList div div button.acceptUserBtn").click(function () {
+	$("#userWaitingList div div input.acceptUserBtn").click(function () {
 		processJoinEvent(eventId, $(this).val(), 'accept');
 	});
-	$("#userWaitingList div div button.rejectUserBtn").click(function () {
+	$("#userWaitingList div div input.rejectUserBtn").click(function () {
 		processJoinEvent(eventId, $(this).val(), 'reject');
 	});
 	$("#promoteEventBtns input").click(function () {

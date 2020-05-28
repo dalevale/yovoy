@@ -29,7 +29,6 @@ function printEvent(data) {
         error: e => {
             console.log(e);
         }
-
     });
 }
 

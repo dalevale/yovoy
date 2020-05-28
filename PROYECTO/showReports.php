@@ -69,9 +69,9 @@
                         echo "<p></p><p>Message: <span class='reportText'>". $reportText ."</span></p>";
                         echo "<div class='resolveBtns'>";
                         if($resolved)
-                            echo "<p><input class='unresolveBtn' type='image' src='includes/img/boton_REPORTAR.png' alt='No Resolver' title='No Resolver' width='10%' length=10%' value='".$reportId."'></p>";
+                            echo "<p><input class='unresolveBtn' type='image' src='includes/img/boton_CANCELAR.png' alt='No Resolver' title='No Resolver' width='10%' length=10%' value='".$reportId."'></p>";
                         else
-                            echo "<p><input class='resolveBtn'type='image' src='includes/img/boton_PREMIUM.png' alt='Resolver' title='Resolver' width='10%' length=10%' value='".$reportId."'></p>";
+                            echo "<p><input class='resolveBtn'type='image' src='includes/img/boton_RESOLVE.png' alt='Resolver' title='Resolver' width='10%' length=10%' value='".$reportId."'></p>";
                         echo "</div>";
                         echo "</div>";
                     echo "</div>";
@@ -93,13 +93,13 @@
 			var check = toChange.hasClass('resolveBtn');
 			var before = 'resolveBtn';
 			var after = 'unresolveBtn';
-			var imgString = 'boton_REPORTAR.png';
+			var imgString = 'boton_CANCELAR.png';
 			var altString = 'No Resolver';
 			if (!check) {
 				var temp = before;
 				before = after;
 				after = temp;
-				var imgString = 'boton_PREMIUM.png';
+				var imgString = 'boton_RESOLVE.png';
 			    var altString = 'Resolver';
 			}
 			toChange.removeClass(before);

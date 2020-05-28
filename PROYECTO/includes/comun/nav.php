@@ -19,7 +19,14 @@
 						<!--<li><a href='index.html'>INICIO</a></li>-->
 						<li><a href='feed.php'>FEED</a></li>
 						<!--<li><a href='events.php'>EVENTOS</a></li>-->
-						<li><a href='search.php'>EVENTOS</a></li>
+						<?php
+						
+						if(!isset($_SESSION["login"]) ||  (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"]))
+							echo '<li><a href="events.php">EVENTOS</a></li>';
+						else if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"]))
+						
+							echo '<li><a href="search.php">BUSCAR</a></li>';
+						?>
 						<li><a href='calendar.php'>CALENDARIO</a></li>
 						<?php	
 						if(isset($_SESSION["login"]) && $_SESSION["login"] &&  (isset($_SESSION["esAdmin"]) && !$_SESSION["esAdmin"])){
@@ -49,7 +56,7 @@
 					</ul>
 			</div>
 				
-			<div class="col-md-2 col-12 usuario">
+			<div class="col-md-3 col-12 usuario">
 				<?php
 					if((isset($_SESSION["login"]) && !$_SESSION["login"]) || !isset($_SESSION["login"])){
 						echo "<ul>";
@@ -73,20 +80,11 @@
 							echo "<div class = 'container'>";
 							
 							echo "<div class = 'row'>";
+							echo "<p>Hola, " . $firstName . "!</p>";
 							echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'><img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
 							echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
-							echo "</div>";
-
-							echo "<div class = 'row'>";
 							echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
-							echo "<div class = 'row'>";
-							echo "<p>Hola, " . $firstName . "!</p>";
 							echo "</div>";
-							echo "</div>";
-							//MENSAJE QUE SE MUESTRA A NUEVOS USUARIOS
-							//if(isset($_SESSION["newUser"]) && $_SESSION["newUser"]){
-							//	echo "<h1>AHORA ERES UN USUARIO REGISTRADO!</h1>";
-							//}   
 						}
 					}
 				?>
