@@ -115,7 +115,12 @@
 }
     $(document).ready(function(){
         $("#reportsList div.reports div.reportText div.resolveBtns p input").click(function(){
-            resolve($(this).val(), $(this));
+            var str = "RESUELTO";
+            if($(this).hasClass('unresolveBtn'))
+                str = "NO RESUELTO";
+            var ok = confirm("Cambiando estado del report a "+ str +". ¿Estas seguro?");
+            if (ok)
+                resolve($(this).val(), $(this));
         });
 	});
     </script>

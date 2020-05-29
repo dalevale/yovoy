@@ -67,18 +67,28 @@ abstract class Form
      */
     public function manage()
     {   
-     
+        
+        
         if ( ! $this->formSent($_POST) ) {
             return $this->generateForm();
         } 
         else {
-        
             $result = $this->processForm($_POST);
             if ( is_array($result) ) {
                 return $this->generateForm($result, $_POST);
             } else {
-            
-                header('Location: '.$result);
+                if($this->formId == 'registerForm')
+                    $str = 'Se ha creado la cuenta correctamente. Inicia sesión con la nueva cuenta.';
+                else if($this->formId == 'newEventForm')
+                    $str = 'Se ha creado el evento correctamente.';
+                if(isset($str)){
+                    echo'<script type="text/javascript">
+		            alert("'.$str.'");
+		            window.location.href = "'.$result.'";
+                    </script>';
+				}
+                else
+                    header('Location: '.$result);
                 exit();
             }
         }  

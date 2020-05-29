@@ -165,8 +165,7 @@
                     echo '</span>';
 
                     echo '<span class="editSpan">';
-                    echo '<form method="POST" action="includes/deleteEvent.php"><input type="hidden" name="eventId" value="'.$eventId.'"/>';
-                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+                    echo '<input type="image" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" id="deleteEventBtn" value="'.$eventId.'"/>';
                     echo '</span>';
                     
                 }

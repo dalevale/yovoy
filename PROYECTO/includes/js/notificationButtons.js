@@ -48,17 +48,23 @@ $(document).ready(function () {
 
 	$("#notifStart div div.notificationRight div.notifBtns input.markAsReadBtn").click(function () {
 		var toUpdate = $(this).parent().parent().parent();
-        manageNotif('mark', $(this), toUpdate);
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			manageNotif('mark', $(this), toUpdate);
 	});
 
 	$("#notifStart div div.notificationRight div.notifBtns input.markAsNotReadBtn").click(function () {
 		var toUpdate = $(this).parent().parent().parent();
-		manageNotif('mark', $(this), toUpdate);
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			manageNotif('mark', $(this), toUpdate);
 	});
 
 	$("#notifStart div div.notificationRight div.notifBtns input.deleteNotifBtn").click(function () {
 		var toDelete = $(this).parent().parent().parent();
-		manageNotif('delete', $(this), toDelete);
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			manageNotif('delete', $(this), toDelete);
 	});
 
 });

@@ -1,3 +1,25 @@
+function deleteUser(userId) {
+	var data = {
+		"userId": userId
+	};
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "includes/deleteUser.php",
+		data: data,
+		success: result => {
+			if (result != 0)
+				alert("Cant delete this event at the moment.");
+			else
+				alert("User has been deleted");
+			window.location.href = "search.php";
+		},
+		error: e => {
+			console.log(e);
+		}
+	});
+}
+
 function appendNewButtons(element, html) {
 	var div = element.parent();
 	div.empty();
@@ -31,25 +53,45 @@ function changeRelation(element, task) {
 
 $(document).ready(function () {
 	$("#addFriendBtn").click(function () {
-		changeRelation($(this), 'addFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'addFriend');
 	});
 	$("#cancelAddFriendBtn").click(function () {
-		changeRelation($(this), 'cancelAddFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'cancelAddFriend');
 	});
 	$("#acceptFriendBtn").click(function () {
-		changeRelation($(this), 'acceptFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'acceptFriend');
 	});
 	$("#rejectFriendBtn").click(function () {
-		changeRelation($(this), 'rejectFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'rejectFriend');
 	});
 	$("#unfriendBtn").click(function () {
-		changeRelation($(this), 'unfriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'unfriend');
 	});
 	$("#blockUserBtn").click(function () {
-		changeRelation($(this), 'blockUser');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'blockUser');
 	});
 	$("#unblockUserBtn").click(function () {
-		changeRelation($(this), 'unblockUser');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'unblockUser');
+	});
+
+	$("#deleteUserBtn").click(function () {
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			deleteUser($(this).val());
 	});
 
 });

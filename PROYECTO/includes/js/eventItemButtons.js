@@ -1,3 +1,25 @@
+function deleteEvent(eventId) {
+	var data = {
+		"eventId": eventId
+	};
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "includes/deleteUser.php",
+		data: data,
+		success: result => {
+			if (result != 0)
+				alert("Cant delete this user at the moment.");
+			else
+				alert("Event has been deleted");
+				window.location.href = "feed.php";
+		},
+		error: e => {
+			console.log(e);
+		}
+	});
+}
+
 function deleteComment() {
 	var id = $(this).val();
 	var comment = {
@@ -166,19 +188,29 @@ $(document).ready(function () {
 	var userId = $("#userId").val();
 
 	$("#joinCancelEventBtns input.cancelEventBtn").click(function () {
-		processJoinEvent(eventId, userId, 'cancel');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			processJoinEvent(eventId, userId, 'cancel');
 	});
 	$("#joinCancelEventBtns input.joinEventBtn").click(function () {
-		processJoinEvent(eventId, userId, 'join');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			processJoinEvent(eventId, userId, 'join');
 	});
 	$("#userWaitingList div div input.acceptUserBtn").click(function () {
-		processJoinEvent(eventId, $(this).val(), 'accept');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			processJoinEvent(eventId, $(this).val(), 'accept');
 	});
 	$("#userWaitingList div div input.rejectUserBtn").click(function () {
-		processJoinEvent(eventId, $(this).val(), 'reject');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			processJoinEvent(eventId, $(this).val(), 'reject');
 	});
 	$("#promoteEventBtns input").click(function () {
-		promoteEvent(eventId, userId);
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			promoteEvent(eventId, userId);
 	});
 
 
@@ -186,5 +218,11 @@ $(document).ready(function () {
 	
 	$("#manageAuxImgBtn").click(function(){
 		window.location.href = "manageAuxImg.php";
+	});
+
+	$("#deleteEventBtn").click(function () {
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			deleteEvent($(this).val());
 	});
 });

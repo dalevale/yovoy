@@ -6,4 +6,4 @@ require_once __DIR__.'/config.php';
 
     $userDAO->deleteUser($userId);
 
-    header("Location: ../feed.php");
+    echo 0;

@@ -55,7 +55,8 @@ EOF;
     
 
     protected function processForm($data)
-    {
+    {	
+		
 		
 		$result = array();
 		$success = false;
@@ -65,6 +66,7 @@ EOF;
         
         if ( empty($username) || mb_strlen($username) < 5 ) {
             $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres. ";
+			
         }
         
         if ( empty($password) || mb_strlen($password) < 5 ) {
@@ -90,7 +92,6 @@ EOF;
 		$imgName = "default.jpg";
 
         if (count($result) == 0) {
-
 			//Valores por defecto
 			$creationDate = date("Y-m-d");
 			$type = 1;
@@ -103,16 +104,16 @@ EOF;
 			$_SESSION["username"] = $username;
 	
 			// Cambiar el valor de $type si se elige la opción de ser usuario premium
-			if(isset($_REQUEST["premium"])){
+			if(isset($_REQUEST["premium"]))
 				$type = 2;
-			}
+
 			//Añadir el usuario a la BBDD
-			if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type)) {
+			if($userDAO->userExists($email))
+				$result[] = "Email ya esta usado.";
+			else if ($userDAO->registerUser($email, $password, $username, $name, $imgName, $creationDate, $type))
 				$success = true;
-			}
-			else{
+			else
 				$result[] = "Error en registrarse.";
-			}
 		}
 		
 		if (count($result) == 0 && !empty($_FILES["img"]["name"])){
@@ -126,20 +127,15 @@ EOF;
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
-			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
+			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
 				$result[] = "Error: Se produjo un error al subir su foto. ";
-			}
-			else if($userDAO->updateUser($userId, null, $name, $imgName)){
+			else if($userDAO->updateUser($userId, null, $name, $imgName))
 				$success = true;
-			}
-			else{
+			else
 				$result[] = "Error: Se produjo un error al subir su foto. ";
-			}
 		}
-
-		if ($success){
-			$result = "register.php";
-		}
+		if ($success)
+			$result = "index.html";
 
         return $result;
     }
