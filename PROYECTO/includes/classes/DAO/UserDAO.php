@@ -389,5 +389,14 @@ class UserDAO extends DAO{
         $query = "DELETE FROM user WHERE user_id = '$id'";
         return parent::executeModification($query);
     }
+
+    public function hasEventInSameHour($userId, $timestamp){
+        $query = "SELECT user_id FROM join_event JOIN event 
+                  WHERE user_id='$userId' AND join_event.event_id = event.event_id AND event_date = '$timestamp'";
+
+        $dataArray = parent::executeQuery($query);
+
+        return !empty($dataArray);
+    }
 }
 ?>

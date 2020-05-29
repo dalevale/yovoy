@@ -174,8 +174,13 @@
                     echo '<span id="joinCancelEventBtns">';
                     if($eventDAO->isEventFull($eventId,$capacity))
                         echo '<p>Este evento ya está lleno.</p>';
-                    else if(!$userDAO->isAttending($currentUserId, $eventId))
-                        echo '<input type="image" src="includes/img/boton_UNIRSE_2.png" alt="YoVoy" title="YoVoy" class="joinEventBtn">';
+                    else if(!$userDAO->isAttending($currentUserId, $eventId)){
+                        
+                        if(!$userDAO->hasEventInSameHour($currentUserId, $eventDate))
+                            echo '<input type="image" src="includes/img/boton_UNIRSE_2.png" alt="YoVoy" title="YoVoy" class="joinEventBtn">';
+                        else
+                            echo '<p>Tienes un evento para la misma fecha y hora. Cancela otro evento que tengas pendiente si quieres unirte a este.</p>';
+                    }
                     else
                         echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" alt="YaNoVoy" title="YaNoVoy" class="cancelEventBtn">';
                     
