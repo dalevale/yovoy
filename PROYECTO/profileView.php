@@ -96,7 +96,7 @@
 					
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo "<h2>Mis Eventos:</h2>";
-			
+				
 				if(count($createdEvents) > 0){
 					for($i=0; $i < count($createdEvents); $i++){
 						$eventId = $createdEvents[$i]->getEventId();
@@ -118,8 +118,9 @@
 					$friend = array_pop($friends);
 					$imgName = $friend->getImgName();
 					$imgPath = $userImgDir . $imgName;
-					echo '<a class= "tarjeta_blanca" href="profileView.php?profileId='.$friend->getUserId().'"><img src="'.$imgPath.'" width="50px" height="50px">';
-					echo ''.$friend->getName().'</a>';
+					echo "<a href='profileView.php?profileId=".$friend->getUserId()."'>";
+					echo "<p><img src='".$imgPath."' width='50px' height='50px'>";
+					echo $friend->getName().'</p></a>';
 				}
 				if(sizeof($friends) == 0)
 					echo '<p>Ningun amigos de momento.</p>';
