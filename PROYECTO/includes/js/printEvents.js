@@ -20,10 +20,10 @@ function printEvent(data) {
                         '<div class = "eventos col-md-3 col-12">' +
                         '<a href="eventItem.php?eventId=' + event.id + '">' +
                         '<img src="' + eventImgPath + '?random=' + Math.random(0, 100000) + ' alt="event" height="50" width="50">' +
-                        '<div class=" nombreEvento">' + event.name + '</div>' +
-                        '  Fecha: ' + event.date + '  ' +
-                        'Aforo: ' + event.capacity + ' ' +
-                        '</a></div>');
+                        '<div class=" nombreEvento" >' + event.name + '</div></a>' +
+                        '<p>  Fecha: ' + event.date + '  ' +
+                        'Aforo: ' + event.capacity + ' ' + '</p>' +
+                        '</div>');
                     $("#eventList").append(toAppend);
                 }
             }

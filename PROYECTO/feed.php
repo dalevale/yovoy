@@ -1,5 +1,13 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
+
+    
+    $userDAO = new UserDAO;
+    $eventDAO = new EventDAO;
+    $promotedEventsList = $eventDAO->getPromotedEvents();
+    $premiumEventsList = $eventDAO->getPremiumEvents();
+    
+    $eventImgDir = "includes/img/events/";
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +17,6 @@
     <!-- FOR BOOTSTRAP POSITIONING -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- -->
     <title>FEED</title>
 </head>
 <body>
@@ -19,42 +26,34 @@
     <div class="container">
         <div class="row align-items-center"><h1>Eventos premium</h1></div>
         <div class="row justify-content-between">
-        <?php
-        $userDAO = new UserDAO;
-        $eventDAO = new EventDAO;
-        $promotedEventsList = $eventDAO->getPromotedEvents();
-        $premiumEventsList = $eventDAO->getPremiumEvents();
-        
-        $eventImgDir = "includes/img/events/";
-        if(!empty($premiumEventsList)){
-            foreach($premiumEventsList as $premiumEvent){
-                echo '<div class="col-md-3 col-12 feed_item">';
-                $eventId=$premiumEvent->getEventId();
-                $eventName = $premiumEvent->getName();
-                $creatorId = $premiumEvent->getCreator();
-                $creator = $userDAO->getUser($creatorId);
-                $creatorName = $creator->getName();
-                $date = $premiumEvent->getEventDate();
-                $eventDate = date("Y-m-d g:ia", strtotime($date));
-
-                $eventImgPath =  $eventImgDir.$premiumEvent->getImgName();
-                $location = $premiumEvent->getLocation();
-                
-                echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
-
-            // echo ' <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
-                echo '<p>Creador:  '.$creatorName.'</a></p>
-                     <p> Fecha: '.$eventDate.'</p>
-                     <p> Lugar: '.$location.'</p>';
-                echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
-            }
-        }
-        else{
-            echo '<div class="tarjeta_blanca"';
-            echo '<p>Aún no hay eventos premium</p>';
-            echo '</div>';
-        }
-        ?>
+            <?php
+                if(!empty($premiumEventsList)){
+                    foreach($premiumEventsList as $premiumEvent){
+                        echo '<div class="col-md-3 col-12 feed_item">';
+                        $eventId=$premiumEvent->getEventId();
+                        $eventName = $premiumEvent->getName();
+                        $creatorId = $premiumEvent->getCreator();
+                        $creator = $userDAO->getUser($creatorId);
+                        $creatorName = $creator->getName();
+                        $date = $premiumEvent->getEventDate();
+                        $eventDate = date("Y-m-d g:ia", strtotime($date));
+                        $eventImgPath =  $eventImgDir.$premiumEvent->getImgName();
+                        $location = $premiumEvent->getLocation();
+                        echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
+                        echo '<p>Creador:  '.$creatorName.'</a></p>
+                             <p> Fecha: '.$eventDate.'</p>
+                             <p> Lugar: '.$location.'</p>';
+                        echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+                        echo '</div>';
+                    }
+                }
+                else{
+                    echo '<div class="tarjeta_blanca"';
+                    echo '<p>Aún no hay eventos premium</p>';
+                    echo '</div>';
+                }
+            ?>
+        </div>
         </div>
     </div>
 
@@ -62,12 +61,6 @@
         <div class="row align-items-center"><h1>Eventos promocionados</h1></div>
         <div class="row justify-content-between">
         <?php
-        $userDAO = new UserDAO;
-        $eventDAO = new EventDAO;
-        $promotedEventsList = $eventDAO->getPromotedEvents();
-        $premiumEventsList = $eventDAO->getPremiumEvents();
-        
-        $eventImgDir = "includes/img/events/";
     
         if(!empty($promotedEventsList)){
             foreach($promotedEventsList as $promotedEventWithTotal){
@@ -87,7 +80,6 @@
                 
              echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
 
-            // echo ' <p>Creador: <a href="profileView.php?profileId='.$creatorId.'">'.$creatorName.'</a></p>
                 echo '<p>Creador:  '.$creatorName.'</a></p>
                      <p> Fecha: '.$eventDate.'</p>
                      <p> Lugar: '.$location.'</p>';
@@ -102,7 +94,7 @@
             }
         }
         else{   
-            echo '<div class="tarjeta_blanca"';
+            echo '<div class="tarjeta_blanca">';
             echo '<p>Aún no hay eventos promocionados</p>';
             echo '</div>';
         }
