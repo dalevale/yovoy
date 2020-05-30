@@ -191,16 +191,18 @@ ul#eventList{
   margin: 30px;
 }
 
-.nombreEvento{
-  float: left;
-  font-weight: bold;
-  border-radius: 10px;
-  background: white;
-  color:black;
-  padding: 12px;
-  width: fit-content;
-  height: fit-content;
-  margin-right: 10px;
+.nombreEvento {
+    float: left;
+    font-weight: bold;
+    border-radius: 10px;
+    background: white;
+    color: black;
+    padding: 12px;
+    margin-right: 10px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .eventos a{
