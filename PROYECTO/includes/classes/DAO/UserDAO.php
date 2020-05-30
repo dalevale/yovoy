@@ -366,11 +366,11 @@ class UserDAO extends DAO{
 	}
 
     /**
-    * Insertar una fila en la BBDD en la tabla relationship para establecer relaci�n
+    * Insertar una fila en la BBDD en la tabla relationship para establecer relación
     * entre dos cuentas de usuario con id�s $userOneId y $userTwoId
     *
     * @param int $userOneId         Id del usuario con el que la sesion se inicia
-    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relaci�n
+    * @param int $userTwoId         Id del otro usuario con que se quiere establecer relación
     * @param int $status            Estado de relacion de las cuentas (0 - Pendiente, 1 - Amigos, 2 - Cuenta bloqueada)
     * @param int $action_user_id    Id del usuario ($userOneId o $userTwoId) que hizo el ultimo gesto (cambiar el estado)
     * @return bool $result          Devuelve true si se ha insertado correctamenta la fila.

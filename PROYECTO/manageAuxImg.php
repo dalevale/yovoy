@@ -1,17 +1,20 @@
 <?php
     require_once __DIR__.'/includes/config.php';
 
-    $auxImgDAO = new AuxImgDAO();
-
-    if(!empty($_GET))
-        $_SESSION["eventId"] = $_GET["eventId"];
-
-    $eventId = $_SESSION["eventId"];
-    //$creatorId = $event->getCreator();
     
-    //Conseguir los nombres de fotos auxiliares del evento
-    $auxImgDir = "includes/img/events_aux/";
-    $auxImages = $auxImgDAO->getAuxImgs($eventId);
+    if(isset($_SESSION["login"]) && $_SESSION["login"]){
+        $imageClass = 'fotos';
+        $auxImgDAO = new AuxImgDAO();
+
+        if(!empty($_GET))
+            $_SESSION["eventId"] = $_GET["eventId"];
+
+        $eventId = $_SESSION["eventId"];
+        
+        //Conseguir los nombres de fotos auxiliares del evento
+        $auxImgDir = "includes/img/events_aux/";
+        $auxImages = $auxImgDAO->getAuxImgs($eventId);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -36,34 +39,30 @@
 <div class = "container">
 	<div class = "row justify-content-between">  
 
-    <div class="col-md-6 col-12">
-        <?php
-        // boton para subir fotos
-        echo "<input id='addImgBtn' type='image' src='includes/img/boton_CREAREVENTO.png' title='Subir un nuevo foto'>";
+        <div class="col-md-6 col-12">
+            <h1>Gestionar fotos</h1>
+            <?php
+            if(isset($_SESSION["login"]) && $_SESSION["login"]){
+                // boton para subir fotos
+                echo "<input id='addImgBtn' type='image' src='includes/img/boton_CREAREVENTO.png' title='Subir un nuevo foto'>";
+                foreach($auxImages as $img){
+                    echo "<div>";
 
-        foreach($auxImages as $img){
-            echo "<div>";
+                    // aux img
+                    echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' width=500px >";
 
-            // aux img
-            echo "<img src='" . $auxImgDir . $img . "?random=" . rand(0, 100000) . "' width=500px >";
+                    // boton para descartar
+                    echo '<button class="deleteImgBtn" type="submit" value="'. basename($img, ".png") .'">Borrar foto</button>';
 
-            // boton para descartar
-            echo '<button class="deleteImgBtn" type="submit" value="'. basename($img, ".png") .'">Borrar foto</button>';
-
-            echo "</div>";
-        }
-        ?>
-    </div>
-
-    <div class = "col-md-5 col-12 comentarios">
-        <?php
-        ?>
-    </div>
-
-    
-
-       
-
+                    echo "</div>";
+                }
+                echo "<p>&nbsp</p><p>&nbsp</p>";
+            }
+            else{
+                echo "<p>Login o registrate para gestionar fotos.</p>";
+            }
+            ?>
+        </div>
     </div>
 </div>
 

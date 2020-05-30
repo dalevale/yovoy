@@ -66,7 +66,7 @@ class RelationManager{
                     break;
                 default:
                     $html .= '
-				    <input type="image" alt="submit" src="includes/img/AMIGO.png" title="A�adir amigo"/></form>';
+				    <input type="image" alt="submit" src="includes/img/AMIGO.png" title="Añadir amigo"/></form>';
                     break;
 		    }
 		}

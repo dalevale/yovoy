@@ -25,38 +25,37 @@
         <?php include 'includes/comun/nav.php';?>
     </header>
 	    
-    <div class = "container">
+<div class = "container">
+    <h1> Buscar un evento </h1>
+    <div id="searchbar" class="tarjeta_gris">
+        <p><input type="text" name="search" required placeholder="Busca por nombre, creador, etiqueta, capacidad o ubicación"></p>
+		<p>
+			<input type="radio" name="option" value="eventName" checked="checked"> Nombre de Evento
+			<input type="radio" name="option" value="creator"> Creador
+			<input type="radio" name="option" value="tags"> Etiqueta
+			<input type="radio" name="option" value="capacity"> Capacidad
+			<input type="radio" name="option" value="location"> Ubicacion
+		</p>
+		<p class="searchBtns">
+            <input id="searchEventBtn" type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
+            <input id="resetSearchEventBtn" type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
+		</p>
+		</div>
+    <?php
+    if(isset($_SESSION["login"]) && $_SESSION["login"]) {
+    ?>  
+        <script>
+        var html = $('<input type='+'"image"'+'src='+'"includes/img/boton_CREAREVENTO.png"'+' title='+'"Crear un nuevo evento"'+ 'onclick='+'"crearEvento();"'+'>');
+        $("#searchbar p.searchBtns").append(html);
+        </script>";
+	<?php
+    }
+    ?>
         
-        <h1> Buscar un evento </h1>
-        <div id="searchbar" class="tarjeta_gris">
-            <p><input type="text" name="search" required placeholder="Busca por nombre, creador, etiqueta, capacidad o ubicación"></p>
-		    <p>
-			    <input type="radio" name="option" value="eventName" checked="checked"> Nombre de Evento
-			    <input type="radio" name="option" value="creator"> Creador
-			    <input type="radio" name="option" value="tags"> Etiqueta
-			    <input type="radio" name="option" value="capacity"> Capacidad
-			    <input type="radio" name="option" value="location"> Ubicacion
-		    </p>
-		    <p class="searchBtns">
-                <input id="searchEventBtn" type='image' title="Buscar" alt="submit" src='includes/img/boton_BUSCAR.png'>
-                <input id="resetSearchEventBtn" type="image" name="reset" alt="reset" title="Borrar Campos" src='includes/img/boton_CLEAR.png'> 
-		    </p>
-		    </div>
-        <?php
-        if(isset($_SESSION["login"])) {
-        ?>  
-            <script>
-            var html = $('<input type='+'"image"'+'src='+'"includes/img/boton_CREAREVENTO.png"'+' title='+'"Crear un nuevo evento"'+ 'onclick='+'"crearEvento();"'+'>');
-            $("#searchbar p.searchBtns").append(html);
-            </script>";
-		<?php
-        }
-        ?>
-        
-        <div id="eventList" class = "row justify-content-between">
-        </div>
+    <div id="eventList" class = "row justify-content-between">
     </div>
-    </div>
+</div>
+</div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>

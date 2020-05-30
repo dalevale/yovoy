@@ -1,5 +1,25 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
+    
+    //DAOï¿½s
+    $userDAO = new UserDAO();
+    $eventDAO = new EventDAO();
+    $reportDAO = new ReportDAO();
+
+    //Lista de los reports
+    $reportsList = $reportDAO->getReports();
+
+    //Condiciones necesarias para ver el contenido
+    $loggedIn = isset($_SESSION["login"]) && $_SESSION["login"];
+    $adminLoggedIn = isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"];
+    
+    //Directorio de las imagenes de los usuarios
+    $userImgDir = "includes/img/users/";
+    
+    if(!$loggedIn || !$adminLoggedIn){
+        header("Location: error.php");
+        die();
+	}
 ?>
 
 <!DOCTYPE html>
@@ -14,14 +34,9 @@
     <div class= "container">
     <h1>Reports</h1>
     
-    
         <div id="reportsList" class= "friends row justify-content-between">
             <?php
-            if(isset($_SESSION["login"]))
-                $userDAO = new UserDAO();
-                $eventDAO = new EventDAO();
-                $reportDAO = new ReportDAO();
-                $reportsList = $reportDAO->getReports();
+            if($loggedIn)
                 //Mostrar reports de BBDD
                 while(sizeof($reportsList) > 0){
                     $report = array_pop($reportsList);
@@ -34,9 +49,8 @@
                     $reportText = $report->getReportText();
                     $date = date("Y-m-d g:ia", strtotime($reportDate));
                     $resolved = $report->isResolved();
-                    $imgDir = "includes/img/users/";
                     $imgName = $user->getImgName();
-                    $imgPath = $imgDir . $imgName;
+                    $imgPath = $userImgDir . $imgName;
                     if($objType == ReportDAO::USER){
                         $objId = $report->getObjUserId();
                         $objUser = $userDAO->getUser($objId);
@@ -121,7 +135,7 @@
             var str = "RESUELTO";
             if($(this).hasClass('unresolveBtn'))
                 str = "NO RESUELTO";
-            var ok = confirm("Cambiando estado del report a "+ str +". ¿Estas seguro?");
+            var ok = confirm("Cambiando estado del report a "+ str +". Â¿Estas seguro?");
             if (ok)
                 resolve($(this).val(), $(this));
         });

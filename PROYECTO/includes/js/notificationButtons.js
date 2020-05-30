@@ -17,13 +17,13 @@ function manageNotif(action, element, toUpdate) {
 				var check = element.hasClass('markAsReadBtn');
 				var before = 'markAsReadBtn';
 				var after = 'markAsNoReadBtn';
-				var altString = 'Marcar como no leído';
+				var altString = 'Marcar como no leÃ­do';
 				var imgString = 'includes/img/boton_NOLEIDO.png';
 				if (!check) {
 					var temp = before;
 					before = after;
 					after = temp;
-					var altString = 'Marcar como leído';
+					var altString = 'Marcar como leÃ­do';
 					var imgString = 'includes/img/boton_LEIDO.png';
 					toUpdate.children().eq(0).prepend('<div class="notificationLeft" id="circle"></div>');
 				}
@@ -45,21 +45,21 @@ function manageNotif(action, element, toUpdate) {
 $(document).ready(function () {
 	$("#notifStart div div.notificationRight div.notifBtns input.markAsReadBtn").click(function () {
 		var toUpdate = $(this).parent().parent().parent();
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			manageNotif('mark', $(this), toUpdate);
 	});
 
 	$("#notifStart div div.notificationRight div.notifBtns input.markAsNotReadBtn").click(function () {
 		var toUpdate = $(this).parent().parent().parent();
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			manageNotif('mark', $(this), toUpdate);
 	});
 
 	$("#notifStart div div.notificationRight div.notifBtns input.deleteNotifBtn").click(function () {
 		var toDelete = $(this).parent().parent().parent();
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			manageNotif('delete', $(this), toDelete);
 	});

@@ -41,12 +41,12 @@ class EventDAO extends DAO{
     * @param string $name               Nombre del evento
     * @param int $creator               Id del usuario TOUser
     * @param string $imgName            Nombre de la imagen en /includes/img/eventos
-    * @param Date $creationDate         Fecha de creaci�n
+    * @param Date $creationDate         Fecha de creación
     * @param Date $eventDate            Fecha del evento
     * @param int $capacity              Aforo del evento
-    * @param string $location           Ubicaci�n del evento
-    * @param string $description        Descripci�n del evento
-    * @param string $eventTagsString    Cadena de string entera de los tags separado por ',' , se usa para la edici�n del evento
+    * @param string $location           Ubicación del evento
+    * @param string $description        Descripción del evento
+    * @param string $eventTagsString    Cadena de string entera de los tags separado por ',' , se usa para la edición del evento
     * @param array $eventTagsArray      Array de string de los tags sin el caracter ','
     *
     * @return bool $eventInserted       Devuelve true si se ha insertado el evento con exito a la BBDD.
@@ -111,8 +111,8 @@ class EventDAO extends DAO{
 
     /**
     * Eliminar todos los tags de un evento en la tabla tags
-    * Se usa para la edici�n de un evento. Primero se usa esta funci�n para
-    * eliminar todos los tags y a�adirlos de nuevo.
+    * Se usa para la edición de un evento. Primero se usa esta función para
+    * eliminar todos los tags y añadirlos de nuevo.
     * 
     * @param int $eventId    Id del evento
     * @return bool $result   Devuelve true si se ha eliminado con exito los tags del evento con id $eventId
@@ -208,7 +208,7 @@ class EventDAO extends DAO{
     * @param bool $accepted     Muestran los usuarios aceptados en evento si TRUE y los pendientes si FALSE
     * @param int $eventId       Id del evento
     *
-    * @return array $attendees  Array de int de los id�s de los usuarios apuntados en dicho evento
+    * @return array $attendees  Array de int de los ids de los usuarios apuntados en dicho evento
     */
     public function getAttendees($eventId,$accepted){
         $accepted = $accepted? 1:0;
@@ -239,8 +239,8 @@ class EventDAO extends DAO{
     * @param int $id                Id del evento 
     * @param string $name           Nombre del evento
     * @param int $capacity          Capacidad del evento
-    * @param string $location       Ubicaci�n del evento
-    * @param string $description    Descripci�n del evento
+    * @param string $location       Ubicación del evento
+    * @param string $description    Descripción del evento
     * @param string $tagsStr        Cadena de string con los tags separado por ','.   
     * @param array $tags            Array de string con los tags.
     *

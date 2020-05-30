@@ -44,9 +44,9 @@ function isValidUsername(uname) {
     else if (!isLowerCase(uname))
         errMessage = "<p>Username - formato invalido! (Solo letras minusculas)</p>";
     else if (!hasPattern(uname, /^[0-9a-zA-Z]+$/))
-        errMessage = "<p>Username - formato invalido! (Solo letras y n�meros)</p>";
+        errMessage = "<p>Username - formato invalido! (Solo letras y números)</p>";
     else if (uname.length < USERNAME_LENGTH)
-        errMessage = "<p>Tamaño de username tiene que ser mas de " + (USERNAME_LENGTH + 1) + " c�racteres</p>";
+        errMessage = "<p>Tamaño de username tiene que ser mas de " + (USERNAME_LENGTH + 1) + " cáracteres</p>";
 
 
     return errMessage;
@@ -59,7 +59,7 @@ function isValidName(name) {
     else if (!isOnlyLetters(name))
         errMessage = "<p>Nombre invalido!</p>";
     else if (name.length < NAME_LENGTH)
-        errMessage = "<p>Tamaño de username tiene que ser mas de " + (NAME_LENGTH + 1) + "c�racteres</p>";
+        errMessage = "<p>Tamaño de username tiene que ser mas de " + (NAME_LENGTH + 1) + "cáracteres</p>";
 
     return errMessage;
 }

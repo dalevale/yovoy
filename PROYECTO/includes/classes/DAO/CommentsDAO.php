@@ -13,7 +13,7 @@ class CommentsDAO extends DAO {
     *
     * @param int $eventId       Id del evento con que el comentario se vincula
     * @param int $userId        Id del usuario con que el comentario se vincula
-    * @param Date $date         Fecha de creaci�n del comentario
+    * @param Date $date         Fecha de creación del comentario
     * @param string $comment    Cadena de string que pertenece al comentario
     * @return int $result      Devuelve el id del comentario si se ha insertado correctamente en la BBDD
     */

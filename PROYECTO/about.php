@@ -22,23 +22,19 @@
         <h1> SOBRE NOSOTROS </h1>
             <script>
             function ret(){
-               window.history.go(-2);
+               window.history.go(-1);
             }
             </script>
-
         </div>
-        
         <div class = "tarjeta_naranja">
         <h2> Que es YoVoy?</h2>
             <div class = "tarjeta_blanca">
                 <p> YoVoy es la primera plataforma online en la que cualquier persona puede crear, publicar y dar a conocer un evento, de manera que tenga mayor exposición que con los medios de publicidad tradicionales.
                     Además, los usuarios pueden encontrar en YoVoy, un sitio común donde encontrar planes interesantes, que, de otra manera, habrían pasado desapercibidos!
-
                 </p>
             </div>
         </div>
         <input type="image" id="image" alt="Volver" src="includes/img/boton_VOLVER.png" onclick="ret()">
-       <!--<button onclick="ret()"><img src="includes/img/boton_VOLVER.png" alt="Volver"></button>!-->
     </div>
     <footer>
         <?php include 'includes/comun/footer.php' ?>
