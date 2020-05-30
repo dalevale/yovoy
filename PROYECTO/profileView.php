@@ -114,6 +114,8 @@
 
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo '<h2>Mis Amigos: </h2>';
+				if(sizeof($friends) == 0)
+					echo '<p>Ningun amigos de momento.</p>';
 				while(sizeof($friends) > 0){
 					$friend = array_pop($friends);
 					$imgName = $friend->getImgName();
@@ -122,8 +124,6 @@
 					echo "<p><img src='".$imgPath."' width='50px' height='50px'>";
 					echo $friend->getName().'</p></a>';
 				}
-				if(sizeof($friends) == 0)
-					echo '<p>Ningun amigos de momento.</p>';
 				echo "</div>";
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo '<h2>Eventos Promocionados: </h2>';
