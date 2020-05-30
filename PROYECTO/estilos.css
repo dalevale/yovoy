@@ -4,9 +4,6 @@
     background-color: black;
 	  color: #ffffff;
     font-family: Ubuntu;
-/*  max-width: 90pc;
-    max-height: none;
-    margin:auto;*/
 }
 
 p {
@@ -18,7 +15,7 @@ h2{
     color: #ffffff;
 }
 
-h3, h1 {
+h4, h3, h1 {
   	font-size: 54px;
     font-weight: bold;
     text-shadow: 2px 2px 15px black;
@@ -74,6 +71,16 @@ div#pie{
 	padding-top: 20px;
   font-size: large;
   top: 0.5em;
+}
+
+.userFlowchart{
+  border-radius: 25px;
+  color: white;
+  background: rgb(32, 32, 32);
+  padding: 15px;
+  height: fit-content;
+  width: auto;
+  margin-top: 20px;
 }
 
 div.usuario input{
@@ -137,17 +144,6 @@ ul#eventList{
     transform: translate3d(7px, 0, 0);
   }
 }
-
-/*
-.escribir_Comentario{
-  border-radius: 25px;
-  background: #FF8000;
-  padding: 10px;
-  width: fit-content;
-  max-width: fit-content;
-  margin: 20px;
-}
-*/
 
 .miarea{
   padding: 15px;

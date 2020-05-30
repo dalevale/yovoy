@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2020 at 11:21 AM
+-- Generation Time: May 30, 2020 at 03:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -137,7 +137,12 @@ INSERT INTO `activity` (`activity_id`, `user_id`, `object_type`, `obj_user_id`, 
 (122, 23, 0, 22, NULL, '2020-05-30 17:17:54', 0),
 (123, 22, 0, 23, NULL, '2020-05-30 17:17:54', 0),
 (124, 23, 0, 14, NULL, '2020-05-30 17:17:58', 0),
-(125, 14, 0, 23, NULL, '2020-05-30 17:17:58', 0);
+(125, 14, 0, 23, NULL, '2020-05-30 17:17:58', 0),
+(126, 13, 1, NULL, 47, '2020-05-30 20:13:05', 1),
+(127, 20, 1, NULL, 48, '2020-05-30 20:27:48', 1),
+(128, 13, 1, NULL, 49, '2020-05-30 20:51:45', 1),
+(129, 20, 1, NULL, 47, '2020-05-30 20:53:42', 3),
+(130, 4, 1, NULL, 49, '2020-05-30 20:57:57', 2);
 
 -- --------------------------------------------------------
 
@@ -159,7 +164,11 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) VALUES
 (81, 2, 9, '2020-05-24 21:58:15', 'awaw'),
-(82, 2, 3, '2020-05-24 23:32:15', 'aasdasdsad');
+(82, 2, 3, '2020-05-24 23:32:15', 'aasdasdsad'),
+(84, 42, 23, '2020-05-30 12:25:21', '¡Que interesante!'),
+(85, 47, 20, '2020-05-30 14:25:54', '¡Voy a asistir seguramente!'),
+(86, 49, 3, '2020-05-30 14:55:54', '¿Pero por qué?'),
+(87, 49, 4, '2020-05-30 14:57:26', 'Porque puede');
 
 -- --------------------------------------------------------
 
@@ -193,7 +202,10 @@ INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `
 (10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30 00:00:00', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
 (11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30 00:00:00', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
 (15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30 00:00:00', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
-(42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 0, 0, '30', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.', 'Centro Comercial Principe Pio');
+(42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 30, 0, 'Centro Comercial Principe Pio', 'cafe, latte', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.'),
+(47, 'Lanzamiento de cohete SpaceX', 13, '47.png', 2, '2020-05-30', '2020-06-30 09:00:00', 100, 0, 'Madrid', 'spacex, lanzamiento, cohete', 'Un gran espectáculo para todos.'),
+(48, 'Concierto Gratis', 20, '48.png', 3, '2020-05-30', '2020-07-02 17:00:00', 25, 0, 'Puerta del Sol, Madrid', 'concierto, musica', '¡Ven a ver a este evento por favor!'),
+(49, 'La primera actualización del sistema de XÆ A-12', 13, '49.png', 1, '2020-05-30', '2020-06-06 12:00:00', 50, 0, 'Valencia', 'software, tecnologia, sistema, familia', 'Ven a ver este milagro de la vida.');
 
 -- --------------------------------------------------------
 
@@ -211,7 +223,10 @@ CREATE TABLE `event_aux_imgs` (
 --
 
 INSERT INTO `event_aux_imgs` (`event_id`, `img_id`) VALUES
-(2, 1);
+(2, 1),
+(47, 1),
+(48, 1),
+(48, 2);
 
 --
 -- Triggers `event_aux_imgs`
@@ -272,7 +287,16 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (15, ' prizes'),
 (2, 'cerveza'),
 (2, ' alcohol'),
-(42, 'c');
+(42, 'c'),
+(47, 'spacex'),
+(47, ' lanzamiento'),
+(47, ' cohete'),
+(48, 'concierto'),
+(48, ' musica'),
+(49, 'software'),
+(49, ' tecnologia'),
+(49, ' sistema'),
+(49, ' familia');
 
 -- --------------------------------------------------------
 
@@ -297,7 +321,8 @@ INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
 (2, 5, '2020-05-25 17:51:54', 1),
 (2, 6, '2020-05-23 13:48:39', 0),
 (3, 3, '2020-05-16 00:00:00', 0),
-(11, 2, '2020-05-26 23:08:58', 1);
+(11, 2, '2020-05-26 23:08:58', 1),
+(47, 20, '2020-05-30 14:53:42', 1);
 
 -- --------------------------------------------------------
 
@@ -421,7 +446,14 @@ INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `
 (329, 20, 23, NULL, 1, '2020-05-30', 0),
 (330, 21, 23, NULL, 1, '2020-05-30', 0),
 (331, 22, 23, NULL, 1, '2020-05-30', 0),
-(332, 14, 23, NULL, 1, '2020-05-30', 0);
+(332, 14, 23, NULL, 1, '2020-05-30', 0),
+(333, 2, 23, 42, 5, '2020-05-30', 0),
+(335, 13, 20, 47, 5, '2020-05-30', 0),
+(336, 20, NULL, 47, 3, '2020-05-30', 0),
+(337, 13, 3, 49, 5, '2020-05-30', 0),
+(338, 13, 4, 49, 5, '2020-05-30', 0),
+(339, 6, 4, NULL, 0, '2020-05-30', 0),
+(340, 9, 4, NULL, 0, '2020-05-30', 0);
 
 -- --------------------------------------------------------
 
@@ -441,6 +473,7 @@ CREATE TABLE `promote_event` (
 INSERT INTO `promote_event` (`user_id`, `event_id`) VALUES
 (2, 11),
 (2, 15),
+(4, 49),
 (9, 2);
 
 -- --------------------------------------------------------
@@ -464,6 +497,8 @@ INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user
 (2, 3, 1, 3),
 (2, 4, 0, 2),
 (2, 9, 1, 9),
+(4, 6, 0, 4),
+(4, 9, 0, 4),
 (13, 14, 1, 14),
 (13, 16, 1, 16),
 (13, 17, 1, 17),
@@ -677,25 +712,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=333;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=341;
 
 --
 -- AUTO_INCREMENT for table `report`

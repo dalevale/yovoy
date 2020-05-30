@@ -120,30 +120,30 @@
             
             <div id="attendeeList" class="tarjeta_gris">
                 <?php
-                    if(!count($attendees)==0){
-                        if($eventOver)
-                            echo '<p>En este evento han ido:</p>';
-                        else
-                            echo '<p>En este evento también van:</p>';
-                        for($i = 0; $i < count($attendees); $i++) {
-                            $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
-                            $joinDate = $attendees[$i]["joinDate"];
-                            $date = date("Y-m-d g:ia", strtotime($joinDate));
-                            $attendeeName = $attendee->getUsername();
-                            $attendeeId = $attendee->getUserId();
-					        $imgName = $attendee->getImgName();
-					        $imgPath = $userImgDir . $imgName;
-                            echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
-			            }
-                    }
-                    else{
-                        echo '<div class="noAttendeesMsg">';
-                            if($event->getCreator() != $currentUserId)
-                                echo '<p>Se el primero en apuntar a este evento!</p>';
+                        if(!count($attendees)==0){
+                            if($eventOver)
+                                echo '<h3>En este evento han ido:</h3>';
                             else
-                                echo '<p>Aún no hay nadie en tu evento</p>';
-                        echo '</div>';
-                    }
+                                echo '<h3>En este evento también van:</h3>';
+                            for($i = 0; $i < count($attendees); $i++) {
+                                $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
+                                $joinDate = $attendees[$i]["joinDate"];
+                                $date = date("Y-m-d g:ia", strtotime($joinDate));
+                                $attendeeName = $attendee->getUsername();
+                                $attendeeId = $attendee->getUserId();
+					            $imgName = $attendee->getImgName();
+					            $imgPath = $userImgDir . $imgName;
+                                echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
+			                }
+                        }
+                        else{
+                            echo '<div class="noAttendeesMsg">';
+                            if($event->getCreator() != $currentUserId)
+                                echo '<h3>Se el primero en apuntar a este evento!</h3>';
+                            else
+                                echo '<h3>Aún no hay nadie en tu evento</h3>';
+                            echo '</div>';
+                        }
                 ?>
             </div>
 

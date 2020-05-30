@@ -72,11 +72,16 @@
 							
 						echo "<div class = 'container'>";
 						echo "<div class = 'row'>";
-						echo "<p>Hola, " . $firstName . "!</p>";
+						echo "<div class = 'col-12'>";
+						echo "<h3>Hola, " . $firstName . "!</h3>";
+						echo "</div>";
+						echo "<div class = 'col-12'>";
 						echo "<a href='profileView.php?profileId=". $_SESSION["userId"] ."'><img src='" . $imgPath . "?random=" . rand(0, 100000) . "' alt='usuario' height='50' width='50'></a>";
 						echo "<input type='hidden' id='userId' value='".$user->getUserId()."'>";
-						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
 						echo "</div>";
+						echo "<div class = 'col-12'>";
+						echo "<a href='includes/logout.php'><input type='image' name='button' src='includes/img/boton_LOGOUT.png'></a>";
+						echo "</div></div></div>";
 					}
 				}
 			?>
