@@ -64,17 +64,6 @@
             ?>
         </div>
     </div>
-
-    <div class = "col-md-5 col-12 comentarios">
-        <?php
-        ?>
-    </div>
-
-    
-
-       
-
-    </div>
 </div>
 
 

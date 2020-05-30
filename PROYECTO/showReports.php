@@ -1,7 +1,7 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
     
-    //DAO´s
+    //DAOï¿½s
     $userDAO = new UserDAO();
     $eventDAO = new EventDAO();
     $reportDAO = new ReportDAO();
@@ -135,7 +135,7 @@
             var str = "RESUELTO";
             if($(this).hasClass('unresolveBtn'))
                 str = "NO RESUELTO";
-            var ok = confirm("Cambiando estado del report a "+ str +". ¿Estas seguro?");
+            var ok = confirm("Cambiando estado del report a "+ str +". Â¿Estas seguro?");
             if (ok)
                 resolve($(this).val(), $(this));
         });
