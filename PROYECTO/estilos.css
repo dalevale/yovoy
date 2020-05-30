@@ -366,6 +366,20 @@ textarea#newCommentText{
   margin-bottom: 15px;
 }
 
+.tarjeta_premium {
+  border-radius: 10px;
+  border: 4px;
+  background:  #fff388;
+  border-color: rgb(255, 208, 0);
+  color:black;
+  padding: 20px;
+  width: auto;
+  height: fit-content;
+  overflow:auto;
+  margin: 5px;
+  margin-bottom: 15px;
+}
+
 ul li{
   display: initial;
   font-size: large;
