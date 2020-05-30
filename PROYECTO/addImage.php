@@ -18,7 +18,7 @@
 
 <html>
 <head>
-    <title> Añadir Foto - YoVoY </title>
+	<title> Añadir Foto - YoVoY </title>
 </head>
 <body>	
 	<header>

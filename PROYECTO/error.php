@@ -17,7 +17,7 @@
     <div class = "container">
         <h1>Error</h1>
         <div class="tarjeta_gris">
-            <p>No puedes acceder esta página. Inicia sesión o registrate.</p>
+            <p>No puedes acceder esta pÃ¡gina. Inicia sesiÃ³n o registrate.</p>
         </div>
     </div>
  

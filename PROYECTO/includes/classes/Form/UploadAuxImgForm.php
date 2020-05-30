@@ -19,11 +19,12 @@ class UploadAuxImgForm extends Form {
 			</p>
 			<div>
 				<input type="image" name="submit" title="Confirmar" alt="submit" src="includes/img/boton_OK.png">
-				<input type="image" name="reset" title="Cancelar" alt="cancelar" src="includes/img/boton_CANCELAR.png">
+				<input type="image" id="cancelBtn" name="reset" title="Cancelar" alt="cancelar" src="includes/img/boton_CANCELAR.png">
 			</div>
 		<!--  <li><input type="submit" value="Registrarse"/></li>
-			<li><input type="reset" value="Borrar Campos"></li> !-->
-		</ul>
+			<li><input type="reset"  value="Borrar Campos"></li> !-->
+        </ul>
+        <script type="text/javascript" src="includes/js/imageUpload.js"></script>
 EOF;
         return $html;
     }

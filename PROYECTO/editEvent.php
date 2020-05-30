@@ -7,7 +7,7 @@
 		$html = $form->manage();
 	}
 	else
-        $html = "<p>No puedes acceder esta página. Login o registrate.</p>";
+        $html = "<p>No puedes acceder esta pÃ¡gina. Login o registrate.</p>";
 ?>
 <!DOCTYPE html>
 
