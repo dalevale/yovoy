@@ -112,24 +112,6 @@
 					echo '<p>Ningun evento de momento.</p>';
 				echo "</div>";
 
-<<<<<<< HEAD
-					$friends = $userDAO->getFriends($profileId);
-					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
-					echo '<h2>Mis Amigos: </h2>';
-					echo "<div class = 'container'>";
-					echo "<div class = 'row'>";
-					while(sizeof($friends) > 0){
-						echo "<div class = 'col-12'>";
-						$friend = array_pop($friends);
-						$imgDir = "includes/img/users/";
-						$imgName = $friend->getImgName();
-						$imgPath = $imgDir . $imgName;
-						echo '<a class= "tarjeta_blanca" href="profileView.php?profileId='.$friend->getUserId().'"><img src="'.$imgPath.'" width="50px" height="50px">';
-						echo ''.$friend->getName().'</a>';
-						echo "</div>";
-					}
-					echo "</div>";echo "</div>";echo "</div>";
-=======
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo '<h2>Mis Amigos: </h2>';
 				while(sizeof($friends) > 0){
@@ -142,8 +124,6 @@
 				if(sizeof($friends) == 0)
 					echo '<p>Ningun amigos de momento.</p>';
 				echo "</div>";
->>>>>>> 4c43a4ad711dc683fcb22dae3ff06c4e2446587e
-					
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo '<h2>Eventos Promocionados: </h2>';
 				if(count($promotedEvents) > 0){
