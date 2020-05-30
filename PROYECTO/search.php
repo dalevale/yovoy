@@ -1,9 +1,16 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
+
+    $loggedIn = isset($_SESSION["login"]) && $_SESSION["login"];
+    $adminLoggedIn = isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"];
+    if(!$loggedIn || !$adminLoggedIn){
+        header("Location: error.php");
+        die();
+	}
+        
 ?>
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,7 +19,6 @@
     <!-- FOR BOOTSTRAP POSITIONING -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- -->
     <title>BUSCAR</title>
 </head>
 <body>
@@ -24,15 +30,16 @@
         <div class = "row justify-content-between">
             <div id="searchUserAdmin" class="col-md-4 col-12 tarjeta_gris">
             <h1> Buscar un usuario </h1>
-                    <p><input id="searchUserInputAdmin" type="text" name="search" required placeholder="Nombre de usuario"></p>
-                    <p>
-                        <input type="radio" name="userOption" value="name" checked="checked"> Nombre
-                        <input type="radio" name="userOption" value="username">Nombre Usuario
-                    </p>
-                    <p class="searchBtns">
-                        <input id="searchUserBtnAdmin" type='image' title="Buscar" alt="submit" width="20%" length="20%" src='includes/img/boton_BUSCAR.png'>
-                    </p>
+                <p><input id="searchUserInputAdmin" type="text" name="search" required placeholder="Nombre de usuario"></p>
+                <p>
+                    <input type="radio" name="userOption" value="name" checked="checked"> Nombre
+                    <input type="radio" name="userOption" value="username">Nombre Usuario
+                </p>
+                <p class="searchBtns">
+                    <input id="searchUserBtnAdmin" type='image' title="Buscar" alt="submit" width="20%" length="20%" src='includes/img/boton_BUSCAR.png'>
+                </p>
             </div>
+
             <div id="searchEventAdmin" class="col-md-6 col-12 tarjeta_gris">
             <h1> Buscar un evento </h1>
                 <p><input type="text" name="search" required placeholder="Busca por nombre, creador, etiqueta, capacidad o ubicación"></p>

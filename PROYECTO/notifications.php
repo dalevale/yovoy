@@ -1,5 +1,17 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
+
+    //DAO´s
+    $eventDAO = new EventDAO();
+    $userDAO = new UserDAO();
+    $notificationsDAO = new NotificationsDAO();
+
+    //Lista de las notificaciones del usuario
+    $notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
+
+    //Condiciones necesarias para ver el contenido
+    $loggedIn = isset($_SESSION["login"]) && $_SESSION["login"];
+    $adminLoggedIn = isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"];
 ?>
 
 <!DOCTYPE html>
@@ -18,12 +30,7 @@
     <div id="notifStart" class="tarjeta_gris">
 
     <?php 
-        $eventDAO = new EventDAO();
-        $userDAO = new UserDAO();
-        $notificationsDAO = new NotificationsDAO();
         $empty = true;
-
-        $notificationsList = $notificationsDAO->getNotificationsByUser($_SESSION["userId"]);
         foreach($notificationsList as &$notification){
             $id = $notification->getId();
             $thatUser = $notification->getThatUser();
@@ -38,22 +45,17 @@
                 $username = $user->getUsername();
                 $_SESSION["thatUserId"] = $userId;
             }
-
             if($eventId != NULL){
                 $event = $eventDAO->getEvent($eventId);
                 $eventName = $event->getName();
                 $_SESSION["eventId"] = $eventId;
             }
 
-           
-            
             echo '<div class="tarjeta_blanca">';
             echo '<div class="notificationLeft">';
 
             if(!$isRead)
                 echo '<div class="notificationLeft" id="circle"></div>';
-
-            
             echo '<span>';
             echo "$date";
             echo '-----></span>';
@@ -104,7 +106,7 @@
                 break;
             }
             echo '</div>';
-            echo '</div>'; //div notificationLeft
+            echo '</div>';
             echo '<div class = "notificationRight">';
 
             echo'<div class="notifBtns">';

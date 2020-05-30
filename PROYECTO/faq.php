@@ -22,7 +22,7 @@
         <h1> PREGUNTAS FRECUENTES </h1>
             <script>
             function ret(){
-               window.history.go(-2);
+               window.history.go(-1);
             }
             </script>
 
