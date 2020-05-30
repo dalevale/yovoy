@@ -1,15 +1,17 @@
 <?php 
     require_once __DIR__.'/includes/config.php';
 
-    //TODO: check if user logged in, event exists, user made event
+	if(isset($_SESSION["login"]) && $_SESSION["login"]){
+        if(!empty($_GET))
+        	$_SESSION["eventId"] = $_GET["eventId"];
 
-
-	if(!empty($_GET))
-        $_SESSION["eventId"] = $_GET["eventId"];
-
-    $eventId = $_SESSION["eventId"];
-	$form = new UploadAuxImgForm($eventId);
-    $html = $form->manage();
+		$eventId = $_SESSION["eventId"];
+		$form = new UploadAuxImgForm($eventId);
+		$html = $form->manage();
+    }
+	else{
+        $html = "<p>Login o registrate para añadir fotos.</p>";
+    }
     
 ?>
 <!DOCTYPE html>
@@ -17,21 +19,17 @@
 <html>
 <head>
     <title> Añadir Foto - YoVoY </title>
-	<!--<script>
-		function goBack() {
-			window.location.href = "events.php";
-		}
-	</script>-->
 </head>
 <body>	
 	<header>
 		<?php include 'includes/comun/nav.php' ?>
 	</header>
-	
-	<div>	
-		<h1>Añadir Fotos de Eventos</h1>
-		<?= $html; ?>
-	</div>	
+
+	<div class = "container">
+    <h1>Añadir Fotos de Eventos</h1>
+    <div class = "tarjeta_gris">
+        <?= $html; ?>
+    </div></div>
 	<footer>
         <?php include 'includes/comun/footer.php' ?>
     </footer>

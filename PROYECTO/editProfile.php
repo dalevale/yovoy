@@ -5,7 +5,7 @@
         $html = $form->manage();
     }
     else{
-        echo "<p>Login o registrate para editar tu perfil.</p>";
+        $html = "<p>Login o registrate para editar tu perfil.</p>";
     }
 ?>
 

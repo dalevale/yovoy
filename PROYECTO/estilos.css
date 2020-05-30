@@ -420,3 +420,14 @@ div#commentsSection{
 span.editSpan{
   display:inline-block;
 }
+
+#fotos {
+  float:left;
+  padding: 50px;
+  padding-bottom: 50px;
+  border-radius: 25px;
+  background: #FF8000;
+  display: center;
+  height: fit-content;
+  margin-bottom: 50px;
+}
