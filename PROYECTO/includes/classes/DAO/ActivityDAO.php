@@ -21,7 +21,7 @@ class ActivityDAO extends DAO{
     /**
     * Meter una fila de actividad a la Base de Datos
     *
-    * @param int $userId         Id del dueño de la actividad
+    * @param int $userId         Id del dueÃ±o de la actividad
     * @param int $objType        Tipo de objeto de la actividad o USER o EVENT
     * @param int $objUserId      Si tipo USER, id de algun usuario
     * @param int $objEventId     Si tipo EVENT, id de algun evento
@@ -51,7 +51,7 @@ class ActivityDAO extends DAO{
     /**
     * Borrar una fila de actividad de la Base de Datos al borrar un evento o un usuario.
     *
-    * @param int $userId         Id del dueño de la actividad
+    * @param int $userId         Id del dueÃ±o de la actividad
     * @param int $objType        Tipo de objeto de la actividad o USER o EVENT
     * @param int $objId          Id de algun usuario/evento
     * @param int $activityType   Tipo de la actividad que occurio  
@@ -72,7 +72,7 @@ class ActivityDAO extends DAO{
     /**
     * Recoger todas las actividades de los amigos de un usuario en orden
     *
-    * @param int $userId            Id del usuario con la sesion iniciada en la aplicación
+    * @param int $userId            Id del usuario con la sesion iniciada en la aplicaciÃ³n
     *
     * @return array $activityArray  Array de tipo TOActivity de las actividades recogidas de la Base de Datos
     */
