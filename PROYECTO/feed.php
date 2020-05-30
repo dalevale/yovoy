@@ -39,12 +39,12 @@
                         $eventDate = date("Y-m-d g:ia", strtotime($date));
                         $eventImgPath =  $eventImgDir.$premiumEvent->getImgName();
                         $location = $premiumEvent->getLocation();
-                
                         echo '<a href="eventItem.php?eventId='.$eventId.'">'.$eventName.'</a>';
                         echo '<p>Creador:  '.$creatorName.'</a></p>
                              <p> Fecha: '.$eventDate.'</p>
                              <p> Lugar: '.$location.'</p>';
                         echo "<img src='" . $eventImgPath . "?random=" . rand(0, 100000) . "' alt='event' height='100%' width='100%'>";
+                        echo '</div>';
                     }
                 }
                 else{
@@ -53,6 +53,7 @@
                     echo '</div>';
                 }
             ?>
+        </div>
         </div>
     </div>
 
