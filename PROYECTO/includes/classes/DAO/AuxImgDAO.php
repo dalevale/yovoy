@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/DAO.php';
 
-class AuxImgDAO extends DAO{
+class AuxImgDAO extends DAO {
 
     public function __construct(){
         parent::__construct();
@@ -70,7 +70,5 @@ class AuxImgDAO extends DAO{
 
         return parent::executeModification($query);
     }
-
 }
-
 ?>

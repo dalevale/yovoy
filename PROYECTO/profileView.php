@@ -77,8 +77,7 @@
 
 						if(isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"]){
 							echo '<span class="editSpan">';
-							echo '<form method="POST" action="includes/deleteUser.php"><input type="hidden" name="userId" value="'.$profileId.'"/>';
-							echo '<input type="image" width="20%" height="20%" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" name="Submit" id="frm1_submit" /></form>';
+							echo '<input type="image" id="deleteUserBtn" width="80%" height="80%" alt="Eliminar" src="includes/img/boton_CANCELAR.png" title="Eliminar" value="'.$profileId.'" />';
 							echo '</span>';
 						}
 
@@ -95,9 +94,6 @@
 					}
 
 					echo "</div>";
-					
-					
-					
 					echo "</div>";
 					
 					echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";

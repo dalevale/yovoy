@@ -1,7 +1,23 @@
-function appendNewButtons(element, html) {
-	var div = element.parent();
-	div.empty();
-	div.prepend(html);
+function deleteUser(userId) {
+	var data = {
+		"userId": userId
+	};
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "includes/deleteUser.php",
+		data: data,
+		success: result => {
+			if (result != 0)
+				alert("No se puede borrar el usuario en este momento.");
+			else
+				alert("User has been deleted");
+			window.location.href = "search.php";
+		},
+		error: e => {
+			console.log(e);
+		}
+	});
 }
 
 function changeRelation(element, task) {
@@ -20,8 +36,11 @@ function changeRelation(element, task) {
 		success: result => {
 			if ((result == '') || (result == null) || (result == 0))
 				alert("Cant do action at the moment.");
-			else
-				appendNewButtons(element, result.html);
+			else {
+				var div = element.parent();
+				div.empty();
+				div.prepend(result.html);
+			}
 		},
 		error: e => {
 			console.log(e);
@@ -31,25 +50,43 @@ function changeRelation(element, task) {
 
 $(document).ready(function () {
 	$("#addFriendBtn").click(function () {
-		changeRelation($(this), 'addFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'addFriend');
 	});
 	$("#cancelAddFriendBtn").click(function () {
-		changeRelation($(this), 'cancelAddFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'cancelAddFriend');
 	});
 	$("#acceptFriendBtn").click(function () {
-		changeRelation($(this), 'acceptFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'acceptFriend');
 	});
 	$("#rejectFriendBtn").click(function () {
-		changeRelation($(this), 'rejectFriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'rejectFriend');
 	});
 	$("#unfriendBtn").click(function () {
-		changeRelation($(this), 'unfriend');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'unfriend');
 	});
 	$("#blockUserBtn").click(function () {
-		changeRelation($(this), 'blockUser');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'blockUser');
 	});
 	$("#unblockUserBtn").click(function () {
-		changeRelation($(this), 'unblockUser');
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			changeRelation($(this), 'unblockUser');
 	});
-
+	$("#deleteUserBtn").click(function () {
+		var ok = confirm("¿Estas seguro?");
+		if (ok)
+			deleteUser($(this).val());
+	});
 });

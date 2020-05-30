@@ -2,8 +2,7 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class EditEventForm extends Form
-{
+class EditEventForm extends Form {
 
     private $eventId;
     public function __construct($eventId) {
@@ -11,10 +10,9 @@ class EditEventForm extends Form
         $this->eventId = $eventId;
     }
     
-    protected function generateFormFields($data)
-    {
-        $eventId = $this->eventId;
+    protected function generateFormFields($data) {
         $eventDAO = new EventDAO();
+        $eventId = $this->eventId;
         $event = $eventDAO->getEvent($eventId);
         $eventName = $event->getName();
         $eventLocation = $event->getLocation();
@@ -50,8 +48,7 @@ EOF;
     }
     
 
-    protected function processForm($data)
-    {
+    protected function processForm($data) {
         //Conectamos a BBDD
         $eventDAO = new EventDAO();
         $eventId = $this->eventId;
@@ -74,28 +71,23 @@ EOF;
 
         $eventName = isset($data['eventName']) ? $data['eventName'] : null;
                 
-        if ( empty($eventName) ) {
+        if (empty($eventName)) 
             $result[] = "El nombre del evento no puede estar vacío";
-        }
 
         $eventDate = isset($data['eventDate']) ? $data['eventDate'] : null;
                 
-        if ( empty($eventDate) ) {
+        if (empty($eventDate)) 
             $result[] = "La fecha del evento no puede estar vacío";
-        }
       
         $eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : null;
                 
-        if ( empty($eventLocation) ) {
+        if (empty($eventLocation)) 
             $result[] = "La ubicación del evento no puede estar vacío";
-        }
-        
+
         $maxAssistants = isset($data['maxAssistants']) ? $data['maxAssistants'] : null;
                 
-        if ( empty($maxAssistants) ) {
+        if (empty($maxAssistants)) 
             $result[] = "Numero afóro del evento no puede estar vacío";
-        }
-        
         $changeImg = isset($data['imgChoice']) && $data['imgChoice'] !="noChange";
 
         if ($changeImg){
@@ -104,17 +96,14 @@ EOF;
 
             // Si la foto anterior no es default.jpg, borrarla
             $currImgName = $event->getImgName();
-            if ($currImgName != $defaultImgName){
+            if ($currImgName != $defaultImgName)
                 unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $currImgName);
-            }
 
-			if ($data['imgChoice'] == "defaultImg"){
+			if ($data['imgChoice'] == "defaultImg")
 				$imgName = $defaultImgName;
-			}
-			else{
+			else {
 				// Si hay una foto subida por el usuario, cambiarlo
 				if (!empty($_FILES['img']['name'])){
-					
 					$imgName = $eventId . ".png";
 					
 					// Conseguir la dirección en que se guarda la foto subida
@@ -122,23 +111,20 @@ EOF;
 					
 					if ($imgName != $defaultImgName){
 						// Mover la foto al directorio especificada en $targetDir
-						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
+						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath))
 							$result[] = "Error: Se produjo un error al subir su foto.";
-						}
 					}
 				}
-				else{
+				else
 					$result[] = "Error: No hay ninguna foto subida.";
-				}
 			}
 		}
 
         if (count($result) === 0) {
-            if(!$changeImg){ 
+            if(!$changeImg)
 				$imgName = $event->getImgName();
-            }
-            
             $result = array();
+
             //Actualizar el evento en la BBDD
             if($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsStr, $eventTags, $imgName)){
                 $notificationsDAO = new NotificationsDAO();
@@ -150,12 +136,10 @@ EOF;
                     $notificationsDAO->notify(NotificationsDAO::EVENT_EDITED, $user, 'NULL', $this->eventId);
                     $user = array_pop($attendees);
                 }
-               
                 $result = "eventItem.php?eventId=".$eventId;
             }
-            else {
+            else 
                 $result[] = "¡Error al editar el evento! Consulta un administrador.";
-			}
         }
         return $result;
     }

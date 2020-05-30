@@ -8,14 +8,14 @@ require_once __DIR__.'/config.php';
     $eventId = $_POST["eventId"];
 
     if(!$userDAO->isPromoting($userId, $eventId)){
-         $userDAO->promote($userId, $eventId);
+         $result = $userDAO->promote($userId, $eventId);
          $activityDAO->addActivity($userId, ActivityDAO::EVENT, 'null', $eventId, ActivityDAO::PROMOTED_EVENT);
 	}
     else {
-        $userDAO->unpromote($userId, $eventId);
-         $activityDAO->removeActivityByObject($userId, ActivityDAO::EVENT, $eventId, ActivityDAO::PROMOTED_EVENT);
+        $result = $userDAO->unpromote($userId, $eventId);
+        $activityDAO->removeActivityByObject($userId, ActivityDAO::EVENT, $eventId, ActivityDAO::PROMOTED_EVENT);
 	}
 
-    echo 0;
+    echo $result;
 
    

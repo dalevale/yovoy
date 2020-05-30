@@ -43,32 +43,32 @@ class RelationManager{
                 <input type="image" src="includes/img/boton_BLOQUEAR.png" width="40%" length="40%" id="blockUserBtn" type ="button" alt="Bloquear Usuario" title="Bloquear usuario" value="'.$this->userTwoId.'">';
 		}
         else {
-        switch($this->status){
-            case self::USERONEADD:
-                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Cancelar Solicitud" title="Cancelar Solicitud" id="cancelAddFriendBtn"  value="'.$this->userTwoId.'">';
-                break;
-            case self::USERTWOADD:
-                $html .= '<p>Aceptar amigo?</p><input type="image" src="includes/img/boton_OK.png" alt="Aceptar Solicitud" title="Aceptar Solicitud" width="40%" length="40%" id="acceptFriendBtn" value="'.$this->userTwoId.'">
-                <input type="image" src="includes/img/boton_CANCELAR.png" alt="Rechazar Solicitud" title="Rechazar Solicitud" width="40%" length="40%" id="rejectFriendBtn" value="'.$this->userTwoId.'">';
-                break;
-            case self::USERONEACCEPT:
-                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
-                break;
-            case self::USERTWOACCEPT:
-                $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
-                break;
-            case self::USERONEBLOCK:
-                $html .= '<p>YOU BLOCKED THIS USER</p>
-                <input type="image" src="includes/img/boton_DESBLOQUEAR.png" id="unblockUserBtn" alt="Desbloquear" title="Desbloquear" width="40%" length="40%" value="'.$this->userTwoId.'">';
-                break;
-            case self::USERTWOBLOCK:
-                $html .= '<p>THIS USER BLOCKED YOU</p>';
-                break;
-            default:
-                $html .= '
-				<input type="image" alt="submit" src="includes/img/AMIGO.png" title="A�adir amigo"/></form>';
-                break;
-		}
+            switch($this->status){
+                case self::USERONEADD:
+                    $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Cancelar Solicitud" title="Cancelar Solicitud" id="cancelAddFriendBtn"  value="'.$this->userTwoId.'">';
+                    break;
+                case self::USERTWOADD:
+                    $html .= '<p>Aceptar amigo?</p><input type="image" src="includes/img/boton_OK.png" alt="Aceptar Solicitud" title="Aceptar Solicitud" width="40%" length="40%" id="acceptFriendBtn" value="'.$this->userTwoId.'">
+                    <input type="image" src="includes/img/boton_CANCELAR.png" alt="Rechazar Solicitud" title="Rechazar Solicitud" width="40%" length="40%" id="rejectFriendBtn" value="'.$this->userTwoId.'">';
+                    break;
+                case self::USERONEACCEPT:
+                    $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
+                    break;
+                case self::USERTWOACCEPT:
+                    $html .= '<input type="image" src="includes/img/boton_QUITARAMIGO.png" width="40%" length="40%" alt="Quitar Amigo" title="Quitar Amigo" id="unfriendBtn" value="'.$this->userTwoId.'">';
+                    break;
+                case self::USERONEBLOCK:
+                    $html .= '<p>YOU BLOCKED THIS USER</p>
+                    <input type="image" src="includes/img/boton_DESBLOQUEAR.png" id="unblockUserBtn" alt="Desbloquear" title="Desbloquear" width="40%" length="40%" value="'.$this->userTwoId.'">';
+                    break;
+                case self::USERTWOBLOCK:
+                    $html .= '<p>THIS USER BLOCKED YOU</p>';
+                    break;
+                default:
+                    $html .= '
+				    <input type="image" alt="submit" src="includes/img/AMIGO.png" title="A�adir amigo"/></form>';
+                    break;
+		    }
 		}
         return $html;
 	}

@@ -1,6 +1,7 @@
 function searchUser(username) {
 	var data = {
-		"username": username
+		"searchVal": username,
+		"filter" : "username"
 	}
 	$.ajax({
 		type: "POST",
@@ -8,8 +9,10 @@ function searchUser(username) {
 		url: "includes/searchUser.php",
 		data: data,
 		success: data => {
-			if (data.length == 0)
-				alert("Cant delete this comment at the moment.");
+			if (data.length == 0) {
+				var newList = $('<div class="searchList tarjeta_blanca"><p>Este usuario no existe.</p></div>');
+				$("#searchUser").append(newList);
+			}
 			else {
 				$("#searchUser div.searchList").remove();
 				var newList = $('<div class="searchList tarjeta_blanca"></div>');
@@ -24,7 +27,6 @@ function searchUser(username) {
 				}
 				$("#searchUser").append(newList);
 			}
-				
 		},
 		error: e => {
 			console.log(e);
@@ -41,9 +43,8 @@ $(document).ready(function () {
             searchUser(username);
         }
         else {
-            var errDiv = $('<div class="err"><p>' + errMessage + '</p></div>');
+            var errDiv = $('<div class="err tarjeta_blanca"><p>' + errMessage + '</p></div>');
             $("#searchUser").append(errDiv);
         }
     });
-
 });

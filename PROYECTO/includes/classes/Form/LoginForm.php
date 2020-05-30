@@ -2,18 +2,16 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class LoginForm extends Form
-{
+class LoginForm extends Form {
     public function __construct() {
         parent::__construct('loginForm');
     }
     
-    protected function generateFormFields($data)
-    {
+    protected function generateFormFields($data) {
         $email = '';
-        if ($data) {
+        if ($data) 
             $email = isset($data['email']) ? $data['email'] : $email;
-        }
+
         $html = <<<EOF
         
         <ul class="tarjeta_gris">
@@ -22,28 +20,26 @@ class LoginForm extends Form
             <div><input type="image" id="loginSubmit" alt="submit" src="includes/img/boton_LOGIN.png"></div>
         </ul>
         <script type="text/javascript" src="includes/js/validateLogin.js"></script>
-
 EOF;
         return $html;
     }
     
 
-    protected function processForm($data)
-    {
+    protected function processForm($data) {
         //Conectamos a BBDD
         $userDAO = new UserDAO();
         $result = array();
         
         //Validación campo email rellenado
         $email = isset($data['email']) ? $data['email'] : null;
-        if ( empty($email) ) {
+        if (empty($email)) 
             $result[] = "El nombre de usuario no puede estar vacío";
-        }
+
         //Validación campo contraseña rellenado
         $password = isset($data['password']) ? $data['password'] : null;
-        if ( empty($password) ) {
+        if (empty($password))
             $result[] = "El password no puede estar vacío.";
-        }
+        
         //Obtenemos credenciales desde BBDD
         if ($userDAO->userExists($email)) {
             $userId = $userDAO->getId($email);

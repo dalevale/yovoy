@@ -2,14 +2,12 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class ReportForm extends Form
-{
+class ReportForm extends Form {
     public function __construct() {
         parent::__construct('reportForm');
     }
     
-    protected function generateFormFields($data)
-    {
+    protected function generateFormFields($data) {
         if ($data) {
         }
         $_SESSION["reportUserId"] = isset($_GET["userId"]) ? $_GET["userId"] : null;
@@ -33,10 +31,8 @@ EOF;
         $success = false;
 
         $reportText = isset($data['report']) ? $data['report'] : null;
-                
-        if ( empty($reportText) ) {
+        if (empty($reportText))
             $result[] = "El mensaje no puede estar vacio!";
-        }
 
         if (count($result) === 0) {
             //Conectamos a BBDD
@@ -58,17 +54,13 @@ EOF;
 		    }
 
             $result = array();
-	        if ($reportDAO->addReport($userId, $objType, $objUserId, $objEventId, ReportDAO::UNRESOLVED, $reportText) != false) {
+	        if ($reportDAO->addReport($userId, $objType, $objUserId, $objEventId, ReportDAO::UNRESOLVED, $reportText) != false) 
                 $success = true;
-            }
-            else {
-                $result[] = $reportText;//"Error en crear evento! Consulta un administrador.";
-			}
+            else 
+                $result[] = $reportText;
         }
-
-        if ($success){
+        if ($success)
             $result = $return;
-        }
 
         return $result;
     }

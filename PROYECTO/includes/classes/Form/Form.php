@@ -6,8 +6,7 @@
  *
  * Además de la gestión básica de los formularios.
  */
-abstract class Form
-{
+abstract class Form {
 
     /**
      * @var string Cadena utilizada como valor del atributo "id" de la etiqueta &lt;form&gt; asociada al formulario y 
@@ -67,18 +66,36 @@ abstract class Form
      */
     public function manage()
     {   
-     
+        
+        
         if ( ! $this->formSent($_POST) ) {
             return $this->generateForm();
         } 
         else {
-        
             $result = $this->processForm($_POST);
             if ( is_array($result) ) {
                 return $this->generateForm($result, $_POST);
             } else {
-            
-                header('Location: '.$result);
+                if($this->formId == 'registerForm')
+                    $str = 'Se ha creado la cuenta correctamente. Inicia sesión con la nueva cuenta.';
+                else if($this->formId == 'newEventForm')
+                    $str = 'Se ha creado el evento correctamente.';
+                else if($this->formId == 'editEventForm')
+                    $str = 'Se ha editado el evento correctamente.';
+                else if($this->formId == 'editProfileForm')
+                    $str = 'Se ha editado el perfil correctamente.';
+                else if($this->formId == 'reportForm')
+                    $str = 'Se ha mandado el report al admin correctamente.';
+                else if($this->formId == 'reportForm')
+                    $str = 'Se ha hecho el cambio correctamente.';
+                if(isset($str)){
+                    echo'<script type="text/javascript">
+		            alert("'.$str.'");
+		            window.location.href = "'.$result.'";
+                    </script>';
+				}
+                else
+                    header('Location: '.$result);
                 exit();
             }
         }  

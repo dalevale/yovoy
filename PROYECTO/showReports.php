@@ -90,23 +90,26 @@
 		url: "includes/resolveReport.php",
 		data: data,
 		success: data => {
-			var check = toChange.hasClass('resolveBtn');
-			var before = 'resolveBtn';
-			var after = 'unresolveBtn';
-			var imgString = 'boton_CANCELAR.png';
-			var altString = 'No Resolver';
-			if (!check) {
-				var temp = before;
-				before = after;
-				after = temp;
-				var imgString = 'boton_RESOLVE.png';
-			    var altString = 'Resolver';
+            if(data == 0)
+                alert("No se puede resolver el report en este momento.");
+            else {			    var check = toChange.hasClass('resolveBtn');
+			    var before = 'resolveBtn';
+			    var after = 'unresolveBtn';
+			    var imgString = 'boton_CANCELAR.png';
+			    var altString = 'No Resolver';
+			    if (!check) {
+				    var temp = before;
+				    before = after;
+				    after = temp;
+				    var imgString = 'boton_RESOLVE.png';
+			        var altString = 'Resolver';
+			    }
+			    toChange.removeClass(before);
+			    toChange.addClass(after);
+			    toChange.attr("src", "includes/img/" + imgString);
+			    toChange.attr("alt", altString);
+			    toChange.attr("title", altString);
 			}
-			toChange.removeClass(before);
-			toChange.addClass(after);
-			toChange.attr("src", "includes/img/" + imgString);
-			toChange.attr("alt", altString);
-			toChange.attr("title", altString);
 		},
 		error: e => {
 			console.log(e);
@@ -115,7 +118,12 @@
 }
     $(document).ready(function(){
         $("#reportsList div.reports div.reportText div.resolveBtns p input").click(function(){
-            resolve($(this).val(), $(this));
+            var str = "RESUELTO";
+            if($(this).hasClass('unresolveBtn'))
+                str = "NO RESUELTO";
+            var ok = confirm("Cambiando estado del report a "+ str +". ¿Estas seguro?");
+            if (ok)
+                resolve($(this).val(), $(this));
         });
 	});
     </script>

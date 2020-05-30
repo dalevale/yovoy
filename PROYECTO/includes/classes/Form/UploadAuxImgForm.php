@@ -2,16 +2,14 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class UploadAuxImgForm extends Form
-{
+class UploadAuxImgForm extends Form {
     private $eventId;
     public function __construct($eventId) {
         parent::__construct('uploadAuxImgForm');
         $this->eventId = $eventId;
     }
     
-    protected function generateFormFields($data)
-    {
+    protected function generateFormFields($data) {
 		$eventId = $this->eventId;
 		
         $html = <<<EOF
@@ -31,20 +29,17 @@ EOF;
     }
     
 
-    protected function processForm($data)
-    {
+    protected function processForm($data) {
         //INICIAMOS CONEXIÓN CON MYSQL
         $auxImgDAO = new AuxImgDAO();
-
         $eventId = $this->eventId;
         $result = array();
 
         //Directorio de fotos auxiliares
         $targetDir = "/Yovoy/Proyecto/includes/img/events_aux/";
 
-        if (empty($_FILES['img']['name'])){
+        if (empty($_FILES['img']['name']))
             $result[] = "Error: No hay ninguna foto subida.";
-        }
         else{
             //Llamar el DAO para conseguir el nombre de foto subida
             $imgName = $auxImgDAO->getNextImgName($eventId);
@@ -53,19 +48,16 @@ EOF;
             $targetFilePath = $_SERVER['DOCUMENT_ROOT'] . $targetDir . $imgName;
 
             // Mover la foto al directorio especificada en $targetDir
-            if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
+            if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath))
                 $result[] = "Error: Se produjo un error al subir su foto.";
-            }
         }
 
         if (count($result) == 0) {			
 			//Actualizar la BBDD
-			if ($auxImgDAO->addImg($eventId) === FALSE){
+			if ($auxImgDAO->addImg($eventId) === FALSE)
 				$result[] = "Error: Se produjó un error al actualizar la base de datos.";
-			}
-			else{
+			else
 				$result='manageAuxImg.php';
-			}
         }
         return $result;
     }

@@ -5,11 +5,10 @@ require_once __DIR__.'/config.php';
     $notificationsDAO = new NotificationsDAO();
     $eventDAO = new EventDAO();
     $userDAO = new UserDAO();
-    $function = $_POST["function"];
+    $action = $_POST["action"];
     
-
     if(isset($_SESSION["userId"]) && $_SESSION["userId"]){
-        if($function == "submit"){
+        if($action == "submit"){
         
             $eventId = $_POST["eventId"];
             $comment = $_POST["commentText"];
@@ -27,7 +26,7 @@ require_once __DIR__.'/config.php';
             $arr = array ('userId'=> $userId, 'username'=> $username,'id'=> $commentId);
             echo json_encode($arr);
 		}
-        else if ($function == "delete"){
+        else if ($action == "delete"){
             $commentId = $_POST["commentId"];
             $result = $commentsDAO->deleteComment($commentId);
             echo $result;

@@ -29,7 +29,6 @@ require_once __DIR__.'/config.php';
 		);
         array_push($dataArray, $eventJson);
 	}
-
     echo json_encode($dataArray);
 
 ?>

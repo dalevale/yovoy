@@ -18,7 +18,8 @@ class UserDAO extends DAO{
     * @param string $imgName        Nombre de la imagen en /includes/img/usuarios  
     * @param Date $creationDate     Fecha del evento
     * @param int $type              Tipo del usuario (Admin, Normal, Premium)
-    * @return bool $result          Devuelve true si se ha insertado el user en la BBDD con exito.
+    *
+    * @return int $result          Devuelve el id si se ha insertado el user en la BBDD con exito.
     */
     public function registerUser($email, $password, $username, $name, $imgName, $creationDate, $type){        
         //VALORES A INSERTAR EN LA BBDD
@@ -42,6 +43,7 @@ class UserDAO extends DAO{
     * Se usa para despu�s recoger el objeto TOUser con el Id recogido.
     *
     * @param string $email  Email del usuario
+    *
     * @return int $result   Devuelve el identificador del usuario
     */
     public function getId($email){
@@ -57,6 +59,7 @@ class UserDAO extends DAO{
     * integrado por el usuario. Para verificar existencia de su cuenta en la BBDD.
     * 
     * @param string $email          Email del usuario
+    *
     * @return bool $emailExists     Devuelve true si se encuentra la fila en la BBDD.
     */
     public function userExists($email){
@@ -72,6 +75,7 @@ class UserDAO extends DAO{
     * Devolver un objeto TOUser tras un query a la BBDD.
     *
     * @param int $userId       Id del evento
+    *
     * @return TOUser $user     Objeto TOUser creado con los datos desde la BBDD
     */
     public function getUser($userId){
@@ -254,6 +258,13 @@ class UserDAO extends DAO{
         return $requests;
     }
 
+    /**
+    * Función para buscar un usuario con su name o Username
+    *
+    * @param string $filter     Filtros aplicados en la busqueda
+    *
+    * @return Array $userArray  Array de objeto TOUser cuyo nombre coincide con la busqueda
+    */
     public function searchUser($filter, $searchVal){
     if($filter == "name")
         $loginUserQuery = "SELECT * FROM user WHERE name = '$searchVal'";
@@ -272,25 +283,48 @@ class UserDAO extends DAO{
             $email= $data["email"];
             $imgName= $data["img_name"];
             $type= $data["type"];
-    
             array_push($userArray, new TOUser($userId, $username, $password, $creationDate, $name, $email, $imgName, $type));
         }
-
         return $userArray;
     }
 
+    /**
+    * Función para añadir una fila en la tabla "promote_event"
+    * Se usa cuando un usuario promociona un evento
+    *
+    * @param int $userId    Id del usuario
+    * @param int $eventId   Id del evento
+    *
+    * @return int $num      Numero de fila añadida en la Base de Datos
+    */
     public function promote($userId, $eventId){
         $query = "INSERT INTO promote_event VALUES ('".$userId."', '".$eventId."');";
-
-        return parent::executeInsert($query);
+        return parent::executeModification($query);
 	}
 
+    /**
+    * Función para eliminar una fila en la tabla "promote_event"
+    * Se usa cuando un usuario despromociona un evento
+    *
+    * @param int $userId    Id del usuario
+    * @param int $eventId   Id del evento
+    *
+    * @return int $num      Numero de filas modificadas en la Base de Datos
+    */
     public function unpromote($userId, $eventId){
         $query = "DELETE FROM promote_event WHERE user_id = '".$userId."' AND event_id = '".$eventId."';";
 
-        return parent::executeInsert($query);
+        return parent::executeModification($query);
 	}
 
+    /**
+    * Función para comprobar una fila en la tabla "promote_event"
+    *
+    * @param int $userId    Id del usuario
+    * @param int $eventId   Id del evento
+    *
+    * @return bool $existe  Booleano, devuelve true si existe la fila, false si no
+    */
     public function isPromoting($userId, $eventId){
         $eventQuery = "SELECT * FROM promote_event WHERE user_id = ".$userId." AND event_id = ".$eventId.";";
 
@@ -299,7 +333,14 @@ class UserDAO extends DAO{
 
         return !empty($data["event_id"]);
     }
-
+    
+    /**
+    * Función para recoger los eventos promocionados por un usuario
+    *
+    * @param int $userId            Id del usuario
+    *
+    * @return array $eventArray     Array de objeto TOEvent de eventos promocionados por el usuario
+    */
     public function getPromotedEvents($userId){
         $eventQuery = "SELECT e.event_id, name, creator, img_name, creation_date, event_date, capacity, location, tags, description
         FROM event e JOIN promote_event pe WHERE pe.user_id = ".$userId." AND pe.event_id = e.event_id;";
@@ -324,7 +365,6 @@ class UserDAO extends DAO{
         return $eventArray;
 	}
 
-    
     /**
     * Insertar una fila en la BBDD en la tabla relationship para establecer relaci�n
     * entre dos cuentas de usuario con id�s $userOneId y $userTwoId
@@ -342,7 +382,7 @@ class UserDAO extends DAO{
                 ."".$status.","
                 ."'".$action_user_id."'";
         $query = "INSERT INTO relationship (user_one_id, user_two_id, status, action_user_id) VALUES (".$queryValues.")";
-        $result = parent::executeInsert($query);
+        $result = parent::executeModification($query);
 
         return $result;
 	}
@@ -385,11 +425,27 @@ class UserDAO extends DAO{
         return $ret;
     }
 
-    public function deleteUser($id){
-        $query = "DELETE FROM user WHERE user_id = '$id'";
+    /*
+    * Función para eliminar una cuenta de usuario
+    *
+    * @param int $userId    Id del usuario a eliminar
+    *
+    * @return int $num      Numero de filas eliminadas en la Base de Datos
+    */
+    public function deleteUser($userId){
+        $query = "DELETE FROM user WHERE user_id = '$userId'";
         return parent::executeModification($query);
     }
 
+    /**
+    * Función para comprobar la colision entre los eventos donde el usuario esta apuntado
+    * Se usa para comprobar que no hay ningun otro evento en la misma fecha y hora donde un usuario se apunta
+    *
+    * @param int $userId        Id del usuario
+    * @param date $timestamp    Fecha y hora a comprobar
+    *
+    * @return bool $valido  Devuelve true si no tiene evento en la fecha y hora indicada, false si el contrario
+    */
     public function hasEventInSameHour($userId, $timestamp){
         $query = "SELECT user_id FROM join_event JOIN event 
                   WHERE user_id='$userId' AND join_event.event_id = event.event_id AND event_date = '$timestamp'";

@@ -8,8 +8,7 @@ class NewEventForm extends Form
         parent::__construct('newEventForm');
     }
     
-    protected function generateFormFields($data)
-    {
+    protected function generateFormFields($data) {
         if ($data) {
         }
         $html = <<<EOF
@@ -32,10 +31,6 @@ class NewEventForm extends Form
 	    </div>
         <script type="text/javascript" src="includes/js/validateNewEvent.js"></script>
 EOF;
-        //TODO: NO FUNCIONA EL RESET DEL FORMULARIO!!!
-    /*<button type="submit"> Enviar </button>
-	  <button type="reset"> Borrar Campos </button>
-	  <button type="text" onClick="goBack()"> Cancelar </button>*/
         return $html;
     }
     
@@ -57,95 +52,66 @@ EOF;
 
         $eventName = isset($data['eventName']) ? $data['eventName'] : null;
                 
-        if ( empty($eventName) ) {
+        if (empty($eventName))
             $result[] = "El nombre del evento no puede estar vacío";
-        }
+        
 
         $eventDate = isset($data['eventDate']) ? $data['eventDate'] : null;
-                
-        if ( empty($eventDate) ) {
+        if (empty($eventDate))
             $result[] = "La fecha del evento no puede estar vacío";
-        }
 
         $eventHour = isset($data['eventHour']) ? $data['eventHour'] : null;
-                
-        if ( empty($eventHour) ) {
+        if (empty($eventHour))
             $result[] = "La hora del evento no puede estar vacío";
-        }
 
         $eventDate = $eventDate . ' ' . $eventHour;
       
         $eventLocation = isset($data['eventLocation']) ? $data['eventLocation'] : null;
-                
-        if ( empty($eventLocation) ) {
+        if (empty($eventLocation))
             $result[] = "La ubicación del evento no puede estar vacío";
-        }
         
         $maxAssistants = isset($data['maxAssistants']) ? $data['maxAssistants'] : null;
-                
-        if ( empty($maxAssistants) ) {
+        if (empty($maxAssistants))
             $result[] = "Numero afóro del evento no puede estar vacío";
-        }    
         
         // Si no hay un foto subido por el usuario, se usa default-event.jpg
 		$imgName = "default-event.png";
-		
-        
-
         if (count($result) === 0) {
             //Conectamos a BBDD
-            
             $userDAO = new UserDAO();
             $eventDAO = new EventDAO();
             $activityDAO = new ActivityDAO();
             $notificationsDAO = new NotificationsDAO();
-
             $result = array();
             //Añadir el evento a la BBDD
 	        if ($eventDAO->registerEvent($eventName, $creator, $imgName, $creationDate, $eventDate, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray) === true) {
                 $_SESSION["eventCreated"] = true;
                 $eventId = $eventDAO->getLastEvent();
-                
                 $activityDAO->addActivity($_SESSION["userId"], ActivityDAO::EVENT, 'null', $eventId, ActivityDAO::NEW_EVENT);
-                /*$friends = $userDAO->getFriends($creator);
-                $user = array_pop($friends);
-
-                while(!empty($user)){
-                    $notificationsDAO->notify(NotificationsDAO::HAS_NEW_EVENT, $user->getUserId(), $creator, $eventId);
-                    $user = array_pop($friends);
-                }*/
-
                 $success = true;
             }
-            else {
+            else 
                 $result[] = "Error en crear evento! Consulta un administrador.";
-			}
         }
 
         if (count($result) == 0 && !empty($_FILES["img"]["name"])){
             $success = false;
-
 			$targetDir = "/Yovoy/Proyecto/includes/img/events/";
 			$imgName = $eventId . ".png";
 			$targetFilePath = $_SERVER["DOCUMENT_ROOT"] . $targetDir . $imgName;
 		
 			// Mover el foto al directorio de fotos de usuarios
-			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath)){
+			if (!move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
 				$result[] = "Error: Se produjo un error al subir su foto";
-            }
-            else if ($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray, $imgName)){
+            else if ($eventDAO->updateEvent($eventId, $eventName, $maxAssistants, $eventLocation, $text, $eventTagsString, $eventTagsArray, $imgName))
                 $success = true;
-            }
-            else{
+            else
                 $result[] = "Error: Se produjo un error al subir su foto. ";
-            }
         }
-
         if ($success){
             $newEventId = $eventDAO->getLastEvent();
             $result = "eventItem.php?eventId=$newEventId";
         }
-
         return $result;
     }
 }

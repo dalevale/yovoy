@@ -2,18 +2,16 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class EditProfileForm extends Form
-{
+class EditProfileForm extends Form {
     private $userId;
     public function __construct($userId) {
         parent::__construct('editProfileForm');
         $this->userId = $userId;
     }
     
-    protected function generateFormFields($data)
-    {
-		$userId = $this->userId;
+    protected function generateFormFields($data) {
         $userDAO = new UserDAO();
+		$userId = $this->userId;
         $user = $userDAO->getUser($userId);
         $name = $user->getName();
 		
@@ -47,17 +45,14 @@ EOF;
     }
     
 
-    protected function processForm($data)
-    {
+    protected function processForm($data) {
 		//INICIAMOS CONEXIÓN CON MYSQL
 		$userDAO = new UserDAO();
 		$userId = $this->userId;
 		$user = $userDAO->getUser($userId);
 
         $result = array();
-        
 		$name = isset($data['name']) ? htmlspecialchars(trim(strip_tags($data['name']))) : null;
-		
 		$changeImg = isset($data['imgChoice']) && $data['imgChoice'] !="noChange";
 		$changePass = isset($data['passChoice']) && htmlspecialchars(trim(strip_tags($data['passChoice']))) != "noChange";
 		
@@ -68,9 +63,8 @@ EOF;
 			// Si la foto anterior no es default.jpg, conseguir su nombre
 			$prevImgName = $user->getImgName();
 
-			if ($data['imgChoice'] == "defaultImg"){
+			if ($data['imgChoice'] == "defaultImg")
 				$imgName = $defaultImgName;
-			}
 			else{
 				// Si hay una foto subida por el usuario, cambiarlo
 				if (!empty($_FILES['img']['name'])){
@@ -81,14 +75,12 @@ EOF;
 					
 					if ($imgName != $defaultImgName){
 						// Mover la foto al directorio especificada en $targetDir
-						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath)){
+						if (!move_uploaded_file($_FILES['img']['tmp_name'], $targetFilePath))
 							$result[] = "Error: Se produjo un error al subir su foto.";
-						}
 					}
 				}
-				else{
+				else
 					$result[] = "Error: No hay ninguna foto subida.";
-				}
 			}
 		}
 
@@ -99,39 +91,29 @@ EOF;
 			$newPassConfirm = isset($data['newPassConfirm']) ? $data['newPassConfirm'] : null;
 
 			// Comprobar las contraseñas
-			if ($currPass != $currPassConfirm){
+			if ($currPass != $currPassConfirm)
 				$result[] = "Error: Asegura que las contraseñas actuales sean iguales";
-			}
-			else if ($newPass != $newPassConfirm){
+			else if ($newPass != $newPassConfirm)
 				$result[] = "Error: Asegura que las contraseñas nuevas sean iguales";
-			}
-			else if (!$user->comparePassword($currPass)){
+			else if (!$user->comparePassword($currPass))
 				$result[] = "Error: Contraseña actual incorrecta";
-			}
-			else{
+			else
 				$password = $newPass;
-			}
 		}
 
         if (count($result) == 0) {
-			if(!$changeImg){
+			if(!$changeImg)
 				$imgName = $user->getImgName();
-			}
-
-			if(!$changePass){
+			if(!$changePass)
 				$password = null;
-			}
 			
 			//Actualizar la BBDD
-			if (!$userDAO->updateUser($userId, $password, $name, $imgName)){
+			if (!$userDAO->updateUser($userId, $password, $name, $imgName))
 				$result[] = "Error: Se produjó un error al actualizar la base de datos.";
-			}
 			else{
 				// Si la foto anterior no es default.jpg, borrarla
-				if ($changeImg && $prevImgName != $defaultImgName && $imgName == $defaultImgName){
+				if ($changeImg && $prevImgName != $defaultImgName && $imgName == $defaultImgName)
 					unlink ($_SERVER['DOCUMENT_ROOT'] . $targetDir . $prevImgName);
-				}
-
 				$result='editProfile.php';
 			}
         }
