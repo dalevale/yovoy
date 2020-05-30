@@ -10,7 +10,7 @@
 		$html = $form->manage();
     }
 	else{
-        $html = "<p>Login o registrate para añadir fotos.</p>";
+        $html = "<p>No puedes acceder esta página. Login o registrate.</p>";
     }
     
 ?>

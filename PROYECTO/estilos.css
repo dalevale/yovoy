@@ -191,18 +191,18 @@ ul#eventList{
   margin: 30px;
 }
 
-.nombreEvento {
-    float: left;
-    font-weight: bold;
-    border-radius: 10px;
-    background: white;
-    color: black;
-    padding: 12px;
-    margin-right: 10px;
-    max-width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.nombreEvento{
+  float: left;
+  font-weight: bold;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  padding: 12px;
+  margin-right: 10px;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .eventos a{
@@ -421,15 +421,4 @@ div#commentsSection{
 
 span.editSpan{
   display:inline-block;
-}
-
-#fotos {
-  float:left;
-  padding: 50px;
-  padding-bottom: 50px;
-  border-radius: 25px;
-  background: #FF8000;
-  display: center;
-  height: fit-content;
-  margin-bottom: 50px;
 }
