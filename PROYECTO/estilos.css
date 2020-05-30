@@ -4,9 +4,6 @@
     background-color: black;
 	  color: #ffffff;
     font-family: Ubuntu;
-/*  max-width: 90pc;
-    max-height: none;
-    margin:auto;*/
 }
 
 p {
@@ -137,17 +134,6 @@ ul#eventList{
     transform: translate3d(7px, 0, 0);
   }
 }
-
-/*
-.escribir_Comentario{
-  border-radius: 25px;
-  background: #FF8000;
-  padding: 10px;
-  width: fit-content;
-  max-width: fit-content;
-  margin: 20px;
-}
-*/
 
 .miarea{
   padding: 15px;

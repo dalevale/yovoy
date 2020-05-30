@@ -113,9 +113,9 @@
                 <?php
                         if(!count($attendees)==0){
                             if($eventOver)
-                                echo '<p>En este evento han ido:</p>';
+                                echo '<h3>En este evento han ido:</h3>';
                             else
-                                echo '<p>En este evento también van:</p>';
+                                echo '<h3>En este evento también van:</h3>';
                             for($i = 0; $i < count($attendees); $i++) {
                                 $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
                                 $joinDate = $attendees[$i]["joinDate"];
@@ -130,9 +130,9 @@
                         }
                         else{
                             if($event->getCreator() != $currentUserId)
-                                echo '<p>Se el primero en apuntar a este evento!</p>';
+                                echo '<h3>Se el primero en apuntar a este evento!</h3>';
                             else
-                                echo '<p>Aún no hay nadie en tu evento</p>';
+                                echo '<h3>Aún no hay nadie en tu evento</h3>';
                         }
                 ?>
                 <!-- Parte de comentarios a la derecha-->
