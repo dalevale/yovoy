@@ -133,7 +133,7 @@ EOF;
 
                 $user = array_pop($attendees);
                 while(!empty($user)){
-                    $notificationsDAO->notify(NotificationsDAO::EVENT_EDITED, $user, 'NULL', $this->eventId);
+                    $notificationsDAO->notify(NotificationsDAO::EVENT_EDITED, $user["userId"], 'NULL', $this->eventId);
                     $user = array_pop($attendees);
                 }
                 $result = "eventItem.php?eventId=".$eventId;

@@ -2,10 +2,10 @@
 -- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 30, 2020 at 03:00 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Servidor: localhost
+-- Tiempo de generación: 30-05-2020 a las 16:38:34
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,535 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yovoy_db`
+-- Base de datos: `ejercicio3`
 --
+CREATE DATABASE IF NOT EXISTS `ejercicio3` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `ejercicio3`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity`
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nombreUsuario` varchar(15) NOT NULL,
+  `nombre` varchar(40) NOT NULL,
+  `password` varchar(80) NOT NULL,
+  `rol` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombreUsuario`, `nombre`, `password`, `rol`) VALUES
+(1, 'Richard', 'Richard Junior Mercado Correa', '$2y$10$75rJseMhA5Ur9n4B.F.1DuwD.rsOHHh2ifNnktFCFPRIQl6ptljK.', 'user'),
+(2, 'Manuel', 'Manu Tenorio', '$2y$10$IGipiPvWOWr1t2xJu0tObuf/G53vPjoff/oSmZ47uGjiddKl.RVNS', 'user'),
+(3, 'test1', 'test1', '$2y$10$rLjy/o3MlGKM95Yi1wjhVuDcJARubu5uShZDdg4FK0l3LGhQm80S6', 'user'),
+(4, 'pedro', 'pedro pedro', '$2y$10$mLPozyD9M9DWWe51Cew0aOhIOk1oDTJoX3vDWdr3/4/1jkZ2VnUUK', 'user'),
+(5, 'pedroa', 'pedroa', '$2y$10$AHYGn.xHn94Nw6Lan4YxW.QYV.kf8p1myq.BXBkslCACyOBhJPtOi', 'user');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Base de datos: `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(11) NOT NULL,
+  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `query` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_length` text COLLATE utf8_bin DEFAULT NULL,
+  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
+  `col_default` text COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+--
+-- Volcado de datos para la tabla `pma__central_columns`
+--
+
+INSERT INTO `pma__central_columns` (`db_name`, `col_name`, `col_type`, `col_length`, `col_collation`, `col_isNull`, `col_extra`, `col_default`) VALUES
+('yovoy_db', 'isRead', 'tinyint', '1', '', 0, ',', ''),
+('yovoy_db', 'type', 'varchar', '15', 'utf8mb4_general_ci', 0, ',', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `settings_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
+  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `template_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+--
+-- Volcado de datos para la tabla `pma__export_templates`
+--
+
+INSERT INTO `pma__export_templates` (`id`, `username`, `export_type`, `template_name`, `template_data`) VALUES
+(1, 'root', 'database', 'yovoy_DB', '{\"quick_or_custom\":\"quick\",\"what\":\"sql\",\"structure_or_data_forced\":\"0\",\"table_select[]\":[\"columns_priv\",\"column_stats\",\"db\",\"event\",\"func\",\"general_log\",\"gtid_slave_pos\",\"help_category\",\"help_keyword\",\"help_relation\",\"help_topic\",\"host\",\"index_stats\",\"innodb_index_stats\",\"innodb_table_stats\",\"plugin\",\"proc\",\"procs_priv\",\"proxies_priv\",\"roles_mapping\",\"servers\",\"slow_log\",\"tables_priv\",\"table_stats\",\"time_zone\",\"time_zone_leap_second\",\"time_zone_name\",\"time_zone_transition\",\"time_zone_transition_type\",\"user\"],\"table_structure[]\":[\"columns_priv\",\"column_stats\",\"db\",\"event\",\"func\",\"general_log\",\"gtid_slave_pos\",\"help_category\",\"help_keyword\",\"help_relation\",\"help_topic\",\"host\",\"index_stats\",\"innodb_index_stats\",\"innodb_table_stats\",\"plugin\",\"proc\",\"procs_priv\",\"proxies_priv\",\"roles_mapping\",\"servers\",\"slow_log\",\"tables_priv\",\"table_stats\",\"time_zone\",\"time_zone_leap_second\",\"time_zone_name\",\"time_zone_transition\",\"time_zone_transition_type\",\"user\"],\"table_data[]\":[\"columns_priv\",\"column_stats\",\"db\",\"event\",\"func\",\"general_log\",\"gtid_slave_pos\",\"help_category\",\"help_keyword\",\"help_relation\",\"help_topic\",\"host\",\"index_stats\",\"innodb_index_stats\",\"innodb_table_stats\",\"plugin\",\"proc\",\"procs_priv\",\"proxies_priv\",\"roles_mapping\",\"servers\",\"slow_log\",\"tables_priv\",\"table_stats\",\"time_zone\",\"time_zone_leap_second\",\"time_zone_name\",\"time_zone_transition\",\"time_zone_transition_type\",\"user\"],\"aliases_new\":\"\",\"output_format\":\"sendit\",\"filename_template\":\"@DATABASE@\",\"remember_template\":\"on\",\"charset\":\"utf-8\",\"compression\":\"none\",\"maxsize\":\"\",\"codegen_structure_or_data\":\"data\",\"codegen_format\":\"0\",\"csv_separator\":\",\",\"csv_enclosed\":\"\\\"\",\"csv_escaped\":\"\\\"\",\"csv_terminated\":\"AUTO\",\"csv_null\":\"NULL\",\"csv_structure_or_data\":\"data\",\"excel_null\":\"NULL\",\"excel_columns\":\"something\",\"excel_edition\":\"win\",\"excel_structure_or_data\":\"data\",\"json_structure_or_data\":\"data\",\"json_unicode\":\"something\",\"latex_caption\":\"something\",\"latex_structure_or_data\":\"structure_and_data\",\"latex_structure_caption\":\"Estructura de la tabla @TABLE@\",\"latex_structure_continued_caption\":\"Estructura de la tabla @TABLE@ (continúa)\",\"latex_structure_label\":\"tab:@TABLE@-structure\",\"latex_relation\":\"something\",\"latex_comments\":\"something\",\"latex_mime\":\"something\",\"latex_columns\":\"something\",\"latex_data_caption\":\"Contenido de la tabla @TABLE@\",\"latex_data_continued_caption\":\"Contenido de la tabla @TABLE@ (continúa)\",\"latex_data_label\":\"tab:@TABLE@-data\",\"latex_null\":\"\\\\textit{NULL}\",\"mediawiki_structure_or_data\":\"structure_and_data\",\"mediawiki_caption\":\"something\",\"mediawiki_headers\":\"something\",\"htmlword_structure_or_data\":\"structure_and_data\",\"htmlword_null\":\"NULL\",\"ods_null\":\"NULL\",\"ods_structure_or_data\":\"data\",\"odt_structure_or_data\":\"structure_and_data\",\"odt_relation\":\"something\",\"odt_comments\":\"something\",\"odt_mime\":\"something\",\"odt_columns\":\"something\",\"odt_null\":\"NULL\",\"pdf_report_title\":\"\",\"pdf_structure_or_data\":\"structure_and_data\",\"phparray_structure_or_data\":\"data\",\"sql_include_comments\":\"something\",\"sql_header_comment\":\"\",\"sql_use_transaction\":\"something\",\"sql_compatibility\":\"NONE\",\"sql_structure_or_data\":\"structure_and_data\",\"sql_create_table\":\"something\",\"sql_auto_increment\":\"something\",\"sql_create_view\":\"something\",\"sql_procedure_function\":\"something\",\"sql_create_trigger\":\"something\",\"sql_backquotes\":\"something\",\"sql_type\":\"INSERT\",\"sql_insert_syntax\":\"both\",\"sql_max_query_size\":\"50000\",\"sql_hex_for_binary\":\"something\",\"sql_utc_time\":\"something\",\"texytext_structure_or_data\":\"structure_and_data\",\"texytext_null\":\"NULL\",\"xml_structure_or_data\":\"data\",\"xml_export_events\":\"something\",\"xml_export_functions\":\"something\",\"xml_export_procedures\":\"something\",\"xml_export_tables\":\"something\",\"xml_export_triggers\":\"something\",\"xml_export_views\":\"something\",\"xml_export_contents\":\"something\",\"yaml_structure_or_data\":\"data\",\"\":null,\"lock_tables\":null,\"as_separate_files\":null,\"csv_removeCRLF\":null,\"csv_columns\":null,\"excel_removeCRLF\":null,\"json_pretty_print\":null,\"htmlword_columns\":null,\"ods_columns\":null,\"sql_dates\":null,\"sql_relation\":null,\"sql_mime\":null,\"sql_disable_fk\":null,\"sql_views_as_tables\":null,\"sql_metadata\":null,\"sql_create_database\":null,\"sql_drop_table\":null,\"sql_if_not_exists\":null,\"sql_view_current_user\":null,\"sql_or_replace_view\":null,\"sql_truncate\":null,\"sql_delayed\":null,\"sql_ignore\":null,\"texytext_columns\":null}'),
+(2, 'root', 'server', 'yovoy_db', '{\"quick_or_custom\":\"quick\",\"what\":\"sql\",\"db_select[]\":[\"ejercicio3\",\"phpmyadmin\",\"yovoy_DB\"],\"aliases_new\":\"\",\"output_format\":\"sendit\",\"filename_template\":\"@SERVER@\",\"remember_template\":\"on\",\"charset\":\"utf-8\",\"compression\":\"none\",\"maxsize\":\"\",\"codegen_structure_or_data\":\"data\",\"codegen_format\":\"0\",\"csv_separator\":\",\",\"csv_enclosed\":\"\\\"\",\"csv_escaped\":\"\\\"\",\"csv_terminated\":\"AUTO\",\"csv_null\":\"NULL\",\"csv_structure_or_data\":\"data\",\"excel_null\":\"NULL\",\"excel_columns\":\"something\",\"excel_edition\":\"win\",\"excel_structure_or_data\":\"data\",\"json_structure_or_data\":\"data\",\"json_unicode\":\"something\",\"latex_caption\":\"something\",\"latex_structure_or_data\":\"structure_and_data\",\"latex_structure_caption\":\"Estructura de la tabla @TABLE@\",\"latex_structure_continued_caption\":\"Estructura de la tabla @TABLE@ (continúa)\",\"latex_structure_label\":\"tab:@TABLE@-structure\",\"latex_relation\":\"something\",\"latex_comments\":\"something\",\"latex_mime\":\"something\",\"latex_columns\":\"something\",\"latex_data_caption\":\"Contenido de la tabla @TABLE@\",\"latex_data_continued_caption\":\"Contenido de la tabla @TABLE@ (continúa)\",\"latex_data_label\":\"tab:@TABLE@-data\",\"latex_null\":\"\\\\textit{NULL}\",\"mediawiki_structure_or_data\":\"data\",\"mediawiki_caption\":\"something\",\"mediawiki_headers\":\"something\",\"htmlword_structure_or_data\":\"structure_and_data\",\"htmlword_null\":\"NULL\",\"ods_null\":\"NULL\",\"ods_structure_or_data\":\"data\",\"odt_structure_or_data\":\"structure_and_data\",\"odt_relation\":\"something\",\"odt_comments\":\"something\",\"odt_mime\":\"something\",\"odt_columns\":\"something\",\"odt_null\":\"NULL\",\"pdf_report_title\":\"\",\"pdf_structure_or_data\":\"data\",\"phparray_structure_or_data\":\"data\",\"sql_include_comments\":\"something\",\"sql_header_comment\":\"\",\"sql_use_transaction\":\"something\",\"sql_compatibility\":\"NONE\",\"sql_structure_or_data\":\"structure_and_data\",\"sql_create_table\":\"something\",\"sql_auto_increment\":\"something\",\"sql_create_view\":\"something\",\"sql_create_trigger\":\"something\",\"sql_backquotes\":\"something\",\"sql_type\":\"INSERT\",\"sql_insert_syntax\":\"both\",\"sql_max_query_size\":\"50000\",\"sql_hex_for_binary\":\"something\",\"sql_utc_time\":\"something\",\"texytext_structure_or_data\":\"structure_and_data\",\"texytext_null\":\"NULL\",\"yaml_structure_or_data\":\"data\",\"\":null,\"as_separate_files\":null,\"csv_removeCRLF\":null,\"csv_columns\":null,\"excel_removeCRLF\":null,\"json_pretty_print\":null,\"htmlword_columns\":null,\"ods_columns\":null,\"sql_dates\":null,\"sql_relation\":null,\"sql_mime\":null,\"sql_disable_fk\":null,\"sql_views_as_tables\":null,\"sql_metadata\":null,\"sql_drop_database\":null,\"sql_drop_table\":null,\"sql_if_not_exists\":null,\"sql_view_current_user\":null,\"sql_or_replace_view\":null,\"sql_procedure_function\":null,\"sql_truncate\":null,\"sql_delayed\":null,\"sql_ignore\":null,\"texytext_columns\":null}');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sqlquery` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Volcado de datos para la tabla `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{\"db\":\"yovoy_db\",\"table\":\"relationship\"},{\"db\":\"yovoy_db\",\"table\":\"user\"},{\"db\":\"yovoy_db\",\"table\":\"event\"},{\"db\":\"yovoy_db\",\"table\":\"promote_event\"},{\"db\":\"yovoy_db\",\"table\":\"join_event\"},{\"db\":\"yovoy_db\",\"table\":\"report\"},{\"db\":\"yovoy_db\",\"table\":\"notifications\"},{\"db\":\"yovoy_db\",\"table\":\"event_tags\"},{\"db\":\"yovoy_db\",\"table\":\"event_aux_imgs\"},{\"db\":\"yovoy_db\",\"table\":\"comments\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT 0,
+  `x` float UNSIGNED NOT NULL DEFAULT 0,
+  `y` float UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `prefs` text COLLATE utf8_bin NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+--
+-- Volcado de datos para la tabla `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'yovoy_DB', 'event', '{\"sorted_col\":\"`event_id` ASC\"}', '2020-05-08 16:10:14'),
+('root', 'yovoy_DB', 'event_tags', '{\"sorted_col\":\"`event_tags`.`event_id` ASC\"}', '2020-05-04 14:57:48'),
+('root', 'yovoy_db', 'event', '[]', '2020-05-26 10:21:40'),
+('root', 'yovoy_db', 'notifications', '{\"sorted_col\":\"`id` ASC\"}', '2020-05-27 10:59:57');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
+  `schema_sql` text COLLATE utf8_bin DEFAULT NULL,
+  `data_sql` longtext COLLATE utf8_bin DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `config_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- Volcado de datos para la tabla `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2020-05-30 14:37:18', '{\"lang\":\"es\",\"Console\\/Mode\":\"show\",\"Console\\/Height\":-19}');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
+  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- Indices de la tabla `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- Indices de la tabla `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- Indices de la tabla `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- Indices de la tabla `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- Indices de la tabla `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- Indices de la tabla `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- Indices de la tabla `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- Indices de la tabla `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- Indices de la tabla `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- Indices de la tabla `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indices de la tabla `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- Indices de la tabla `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Base de datos: `yovoy_db`
+--
+CREATE DATABASE IF NOT EXISTS `yovoy_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `yovoy_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `activity`
 --
 
 CREATE TABLE `activity` (
@@ -39,7 +561,7 @@ CREATE TABLE `activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `activity`
+-- Volcado de datos para la tabla `activity`
 --
 
 INSERT INTO `activity` (`activity_id`, `user_id`, `object_type`, `obj_user_id`, `obj_event_id`, `activity_date`, `activity_type`) VALUES
@@ -138,16 +660,15 @@ INSERT INTO `activity` (`activity_id`, `user_id`, `object_type`, `obj_user_id`, 
 (123, 22, 0, 23, NULL, '2020-05-30 17:17:54', 0),
 (124, 23, 0, 14, NULL, '2020-05-30 17:17:58', 0),
 (125, 14, 0, 23, NULL, '2020-05-30 17:17:58', 0),
-(126, 13, 1, NULL, 47, '2020-05-30 20:13:05', 1),
-(127, 20, 1, NULL, 48, '2020-05-30 20:27:48', 1),
-(128, 13, 1, NULL, 49, '2020-05-30 20:51:45', 1),
-(129, 20, 1, NULL, 47, '2020-05-30 20:53:42', 3),
-(130, 4, 1, NULL, 49, '2020-05-30 20:57:57', 2);
+(126, 9, 1, NULL, 47, '2020-05-30 13:23:05', 1),
+(127, 2, 1, NULL, 43, '2020-05-30 16:16:50', 3),
+(129, 2, 1, NULL, 49, '2020-05-30 16:21:01', 1),
+(130, 6, 1, NULL, 49, '2020-05-30 16:21:16', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Estructura de tabla para la tabla `comments`
 --
 
 CREATE TABLE `comments` (
@@ -159,21 +680,18 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `comments`
+-- Volcado de datos para la tabla `comments`
 --
 
 INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) VALUES
 (81, 2, 9, '2020-05-24 21:58:15', 'awaw'),
 (82, 2, 3, '2020-05-24 23:32:15', 'aasdasdsad'),
-(84, 42, 23, '2020-05-30 12:25:21', '¡Que interesante!'),
-(85, 47, 20, '2020-05-30 14:25:54', '¡Voy a asistir seguramente!'),
-(86, 49, 3, '2020-05-30 14:55:54', '¿Pero por qué?'),
-(87, 49, 4, '2020-05-30 14:57:26', 'Porque puede');
+(85, 8, 9, '2020-05-30 16:14:41', 'Este evento parece muy intersente...');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Estructura de tabla para la tabla `event`
 --
 
 CREATE TABLE `event` (
@@ -192,7 +710,7 @@ CREATE TABLE `event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `event`
+-- Volcado de datos para la tabla `event`
 --
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
@@ -202,15 +720,15 @@ INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `
 (10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30 00:00:00', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
 (11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30 00:00:00', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
 (15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30 00:00:00', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
-(42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 30, 0, 'Centro Comercial Principe Pio', 'cafe, latte', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.'),
-(47, 'Lanzamiento de cohete SpaceX', 13, '47.png', 2, '2020-05-30', '2020-06-30 09:00:00', 100, 0, 'Madrid', 'spacex, lanzamiento, cohete', 'Un gran espectáculo para todos.'),
-(48, 'Concierto Gratis', 20, '48.png', 3, '2020-05-30', '2020-07-02 17:00:00', 25, 0, 'Puerta del Sol, Madrid', 'concierto, musica', '¡Ven a ver a este evento por favor!'),
-(49, 'La primera actualización del sistema de XÆ A-12', 13, '49.png', 1, '2020-05-30', '2020-06-06 12:00:00', 50, 0, 'Valencia', 'software, tecnologia, sistema, familia', 'Ven a ver este milagro de la vida.');
+(42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 0, 0, '30', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.', 'Centro Comercial Principe Pio'),
+(43, 'Evento premium', 13, 'default-event.png', 1, '2020-05-21', '2020-08-12 12:00:00', 80, 0, 'Alcobendas', 'comida', 'Aqui hay fiesta'),
+(47, 'Sesión de fotos', 9, 'default-event.png', 1, '2020-05-30', '2020-08-07 15:00:00', 15, 0, 'Casa de Campo Madrid', 'fotos,flores,arroz', 'Se hará una sesión de fotos. Los usuarios premium podrán optar a vestuario.'),
+(49, 'EVENTO FIESTERO', 2, 'default-event.png', 1, '2020-05-30', '2020-10-23 23:00:00', 1, 0, 'Barcelona', 'fiesta,alegria', 'Fiesta a tope');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event_aux_imgs`
+-- Estructura de tabla para la tabla `event_aux_imgs`
 --
 
 CREATE TABLE `event_aux_imgs` (
@@ -219,17 +737,14 @@ CREATE TABLE `event_aux_imgs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `event_aux_imgs`
+-- Volcado de datos para la tabla `event_aux_imgs`
 --
 
 INSERT INTO `event_aux_imgs` (`event_id`, `img_id`) VALUES
-(2, 1),
-(47, 1),
-(48, 1),
-(48, 2);
+(2, 1);
 
 --
--- Triggers `event_aux_imgs`
+-- Disparadores `event_aux_imgs`
 --
 DELIMITER $$
 CREATE TRIGGER `aux_autoinc_update` AFTER INSERT ON `event_aux_imgs` FOR EACH ROW UPDATE event SET event.aux_autoinc=event.aux_autoinc+1 WHERE event.event_id=NEW.event_id
@@ -239,7 +754,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event_tags`
+-- Estructura de tabla para la tabla `event_tags`
 --
 
 CREATE TABLE `event_tags` (
@@ -248,7 +763,7 @@ CREATE TABLE `event_tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `event_tags`
+-- Volcado de datos para la tabla `event_tags`
 --
 
 INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
@@ -288,20 +803,17 @@ INSERT INTO `event_tags` (`event_id`, `tag`) VALUES
 (2, 'cerveza'),
 (2, ' alcohol'),
 (42, 'c'),
-(47, 'spacex'),
-(47, ' lanzamiento'),
-(47, ' cohete'),
-(48, 'concierto'),
-(48, ' musica'),
-(49, 'software'),
-(49, ' tecnologia'),
-(49, ' sistema'),
-(49, ' familia');
+(47, 'fotos'),
+(47, 'flores'),
+(47, 'arroz'),
+(49, 'fiesta'),
+(49, 'alegria'),
+(43, 'comida');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `join_event`
+-- Estructura de tabla para la tabla `join_event`
 --
 
 CREATE TABLE `join_event` (
@@ -312,7 +824,7 @@ CREATE TABLE `join_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `join_event`
+-- Volcado de datos para la tabla `join_event`
 --
 
 INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
@@ -321,13 +833,16 @@ INSERT INTO `join_event` (`event_id`, `user_id`, `join_date`, `accepted`) VALUES
 (2, 5, '2020-05-25 17:51:54', 1),
 (2, 6, '2020-05-23 13:48:39', 0),
 (3, 3, '2020-05-16 00:00:00', 0),
+(10, 6, '2020-05-30 16:18:38', 0),
 (11, 2, '2020-05-26 23:08:58', 1),
-(47, 20, '2020-05-30 14:53:42', 1);
+(43, 2, '2020-05-30 16:16:50', 1),
+(49, 6, '2020-05-30 16:21:14', 0),
+(49, 14, '2020-05-30 16:21:41', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notifications`
+-- Estructura de tabla para la tabla `notifications`
 --
 
 CREATE TABLE `notifications` (
@@ -341,7 +856,7 @@ CREATE TABLE `notifications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `notifications`
+-- Volcado de datos para la tabla `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `type`, `date`, `isRead`) VALUES
@@ -352,11 +867,8 @@ INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `
 (210, 9, 2, NULL, 1, '2020-05-26', 0),
 (211, 9, 2, NULL, 1, '2020-05-26', 0),
 (212, 9, 2, NULL, 1, '2020-05-26', 0),
-(213, 9, 2, NULL, 1, '2020-05-26', 0),
-(214, 9, 2, NULL, 1, '2020-05-26', 0),
 (219, 2, NULL, 11, 3, '2020-05-26', 0),
 (225, 2, 9, 2, 5, '2020-05-27', 0),
-(242, 2, 9, NULL, 0, '2020-05-27', 0),
 (243, 16, 13, NULL, 0, '2020-05-30', 0),
 (244, 17, 13, NULL, 0, '2020-05-30', 0),
 (245, 18, 13, NULL, 0, '2020-05-30', 0),
@@ -447,18 +959,18 @@ INSERT INTO `notifications` (`id`, `this_user_id`, `that_user_id`, `event_id`, `
 (330, 21, 23, NULL, 1, '2020-05-30', 0),
 (331, 22, 23, NULL, 1, '2020-05-30', 0),
 (332, 14, 23, NULL, 1, '2020-05-30', 0),
-(333, 2, 23, 42, 5, '2020-05-30', 0),
-(335, 13, 20, 47, 5, '2020-05-30', 0),
-(336, 20, NULL, 47, 3, '2020-05-30', 0),
-(337, 13, 3, 49, 5, '2020-05-30', 0),
-(338, 13, 4, 49, 5, '2020-05-30', 0),
-(339, 6, 4, NULL, 0, '2020-05-30', 0),
-(340, 9, 4, NULL, 0, '2020-05-30', 0);
+(333, 9, 2, 47, 5, '2020-05-30', 0),
+(334, 2, 9, 8, 5, '2020-05-30', 0),
+(336, 2, NULL, 43, 3, '2020-05-30', 0),
+(337, 2, 13, NULL, 0, '2020-05-30', 0),
+(339, 2, 6, 49, 2, '2020-05-30', 0),
+(340, 2, 14, 49, 2, '2020-05-30', 0),
+(341, 2, NULL, 43, 4, '2020-05-30', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promote_event`
+-- Estructura de tabla para la tabla `promote_event`
 --
 
 CREATE TABLE `promote_event` (
@@ -467,19 +979,19 @@ CREATE TABLE `promote_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `promote_event`
+-- Volcado de datos para la tabla `promote_event`
 --
 
 INSERT INTO `promote_event` (`user_id`, `event_id`) VALUES
 (2, 11),
 (2, 15),
-(4, 49),
+(6, 49),
 (9, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relationship`
+-- Estructura de tabla para la tabla `relationship`
 --
 
 CREATE TABLE `relationship` (
@@ -490,15 +1002,14 @@ CREATE TABLE `relationship` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `relationship`
+-- Volcado de datos para la tabla `relationship`
 --
 
 INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user_id`) VALUES
 (2, 3, 1, 3),
 (2, 4, 0, 2),
 (2, 9, 1, 9),
-(4, 6, 0, 4),
-(4, 9, 0, 4),
+(2, 13, 0, 13),
 (13, 14, 1, 14),
 (13, 16, 1, 16),
 (13, 17, 1, 17),
@@ -548,7 +1059,7 @@ INSERT INTO `relationship` (`user_one_id`, `user_two_id`, `status`, `action_user
 -- --------------------------------------------------------
 
 --
--- Table structure for table `report`
+-- Estructura de tabla para la tabla `report`
 --
 
 CREATE TABLE `report` (
@@ -563,7 +1074,7 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `report`
+-- Volcado de datos para la tabla `report`
 --
 
 INSERT INTO `report` (`report_id`, `object_type`, `obj_user_id`, `obj_event_id`, `report_date`, `user_id`, `resolved`, `report_text`) VALUES
@@ -573,7 +1084,7 @@ INSERT INTO `report` (`report_id`, `object_type`, `obj_user_id`, `obj_event_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Estructura de tabla para la tabla `user`
 --
 
 CREATE TABLE `user` (
@@ -588,7 +1099,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_name`, `creation_date`, `type`) VALUES
@@ -614,11 +1125,11 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (23, 'luis@gmail.com', '$2y$10$dmbOxh3ed3vQH506mt8VH.m6mtyXXmE6.XdSIU3pnfM/MAQpSK4OG', 'quieroir', 'Luis Cruz', 'default.jpg', '2020-05-30', 2);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `activity`
+-- Indices de la tabla `activity`
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`activity_id`),
@@ -627,7 +1138,7 @@ ALTER TABLE `activity`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `comments`
+-- Indices de la tabla `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`),
@@ -635,7 +1146,7 @@ ALTER TABLE `comments`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `event`
+-- Indices de la tabla `event`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`event_id`),
@@ -643,26 +1154,26 @@ ALTER TABLE `event`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `event_aux_imgs`
+-- Indices de la tabla `event_aux_imgs`
 --
 ALTER TABLE `event_aux_imgs`
   ADD PRIMARY KEY (`event_id`,`img_id`) USING BTREE;
 
 --
--- Indexes for table `event_tags`
+-- Indices de la tabla `event_tags`
 --
 ALTER TABLE `event_tags`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `join_event`
+-- Indices de la tabla `join_event`
 --
 ALTER TABLE `join_event`
   ADD PRIMARY KEY (`event_id`,`user_id`),
   ADD KEY `user` (`user_id`);
 
 --
--- Indexes for table `notifications`
+-- Indices de la tabla `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`),
@@ -671,7 +1182,7 @@ ALTER TABLE `notifications`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `promote_event`
+-- Indices de la tabla `promote_event`
 --
 ALTER TABLE `promote_event`
   ADD PRIMARY KEY (`user_id`,`event_id`),
@@ -679,7 +1190,7 @@ ALTER TABLE `promote_event`
   ADD KEY `event_id` (`event_id`);
 
 --
--- Indexes for table `relationship`
+-- Indices de la tabla `relationship`
 --
 ALTER TABLE `relationship`
   ADD PRIMARY KEY (`user_one_id`,`user_two_id`),
@@ -687,7 +1198,7 @@ ALTER TABLE `relationship`
   ADD KEY `user_id2` (`user_two_id`);
 
 --
--- Indexes for table `report`
+-- Indices de la tabla `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`report_id`),
@@ -696,7 +1207,7 @@ ALTER TABLE `report`
   ADD KEY `obj_user_id` (`obj_user_id`);
 
 --
--- Indexes for table `user`
+-- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
@@ -705,51 +1216,51 @@ ALTER TABLE `user`
   ADD KEY `user_id` (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `activity`
+-- AUTO_INCREMENT de la tabla `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `comment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
--- AUTO_INCREMENT for table `event`
+-- AUTO_INCREMENT de la tabla `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT for table `notifications`
+-- AUTO_INCREMENT de la tabla `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=341;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
 
 --
--- AUTO_INCREMENT for table `report`
+-- AUTO_INCREMENT de la tabla `report`
 --
 ALTER TABLE `report`
   MODIFY `report_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `activity`
+-- Filtros para la tabla `activity`
 --
 ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -757,39 +1268,39 @@ ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`obj_event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `comments`
+-- Filtros para la tabla `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `event`
+-- Filtros para la tabla `event`
 --
 ALTER TABLE `event`
   ADD CONSTRAINT `createEvent` FOREIGN KEY (`creator`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `event_aux_imgs`
+-- Filtros para la tabla `event_aux_imgs`
 --
 ALTER TABLE `event_aux_imgs`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `event_tags`
+-- Filtros para la tabla `event_tags`
 --
 ALTER TABLE `event_tags`
   ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `join_event`
+-- Filtros para la tabla `join_event`
 --
 ALTER TABLE `join_event`
   ADD CONSTRAINT `event` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `notifications`
+-- Filtros para la tabla `notifications`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -797,21 +1308,21 @@ ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`this_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `promote_event`
+-- Filtros para la tabla `promote_event`
 --
 ALTER TABLE `promote_event`
   ADD CONSTRAINT `promote_event_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `promote_event_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `relationship`
+-- Filtros para la tabla `relationship`
 --
 ALTER TABLE `relationship`
   ADD CONSTRAINT `user_id1` FOREIGN KEY (`user_one_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_id2` FOREIGN KEY (`user_two_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `report`
+-- Filtros para la tabla `report`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`obj_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
