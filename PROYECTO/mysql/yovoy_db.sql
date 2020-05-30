@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2020 at 09:41 AM
+-- Generation Time: May 30, 2020 at 09:21 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -319,7 +319,11 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (11, 'hhh@gmail.com', '$2y$10$T7429/pfwghwLyfNFCwpB.mvt1ocOvTvxvgD/y9QPD2eIiXR7ia5e', 'juanita', 'Juanita', 'default.jpg', '2020-05-10', 1),
 (12, 'hhhh@gmail.com', '$2y$10$wWJuMaayl2gt2VSpStJyuOo4QlceNYAn0xOEoX/fpT.vkpspU24OG', 'jajajajajajaajaj', 'VERY ANGERY', '12.png', '2020-05-10', 1),
 (13, 'premium@yovoy.com', '$2y$10$IgeqreB6jnXhCB8tk2RIuO1UDdg.xPEhzS3NPwQnaRQ/RBDNm1qbi', 'elonmusk', 'Elon Musk', '13.png', '2020-05-10', 2),
-(14, 'richard@yovoy.com', '$2y$10$HnqoM6pFuc0Uk0DKwh9RKu7hBtubeacHfznKKCgEAjtzSITwNSQVe', 'richard2306', 'Richard Correa', 'default.jpg', '2020-05-15', 1);
+(14, 'richard@yovoy.com', '$2y$10$HnqoM6pFuc0Uk0DKwh9RKu7hBtubeacHfznKKCgEAjtzSITwNSQVe', 'richard2306', 'Richard Correa', 'default.jpg', '2020-05-15', 2),
+(16, 'premium.2@yovoy.com', '$2y$10$gnVI7wdW7Tpsswi5vgxgJez/NqI0IEoilzuSxRw8rb0xhX4z6GtrO', 'premium2', 'Usuario Premium B', 'default.jpg', '2020-05-30', 2),
+(17, 'premium.3@yovoy.com', '$2y$10$6Fo1PfYcxBlEMrdCZl9KUuT8NjAK9IkDjUH51GYIbPQySu0EULzxS', 'premium3', 'Usuario Premium C', 'default.jpg', '2020-05-30', 2),
+(18, 'premium.4@yovoy.com', '$2y$10$ooOhzBX9zM7/toPbn2f5yeVcGNTsg5gJizmUzf7vP777i7gjp5jwe', 'premium4', 'Usuario Premium D', 'default.jpg', '2020-05-30', 2),
+(19, 'premium.5@yovoy.com', '$2y$10$FOI8mzVyDxe8ePge7Ly8PuEHzAkewm5d7FTcG.USEQksKwXV.FVoi', 'premium5', 'Usuario Premium E', 'default.jpg', '2020-05-30', 2);
 
 --
 -- Indexes for dumped tables
@@ -420,7 +424,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -432,7 +436,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -450,7 +454,7 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
