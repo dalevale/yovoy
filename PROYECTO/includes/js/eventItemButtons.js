@@ -192,27 +192,27 @@ $(document).ready(function () {
 	var userId = $("#userId").val();
 
 	$("#joinCancelEventBtns input.cancelEventBtn").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			processJoinEvent(eventId, userId, 'cancel');
 	});
 	$("#joinCancelEventBtns input.joinEventBtn").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			processJoinEvent(eventId, userId, 'join');
 	});
 	$("#userWaitingList div div input.acceptUserBtn").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			processJoinEvent(eventId, $(this).val(), 'accept');
 	});
 	$("#userWaitingList div div input.rejectUserBtn").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			processJoinEvent(eventId, $(this).val(), 'reject');
 	});
 	$("#promoteEventBtns input").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			promoteEvent(eventId, userId);
 	});
@@ -223,7 +223,7 @@ $(document).ready(function () {
 		window.location.href = "manageAuxImg.php";
 	});
 	$("#deleteEventBtn").click(function () {
-		var ok = confirm("¿Estas seguro?");
+		var ok = confirm("Â¿Estas seguro?");
 		if (ok)
 			deleteEvent($(this).val());
 	});
