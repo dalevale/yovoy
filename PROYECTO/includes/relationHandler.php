@@ -17,22 +17,22 @@ require_once __DIR__.'/config.php';
                 });</script>';
         switch($task){
             case "addFriend":
-                $userDAO->insertRelationship($u1, $u2, RelationManager::ADD, $u1);
+                $result = $userDAO->insertRelationship($u1, $u2, RelationManager::ADD, $u1);
                 $notificationsDAO->notify(NotificationsDAO::NEW_FRIEND_REQUEST,$u2, $u1, 'NULL');
                 $script = '<script>$("#cancelAddFriendBtn").click(function () {
                 changeRelation($(this), "cancelAddFriend");
                 });</script>';
             break;
             case "cancelAddFriend":
-                $userDAO->deleteRelationship($u1, $u2);
+                $result = $userDAO->deleteRelationship($u1, $u2);
                 $notificationsDAO->removeNotificationsByUsers($u2,$u1,NotificationsDAO::NEW_FRIEND_REQUEST);
             break;
             case "rejectFriend":
-                $userDAO->deleteRelationship($u1, $u2);
+                $result = $userDAO->deleteRelationship($u1, $u2);
                 break;
             case "acceptFriend":
                 $userDAO->deleteRelationship($u1, $u2);
-                $userDAO->insertRelationship($u1, $u2, RelationManager::ACCEPT, $u1);
+                $result = $userDAO->insertRelationship($u1, $u2, RelationManager::ACCEPT, $u1);
                 $notificationsDAO->notify(NotificationsDAO::FRIEND_REQUEST_ACCEPTED,$u2, $u1, 'NULL');
                 $activityDAO->addActivity($u1,ActivityDAO::USER, $u2, 'null', ActivityDAO::NEW_FRIEND);
                 $activityDAO->addActivity($u2,ActivityDAO::USER, $u1, 'null', ActivityDAO::NEW_FRIEND);
@@ -41,25 +41,28 @@ require_once __DIR__.'/config.php';
                 });</script>';
             break;
             case "unfriend":
-                $userDAO->deleteRelationship($u1, $u2);
+                $result = $userDAO->deleteRelationship($u1, $u2);
             break;
             case "blockUser":
-                $userDAO->insertRelationship($u1, $u2, RelationManager::BLOCK, $u1);
+                $result = $userDAO->insertRelationship($u1, $u2, RelationManager::BLOCK, $u1);
                 $script = '<script>$("#unblockUserBtn").click(function () {
                 changeRelation($(this), "unblockUser");
                 });</script>';
             break;
             case "unblockUser":
-                $userDAO->deleteRelationship($u1, $u2);
+                $result = $userDAO->deleteRelationship($u1, $u2);
             break;
             default:
             break;
 		}
-        $relMan = new RelationManager($u1, $u2);
-        $html = $relMan->printButtons();
-        $html .= $script;
-        $ret = array('html'=>$html);
+        if($result != 0){
+            $relMan = new RelationManager($u1, $u2);
+            $html = $relMan->printButtons();
+            $html .= $script;
+            $ret = array('html'=>$html);
+            $result = json_encode($ret);
+		}
 
-        echo json_encode($ret);
+        echo $result;
     }
 ?>

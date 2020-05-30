@@ -2,14 +2,12 @@
 //namespace es\ucm\fdi\aw;
 
 require_once __DIR__.'/Form.php';
-class RegisterForm extends Form
-{
+class RegisterForm extends Form {
     public function __construct() {
         parent::__construct('registerForm');
     }
     
-    protected function generateFormFields($data)
-    {
+    protected function generateFormFields($data) {
         $username = '';
         $name = '';
         if ($data) {
@@ -54,39 +52,29 @@ EOF;
     }
     
 
-    protected function processForm($data)
-    {	
-		
-		
+    protected function processForm($data) {	
 		$result = array();
 		$success = false;
         
         $username = isset($data['username']) ? $data['username'] : null;
-		$password = isset($data['password']) ? $data['password'] : null;
-        
-        if ( empty($username) || mb_strlen($username) < 5 ) {
+        if ( empty($username) || mb_strlen($username) < 5 )
             $result[] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres. ";
-			
-        }
         
-        if ( empty($password) || mb_strlen($password) < 5 ) {
+		$password = isset($data['password']) ? $data['password'] : null;
+        if ( empty($password) || mb_strlen($password) < 5 )
             $result[] = "La contraseña tiene que tener una longitud de al menos 5 caracteres. ";
-        }
         
 		$name = isset($data['name']) ? $data['name'] : null;
-        if ( empty($name) || mb_strlen($name) < 5 ) {
+        if ( empty($name) || mb_strlen($name) < 5 )
             $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
-        }
         
 		$email = isset($data['email']) ? $data['email'] : null;
-        if ( empty($email) || mb_strlen($email) < 5 ) {
+        if ( empty($email) || mb_strlen($email) < 5 )
             $result[] = "El email tiene que ser valido. ";
-        }
        
 	    $passwordConfirm = isset($data['passwordConfirm']) ? $data['passwordConfirm'] : null;
-        if ( empty($passwordConfirm) || strcmp($password, $passwordConfirm) !== 0 ) {
+        if ( empty($passwordConfirm) || strcmp($password, $passwordConfirm) !== 0 ) 
             $result[] = "Los passwords deben coincidir. ";
-        }
 		
 		// Si no hay un foto subido por el usuario, se usa default.jpg
 		$imgName = "default.jpg";

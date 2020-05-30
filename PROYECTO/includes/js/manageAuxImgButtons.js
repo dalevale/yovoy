@@ -17,7 +17,7 @@ function deleteImg(eventId, imgId) {
 		data: input,
 		success: result => {
 			if (result == 0)
-				alert("Cant delete this image at the moment.");
+				alert("No se puede borrar imagen en este momento. Consulta el admin.");
             else
                 //ARREGLAR ESTO
                 $(this).parent().css("display", "none");

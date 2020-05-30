@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__.'/../TransferObjects/TOComments.php';
 require_once __DIR__.'/DAO.php';
-class CommentsDAO extends DAO{
+
+class CommentsDAO extends DAO {
     
     public function __construct(){
         parent::__construct();
@@ -14,7 +15,7 @@ class CommentsDAO extends DAO{
     * @param int $userId        Id del usuario con que el comentario se vincula
     * @param Date $date         Fecha de creaci�n del comentario
     * @param string $comment    Cadena de string que pertenece al comentario
-    * @return bool $result      Devuelve true si se ha insertado correctamente en la BBDD
+    * @return int $result      Devuelve el id del comentario si se ha insertado correctamente en la BBDD
     */
     public function postComment($event_id, $user_id, $date, $comment){
         $queryValues =  
@@ -33,6 +34,7 @@ class CommentsDAO extends DAO{
     * Funci�n para recoger todos los comentarios vinculados a un event con id $eventId
     *
     * @param int $event_id          Id del evento
+    *
     * @return array $commentsArray  Array de objetos TOComments creados con los datos en la BBDD
     */
     public function getComments($event_id){
@@ -67,7 +69,8 @@ class CommentsDAO extends DAO{
     * Eliminar un comentario con id $id
     *
     * @param int $id        Id del comentario
-    * @return bool result   Devuelve true si se ha eliminado correctamente la fila en la BBDD
+    *
+    * @return int $result   Devuelve el numero total de las filas borradas de la Base de Datos
     */
     public function deleteComment($id){
         $deleteComment= "DELETE FROM comments WHERE comment_id = '".$id."'";

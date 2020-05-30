@@ -5,15 +5,17 @@ function printEvent(data) {
         url: "includes/getEvents.php",
         data: data,
         success: data => {
-            if (true) {
-                //TODO limit output to only 10
-                $("#eventList").empty();
+            $("#eventList").empty();
+            if (data.length == 0) {
+                var div = $('<div class="tarjeta_blanca"><p>0 resultados</p></div>');
+                $("#eventList").append(div);
+            }
+            else {
                 for (var i = 0; i < data.length; i++) {
                     var event = data[i];
                     var eventImgName = event.eventImgName;
                     var eventImgDir = "includes/img/events/";
                     var eventImgPath = eventImgDir + eventImgName;
-                    //Insertar col-md-3 col-12 a cada elemento
                     var toAppend = $(
                         '<div class = "eventos col-md-3 col-12">' +
                         '<a href="eventItem.php?eventId=' + event.id + '">' +
@@ -41,16 +43,13 @@ function searchEvent() {
         "searchVal": searchVal
     };
     if (selected != null && searchVal == null)
-        //TODO print error
-        var error = "El campo de busqueda ha de tener algo escrito";
+        alert("El campo de busqueda ha de tener algo escrito");
     else
         printEvent(data);
 }
 
 $(document).ready(function () {
-   
     searchEvent();
-
     $("#resetSearchEventBtn").click(function () {
         $("#searchbar p input[name='option']:checked").prop("checked", false);
         $("#searchbar p input[type='text']").val("");

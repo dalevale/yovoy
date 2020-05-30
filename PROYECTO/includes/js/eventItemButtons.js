@@ -5,11 +5,11 @@ function deleteEvent(eventId) {
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: "includes/deleteUser.php",
+		url: "includes/deleteEvent.php",
 		data: data,
 		success: result => {
-			if (result != 0)
-				alert("Cant delete this user at the moment.");
+			if (result == 0)
+				alert("No se puede borrar este evento en este momento.");
 			else
 				alert("Event has been deleted");
 				window.location.href = "feed.php";
@@ -23,7 +23,7 @@ function deleteEvent(eventId) {
 function deleteComment() {
 	var id = $(this).val();
 	var comment = {
-		"function": "delete",
+		"action": "delete",
 		"commentId": id
 	};
 	$.ajax({
@@ -33,7 +33,7 @@ function deleteComment() {
 		data: comment,
 		success: result => {
 			if (result == 0)
-				alert("Cant delete this comment at the moment.");
+				alert("No se puede borrar este comentario en este momento.");
 			else
 				$(this).parent().css("display", "none");
 		},
@@ -43,11 +43,11 @@ function deleteComment() {
 	});
 }
 
-function processJoinEvent(eventId, userId, task) {
+function processJoinEvent(eventId, userId, action) {
 	var status = 0;
 	var retType = 0;
 	var html = "";
-	switch (task) {
+	switch (action) {
 		case 'cancel':
 			status = 0;
 			break;
@@ -73,9 +73,9 @@ function processJoinEvent(eventId, userId, task) {
 		data: data,
 		success: data => {
 			if (!data)
-				console.log(data);
+				alert("No se puede hacer el gesto en este momento. Consulta el admin.");
 			else {
-				switch (task) {
+				switch (action) {
 					case 'cancel':
 						$("#joinCancelEventBtns").empty();
 						var html = '<input type="image" src="includes/img/boton_UNIRSE_2.png" class="joinEventBtn" alt="YoVoy" title="YoVoy" value="' + eventId + '">' +
@@ -123,23 +123,28 @@ function promoteEvent(eventId, userId) {
 		url: "includes/promoteEvent.php",
 		data: data,
 		success: data => {
-			var check = $("#promoteEventBtns input").hasClass('promoEventBtn');
-			var before = 'promoEventBtn';
-			var after = 'unpromoEventBtn';
-			var imgString = 'boton_UNPROMO.png';
-			var altString = 'No Promocionar';
-			if (!check) {
-				var temp = before;
-				before = after;
-				after = temp;
-				var imgString = 'boton_PROMO.png';
+			if (data == 0)
+				alert("Ha habido un error. Consulta el admin.");
+			else {
+				var check = $("#promoteEventBtns input").hasClass('promoEventBtn');
+				var before = 'promoEventBtn';
+				var after = 'unpromoEventBtn';
+				var imgString = 'boton_UNPROMO.png';
+				var altString = 'No Promocionar';
+				if (!check) {
+					var temp = before;
+					before = after;
+					after = temp;
+					var altString = 'Promocionar';
+					var imgString = 'boton_PROMO.png';
+				}
+				var toChange = $("#promoteEventBtns input");
+				toChange.removeClass(before);
+				toChange.addClass(after);
+				toChange.attr("src", "includes/img/" + imgString);
+				toChange.attr("alt", altString);
+				toChange.attr("title", altString);
 			}
-			var toChange = $("#promoteEventBtns input");
-			toChange.removeClass(before);
-			toChange.addClass(after);
-			toChange.attr("src", "includes/img/" + imgString);
-			toChange.attr("alt", altString);
-			toChange.attr("title", altString);
 		},
 		error: e => {
 			console.log(e);
@@ -153,7 +158,7 @@ $(document).ready(function () {
 		var id = $(this).val();
 		var text = $("#newCommentText").val().replace(/<\/?[^>]+(>|$)/g, "");
 		var comment = {
-			"function": "submit",
+			"action": "submit",
 			"eventId": id,
 			"commentText": text
 		};
@@ -167,8 +172,7 @@ $(document).ready(function () {
 				var newComment = $(
 					'<div class="tarjeta_gris">' +
 					'<p>Comentario de <a href = "profileView.php?profileId=' + json.userId + '">' + json.username + '</a> el ' + newDate + '</p>' +
-					'<div class="tarjeta_blanca">' +
-					text +
+					'<div class="tarjeta_blanca">' + text +
 					'</div>' +
 					'<input type="image"  width="15%" length="15%" src="includes/img/boton_BORRARCOMENTARIO.png" alt="Enviar Comentario" title="Enviar Comentario" class="deleteCommentBtn" type="submit" value="'+ json.id +'">' +
 					'</div>' +
@@ -213,13 +217,11 @@ $(document).ready(function () {
 			promoteEvent(eventId, userId);
 	});
 
-
 	$("#commentsSection input.deleteCommentBtn").click(deleteComment);
 	
 	$("#manageAuxImgBtn").click(function(){
 		window.location.href = "manageAuxImg.php";
 	});
-
 	$("#deleteEventBtn").click(function () {
 		var ok = confirm("¿Estas seguro?");
 		if (ok)

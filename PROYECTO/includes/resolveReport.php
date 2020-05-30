@@ -5,10 +5,10 @@ require_once __DIR__.'/config.php';
     $reportId = $_POST["reportId"];
 
     if(!$reportDAO->isResolved($reportId))
-         $reportDAO->resolveReport($reportId, ReportDAO::RESOLVED);
+         $result = $reportDAO->resolveReport($reportId, ReportDAO::RESOLVED);
     else
-         $reportDAO->resolveReport($reportId, ReportDAO::UNRESOLVED);
+         $result = $reportDAO->resolveReport($reportId, ReportDAO::UNRESOLVED);
 
-    echo 0;
+    echo $result;
 
    

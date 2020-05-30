@@ -9,10 +9,11 @@ function manageNotif(action, element, toUpdate) {
 		url: "includes/processNotification.php",
 		data: data,
 		success: data => {
-			if (action == 'delete')
+			if (data == 0)
+				alert("Ha habido un error. Consulta el admin.");
+			else if (action == 'delete')
 				toUpdate.remove();
 			else {
-				//var element = $("#markNotifBtns button");
 				var check = element.hasClass('markAsReadBtn');
 				var before = 'markAsReadBtn';
 				var after = 'markAsNoReadBtn';
@@ -34,7 +35,6 @@ function manageNotif(action, element, toUpdate) {
 				element.attr("title", altString);
 				element.attr("alt", altString);
 			}
-			
 		},
 		error: e => {
 			console.log(e);
@@ -42,10 +42,7 @@ function manageNotif(action, element, toUpdate) {
 	});
 }
 
-
-
 $(document).ready(function () {
-
 	$("#notifStart div div.notificationRight div.notifBtns input.markAsReadBtn").click(function () {
 		var toUpdate = $(this).parent().parent().parent();
 		var ok = confirm("¿Estas seguro?");
@@ -66,5 +63,4 @@ $(document).ready(function () {
 		if (ok)
 			manageNotif('delete', $(this), toDelete);
 	});
-
 });

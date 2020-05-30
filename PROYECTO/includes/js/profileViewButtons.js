@@ -9,7 +9,7 @@ function deleteUser(userId) {
 		data: data,
 		success: result => {
 			if (result != 0)
-				alert("Cant delete this event at the moment.");
+				alert("No se puede borrar el usuario en este momento.");
 			else
 				alert("User has been deleted");
 			window.location.href = "search.php";
@@ -18,12 +18,6 @@ function deleteUser(userId) {
 			console.log(e);
 		}
 	});
-}
-
-function appendNewButtons(element, html) {
-	var div = element.parent();
-	div.empty();
-	div.prepend(html);
 }
 
 function changeRelation(element, task) {
@@ -42,8 +36,11 @@ function changeRelation(element, task) {
 		success: result => {
 			if ((result == '') || (result == null) || (result == 0))
 				alert("Cant do action at the moment.");
-			else
-				appendNewButtons(element, result.html);
+			else {
+				var div = element.parent();
+				div.empty();
+				div.prepend(result.html);
+			}
 		},
 		error: e => {
 			console.log(e);
@@ -87,11 +84,9 @@ $(document).ready(function () {
 		if (ok)
 			changeRelation($(this), 'unblockUser');
 	});
-
 	$("#deleteUserBtn").click(function () {
 		var ok = confirm("¿Estas seguro?");
 		if (ok)
 			deleteUser($(this).val());
 	});
-
 });

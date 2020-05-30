@@ -10,8 +10,8 @@ require_once __DIR__.'/config.php';
     if($action == 'mark'){
         $notif = $notificationsDAO->getNotification($id);
         $read = $notif->isRead()? 0 : 1;
-        $notificationsDAO->markAsRead($read,$id);
+        $result = $notificationsDAO->markAsRead($read,$id);
 	}
     else
-        $notificationsDAO->removeNotificationsById($id);
-    echo 1;
+        $result = $notificationsDAO->removeNotificationsById($id);
+    echo $result;
