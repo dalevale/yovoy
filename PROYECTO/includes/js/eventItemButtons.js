@@ -85,7 +85,7 @@ function processJoinEvent(eventId, userId, action) {
 							'<script> $("#joinCancelEventBtns input.joinEventBtn").click(function () {' +
 							'var ok = confirm("Estas seguro?");' +
 							'if (ok)' +
-								'processJoinEvent($("#eventId").val(), $("#userId").val(), "join");' +
+							'processJoinEvent($("#eventId").val(), $("#userId").val(), "join");' +
 							'});</script >';
 						$("#joinCancelEventBtns").append(html);
 						break;
@@ -93,9 +93,10 @@ function processJoinEvent(eventId, userId, action) {
 						$("#userWaitingList div div.user" + userId).remove();
 						break;
 					case 'accept':
+						var userClass = $("#userWaitingList div div.user" + userId).hasClass('tarjeta_premium') ? 'tarjeta_premium' : 'tarjeta_blanca';
 						var imgPath = $("#userWaitingList div div.user" + userId + " p img").attr("src");
 						var name = $("#userWaitingList div div.user" + userId + " p a").text();
-						var newAttendee = $('<a href="profileView.php?profileId=' + userId + '"><p><img src="' + imgPath + '" width="20px" height="20px">' + name + '</a>  ' + formatDateWithTime(new Date()) +'</p>');
+						var newAttendee = $('<div class="'+ userClass +'"<a href="profileView.php?profileId=' + userId + '"><img src="' + imgPath + '" width="20px" height="20px">' + name + '</a>  ' + formatDateWithTime(new Date()) +'</div>');
 						$("#userWaitingList div div.user" + userId).remove();
 						$("#attendeeList").append(newAttendee);
 						break;

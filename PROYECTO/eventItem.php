@@ -127,13 +127,14 @@
                                 echo '<h3>En este evento también van:</h3>';
                             for($i = 0; $i < count($attendees); $i++) {
                                 $attendee =  $userDAO->getUser($attendees[$i]["userId"]);
+                                $userClass = $attendee->isPremium()? "tarjeta_premium" : "tarjeta_blanca";
                                 $joinDate = $attendees[$i]["joinDate"];
                                 $date = date("Y-m-d g:ia", strtotime($joinDate));
                                 $attendeeName = $attendee->getUsername();
                                 $attendeeId = $attendee->getUserId();
 					            $imgName = $attendee->getImgName();
 					            $imgPath = $userImgDir . $imgName;
-                                echo '<a href="profileView.php?profileId='.$attendeeId.'"><p><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</p>'; 
+                                echo '<div class="'.$userClass.'"><a href="profileView.php?profileId='.$attendeeId.'"><img src = "'.$imgPath.'" width="20px" height="20px">'.$attendeeName.'</a>  '.$date.'</div>'; 
 			                }
                         }
                         else{
@@ -219,7 +220,7 @@
                                 $imgPath = $userImgDir . $imgName;
                                 echo '<div class="'. $userClass . ' user'.$waitingUserId.'">';
                                 echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
-                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'. $waitingUser->isPremium()? $waitingUserName.'</a>'. $joinDate.'</p>';
+                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'. $waitingUser->isPremium()? $waitingUserName: "HOLA".'</a>'. $joinDate.'</p>';
                                 echo '<input type="image" src="includes/img/boton_OK.png" width="20%" length="20%" alt="Aceptar" title="Aceptar" class="acceptUserBtn" value="'.$waitingUserId.'">';
                                 echo '<input type="image" src="includes/img/boton_CANCELAR.png" width="20%" length="20%" alt="Rechazar" title="Rechazar" class="rejectUserBtn" value="'.$waitingUserId.'">';
                                 echo '</div>';
