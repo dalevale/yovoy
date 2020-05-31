@@ -219,7 +219,7 @@
                                 $imgPath = $userImgDir . $imgName;
                                 echo '<div class="'. $userClass . ' user'.$waitingUserId.'">';
                                 echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
-                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'. $waitingUser->isPremium()? $waitingUserName.'</a>'. $joinDate.'</p>';
+                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'. $waitingUserName.'</a>'. $joinDate.'</p>';
                                 echo '<input type="image" src="includes/img/boton_OK.png" width="20%" length="20%" alt="Aceptar" title="Aceptar" class="acceptUserBtn" value="'.$waitingUserId.'">';
                                 echo '<input type="image" src="includes/img/boton_CANCELAR.png" width="20%" length="20%" alt="Rechazar" title="Rechazar" class="rejectUserBtn" value="'.$waitingUserId.'">';
                                 echo '</div>';
