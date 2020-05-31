@@ -96,7 +96,7 @@ function processJoinEvent(eventId, userId, action) {
 						var userClass = $("#userWaitingList div div.user" + userId).hasClass('tarjeta_premium') ? 'tarjeta_premium' : 'tarjeta_blanca';
 						var imgPath = $("#userWaitingList div div.user" + userId + " p img").attr("src");
 						var name = $("#userWaitingList div div.user" + userId + " p a").text();
-						var newAttendee = $('<div class="'+ userClass +'"<a href="profileView.php?profileId=' + userId + '"><img src="' + imgPath + '" width="20px" height="20px">' + name + '</a>  ' + formatDateWithTime(new Date()) +'</div>');
+						var newAttendee = $('<div class="'+ userClass +'"><a href="profileView.php?profileId=' + userId + '"><img src="' + imgPath + '" width="20px" height="20px">' + name + '</a>  ' + formatDateWithTime(new Date()) +'</div>');
 						$("#userWaitingList div div.user" + userId).remove();
 						$("#attendeeList").append(newAttendee);
 						break;
