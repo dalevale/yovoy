@@ -48,6 +48,10 @@ class TOUser{
     public function getUserType(){
         return $this->type;
     }
+
+    public function isPremium(){
+        return $this->type == 2? true: false;
+	}
 	
 	public function comparePassword($password){
 		return password_verify($password, $this->password);

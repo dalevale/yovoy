@@ -138,7 +138,9 @@
                         }
                         else{
                             echo '<div class="noAttendeesMsg">';
-                            if($event->getCreator() != $currentUserId)
+                            if($eventOver)
+                                echo '<h3>Este evento ya ha terminado</h3>';
+                            else if ($event->getCreator() != $currentUserId)
                                 echo '<h3>Se el primero en apuntar a este evento!</h3>';
                             else
                                 echo '<h3>Aún no hay nadie en tu evento</h3>';
@@ -181,10 +183,10 @@
                             if($eventFull)
                                 echo '<p>Este evento ya está lleno.</p>';
                             else if(!$userDAO->isAttending($currentUserId, $eventId)){
-                                if(!$userDAO->hasEventInSameHour($currentUserId, $eventDate))
-                                    echo '<input type="image" src="includes/img/boton_UNIRSE_2.png" alt="YoVoy" title="YoVoy" class="joinEventBtn">';
-                                else
+                                if($userDAO->hasEventInSameHour($currentUserId, $eventDate))
                                     echo '<p>Tienes un evento para la misma fecha y hora. Cancela otro evento que tengas pendiente si quieres unirte a este.</p>';
+                                else if(!$eventOver)
+                                    echo '<input type="image" src="includes/img/boton_UNIRSE_2.png" alt="YoVoy" title="YoVoy" class="joinEventBtn">';
                             }
                             else
                                 echo '<input type="image" src="includes/img/boton_UNIRSE_3.png" alt="YaNoVoy" title="YaNoVoy" class="cancelEventBtn">';
@@ -208,15 +210,16 @@
                         if(!count($waitingList)==0){
                             echo '<div class="tarjeta_gris">';
                             for($i = 0; $i < count($waitingList); $i++) {
-                                $waitingUser = $userDAO->getUser($waitingList[$i]["userId"]);;
+                                $waitingUser = $userDAO->getUser($waitingList[$i]["userId"]);
+                                $userClass = $waitingUser->isPremium()? 'tarjeta_premium' : 'tarjeta_blanca';
                                 $waitingUserName = $waitingUser->getUsername();
                                 $waitingUserId = $waitingUser->getUserId();
                                 $joinDate = date("Y-m-d g:ia", strtotime($waitingList[$i]["joinDate"]));
                                 $imgName = $waitingUser->getImgName();
                                 $imgPath = $userImgDir . $imgName;
-                                echo '<div class="tarjeta_blanca user'.$waitingUserId.'">';
+                                echo '<div class="'. $userClass . ' user'.$waitingUserId.'">';
                                 echo '<p><img src="'.$imgPath.'" width="20px" height="20px">';
-                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'.$waitingUserName.'</a>'. $joinDate.'</p>';
+                                echo '<a href="profileView.php?profileId='.$waitingUserId.'">'. $waitingUser->isPremium()? $waitingUserName.'</a>'. $joinDate.'</p>';
                                 echo '<input type="image" src="includes/img/boton_OK.png" width="20%" length="20%" alt="Aceptar" title="Aceptar" class="acceptUserBtn" value="'.$waitingUserId.'">';
                                 echo '<input type="image" src="includes/img/boton_CANCELAR.png" width="20%" length="20%" alt="Rechazar" title="Rechazar" class="rejectUserBtn" value="'.$waitingUserId.'">';
                                 echo '</div>';

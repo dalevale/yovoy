@@ -54,13 +54,13 @@ EOF;
 		    }
 
             $result = array();
-	        if ($reportDAO->addReport($userId, $objType, $objUserId, $objEventId, ReportDAO::UNRESOLVED, $reportText) != false) 
+	        if ($reportDAO->addReport($userId, $objType, $objUserId, $objEventId, ReportDAO::UNRESOLVED, $reportText) == false) 
                 $success = true;
             else 
-                $result[] = $reportText;
+                $result[] = "Ha habido un error. Consulta el admin.";
         }
         if ($success)
-            $result = $return;
+            $result = "feed.php";
 
         return $result;
     }

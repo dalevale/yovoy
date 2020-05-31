@@ -17,7 +17,7 @@
 	$userId = $_SESSION["userId"];
 	
 	//Lista de los eventos creados y promocionados y lista de los amigos
-	$createdEvents = $userDAO->getCreatedEvents($profileId);
+	$userEvents = $userDAO->getCreatedEvents($profileId);
 	$promotedEvents = $userDAO->getPromotedEvents($profileId);
 	$friends = $userDAO->getFriends($profileId);
 
@@ -97,14 +97,14 @@
 				echo "<div class = 'col-md-2 col-12 tarjeta_naranja'>";
 				echo "<h2>Mis Eventos:</h2>";
 				
-				if(count($createdEvents) > 0){
-					for($i=0; $i < count($createdEvents); $i++){
-						$eventId = $createdEvents[$i]->getEventId();
-						$eventImgName =  $createdEvents[$i]->getImgName();
+				if(count($userEvents) > 0){
+					for($i=0; $i < count($userEvents); $i++){
+						$eventId = $userEvents[$i]->getEventId();
+						$eventImgName =  $userEvents[$i]->getImgName();
 						$eventImgPath = $eventImgDir . $eventImgName;
 						echo "<a href= 'eventItem.php?eventId=".$eventId."'>";
 						echo "<p><img src='" . $eventImgPath . "' alt='event' height='50' width='50'>";
-						echo $createdEvents[$i]->getName();
+						echo $userEvents[$i]->getName();
 						echo '</p></a>';
 					}
 				}

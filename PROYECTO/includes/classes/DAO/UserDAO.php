@@ -267,9 +267,9 @@ class UserDAO extends DAO{
     */
     public function searchUser($filter, $searchVal){
     if($filter == "name")
-        $loginUserQuery = "SELECT * FROM user WHERE name = '$searchVal'";
+        $loginUserQuery = "SELECT * FROM user WHERE name LIKE '%".$searchVal."%';";
     else
-        $loginUserQuery = "SELECT * FROM user WHERE username = '$searchVal'";
+        $loginUserQuery = "SELECT * FROM user WHERE username LIKE '%".$searchVal."%';";
 
         $dataArray= parent::executeQuery($loginUserQuery);
         $data= array_pop($dataArray);

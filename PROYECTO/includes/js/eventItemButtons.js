@@ -26,21 +26,24 @@ function deleteComment() {
 		"action": "delete",
 		"commentId": id
 	};
-	$.ajax({
-		type: "POST",
-		dataType: "json",
-		url: "includes/processComment.php",
-		data: comment,
-		success: result => {
-			if (result == 0)
-				alert("No se puede borrar este comentario en este momento.");
-			else
-				$(this).parent().css("display", "none");
-		},
-		error: e => {
-			console.log(e);
-		}
-	});
+	var ok = confirm("Estas seguro?");
+	if (ok) {
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "includes/processComment.php",
+			data: comment,
+			success: result => {
+				if (result == 0)
+					alert("No se puede borrar este comentario en este momento.");
+				else
+					$(this).parent().css("display", "none");
+			},
+			error: e => {
+				console.log(e);
+			}
+		});
+	}
 }
 
 function processJoinEvent(eventId, userId, action) {
@@ -79,8 +82,10 @@ function processJoinEvent(eventId, userId, action) {
 					case 'cancel':
 						$("#joinCancelEventBtns").empty();
 						var html = '<input type="image" src="includes/img/boton_UNIRSE_2.png" class="joinEventBtn" alt="YoVoy" title="YoVoy" value="' + eventId + '">' +
-							'<script> $("#joinCancelEventBtns input	.joinEventBtn").click(function () {' +
-							'processJoinEvent($("#eventId").val(), $("#userId").val(), "join");' +
+							'<script> $("#joinCancelEventBtns input.joinEventBtn").click(function () {' +
+							'var ok = confirm("Estas seguro?");' +
+							'if (ok)' +
+								'processJoinEvent($("#eventId").val(), $("#userId").val(), "join");' +
 							'});</script >';
 						$("#joinCancelEventBtns").append(html);
 						break;
@@ -98,6 +103,8 @@ function processJoinEvent(eventId, userId, action) {
 						$("#joinCancelEventBtns").empty();
 						var html = '<input type="image" src="includes/img/boton_UNIRSE_3.png" class="cancelEventBtn" alt="YaNoVoy" title="YaNoVoy" value="' + eventId + '" >' +
 							'<script>$("#joinCancelEventBtns input.cancelEventBtn").click(function () {' +
+							'var ok = confirm("Estas seguro?");' +
+							'if (ok)' +
 							'processJoinEvent($("#eventId").val(), $("#userId").val(), "cancel");' +
 							'});</script>';
 						$("#joinCancelEventBtns").append(html);

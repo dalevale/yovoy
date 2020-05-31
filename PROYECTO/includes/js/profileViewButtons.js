@@ -8,7 +8,7 @@ function deleteUser(userId) {
 		url: "includes/deleteUser.php",
 		data: data,
 		success: result => {
-			if (result != 0)
+			if (result == 0)
 				alert("No se puede borrar el usuario en este momento.");
 			else
 				alert("User has been deleted");
