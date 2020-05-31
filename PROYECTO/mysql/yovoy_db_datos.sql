@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2020 at 08:43 PM
+-- Generation Time: May 31, 2020 at 03:27 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -148,17 +149,17 @@ INSERT INTO `comments` (`comment_id`, `event_id`, `user_id`, `date`, `comment`) 
 --
 
 INSERT INTO `event` (`event_id`, `name`, `creator`, `img_name`, `aux_autoinc`, `creation_date`, `event_date`, `capacity`, `current_attendees`, `location`, `tags`, `description`) VALUES
-(2, 'Barra Libre', 2, '2.png', 3, '2020-03-01', '2020-05-01 15:00:00', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
+(2, 'Barra Libre', 2, '2.png', 4, '2020-03-01', '2020-05-01 15:00:00', 20, 1, 'Madrid SOL', 'cerveza, alcohol', '¡Vamos a beber cerveza gratis!'),
 (3, 'RokEnRol', 2, '3.png', 1, '2020-03-30', '2020-05-30 00:00:00', 100, 1, 'WiZink', NULL, '¡Una noche de Rock and Rol!'),
 (8, 'Unli Rice', 2, '8.png', 1, '2020-04-24', '2020-05-30 00:00:00', 99, 0, 'Gran Via, Madrid', 'arroz', 'Si te gusta mucho el arroz, ven a hincharte!'),
 (10, 'Hamburgesa gratis primer 100 personas!', 2, '10.png', 1, '2020-04-24', '2020-05-30 00:00:00', 100, 0, 'Burger King, Calle Princesa, M', 'bk, hamburges, burgerking', 'Primer 100 personas, 1 menu whopper gratis!'),
 (11, 'Bingo!', 4, '11.png', 1, '2020-04-24', '2020-05-30 00:00:00', 20, 0, 'Calle Manuela Malasaña, Madrid', 'bingo, premio', 'Aqui es divertido! Podrás ganar premios que no puedes imaginar!'),
 (15, 'GameAndWin', 9, '15.png', 1, '2020-05-07', '2020-05-30 00:00:00', 99, 0, 'Centro Comercial La Vaguada', 'games, win, prizes', 'Varios juegos para divertir con amigos y ganar premios. Esto es una descripcion larga para mostrar m'),
 (42, 'Café del mes: Pumpkin Latte', 2, 'default-event.png', 1, '2020-05-26', '2020-05-30 12:00:00', 0, 0, '30', 'Primer 30 personas que compra un latté, con este codigo pueden validar un upgrade a pumpkin latte.', 'Centro Comercial Principe Pio'),
-(43, 'Evento premium', 13, '43.png', 3, '2020-05-21', '2020-08-12 12:00:00', 80, 0, 'Alcobendas', 'comida', 'Aqui hay fiesta'),
+(43, 'Evento premium', 13, '43.png', 5, '2020-05-21', '2020-08-12 12:00:00', 80, 0, 'Alcobendas', 'comida', 'Aqui hay fiesta'),
 (47, 'Sesión de fotos', 9, 'default-event.png', 1, '2020-05-30', '2020-08-07 15:00:00', 15, 0, 'Casa de Campo Madrid', 'fotos,flores,arroz', 'Se hará una sesión de fotos. Los usuarios premium podrán optar a vestuario.'),
-(49, 'EVENTO FIESTERO', 2, '49.png', 2, '2020-05-30', '2020-10-23 23:00:00', 10, 0, 'Barcelona', 'fiesta,alegria', 'Fiesta a tope'),
-(51, 'Concierto', 20, '51.png', 3, '2020-05-30', '2020-07-27 16:00:00', 20, 0, 'Gran Via, Madrid', 'musica, concierto', 'Una sesión de música para todos');
+(49, 'EVENTO FIESTERO', 2, '49.png', 3, '2020-05-30', '2020-10-23 23:00:00', 10, 0, 'Barcelona', 'fiesta,alegria', 'Fiesta a tope'),
+(51, 'Concierto', 20, '51.png', 5, '2020-05-30', '2020-07-27 16:00:00', 20, 0, 'Gran Via, Madrid', 'musica, concierto', 'Una sesión de música para todos');
 
 --
 -- Dumping data for table `event_aux_imgs`
@@ -454,6 +455,7 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `name`, `img_nam
 (21, 'dale@yovoy.com', '$2y$10$v/5uGSglsnFG8LLZtXIJRuGYab05ymkHl03GdYuMNAbfC01yUc.om', 'dalevale', 'Dale Valencia', 'default.jpg', '2020-05-30', 2),
 (22, 'fer@yovoy.com', '$2y$10$Hg7FnS0mfdOvntUDYap.7.Qss8.VTOPG4Fa1KtnmOVDtE3POkT4uC', 'ter123', 'Fer Muñoz', 'default.jpg', '2020-05-30', 2),
 (23, 'luis@gmail.com', '$2y$10$dmbOxh3ed3vQH506mt8VH.m6mtyXXmE6.XdSIU3pnfM/MAQpSK4OG', 'quieroir', 'Luis Cruz', 'default.jpg', '2020-05-30', 2);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
